@@ -1,0 +1,67 @@
+{{- if gt .Values.conveyorPollerCount 0.0 -}}
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-conveyor-poller
+  labels:
+    app: {{ template "rucio.name" . }}
+    chart: {{ template "rucio.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.conveyorPollerCount }}
+  selector:
+    matchLabels:
+      app: {{ template "rucio.name" . }}
+      release: {{ .Release.Name }}
+  strategy:
+    type: {{ .Values.strategy.type }}
+{{- if eq .Values.strategy.type "RollingUpdate" }}
+    {{- with .Values.strategy.rollingUpdate }}
+    rollingUpdate:
+{{ toYaml . | trim | indent 6 }}
+    {{- end }}
+{{- end }}
+  minReadySeconds: {{ .Values.minReadySeconds }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "rucio.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+    {{- if .Values.serviceAccountName }}
+      serviceAccountName: {{ .Values.serviceAccountName }}
+    {{- end }}
+      volumes:
+      - name: fts-secrets
+        secret:
+          secretName: fts-secrets
+      - name: ca-volume
+        secret:
+          secretName: ca-bundle
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: fts-secrets
+              mountPath: /opt/rucio/fts_secrets
+            - name: ca-volume
+              mountPath: /opt/certs
+          env:
+            {{- range $key1, $val1 := .Values.config }}
+            {{- range $key2, $val2 := $val1}}
+            - name: RUCIO_CFG_{{ $key1 | upper }}_{{ $key2 | upper }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "rucio.fullname" $ }}.cfg
+                  key: {{ $key1 }}_{{ $key2 }}
+            {{- end}}
+            {{- end}}
+            - name: RUCIO_DAEMON
+              value: "conveyor-poller"
+            - name: RUCIO_DAEMON_ARGS
+              value: "--total-threads {{ .Values.conveyorPoller.threads }}"
+            - name: DELEGATE_FTS_PROXY
+              value: "true"
+{{ end }}

@@ -1,0 +1,20 @@
+{{- $fullName := include "rucio.fullname" . -}}
+{{- $targetPort := .Values.service.port -}}
+{{- if .Values.openShift.enabled }}
+{{- with .Values.openShift.webServer }}
+apiVersion: v1
+kind: Route
+metadata:
+  name: {{ $fullName }}-route
+spec:
+  host: {{ .host }}
+  path: /
+  port:
+    targetPort: {{ $targetPort }}
+  to:
+    kind: Service
+    name: {{ $fullName }}
+{{- end }}
+{{- end }}
+
+

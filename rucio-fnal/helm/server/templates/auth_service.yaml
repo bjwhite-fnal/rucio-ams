@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "rucio.fullname" . }}-auth
+  labels:
+    app: {{ template "rucio.name" . }}-auth
+    chart: {{ template "rucio.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.authService.type }}
+  externalIPs:
+    - 131.225.218.129
+  ports:
+    - port: {{ .Values.authService.port }}
+      targetPort: {{ .Values.authService.targetPort }}
+      protocol: TCP
+      name: https
+  selector:
+    app: {{ template "rucio.name" . }}-auth
+    release: {{ .Release.Name }}
