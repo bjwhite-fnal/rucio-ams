@@ -19,7 +19,7 @@ RUN yum install -y osg-ca-certs
 
 RUN mv /etc/httpd/conf.d/zgridsite.conf /etc/httpd/conf.d/zgridsite.conf-hide
 
-#ADD grid-security /etc/grid-security
+ADD grid-security /etc/grid-security
 ADD rucio.conf.j2 /tmp/
 ADD gacl /opt/rucio/etc
 
