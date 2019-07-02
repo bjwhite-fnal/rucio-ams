@@ -9,8 +9,10 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   type: {{ .Values.authService.type }}
+  {{- if .Values.authService.externalIP }}
   externalIPs:
-    - 131.225.218.129
+    - {{ .Values.authService.externalIP }}
+  {{- end }}
   ports:
     - port: {{ .Values.authService.port }}
       targetPort: {{ .Values.authService.targetPort }}

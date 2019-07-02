@@ -30,11 +30,13 @@ service:
   type: ClusterIP
   port: 8080
   targetPort: 80
+  externalIP: 131.225.218.128
 
 authService:
   type: ClusterIP
   port: 8081
   targetPort: 443
+  externalIP: 131.225.218.128
   tls: 
     enabled: true
 
