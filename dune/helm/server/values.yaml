@@ -18,12 +18,12 @@ image:
 
 route:
   app: rucio-server
-  host: www.rucio-dune.fnal.gov
+  host: www.dune-rucio.fnal.gov
   serviceName: rucio-server
 
 authRoute:
   app: rucio-server-auth
-  host: www.auth-rucio-dune.fnal.gov
+  host: www.auth-dune-rucio.fnal.gov
   serviceName: rucio-server-auth
 
 service:
