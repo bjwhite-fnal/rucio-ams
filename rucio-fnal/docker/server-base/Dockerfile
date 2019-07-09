@@ -25,6 +25,7 @@ RUN rm -rf /usr/lib/python2.7/site-packages/ipaddress*
 RUN pip install rucio[oracle,mysql,postgresql] j2cli psycopg2-binary
 
 ADD rucio.cfg.j2 /tmp/
+ADD alembic.ini.j2 /tmp
 ADD rucio.conf.j2 /tmp/
 ADD httpd.conf /etc/httpd/conf/
 ADD docker-entrypoint.sh /
