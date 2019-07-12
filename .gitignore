@@ -1,2 +1,5 @@
 secret
 *.swp
+certs/
+daemons.yaml
+server.yaml

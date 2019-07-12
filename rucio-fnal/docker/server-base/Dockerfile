@@ -30,7 +30,6 @@ ADD rucio.conf.j2 /tmp/
 ADD httpd.conf /etc/httpd/conf/
 ADD docker-entrypoint.sh /
 RUN rm /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/userdir.conf /etc/httpd/conf.d/ssl.conf
-COPY migrate_repo /usr/lib/python2.7/site-packages/rucio/db/sqla/migrate_repo
 
 VOLUME /var/log/httpd
 VOLUME /opt/rucio/etc
