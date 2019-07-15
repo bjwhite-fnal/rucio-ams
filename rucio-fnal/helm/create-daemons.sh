@@ -1,3 +1,3 @@
 #!/bin/sh
 
-oc create -f $FNAL_EXP_RUCIO_DEPLOYMENT_CONF_DIR/daemons.yaml
+oc create -f $FNAL_RUCIO_DIR/$EXPERIMENT/daemons.yaml

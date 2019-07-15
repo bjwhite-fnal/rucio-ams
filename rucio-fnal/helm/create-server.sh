@@ -1,3 +1,3 @@
 #!/bin/sh
 
-oc create -f $FNAL_EXP_RUCIO_DEPLOYMENT_CONF_DIR/server.yaml
+oc create -f $FNAL_RUCIO_DIR/$EXPERIMENT/server.yaml

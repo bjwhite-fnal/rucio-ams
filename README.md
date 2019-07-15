@@ -7,9 +7,11 @@
 Use this to deploy Rucio for an experiment. First source an experiments environment file and deploy with the experiment generic rucio-fnal framework.
 In particular please make sure that the following are set by the sourcing of the environment file:
 ~~~~
-    FNAL_EXP_RUCIO_DEPLOYMENT_CONF_DIR: The directory that the server.yaml and daemons.yaml will be saved in upon generation
-    RUCIO_HELM_TEMPLATE_DIR: Location of the experiment specific YAML files that contain values for substitution into Rucio configuration files
     EXPERIMENT: Name of the experiment that configuration files are being generated for
+    FNAL_RUCIO_DIR: Set to the top level directory of the rucio-fnal repository (i.e. the directory this README resides in). Enables configuration files to be found in the directory structure detailed below.
+    FNAL_EXP_RUCIO_CERT: Certificate for service authentication
+    FNAL_EXP_RUCIO_KEY: Key for service authentication
+    FNAL_EXP_RUCIO_CA_BUNDLE: CA certificates for service authentication
 ~~~~
 
 Use deploy-rucio.sh to deploy things onto the OKD cluster.
