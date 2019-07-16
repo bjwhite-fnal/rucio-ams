@@ -14,8 +14,10 @@ In particular please make sure that the following are set by the sourcing of the
     FNAL_EXP_RUCIO_CA_BUNDLE: CA certificates for service authentication
 ~~~~
 
-Use deploy-rucio.sh to deploy things onto the OKD cluster.
+Use deploy-rucio.sh to deploy services onto the OKD cluster after the environment is configured appropriately as described above.
 Use undeploy-rucio.sh to remove them.
+
+The Rucio code may be monkey patched at image build time by placing patch files into one of two locations: $FNAL_RUCIO_DIR/rucio-fnal/docker/[server,daemon]-base/patches
 
 ## EXAMPLE DIRECTORY STRUCTURE FOR AN EXPERIMENT:
 ~~~~

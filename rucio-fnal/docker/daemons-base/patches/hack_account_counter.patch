@@ -1,0 +1,14 @@
+--- rucio/core/account_counter.py	2019-07-12 10:22:15.875983574 -0500
++++ hack_account_counter.py	2019-07-11 13:36:16.294910571 -0500
+@@ -128,9 +128,9 @@
+                           bindparam('total_workers', total_workers)]
+             query = query.filter(text('ORA_HASH(CONCAT(account, rse_id), :total_workers) = :worker_number', bindparams=bindparams))
+         elif session.bind.dialect.name == 'mysql':
+-            query = query.filter('mod(md5(concat(account, rse_id)), %s) = %s' % (total_workers + 1, worker_number))
++            query = query.filter(text('mod(md5(concat(account, rse_id)), %s) = %s' % (total_workers + 1, worker_number)))
+         elif session.bind.dialect.name == 'postgresql':
+-            query = query.filter('mod(abs((\'x\'||md5(concat(account, rse_id)))::bit(32)::int), %s) = %s' % (total_workers + 1, worker_number))
++            query = query.filter(text('mod(abs((\'x\'||md5(concat(account, rse_id)))::bit(32)::int), %s) = %s' % (total_workers + 1, worker_number)))
+ 
+     return query.all()
+ 

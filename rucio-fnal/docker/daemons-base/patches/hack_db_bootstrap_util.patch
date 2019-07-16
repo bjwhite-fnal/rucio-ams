@@ -1,0 +1,70 @@
+--- rucio/db/sqla/util.py	2019-07-09 11:28:05.725848785 -0500
++++ hack_db_bootstrap_util.py	2019-07-10 08:55:55.146352104 -0500
+@@ -103,31 +103,12 @@
+ 
+ def create_root_account():
+     """ Inserts the default root account to an existing database. Make sure to change the default password later. """
+-
+-    up_id = 'ddmlab'
+-    up_pwd = '2ccee6f6dd1bc2269cddd7cd5e47578e98e430539807c36df23fab7dd13e7583'
+-    up_email = 'ph-adp-ddm-lab@cern.ch'
+-    x509_id = '/C=CH/ST=Geneva/O=CERN/OU=PH-ADP-CO/CN=DDMLAB Client Certificate/emailAddress=ph-adp-ddm-lab@cern.ch'
+-    x509_email = 'ph-adp-ddm-lab@cern.ch'
+-    gss_id = 'ddmlab@CERN.CH'
+-    gss_email = 'ph-adp-ddm-lab@cern.ch'
+-    ssh_id = 'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq5LySllrQFpPL614sulXQ7wnIr1aGhGtl8b+HCB/'\
+-             '0FhMSMTHwSjX78UbfqEorZV16rXrWPgUpvcbp2hqctw6eCbxwqcgu3uGWaeS5A0iWRw7oXUh6ydn'\
+-             'Vy89zGzX1FJFFDZ+AgiZ3ytp55tg1bjqqhK1OSC0pJxdNe878TRVVo5MLI0S/rZY2UovCSGFaQG2'\
+-             'iLj14wz/YqI7NFMUuJFR4e6xmNsOP7fCZ4bGMsmnhR0GmY0dWYTupNiP5WdYXAfKExlnvFLTlDI5'\
+-             'Mgh4Z11NraQ8pv4YE1woolYpqOc/IMMBBXFniTT4tC7cgikxWb9ZmFe+r4t6yCDpX4IL8L5GOQ== ddmlab'
+-    ssh_email = 'ph-adp-ddm-lab@cern.ch'
++    x509_id = '/DC=org/DC=cilogon/C=US/O=Fermi National Accelerator Laboratory/OU=People/CN=Brandon White/CN=UID:bjwhite'
++    x509_email = 'bjwhite@fnal.gov'
+ 
+     try:
+-        up_id = config_get('bootstrap', 'userpass_identity')
+-        up_pwd = config_get('bootstrap', 'userpass_pwd')
+-        up_email = config_get('bootstrap', 'userpass_email')
+         x509_id = config_get('bootstrap', 'x509_identity')
+         x509_email = config_get('bootstrap', 'x509_email')
+-        gss_id = config_get('bootstrap', 'gss_identity')
+-        gss_email = config_get('bootstrap', 'gss_email')
+-        ssh_id = config_get('bootstrap', 'ssh_identity')
+-        ssh_email = config_get('bootstrap', 'ssh_email')
+     except:
+         pass
+         # print 'Config values are missing (check rucio.cfg{.template}). Using hardcoded defaults.'
+@@ -136,28 +117,18 @@
+ 
+     account = models.Account(account='root', account_type=AccountType.SERVICE, status=AccountStatus.ACTIVE)
+ 
+-    identity1 = models.Identity(identity=up_id, identity_type=IdentityType.USERPASS, password=up_pwd, salt='0', email=up_email)
+-    iaa1 = models.IdentityAccountAssociation(identity=identity1.identity, identity_type=identity1.identity_type, account=account.account, is_default=True)
+-
+     # X509 authentication
+-    identity2 = models.Identity(identity=x509_id, identity_type=IdentityType.X509, email=x509_email)
+-    iaa2 = models.IdentityAccountAssociation(identity=identity2.identity, identity_type=identity2.identity_type, account=account.account, is_default=True)
+-
+-    # GSS authentication
+-    identity3 = models.Identity(identity=gss_id, identity_type=IdentityType.GSS, email=gss_email)
+-    iaa3 = models.IdentityAccountAssociation(identity=identity3.identity, identity_type=identity3.identity_type, account=account.account, is_default=True)
+-
+-    # SSH authentication
+-    identity4 = models.Identity(identity=ssh_id, identity_type=IdentityType.SSH, email=ssh_email)
+-    iaa4 = models.IdentityAccountAssociation(identity=identity4.identity, identity_type=identity4.identity_type, account=account.account, is_default=True)
++    # Brandon White: bjwhite@fnal.gov
++    identity = models.Identity(identity=x509_id, identity_type=IdentityType.X509, email=x509_email)
++    iaa = models.IdentityAccountAssociation(identity=identity.identity, identity_type=identity.identity_type, account=account.account, is_default=True)
+ 
+     # Account counters
+     create_counters_for_new_account(account='root', session=s)
+ 
+     # Apply
+-    s.add_all([account, identity1, identity2, identity3, identity4])
++    s.add_all([account, identity])
+     s.commit()
+-    s.add_all([iaa1, iaa2, iaa3, iaa4])
++    s.add_all([iaa])
+     s.commit()
+ 
+ 

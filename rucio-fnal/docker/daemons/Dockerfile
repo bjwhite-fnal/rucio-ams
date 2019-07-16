@@ -20,9 +20,6 @@ RUN yum install -y osg-ca-certs
 ADD vomses /etc
 ADD delegate_fts_proxy.sh /
 ADD start-daemon.sh /
-COPY hack_account_counter.py /usr/lib/python2.7/site-packages/rucio/core/account_counter.py
-COPY hack_message.py /usr/lib/python2.7/site-packages/rucio/core/message.py
-COPY hack_rse_counter.py /usr/lib/python2.7/site-packages/rucio/core/rse_counter.py
 
 CMD chmod +x /delegate_fts_proxy.sh
 

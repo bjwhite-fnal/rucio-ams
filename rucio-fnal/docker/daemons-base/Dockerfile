@@ -33,10 +33,15 @@ RUN yum install -y \
     gfal2-plugin-srm \
     gfal2-plugin-xrootd \
     gfal2-python \
-    xrootd-client
+    xrootd-client \
+    patch
 
 ADD rucio.cfg.j2 /tmp/
 ADD start-daemon.sh /
+
+# Patches
+ADD patches/* /tmp/patches/
+RUN if ls -1 /tmp/patches/ | grep -Eq '\.patch$'; then for p in /tmp/patches/*.patch; do echo "Patching: $p" && patch -p0 -d /usr/lib/python2.7/site-packages/ < $p; done; fi
 
 RUN mkdir /var/log/rucio
 
