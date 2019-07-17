@@ -62,6 +62,8 @@ spec:
                   key: {{ $key1 }}_{{ $key2 }}
             {{- end}}
             {{- end}}
+            - name: EXPERIMENT
+              value: {{ $EXPERIMENT }}
             - name: RUCIO_DAEMON
               value: "hermes"
             - name: RUCIO_DAEMON_ARGS

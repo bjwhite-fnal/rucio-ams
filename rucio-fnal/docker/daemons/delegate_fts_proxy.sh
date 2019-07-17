@@ -12,6 +12,11 @@ if [ ! -d $secrets_dir ]; then
 	exit 0				# no need to do this ?
 fi
 
+if [[ -z $EXPERIMENT ]]; then
+    echo "Please ensure that you have EXPERIMENT set to the name of your experiment."
+    exit -1
+fi
+
 
 (
 	echo ====================================================================================== 
@@ -25,7 +30,7 @@ fi
 
 	voms-proxy-init \
 		-rfc \
-		-voms dune:/dune/Role=Production \
+		-voms $EXPERIMENT:/$EXPERIMENT/Role=Production \
 		-cert fts_usercert.pem \
 		-key fts_userkey.pem \
 		-out fts_proxy.pem

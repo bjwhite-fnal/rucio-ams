@@ -27,6 +27,8 @@ spec:
                 - name: userkey
                   mountPath: /opt/rucio/keys/
               env:
+                - name: EXPERIMENT
+                  value: {{ $EXPERIMENT }}
                 - name: RUCIO_FTS_VOMS
                   value: {{ .Values.ftsRenewal.voms | quote }}
                 - name: RUCIO_FTS_SERVERS

@@ -53,6 +53,8 @@ spec:
                   key: {{ $key1 }}_{{ $key2 }}
             {{- end}}
             {{- end}}
+            - name: EXPERIMENT
+              value: {{ $EXPERIMENT }}
             - name: RUCIO_DAEMON
               value: "judge-cleaner"
             - name: RUCIO_DAEMON_ARGS
