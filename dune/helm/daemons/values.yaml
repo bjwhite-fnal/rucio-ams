@@ -3,6 +3,10 @@
 # Declare variables to be passed into your templates.
 
 ## judgeCleanerCount gives the number of judge-cleaner pods to run
+#
+#
+#
+experiment: dune
 abacusAccountCount: 1
 abacusRseCount: 1
 conveyorTransferSubmitterCount: 1

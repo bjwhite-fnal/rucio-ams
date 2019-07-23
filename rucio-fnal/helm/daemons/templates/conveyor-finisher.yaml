@@ -59,7 +59,7 @@ spec:
             {{- end}}
             {{- end}}
             - name: EXPERIMENT
-              value: {{ $EXPERIMENT }}
+              value: "{{ .Values.experiment }}"
             - name: RUCIO_DAEMON
               value: "conveyor-finisher"
             - name: RUCIO_DAEMON_ARGS
