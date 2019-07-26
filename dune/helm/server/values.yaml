@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 ## replicaCount gives the number of server pods to run
-replicaCount: 2
+replicaCount: 1 
 ## authReplicaCount gives the number of authentication server pods to run
 authReplicaCount: 1
 
