@@ -33,12 +33,12 @@ verify_project () {
 echo "**************** Initializing Openshift Application: rucio-$EXPERIMENT ****************"
 verify_project
 echo "Creating application secrets..."
-./rucio-fnal/helm/create_cert_secrets.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/create_cert_secrets.sh
 echo "Generating configuration files..."
-./rucio-fnal/helm/gen-daemons.sh
-./rucio-fnal/helm/gen-server.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/gen-daemons.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/gen-server.sh
 echo "Creating servers..."
-./rucio-fnal/helm/create-server.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/create-server.sh
 echo "Creating daemons..."
-./rucio-fnal/helm/create-daemons.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/create-daemons.sh
 echo "**************** Openshift application rucio-$EXPERIMENT deployment successful ****************" 
