@@ -1,0 +1,11 @@
+--- rucio/rse/protocols/gfal.py	2019-07-26 08:00:19.054563962 -0500
++++ hack_gfal.py	2019-07-29 11:39:03.823600511 -0500
+@@ -394,7 +394,7 @@
+             params.timeout = int(transfer_timeout)
+             watchdog = Timer(params.timeout + 60, self.__gfal2_cancel)
+ 
+-        if not self.renaming and dest[:5] == 'https':
++        if not (self.renaming and dest[:5] == 'https'):
+             dir_name = os.path.dirname(dest)
+             # This function will be removed soon. gfal2 will create parent dir automatically.
+             try:
