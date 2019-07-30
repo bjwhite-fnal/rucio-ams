@@ -44,7 +44,6 @@ abacusRse:
 
 conveyorTransferSubmitter:
   threads: 1
-  activities: "'test1' 'test2'"
   sleepTime: 10
 
 conveyorPoller:
