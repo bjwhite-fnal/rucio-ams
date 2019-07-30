@@ -107,6 +107,11 @@ config:
     ## config.common.mailtemplatedir: directory containing the mail templates (default: "/opt/rucio/etc/mail_templates")
     # mailtemplatedir: "/opt/rucio/etc/mail_templates"
 
+  monitor:
+    carbon_server: "lsdataitb.fnal.gov"
+    carbon_server: "8225"
+    user_scope: "rucio.dune"
+
   # database:
     ## config.database.default: the connection string for the database (default: "sqlite:////tmp/rucio.db")
     #default: "<DB Connection String>"
@@ -128,14 +133,6 @@ config:
     # powuseraccount: ""
     ## config.database.powuseraccount: password for user used to check the DB
     # powuserpassword: ""
-
-  # monitor:
-    ## config.monitor.carbon_server: address of carbon server used for graphite monitoring (default: "localhost")
-    # carbon_server: "localhost"
-    ## config.monitor.carbon_port: port of carbon server used for graphite monitoring (default: "8125")
-    # carbon_server: "8125"
-    ## config.monitor.user_scope: scope used on the graphite server (default: "default_docker")
-    # user_scope: "default_docker"
 
   # policy:
     ## config.permission.policy: (default "generic")
