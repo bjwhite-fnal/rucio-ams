@@ -1,5 +1,5 @@
 
-# BRIDLE: Fermilab Rucio Deploymen Management
+# BRIDLE: Fermilab Rucio Deployment Management
 ## Scientific Data Management
 ### Brandon White
 ### bjwhite@fnal.gov
