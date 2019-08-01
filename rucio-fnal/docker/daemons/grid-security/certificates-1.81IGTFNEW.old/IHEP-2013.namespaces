@@ -1,0 +1,12 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)39d30eba.namespaces
+# CA alias    : IHEP
+#    subord_of: 
+#    subjectDN: /C=CN/O=HEP/CN=Institute of High Energy Physics Certification Authority
+#    hash     : 39d30eba
+#
+TO Issuer "/C=CN/O=HEP/CN=Institute of High Energy Physics Certification Authority" \
+  PERMIT Subject "/C=CN/O=HEP/.*"
+

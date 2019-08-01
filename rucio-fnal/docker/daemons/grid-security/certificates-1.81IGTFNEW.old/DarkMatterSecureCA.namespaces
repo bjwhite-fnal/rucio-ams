@@ -1,0 +1,16 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)secureca.namespaces
+# CA alias    : DarkMatterSecureCA
+#    subord_of: QuoVadis-Root-CA2G3
+#    subjectDN: /C=AE/O=DarkMatter LLC/CN=DarkMatter Secure CA
+#    hash     : secureca
+#    (generated automatically from dmsecureca.signing_policy)
+#
+TO Issuer "/C=AE/O=DarkMatter LLC/CN=DarkMatter Secure CA" \
+  PERMIT Subject "/C=AE/O=DarkMatterGrid/.*"
+
+TO Issuer "/C=AE/O=DarkMatter LLC/CN=DarkMatter Secure CA" \
+  PERMIT Subject "/DC=com/DC=DarkMatterGrid/.*"
+

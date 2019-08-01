@@ -1,0 +1,13 @@
+#
+# @(#)$Id: 1149214e.info,v 1.7 2015/06/18 09:44:54 pmacvsdg Exp $
+# Information for CA DFN-GridGermany-Root
+#   obtained from 1149214e in DFN/
+alias = DFN-GridGermany-Root
+ca_url = http://cdp1.pca.dfn.de/grid-root-ca/pub/cacert/cacert.crt
+crl_url = http://cdp1.pca.dfn.de/grid-root-ca/pub/crl/cacrl.crl
+email = dfnpca@dfn-cert.de
+status = accredited:classic
+url = https://www.pki.dfn.de/grid/
+version = 1.98
+sha1fp.0 = 30:AB:8B:7C:DA:20:93:E5:59:CE:74:0D:B1:2A:82:38:C8:55:0B:D4
+subjectdn = "/C=DE/O=DFN-Verein/OU=DFN-PKI/CN=DFN-Verein PCA Grid - G01"

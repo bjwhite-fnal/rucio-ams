@@ -1,0 +1,13 @@
+#
+# @(#)$Id: 24c3ccde.info,v 1.6 2018/01/11 20:15:48 pmacvsdg Exp $
+# Information for UNAMgird CA
+#
+alias =	UNAMgrid-ca
+url = http://ca.unamgrid.unam.mx/
+ca_url = http://ca.unamgrid.unam.mx/pub/cacert/cacert.pem
+crl_url = http://ca.unamgrid.unam.mx/pub/crl/unamgrid-ca-crl.crl
+email = camanager@unam.mx
+status = accredited:classic
+sha1fp.0 = 98:93:D3:0C:24:94:61:F4:59:74:1C:DD:A9:1F:AC:A5:7A:21:43:B7
+version = 1.99
+subjectdn = "/C=MX/O=UNAMgrid/OU=UNAM/CN=CA"

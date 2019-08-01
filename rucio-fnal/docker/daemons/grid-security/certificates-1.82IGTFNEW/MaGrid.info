@@ -1,0 +1,10 @@
+# @(#)$Id: 7b54708e.info,v 1.2 2015/06/18 09:44:55 pmacvsdg Exp $
+alias = MaGrid
+url = http://www.magrid.ma/ca
+crl_url = http://ra.magrid.ma/pub/crl/cacrl.pem
+ca_url = http://ra.magrid.ma/pub/cacert/cacert.pem
+email = magrid@cnrst.ma
+status = accredited:classic
+version = 1.99
+sha1fp.0 = 65:AD:EF:26:0B:4A:5C:05:72:3F:B6:92:99:0B:96:CA:7B:99:6E:F4
+subjectdn = "/C=MA/O=MaGrid/CN=MaGrid CA"

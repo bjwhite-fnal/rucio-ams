@@ -1,0 +1,11 @@
+#
+# @(#)$Id: AC-GRID-FR-Robots.info,v 1.1 2018/03/06 07:56:31 pmacvsdg Exp $
+alias = AC-GRID-FR-Robots
+url = http://grid-fr.renater.fr/
+email = grid-fr@renater.fr
+ca_url = http://cer.grid-fr.pncn.education.gouv.fr/ac-grid-fr-robots.cer
+crl_url = http://crl.grid-fr.pncn.education.gouv.fr/ac-grid-fr-robots.crl
+status = accredited:classic
+version = 1.99
+sha1fp.0 = 4F:F6:0F:C9:6B:74:29:E5:47:2A:A5:6F:6D:16:0B:08:E1:A9:F3:B5
+subjectdn = "/C=FR/O=MENESR/OU=GRID-FR/CN=AC GRID-FR Robots"

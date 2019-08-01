@@ -1,0 +1,13 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)UGRID-G2.signing_policy.namespaces
+# CA alias    : UGRID-G2
+#    subord_of: 
+#    subjectDN: /DC=org/DC=ugrid/CN=UGRID CA G2
+#    hash     : UGRID-G2.signing_policy
+#    (generated automatically from UGRID-G2.signing_policy)
+#
+TO Issuer "/DC=org/DC=ugrid/CN=UGRID CA G2" \
+  PERMIT Subject "/DC=org/DC=ugrid/.*"
+

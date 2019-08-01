@@ -1,0 +1,18 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)$Id: b4278411.namespaces,v 1.2 2016/01/27 17:00:22 pmacvsdg Exp $
+# CA alias    : CERN-Root-2
+#    subjectDN: /C=ch/O=CERN/CN=CERN Root Certification Authority 2
+#
+TO Issuer "/C=ch/O=CERN/CN=CERN Root Certification Authority 2" \
+  PERMIT Subject "/DC=ch/DC=cern/CN=CERN Grid Certification Authority"
+
+TO Issuer "/DC=ch/DC=cern/CN=CERN Grid Certification Authority" \
+  PERMIT Subject "/DC=ch/DC=cern/.*"
+
+TO Issuer "/C=ch/O=CERN/CN=CERN Root Certification Authority 2" \
+  PERMIT Subject "/DC=ch/DC=cern/CN=CERN LCG IOTA Certification Authority"
+
+TO Issuer "/DC=ch/DC=cern/CN=CERN LCG IOTA Certification Authority" \
+  PERMIT Subject "/DC=ch/DC=cern/DC=sts/.*"

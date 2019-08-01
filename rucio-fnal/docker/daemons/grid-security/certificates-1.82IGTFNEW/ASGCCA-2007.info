@@ -1,0 +1,8 @@
+alias = ASGCCA-2007
+crl_url = http://ca.grid.sinica.edu.tw/publication/CRL/ASGCCA-crl.pem
+email = ca@lists.grid.sinica.edu.tw
+status = accredited:classic
+url = http://ca.grid.sinica.edu.tw/
+version = 1.99
+sha1fp.0 = 0E:9E:58:74:61:4C:12:16:20:AC:34:07:CD:AD:E9:81:3C:08:61:95
+subjectdn = "/C=TW/O=AS/CN=Academia Sinica Grid Computing Certification Authority Mercury"

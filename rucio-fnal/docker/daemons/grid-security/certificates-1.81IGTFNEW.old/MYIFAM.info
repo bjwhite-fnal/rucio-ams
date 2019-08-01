@@ -1,0 +1,12 @@
+#
+#@(#)$Id: d33760ec.info,v 1.2 2015/06/18 09:44:53 pmacvsdg Exp $
+#
+alias = MYIFAM
+crl_url = http://myifam.upm.my/pub/MYIFAM-crl.pem
+ca_url = http://myifam.upm.my/pub/MYIFAM.pem
+email = myifam@biruni.upm.my
+status = accredited:classic
+url = http://myifam.upm.my
+version = 1.98
+sha1fp.0 = DC:E1:EF:BF:F4:11:E8:93:66:61:F3:1F:47:3A:5D:0A:18:EB:DD:2C
+subjectdn = "/DC=MY/DC=UPM/DC=MYIFAM/C=MY/O=MYIFAM/CN=Malaysian Identity Federation and Access Management"

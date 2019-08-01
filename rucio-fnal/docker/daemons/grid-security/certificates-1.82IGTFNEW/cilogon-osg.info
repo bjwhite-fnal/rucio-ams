@@ -1,0 +1,9 @@
+alias = cilogon-osg
+url = https://twiki.grid.iu.edu/bin/view/Security/OSGCertificateService
+ca_url = https://cilogon.org/cilogon-osg.pem
+crl_url = http://crl-cilogon.ncsa-security.net/cilogon-osg.crl;http://crl.cilogon.org/cilogon-osg.crl
+email = goc@opensciencegrid.org
+status = accredited:classic
+version = 1.99
+sha1fp.0 = 5C:5C:24:5C:2F:05:24:EC:24:45:8D:5B:D8:F2:82:9B:EE:68:22:A8
+subjectdn = "/DC=org/DC=cilogon/C=US/O=CILogon/CN=CILogon OSG CA 1"

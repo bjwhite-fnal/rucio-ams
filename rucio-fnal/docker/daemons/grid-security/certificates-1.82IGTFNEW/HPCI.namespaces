@@ -1,0 +1,13 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)61cd35bd.namespaces
+# CA alias    : 
+#    subord_of: 
+#    subjectDN: /C=JP/O=NII/OU=HPCI/CN=HPCI CA
+#    hash     : 61cd35bd
+#    (generated automatically from 61cd35bd.signing_policy)
+#
+TO Issuer "/C=JP/O=NII/OU=HPCI/CN=HPCI CA" \
+  PERMIT Subject "/C=JP/O=NII/OU=HPCI/.*"
+

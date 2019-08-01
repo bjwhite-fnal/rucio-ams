@@ -1,0 +1,12 @@
+#
+# @(#)$Id: 58435df6.info,v 1.2 2015/06/18 09:44:55 pmacvsdg Exp $
+# Information for CA NIIF 2
+alias = NIIF-Root-CA-2
+ca_url = http://crt.ca.niif.hu/niif-ca-root.crt
+crl_url = http://crl2.ca.niif.hu/cacrl.der
+email = ca@niif.hu
+status = accredited:classic
+url = http://www.ca.niif.hu/
+version = 1.98
+sha1fp.0 = 16:06:17:A7:79:5B:55:12:11:48:0B:28:22:09:8B:AA:AC:05:25:30
+subjectdn = "/C=HU/O=NIIF/OU=Certificate Authorities/CN=NIIF Root CA 2"

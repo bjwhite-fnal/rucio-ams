@@ -1,0 +1,12 @@
+#
+# @(#)$Id: dd4b34ea.info,v 1.6 2015/06/18 09:44:54 pmacvsdg Exp $
+# Information for CA GermanGrid
+#   obtained from dd4b34ea in GermanGrid/
+alias = GermanGrid
+url = http://grid.fzk.de/cgi-bin/welcome_ca.pl
+crl_url = http://gridka-ca.kit.edu/crl/gridka-crl.pem
+email = GridKa-CA@kit.edu
+status = accredited:classic
+version = 1.98
+sha1fp.0 = 82:A7:F9:7C:39:CD:21:18:9E:0E:39:27:51:D6:05:AC:A7:F6:BD:BD
+subjectdn = "/C=DE/O=GermanGrid/CN=GridKa-CA"

@@ -1,0 +1,11 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)qvrca2.namespaces
+# CA Hierarchy anchored at QuoVadis Root CA 2 through GridICA2
+#
+TO Issuer "/C=BM/O=QuoVadis Limited/CN=QuoVadis Root CA 2" \
+  PERMIT Subject "/C=BM/O=QuoVadis Limited/CN=QuoVadis Grid ICA G2"
+
+TO Issuer "/C=BM/O=QuoVadis Limited/CN=QuoVadis Grid ICA G2" \
+  PERMIT Subject "/DC=com/DC=quovadisglobal/DC=grid/.*"

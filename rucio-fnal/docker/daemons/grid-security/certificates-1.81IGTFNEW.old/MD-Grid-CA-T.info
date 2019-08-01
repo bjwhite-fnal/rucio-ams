@@ -1,0 +1,13 @@
+#
+# @(#)$Id: MD-Grid-CA-T.info,v 1.1 2019/01/25 15:41:47 pmacvsdg Exp $
+# Information for MD-Grid CA T (edition 2019)
+#   
+alias = MD-Grid-CA-T
+ca_url = http://ca.grid.md/files/T/ca.crt
+crl_url = http://ca.grid.md/files/T/crl-v2.crl
+email = ca@renam.md
+status = accredited:classic
+url = http://ca.grid.md/
+version = 1.98
+sha1fp.0 = 18:6B:37:52:8C:49:A7:E7:E6:35:9F:6C:EF:5D:F6:72:B4:95:90:3D
+subjectdn = "/DC=MD/DC=MD-Grid/O=RENAM/OU=Certification Authority/CN=MD-Grid-CA-T"

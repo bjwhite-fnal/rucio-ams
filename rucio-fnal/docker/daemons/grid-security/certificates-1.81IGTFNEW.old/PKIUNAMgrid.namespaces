@@ -1,0 +1,16 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)PKIUNAMgrid.signing_policy.namespaces
+# CA alias    : 
+#    subord_of: 
+#    subjectDN: /C=MX/O=UNAM/OU=UNAMgrid/CN=PKIUNAMgrid
+#    hash     : PKIUNAMgrid.signing_policy
+#    (generated automatically from PKIUNAMgrid.signing_policy)
+#
+TO Issuer "/C=MX/O=UNAM/OU=UNAMgrid/CN=PKIUNAMgrid" \
+  PERMIT Subject "/C=MX/O=UNAMgrid/.*"
+
+TO Issuer "/C=MX/O=UNAM/OU=UNAMgrid/CN=PKIUNAMgrid" \
+  PERMIT Subject "/C=MX/O=UNAM/OU=UNAMgrid/.*"
+

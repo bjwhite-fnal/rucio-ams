@@ -1,0 +1,13 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)qvrca3g3.namespaces
+# CA alias    : QuoVadis-Root-CA3G3
+#    subord_of: 
+#    subjectDN: /C=BM/O=QuoVadis Limited/CN=QuoVadis Root CA 3 G3
+#    hash     : qvrca3g3
+#    (generated automatically from qvrca3g3.signing_policy)
+#
+TO Issuer "/C=BM/O=QuoVadis Limited/CN=QuoVadis Root CA 3 G3" \
+  PERMIT Subject "/C=AE/O=DarkMatter LLC/CN=DarkMatter Assured CA"
+

@@ -1,0 +1,14 @@
+#
+# @(#)$Id: KENETCA.info,v 1.2 2016/01/18 11:41:09 pmacvsdg Exp $
+#   
+alias = KENETCA-ICA-2015
+requires = KENETROOTCA
+ca_url = http://crt.ca.kenet.or.ke/KENETCA.crt
+crl_url = http://crl.ca.kenet.or.ke/KENETCA.crl
+policy_url = https://ca.kenet.or.ke/media/kenet-draft-cp-cps-v-1.0.1.pdf
+email = ca@kenet.or.ke
+status = accredited:classic
+url = https://ca.kenet.or.ke/
+version = 1.99
+sha1fp.0 = CF:9E:40:8C:5F:3E:EC:37:05:C4:BE:9B:BB:22:4B:A8:DF:9A:CB:A9
+subjectdn = "/DC=ke/DC=kenet/O=Kenya Education Network Trust/OU=Research Services/CN=KENET CA"

@@ -1,0 +1,13 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)KISTIv3.signing_policy.namespaces
+# CA alias    : KISTIv3
+#    subord_of: 
+#    subjectDN: /C=KR/O=KISTI/CN=KISTI Certification Authority
+#    hash     : KISTIv3.signing_policy
+#    (generated automatically from KISTIv3.signing_policy)
+#
+TO Issuer "/C=KR/O=KISTI/CN=KISTI Certification Authority" \
+  PERMIT Subject "/C=KR/O=KISTI/.*"
+

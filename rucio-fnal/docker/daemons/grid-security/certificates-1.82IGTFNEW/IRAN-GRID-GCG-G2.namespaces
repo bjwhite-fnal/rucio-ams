@@ -1,0 +1,13 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)IRAN-GRID-GCG-G2.signing_policy.namespaces
+# CA alias    : IRAN-GRID-GCG-G2
+#    subord_of: 
+#    subjectDN: /C=IR/O=IPM/OU=GCG/CN=IRAN-GRID-G2 CA
+#    hash     : IRAN-GRID-GCG-G2.signing_policy
+#    (generated automatically from IRAN-GRID-GCG-G2.signing_policy)
+#
+TO Issuer "/C=IR/O=IPM/OU=GCG/CN=IRAN-GRID-G2 CA" \
+  PERMIT Subject "/C=IR/O=IRAN-GRID/.*"
+

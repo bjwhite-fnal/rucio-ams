@@ -1,0 +1,12 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)48c8f10a.namespaces
+# CA alias    : NCSA-tfca-2013
+#    subord_of: 
+#    subjectDN: /C=US/O=National Center for Supercomputing Applications/OU=Certificate Authorities/CN=Two Factor CA 2013
+#    hash     : 48c8f10a
+#
+TO Issuer "/C=US/O=National Center for Supercomputing Applications/OU=Certificate Authorities/CN=Two Factor CA 2013" \
+  PERMIT Subject "/C=US/O=National Center for Supercomputing Applications/CN=.*"
+

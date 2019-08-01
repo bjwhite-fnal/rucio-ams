@@ -1,0 +1,9 @@
+#############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+#    CA alias    : MYIFAM
+#    subjectDN: /DC=MY/DC=UPM/DC=MYIFAM/C=MY/O=MYIFAM/CN=Malaysian Identity Federation and Access Management 
+#############################################################################
+
+TO Issuer "/DC=MY/DC=UPM/DC=MYIFAM/C=MY/O=MYIFAM/CN=Malaysian Identity Federation and Access Management" \
+  PERMIT Subject "/DC=MY/DC=UPM/DC=MYIFAM/C=MY/.*"

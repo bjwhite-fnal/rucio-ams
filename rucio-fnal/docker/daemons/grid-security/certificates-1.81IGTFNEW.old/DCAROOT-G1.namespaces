@@ -1,0 +1,25 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)dca-root-g1.namespaces
+# CA alias    : DCA Root G1 CA
+#    subord_of:
+#    subjectDN: /DC=nl/DC=dutchgrid/O=Certification Authorities/CN=DCA Root G1 CA
+#
+TO Issuer "/DC=nl/DC=dutchgrid/O=Certification Authorities/CN=DCA Root G1 CA" \
+  PERMIT Subject "/DC=eu/DC=rcauth/O=Certification Authorities/CN=Research and Collaboration Authentication Pilot G1 CA"
+
+TO Issuer "/DC=nl/DC=dutchgrid/O=Certification Authorities/CN=DCA Root G1 CA" \
+  PERMIT Subject "/C=NL/O=NIKHEF/CN=NIKHEF medium-security certification auth"
+
+TO Issuer "/C=NL/O=NIKHEF/CN=NIKHEF medium-security certification auth" \
+  PERMIT Subject "/O=dutchgrid/O=users/.*"
+
+TO Issuer "/C=NL/O=NIKHEF/CN=NIKHEF medium-security certification auth" \
+  PERMIT Subject "/O=dutchgrid/O=hosts/.*"
+
+TO Issuer "/C=NL/O=NIKHEF/CN=NIKHEF medium-security certification auth" \
+  PERMIT Subject "/O=dutchgrid/O=robots/.*"
+
+TO Issuer "/DC=eu/DC=rcauth/O=Certification Authorities/CN=Research and Collaboration Authentication Pilot G1 CA" \
+  PERMIT Subject "/DC=eu/DC=rcauth/DC=rcauth-clients/.*"

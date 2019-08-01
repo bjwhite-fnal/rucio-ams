@@ -1,0 +1,13 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)126f0acf.namespaces
+# CA alias    : ANSPGrid CA
+#    subord_of: 
+#    subjectDN: /C=BR/O=ANSP/OU=ANSPGrid CA/CN=ANSPGrid CA
+#    hash     : 126f0acf
+#    (generated automatically from 126f0acf.signing_policy)
+#
+TO Issuer "/C=BR/O=ANSP/OU=ANSPGrid CA/CN=ANSPGrid CA" \
+  PERMIT Subject "/C=BR/O=ANSP/OU=ANSPGrid CA/.*"
+

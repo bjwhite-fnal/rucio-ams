@@ -1,0 +1,13 @@
+# BYGCA - Belarusian Grid CA (UIIP NASB)
+# @(#)$Id: 709bed08.info,v 1.5 2015/06/18 09:44:53 pmacvsdg Exp $
+#   
+alias = BYGCA
+ca_url = http://ca.grid.by/bygca-cacert.pem
+crl_url = http://ca.grid.by/bygca-crl.crl
+policy_url = http://ca.grid.by/cpcps.html
+email = ca@newman.bas-net.by
+status = accredited:classic
+url = http://ca.grid.by/
+version = 1.98
+sha1fp.0 = 33:D6:1F:E9:AF:6F:98:D4:89:27:C1:AA:88:0E:8F:4B:66:0B:A2:72
+subjectdn = "/DC=by/DC=grid/O=uiip.bas-net.by/CN=Belarusian Grid Certification Authority"

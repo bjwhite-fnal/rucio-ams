@@ -1,0 +1,16 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)ssuredca.namespaces
+# CA alias    : DarkMatterAssuredCA
+#    subord_of: QuoVadis-Root-CA3G3
+#    subjectDN: /C=AE/O=DarkMatter LLC/CN=DarkMatter Assured CA
+#    hash     : ssuredca
+#    (generated automatically from dmassuredca.signing_policy)
+#
+TO Issuer "/C=AE/O=DarkMatter LLC/CN=DarkMatter Assured CA" \
+  PERMIT Subject "/C=AE/O=DarkMatterGrid/.*"
+
+TO Issuer "/C=AE/O=DarkMatter LLC/CN=DarkMatter Assured CA" \
+  PERMIT Subject "/DC=com/DC=DarkMatterGrid/.*"
+

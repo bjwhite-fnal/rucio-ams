@@ -1,0 +1,10 @@
+# @(#)$Id: 393f7863.info,v 1.5 2015/06/18 09:44:53 pmacvsdg Exp $
+alias = AEGIS
+url = http://aegis-ca.rcub.bg.ac.rs/
+ca_url = http://aegis-ca.rcub.bg.ac.rs/repository/ca.pem
+crl_url = http://aegis-ca.rcub.bg.ac.rs/repository/crl-v2.crl
+email = aegis-ca@rcub.bg.ac.rs
+status = accredited:classic
+version = 1.98
+sha1fp.0 = D5:74:B7:F4:4C:F3:C4:1B:9A:78:3F:C3:4C:C6:8E:EA:4D:AB:AA:8F
+subjectdn = "/C=RS/O=AEGIS/CN=AEGIS-CA"

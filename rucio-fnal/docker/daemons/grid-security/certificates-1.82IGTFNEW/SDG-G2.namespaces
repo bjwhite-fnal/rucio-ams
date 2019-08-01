@@ -1,0 +1,11 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)SDGCA-G2.namespaces
+# CA alias    : SDG-G2
+#    subord_of: 
+#    subjectDN: /DC=CN/DC=Grid/DC=SDG/CN=Scientific Data Grid CA - G2
+#
+TO Issuer "/DC=CN/DC=Grid/DC=SDG/CN=Scientific Data Grid CA - G2" \
+  PERMIT Subject "/DC=CN/DC=Grid/DC=SDG/.*"
+

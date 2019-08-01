@@ -1,0 +1,24 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)$Id: 98ef0ee5.namespaces,v 1.4 2013/01/21 10:13:18 pmacvsdg Exp $
+# CA alias    : UKeScienceRoot
+#    subjectDN: /C=UK/O=eScienceRoot/OU=Authority/L=Root/CN=CA
+#
+TO Issuer "/C=UK/O=eScienceRoot/OU=Authority/CN=UK e-Science Root" \
+  PERMIT Subject "/C=UK/O=eScienceCA/OU=Authority/CN=UK e-Science CA 2A"
+
+TO Issuer "/C=UK/O=eScienceRoot/OU=Authority/CN=UK e-Science Root" \
+  PERMIT Subject "/C=UK/O=eScienceCA/OU=Authority/CN=UK e-Science CA 2B"
+
+# Uncomment the following to enable the SLCS branches (or override this
+# file by adding a specific namespaced file for the SLCS branches):
+# TO Issuer "/C=UK/O=eScienceRoot/OU=Authority/CN=UK e-Science Root" \
+#     PERMIT Subject "/C=UK/O=eScienceSLCSHierarchy/OU=Authority/CN=SLCS Top Level CA"
+
+TO Issuer "/C=UK/O=eScienceCA/OU=Authority/CN=UK e-Science CA 2A" \
+  PERMIT Subject "/C=UK/O=eScience/.*"
+
+TO Issuer "/C=UK/O=eScienceCA/OU=Authority/CN=UK e-Science CA 2B" \
+  PERMIT Subject "/C=UK/O=eScience/.*"
+

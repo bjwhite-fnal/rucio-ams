@@ -1,0 +1,13 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)KENETROOTCA.namespaces
+# CA alias    : KENETROOTCA
+#    subord_of: 
+#    subjectDN: /DC=ke/DC=kenet/O=Kenya Education Network Trust/OU=Research Services/CN=KENET ROOT CA
+#
+TO Issuer "/DC=ke/DC=kenet/O=Kenya Education Network Trust/OU=Research Services/CN=KENET ROOT CA" \
+  PERMIT Subject "/DC=ke/DC=kenet/O=Kenya Education Network Trust/OU=Research Services/CN=KENET CA"
+
+TO Issuer "/DC=ke/DC=kenet/O=Kenya Education Network Trust/OU=Research Services/CN=KENET CA" \
+  PERMIT Subject "/DC=ke/DC=kenet/.*"

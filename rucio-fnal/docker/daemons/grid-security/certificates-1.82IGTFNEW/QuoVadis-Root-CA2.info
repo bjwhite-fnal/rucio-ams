@@ -1,0 +1,12 @@
+#
+# @(#)$Id: qvrca2.info,v 1.1 2016/09/21 14:25:26 pmacvsdg Exp $
+#   
+alias = QuoVadis-Root-CA2
+url = https://www.quovadisglobal.bm/
+ca_url = http://trust.quovadisglobal.com/pem/qvrca2.crt
+crl_url = http://crl.quovadisglobal.com/qvrca2.crl
+email = compliance@quovadisglobal.com
+status = accredited:classic
+version = 1.99
+sha1fp.0 = CA:3A:FB:CF:12:40:36:4B:44:B2:16:20:88:80:48:39:19:93:7C:F7
+subjectdn = "/C=BM/O=QuoVadis Limited/CN=QuoVadis Root CA 2"

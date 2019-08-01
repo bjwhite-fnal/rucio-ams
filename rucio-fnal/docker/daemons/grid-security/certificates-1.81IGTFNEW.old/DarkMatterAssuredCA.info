@@ -1,0 +1,13 @@
+#
+# @(#)$Id: dmassuredca.info,v 1.1 2017/02/01 13:46:26 pmacvsdg Exp $
+#   
+alias = DarkMatterAssuredCA
+url = http://ca.darkmatter.ae/Grid/
+ca_url = http://cacerts.darkmatter.ae/dmassureca.crt
+crl_url = http://crl1.darkmatter.ae/dmassureca.crl;http://crl2.darkmatter.ae/dmassureca.crl
+email = CA-Admins@darkmatter.ae
+status = accredited:classic
+requires = QuoVadis-Root-CA3G3
+version = 1.98
+sha1fp.0 = 6B:6F:A6:5B:1B:DC:2A:0F:3A:7E:66:B5:90:F9:32:97:B8:EB:56:B9
+subjectdn = "/C=AE/O=DarkMatter LLC/CN=DarkMatter Assured CA"

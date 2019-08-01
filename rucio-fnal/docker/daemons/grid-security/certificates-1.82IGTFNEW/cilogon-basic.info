@@ -1,0 +1,9 @@
+alias = cilogon-basic
+url = http://ca.cilogon.org/
+ca_url = https://cilogon.org/cilogon-basic.pem
+crl_url = http://crl-cilogon.ncsa-security.net/cilogon-basic.crl;http://crl.cilogon.org/cilogon-basic.crl
+email = ca@cilogon.org
+status = accredited:iota
+version = 1.99
+sha1fp.0 = 21:D6:E3:AE:1E:D0:A7:02:77:67:B3:6B:A9:6D:69:70:60:07:F9:B1
+subjectdn = "/DC=org/DC=cilogon/C=US/O=CILogon/CN=CILogon Basic CA 1"

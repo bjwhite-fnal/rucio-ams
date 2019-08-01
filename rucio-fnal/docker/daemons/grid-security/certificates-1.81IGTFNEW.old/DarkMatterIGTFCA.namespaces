@@ -1,0 +1,15 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)9dcd411f.namespaces
+# CA alias    : DarkMatterIGTFCA
+#    subord_of: DarkMatterPrivateRootCAG4
+#    subjectDN: /C=AE/O=DarkMatter LLC/CN=DarkMatter IGTF CA
+#    hash     : 9dcd411f
+
+TO Issuer "/C=AE/O=DarkMatter LLC/CN=DarkMatter IGTF CA" \
+  PERMIT Subject "/C=AE/O=DarkMatterGrid/.*"
+
+TO Issuer "/C=AE/O=DarkMatter LLC/CN=DarkMatter IGTF CA" \
+  PERMIT Subject "/DC=com/DC=DarkMatterGrid/.*"
+

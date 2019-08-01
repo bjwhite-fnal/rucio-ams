@@ -1,0 +1,13 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)rcauth-pilot-ica-g1.namespaces
+# CA alias    : rcauth-pilot-ica-g1
+#    subord_of: dca-root-g1
+#    subjectDN: /DC=eu/DC=rcauth/O=Certification Authorities/CN=Research and Collaboration Authentication Pilot G1 CA
+#
+# This RPNDC is optional if the superior root RPDNC is used as-is
+#
+
+TO Issuer "/DC=eu/DC=rcauth/O=Certification Authorities/CN=Research and Collaboration Authentication Pilot G1 CA" \
+  PERMIT Subject "/DC=eu/DC=rcauth/DC=rcauth-clients/.*"

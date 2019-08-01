@@ -1,0 +1,16 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)772dbd1c.namespaces
+# CA alias    : seegrid-ca-2013
+#    subord_of: 
+#    subjectDN: /DC=ORG/DC=SEE-GRID/CN=SEE-GRID CA 2013
+#    hash     : 772dbd1c
+#    (generated automatically from 772dbd1c.signing_policy)
+#
+TO Issuer "/DC=ORG/DC=SEE-GRID/CN=SEE-GRID CA 2013" \
+  PERMIT Subject "/DC=ORG/DC=SEE-GRID/.*"
+
+TO Issuer "/DC=ORG/DC=SEE-GRID/CN=SEE-GRID CA 2013" \
+  PERMIT Subject "/DC=EU/DC=EGI/.*"
+

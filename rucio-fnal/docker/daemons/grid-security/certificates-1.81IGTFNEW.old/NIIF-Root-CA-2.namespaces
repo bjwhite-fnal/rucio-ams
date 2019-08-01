@@ -1,0 +1,16 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)58435df6.namespaces
+# CA alias    : NIIF-Root-CA-2
+#    subord_of: 
+#    subjectDN: /C=HU/O=NIIF/OU=Certificate Authorities/CN=NIIF Root CA 2
+#    hash     : 58435df6
+#    (generated automatically from 58435df6.signing_policy)
+#
+TO Issuer "/C=HU/O=NIIF/OU=Certificate Authorities/CN=NIIF Root CA 2" \
+  PERMIT Subject "/C=HU/O=NIIF CA/OU=GRID/.*"
+
+TO Issuer "/C=HU/O=NIIF/OU=Certificate Authorities/CN=NIIF Root CA 2" \
+  PERMIT Subject "/C=HU/O=NIIF CA/OU=NIIF/OU=GRID/.*"
+

@@ -1,0 +1,23 @@
+# @(#)$Id: 3c58f906.info,v 1.4 2017/05/16 07:45:25 pmacvsdg Exp $
+# AddTrust AB External CA Root
+#
+# Certificate Name: AddTrust External CA Root
+# CPS: This root is used for server certificate issuance today and is covered in
+# the following CPS docs (all from http://www.comodo.com/repository) :
+# December_2007_CPS_Amendment.pdf
+# Essential_SSL_addendum_to_the_Certification_Practice_Statement.pdf
+# PositiveSSL_addendum_to_the_Certification_Practice_Statement.pdf
+# litessl_cps_addendum.pdf
+#
+# 2017-05-16: this root is used no longer for TCS, but only for InCommon SSL
+#
+alias = AddTrust-External-CA-Root
+ca_url = http://crt.usertrust.com/AddTrustExternalCARoot.crt
+crl_url = http://crl.usertrust.com/AddTrustExternalCARoot.crl
+url = http://www.comodo.com/
+policy_url = http://www.comodo.com/repository
+email = tcs-pma@terena.org
+status = accredited:classic
+version = 1.99
+sha1fp.0 = 02:FA:F3:E2:91:43:54:68:60:78:57:69:4D:F5:E4:5B:68:85:18:68
+subjectdn = "/C=SE/O=AddTrust AB/OU=AddTrust External TTP Network/CN=AddTrust External CA Root"

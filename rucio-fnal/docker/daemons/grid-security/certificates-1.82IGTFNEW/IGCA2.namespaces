@@ -1,0 +1,10 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)GARUDAINDIA2.namespaces
+# CA alias    : IGCA2
+#    subjectDN: /DC=IN/DC=GARUDAINDIA/CN=Indian Grid Certification Authority 2
+#
+TO Issuer "/DC=IN/DC=GARUDAINDIA/CN=Indian Grid Certification Authority 2" \
+  PERMIT Subject "/DC=IN/DC=GARUDAINDIA/.*"
+

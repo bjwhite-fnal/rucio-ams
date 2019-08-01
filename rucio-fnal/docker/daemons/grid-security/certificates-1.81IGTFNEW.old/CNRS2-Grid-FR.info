@@ -1,0 +1,11 @@
+#
+# @(#)$Id: d11f973e.info,v 1.4 2015/06/18 09:44:54 pmacvsdg Exp $
+alias = CNRS2-Grid-FR
+url = http://igc.services.cnrs.fr/GRID2-FR/
+email = grid-fr@renater.fr
+crl_url = http://crls.services.cnrs.fr/GRID2-FR/getpem.crl
+requires = CNRS2-Projets
+status = accredited:classic
+version = 1.98
+sha1fp.0 = 4C:2B:53:7C:FB:00:FC:7A:44:B7:CD:80:73:26:8B:52:BD:5B:B3:0C
+subjectdn = "/C=FR/O=CNRS/CN=GRID2-FR"

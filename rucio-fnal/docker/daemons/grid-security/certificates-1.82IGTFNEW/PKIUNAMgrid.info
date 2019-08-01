@@ -1,0 +1,13 @@
+#
+# @(#)$Id: PKIUNAMgrid.info,v 1.2 2018/01/11 20:00:06 pmacvsdg Exp $
+# Information for 2017 UNAMgrid CA
+#
+alias =	PKIUNAMgrid
+url = http://ca.unamgrid.unam.mx/
+ca_url = https://ca.unamgrid.unam.mx/ejbca/publicweb/webdist/certdist?cmd=cacert&issuer=CN%3dPKIUNAMgrid%2cOU%3dUNAMgrid%2cO%3dUNAM%2cC%3dMX&level=0
+crl_url = http://ca.unamgrid.unam.mx/pub/crl/unamgrid-crl.crl
+email = camanager@unam.mx
+status = accredited:classic
+sha1fp.0 = 1D:05:8F:6A:75:5A:A8:36:12:88:22:D2:8A:3A:31:EA:6C:2B:5A:B8
+version = 1.99
+subjectdn = "/C=MX/O=UNAM/OU=UNAMgrid/CN=PKIUNAMgrid"

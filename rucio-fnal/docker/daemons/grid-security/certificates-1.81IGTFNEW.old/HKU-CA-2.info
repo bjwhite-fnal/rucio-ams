@@ -1,0 +1,8 @@
+alias = HKU-CA-2
+crl_url = http://ca.grid.hku.hk/crl/cacrl2.der
+email = gridca@hku.hk
+status = accredited:classic
+url = http://ca.grid.hku.hk/
+version = 1.98
+sha1fp.0 = B2:6C:D3:AA:28:E5:1A:0E:9A:1D:8F:C4:80:5C:4E:0B:6F:6A:19:C7
+subjectdn = "/DC=HK/DC=HKU/DC=GRID/CN=HKU Grid CA 2"

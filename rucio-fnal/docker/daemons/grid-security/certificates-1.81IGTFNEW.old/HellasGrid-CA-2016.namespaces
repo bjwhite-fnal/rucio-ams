@@ -1,0 +1,13 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)HellasGridCA2016.signing_policy.namespaces
+# CA alias    : HellasGrid-CA-2016
+#    subord_of: 
+#    subjectDN: /C=GR/O=HellasGrid/OU=Certification Authorities/CN=HellasGrid CA 2016
+#    hash     : HellasGridCA2016.signing_policy
+#    (generated automatically from HellasGridCA2016.signing_policy)
+#
+TO Issuer "/C=GR/O=HellasGrid/OU=Certification Authorities/CN=HellasGrid CA 2016" \
+  PERMIT Subject "/C=GR/O=HellasGrid/.*"
+

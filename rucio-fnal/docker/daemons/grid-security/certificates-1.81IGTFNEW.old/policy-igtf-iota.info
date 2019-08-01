@@ -1,0 +1,10 @@
+# @(#)policy-igtf-iota.info - IGTF iota authorities
+# Generated Tuesday, 23 Apr, 2019
+alias = policy-igtf-iota
+version = 1.98
+requires = RCauth-Pilot-ICA-G1 = 1.98, \
+    cilogon-basic = 1.98, \
+    CERN-LCG-IOTA-CA = 1.98
+subjectdn = "/DC=eu/DC=rcauth/O=Certification Authorities/CN=Research and Collaboration Authentication Pilot G1 CA", \
+    "/DC=org/DC=cilogon/C=US/O=CILogon/CN=CILogon Basic CA 1", \
+    "/DC=ch/DC=cern/CN=CERN LCG IOTA Certification Authority"

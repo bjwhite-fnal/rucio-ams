@@ -1,0 +1,13 @@
+#
+# @(#)$Id: IRAN-GRID-GCG-G2.info,v 1.1 2016/11/04 11:02:35 pmacvsdg Exp $
+#   
+alias = IRAN-GRID-GCG-G2
+ca_url = http://irangrid.ipm.ac.ir/pki/pub/cacert/cacert.pem
+crl_url = http://irangrid.ipm.ac.ir/pki/pub/crl/cacrl.der
+policy_url = https://irangrid.ipm.ac.ir/policy.htm
+email = ca-manager@ipm.ir
+status = accredited:classic
+url = http://irangrid.ipm.ac.ir/
+version = 1.99
+sha1fp.0 = 9D:3B:E5:46:9D:2E:E4:AB:57:DD:36:F4:ED:24:D7:70:41:C6:76:69
+subjectdn = "/C=IR/O=IPM/OU=GCG/CN=IRAN-GRID-G2 CA"

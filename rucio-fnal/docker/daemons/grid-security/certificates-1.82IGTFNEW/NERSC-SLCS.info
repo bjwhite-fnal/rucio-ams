@@ -1,0 +1,11 @@
+# @(#)$Id: b93d6240.info,v 1.4 2015/06/18 09:44:56 pmacvsdg Exp $
+# NERSC Online SLCS CA
+alias = NERSC-SLCS
+url = http://certs.nersc.gov/
+ca_url = http://certs.nersc.gov/certificates/b93d6240.0
+crl_url = http://certs.nersc.gov/certificates/b93d6240.r0
+email = certs@nersc.gov
+status = accredited:slcs
+version = 1.99
+sha1fp.0 = FC:19:5C:91:F7:4E:5F:72:8C:DF:B9:A3:4A:13:71:77:E9:7D:BC:C4
+subjectdn = "/DC=net/DC=ES/OU=Certificate Authorities/CN=NERSC Online CA"

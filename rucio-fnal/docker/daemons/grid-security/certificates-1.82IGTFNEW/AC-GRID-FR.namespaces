@@ -1,0 +1,28 @@
+##############################################################################
+#NAMESPACES-VERSION: 1.0
+#
+# @(#)AC-GRID-FR.signing_policy.namespaces
+# CA alias    : AC-GRID-FR
+#    subord_of:
+#    subjectDN: /C=FR/O=MENESR/OU=GRID-FR/CN=AC GRID-FR
+#    hash     : AC-GRID-FR.signing_policy
+#    (generated automatically from AC-GRID-FR.signing_policy)
+#
+TO Issuer "/C=FR/O=MENESR/OU=GRID-FR/CN=AC GRID-FR" \
+  PERMIT Subject "/C=FR/O=MENESR/OU=GRID-FR/CN=AC GRID-FR Personnels"
+
+TO Issuer "/C=FR/O=MENESR/OU=GRID-FR/CN=AC GRID-FR" \
+  PERMIT Subject "/C=FR/O=MENESR/OU=GRID-FR/CN=AC GRID-FR Robots"
+
+TO Issuer "/C=FR/O=MENESR/OU=GRID-FR/CN=AC GRID-FR" \
+  PERMIT Subject "/C=FR/O=MENESR/OU=GRID-FR/CN=AC GRID-FR Services"
+
+TO Issuer "/C=FR/O=MENESR/OU=GRID-FR/CN=AC GRID-FR Personnels" \
+  PERMIT Subject "/O=GRID-FR/.*"
+
+TO Issuer "/C=FR/O=MENESR/OU=GRID-FR/CN=AC GRID-FR Robots" \
+  PERMIT Subject "/O=GRID-FR/.*"
+
+TO Issuer "/C=FR/O=MENESR/OU=GRID-FR/CN=AC GRID-FR Services" \
+  PERMIT Subject "/O=GRID-FR/.*"
+

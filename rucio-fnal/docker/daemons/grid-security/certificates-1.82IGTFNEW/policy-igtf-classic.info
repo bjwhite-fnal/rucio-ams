@@ -1,0 +1,262 @@
+# @(#)policy-igtf-classic.info - IGTF classic authorities
+# Generated Wednesday, 08 May, 2019
+alias = policy-igtf-classic
+version = 1.99
+requires = CNRS2-Grid-FR = 1.99, \
+    seegrid-ca-2013 = 1.99, \
+    RDIG = 1.99, \
+    CESNET-CA-Root = 1.99, \
+    UKeScienceCA-2B = 1.99, \
+    SRCE = 1.99, \
+    PK-Grid-2007 = 1.99, \
+    ANSPGrid = 1.99, \
+    HKU-CA-2 = 1.99, \
+    PKIUNAMgrid = 1.99, \
+    MYIFAM = 1.99, \
+    CNRS2-Projets = 1.99, \
+    MaGrid = 1.99, \
+    cilogon-osg = 1.99, \
+    SDG-G2 = 1.99, \
+    SiGNET-CA = 1.99, \
+    UGRID-G2 = 1.99, \
+    CNRS2 = 1.99, \
+    COMODO-RSA-CA = 1.99, \
+    NorduGrid-2015 = 1.99, \
+    CNIC = 1.99, \
+    DarkMatterSecureCA = 1.99, \
+    InCommon-IGTF-Server-CA = 1.99, \
+    DigiCertGridCA-1G2-Classic-2015 = 1.99, \
+    NIIF-Root-CA-2 = 1.99, \
+    MARGI = 1.99, \
+    CERN-GridCA = 1.99, \
+    QuoVadis-Root-CA1 = 1.99, \
+    KENETCA-ICA-2015 = 1.99, \
+    KENETROOTCA = 1.99, \
+    HellasGrid-CA-2016 = 1.99, \
+    NIKHEF = 1.99, \
+    DCAROOT-G1 = 1.99, \
+    UNLPGrid = 1.99, \
+    IRAN-GRID-GCG-G2 = 1.99, \
+    AC-GRID-FR-Personnels = 1.99, \
+    INFN-CA-2015 = 1.99, \
+    RomanianGRID = 1.99, \
+    TRGrid = 1.99, \
+    DarkMatterAssuredCA = 1.99, \
+    SlovakGrid = 1.99, \
+    BG-ACAD-CA = 1.99, \
+    DFN-GridGermany-Root = 1.99, \
+    REUNA-ca = 1.99, \
+    UNAMgrid-ca = 1.99, \
+    ASGCCA-2007 = 1.99, \
+    AC-GRID-FR-Robots = 1.99, \
+    QuoVadis-Root-CA3G3 = 1.99, \
+    DigiCertGridTrustCAG2-Classic = 1.99, \
+    LIPCA = 1.99, \
+    AC-GRID-FR = 1.99, \
+    ArmeSFo = 1.99, \
+    QuoVadis-Root-CA2 = 1.99, \
+    IHEP-2013 = 1.99, \
+    TERENA-eScience-SSL-CA-3 = 1.99, \
+    MREN-CA = 1.99, \
+    AC-GRID-FR-Services = 1.99, \
+    CESNET-CA-3 = 1.99, \
+    DigiCertGridCA-1-Classic = 1.99, \
+    TSU-GE = 1.99, \
+    IGCA2 = 1.99, \
+    BYGCA = 1.99, \
+    DZeScience = 1.99, \
+    KEK = 1.99, \
+    AustrianGrid = 1.99, \
+    DarkMatterPrivateRootCAG4 = 1.99, \
+    KISTIv3 = 1.99, \
+    QuoVadis-Grid-ICA-G2 = 1.99, \
+    DigiCertAssuredIDRootCA-Root = 1.99, \
+    AddTrust-External-CA-Root = 1.99, \
+    GermanGrid = 1.99, \
+    DigiCertGridTrustCA-Classic = 1.99, \
+    AEGIS = 1.99, \
+    MD-Grid-CA-T = 1.99, \
+    QuoVadis-Root-CA2G3 = 1.99, \
+    GridCanada = 1.99, \
+    PolishGrid = 1.99, \
+    UKeScienceRoot-2007 = 1.99, \
+    DigiCertGridRootCA-Root = 1.99, \
+    CERN-Root-2 = 1.99, \
+    DarkMatterIGTFCA = 1.99
+subjectdn = "/C=FR/O=CNRS/CN=GRID2-FR", \
+    "/DC=ORG/DC=SEE-GRID/CN=SEE-GRID CA 2013", \
+    "/C=RU/O=RDIG/CN=Russian Data-Intensive Grid CA", \
+    "/DC=cz/DC=cesnet-ca/O=CESNET CA/CN=CESNET CA Root", \
+    "/C=UK/O=eScienceCA/OU=Authority/CN=UK e-Science CA 2B", \
+    "/C=HR/O=edu/OU=srce/CN=SRCE CA", \
+    "/C=PK/O=NCP/CN=PK-GRID-CA", \
+    "/C=BR/O=ANSP/OU=ANSPGrid CA/CN=ANSPGrid CA", \
+    "/DC=HK/DC=HKU/DC=GRID/CN=HKU Grid CA 2", \
+    "/C=MX/O=UNAM/OU=UNAMgrid/CN=PKIUNAMgrid", \
+    "/DC=MY/DC=UPM/DC=MYIFAM/C=MY/O=MYIFAM/CN=Malaysian Identity Federation and Access Management", \
+    "/C=FR/O=CNRS/CN=CNRS2-Projets", \
+    "/C=MA/O=MaGrid/CN=MaGrid CA", \
+    "/DC=org/DC=cilogon/C=US/O=CILogon/CN=CILogon OSG CA 1", \
+    "/DC=CN/DC=Grid/DC=SDG/CN=Scientific Data Grid CA - G2", \
+    "/C=SI/O=SiGNET/CN=SiGNET CA", \
+    "/DC=org/DC=ugrid/CN=UGRID CA G2", \
+    "/C=FR/O=CNRS/CN=CNRS2", \
+    "/C=GB/ST=Greater Manchester/L=Salford/O=COMODO CA Limited/CN=COMODO RSA Certification Authority", \
+    "/O=Grid/O=NorduGrid/CN=NorduGrid Certification Authority 2015", \
+    "/DC=CN/DC=Grid/CN=Root Certificate Authority at CNIC", \
+    "/C=AE/O=DarkMatter LLC/CN=DarkMatter Secure CA", \
+    "/C=US/O=Internet2/OU=InCommon/CN=InCommon IGTF Server CA", \
+    "/DC=com/DC=DigiCert-Grid/O=DigiCert Grid/CN=DigiCert Grid CA-1 G2", \
+    "/C=HU/O=NIIF/OU=Certificate Authorities/CN=NIIF Root CA 2", \
+    "/C=MK/O=MARGI/CN=MARGI-CA", \
+    "/DC=ch/DC=cern/CN=CERN Grid Certification Authority", \
+    "/C=BM/O=QuoVadis Limited/OU=Root Certification Authority/CN=QuoVadis Root Certification Authority", \
+    "/DC=ke/DC=kenet/O=Kenya Education Network Trust/OU=Research Services/CN=KENET CA", \
+    "/DC=ke/DC=kenet/O=Kenya Education Network Trust/OU=Research Services/CN=KENET ROOT CA", \
+    "/C=GR/O=HellasGrid/OU=Certification Authorities/CN=HellasGrid CA 2016", \
+    "/C=NL/O=NIKHEF/CN=NIKHEF medium-security certification auth", \
+    "/DC=nl/DC=dutchgrid/O=Certification Authorities/CN=DCA Root G1 CA", \
+    "/C=AR/O=e-Ciencia/OU=UNLP/L=CeSPI/CN=PKIGrid", \
+    "/C=IR/O=IPM/OU=GCG/CN=IRAN-GRID-G2 CA", \
+    "/C=FR/O=MENESR/OU=GRID-FR/CN=AC GRID-FR Personnels", \
+    "/C=IT/O=INFN/CN=INFN Certification Authority", \
+    "/DC=RO/DC=RomanianGRID/O=ROSA/OU=Certification Authority/CN=RomanianGRID CA", \
+    "/C=TR/O=TRGrid/CN=TR-Grid CA", \
+    "/C=AE/O=DarkMatter LLC/CN=DarkMatter Assured CA", \
+    "/C=SK/O=SlovakGrid/CN=SlovakGrid CA", \
+    "/DC=bg/DC=acad/CN=BG.ACAD CA", \
+    "/C=DE/O=DFN-Verein/OU=DFN-PKI/CN=DFN-Verein PCA Grid - G01", \
+    "/C=CL/O=REUNACA/CN=REUNA Certification Authority", \
+    "/C=MX/O=UNAMgrid/OU=UNAM/CN=CA", \
+    "/C=TW/O=AS/CN=Academia Sinica Grid Computing Certification Authority Mercury", \
+    "/C=FR/O=MENESR/OU=GRID-FR/CN=AC GRID-FR Robots", \
+    "/C=BM/O=QuoVadis Limited/CN=QuoVadis Root CA 3 G3", \
+    "/C=US/O=DigiCert Grid/OU=www.digicert.com/CN=DigiCert Grid Trust CA G2", \
+    "/C=PT/O=LIPCA/CN=LIP Certification Authority", \
+    "/C=FR/O=MENESR/OU=GRID-FR/CN=AC GRID-FR", \
+    "/C=AM/O=ArmeSFo/CN=ArmeSFo CA", \
+    "/C=BM/O=QuoVadis Limited/CN=QuoVadis Root CA 2", \
+    "/C=CN/O=HEP/CN=Institute of High Energy Physics Certification Authority", \
+    "/C=NL/ST=Noord-Holland/L=Amsterdam/O=TERENA/CN=TERENA eScience SSL CA 3", \
+    "/DC=me/DC=ac/DC=MREN/CN=MREN-CA", \
+    "/C=FR/O=MENESR/OU=GRID-FR/CN=AC GRID-FR Services", \
+    "/DC=cz/DC=cesnet-ca/O=CESNET CA/CN=CESNET CA 3", \
+    "/DC=com/DC=DigiCert-Grid/O=DigiCert Grid/CN=DigiCert Grid CA-1", \
+    "/DC=GE/DC=TSU/CN=TSU Root CA", \
+    "/DC=IN/DC=GARUDAINDIA/CN=Indian Grid Certification Authority 2", \
+    "/DC=by/DC=grid/O=uiip.bas-net.by/CN=Belarusian Grid Certification Authority", \
+    "/DC=DZ/DC=ARN/O=DZ e-Science GRID/CN=DZ e-Science CA", \
+    "/C=JP/O=KEK/OU=CRC/CN=KEK GRID Certificate Authority", \
+    "/C=AT/O=AustrianGrid/OU=Certification Authority/CN=Certificate Issuer", \
+    "/C=AE/O=DarkMatter LLC/CN=DarkMatter Private Root CA G4", \
+    "/C=KR/O=KISTI/CN=KISTI Certification Authority", \
+    "/C=BM/O=QuoVadis Limited/CN=QuoVadis Grid ICA G2", \
+    "/C=US/O=DigiCert Inc/OU=www.digicert.com/CN=DigiCert Assured ID Root CA", \
+    "/C=SE/O=AddTrust AB/OU=AddTrust External TTP Network/CN=AddTrust External CA Root", \
+    "/C=DE/O=GermanGrid/CN=GridKa-CA", \
+    "/C=US/O=DigiCert Grid/OU=www.digicert.com/CN=DigiCert Grid Trust CA", \
+    "/C=RS/O=AEGIS/CN=AEGIS-CA", \
+    "/DC=MD/DC=MD-Grid/O=RENAM/OU=Certification Authority/CN=MD-Grid-CA-T", \
+    "/C=BM/O=QuoVadis Limited/CN=QuoVadis Root CA 2 G3", \
+    "/C=CA/O=Grid/CN=Grid Canada Certificate Authority", \
+    "/C=PL/O=GRID/CN=Polish Grid CA", \
+    "/C=UK/O=eScienceRoot/OU=Authority/CN=UK e-Science Root", \
+    "/DC=com/DC=DigiCert-Grid/O=DigiCert Grid/CN=DigiCert Grid Root CA", \
+    "/C=ch/O=CERN/CN=CERN Root Certification Authority 2", \
+    "/C=AE/O=DarkMatter LLC/CN=DarkMatter IGTF CA"
+obsoletes = CyGrid-old, \
+    CNRS-DataGrid, \
+    CESNET-old, \
+    SwissSign-Silver-Root, \
+    SWITCH-Personal2, \
+    SWITCH-CA2, \
+    SWITCH-Server2, \
+    KISTI, \
+    Russia, \
+    SWITCH-Server, \
+    SWITCH-Personal, \
+    LIP, \
+    GridCanada-old, \
+    UKeScience, \
+    HellasGrid, \
+    INFN, \
+    Spain, \
+    SiGNET, \
+    CERN, \
+    SWITCH-Personal-2006, \
+    SWITCH-Server-2006, \
+    ASGCCA, \
+    UKeScienceRoot, \
+    UKeScienceCA, \
+    PK-Grid, \
+    EstonianGrid, \
+    DFN-GridGermany-User, \
+    DFN-GridGermany-Server, \
+    BEGrid, \
+    SWITCH-Personal-2007, \
+    SwissSign-Root, \
+    SWITCH, \
+    SwissSign-Bronze, \
+    SwissSign-Silver, \
+    SWITCH-Server-2007, \
+    RMKI, \
+    CNRS, \
+    CNRS-Projets, \
+    CNRS-Grid-FR, \
+    NGO-Netrust, \
+    CESNET, \
+    Grid-Ireland, \
+    UKeScienceCA-2007, \
+    TACC-Classic, \
+    TACC-Root, \
+    IUCC, \
+    AIST, \
+    JUnet-CA, \
+    SWITCHgrid-Root, \
+    APAC, \
+    DOEGrids, \
+    ESnet, \
+    IHEP, \
+    SEE-GRID, \
+    PRAGMA-UCSD, \
+    SWITCH-QuoVadis-Grid-ICA, \
+    ULAGrid-CA-2008, \
+    HIAST, \
+    NCHC, \
+    NIIF, \
+    CERN-Root, \
+    CERN-TCA, \
+    NAREGI, \
+    IRAN-GRID-G2, \
+    CALG, \
+    BalticGrid, \
+    DigiCertGridCA-1G2-Classic, \
+    SDG, \
+    NorduGrid, \
+    BrGrid, \
+    HellasGrid-Root, \
+    HellasGrid-CA-2006, \
+    UniandesCA, \
+    INFN-CA-2006, \
+    NECTEC, \
+    BEGrid2008, \
+    UKeScienceCA-2A, \
+    UTN-USERFirst-Hardware, \
+    TERENA-eScience-SSL-CA, \
+    AAACertificateServices, \
+    UTNAAAClient, \
+    TERENAeSciencePersonalCA, \
+    UTN-USERTrust-RSA-CA, \
+    TERENA-eScience-SSL-CA-2, \
+    TERENAeSciencePersonalCA2, \
+    KISTI-2007, \
+    LACGridCA, \
+    pkIRISGrid, \
+    UGRID, \
+    IGCA, \
+    QuoVadis-Grid-ICA, \
+    MD-Grid, \
+    EG-GRID, \
+    IRAN-GRID, \
+    HKU, \
+    CyGrid
