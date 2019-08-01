@@ -59,4 +59,10 @@ spec:
               value: "judge-injector"
             - name: RUCIO_DAEMON_ARGS
               value: "--threads {{ .Values.judgeInjector.threads }}"
+            - name: RUCIO_CFG_MONITOR_CARBON_SERVER
+              value: "{{ .Values.monitor.carbon_server }}"
+            - name: RUCIO_CFG_MONITOR_CARBON_PORT
+              value: "{{ .Values.monitor.carbon_port }}"
+            - name: RUCIO_CFG_MONITOR_USER_SCOPE
+              value: "{{ .Values.monitor.user_scope }}"
 {{ end }}

@@ -66,4 +66,10 @@ spec:
               value: "--total-threads {{ .Values.conveyorTransferSubmitter.threads }} --sleep-time {{ .Values.conveyorTransferSubmitter.sleepTime }}"
             - name: DELEGATE_FTS_PROXY
               value: "true"
+            - name: RUCIO_CFG_MONITOR_CARBON_SERVER
+              value: "{{ .Values.monitor.carbon_server }}"
+            - name: RUCIO_CFG_MONITOR_CARBON_PORT
+              value: "{{ .Values.monitor.carbon_port }}"
+            - name: RUCIO_CFG_MONITOR_USER_SCOPE
+              value: "{{ .Values.monitor.user_scope }}"
 {{ end }}

@@ -93,6 +93,10 @@ ftsRenewal:
   voms: "dune:/dune/Role=Production"
   servers: "https://fts3-public.cern.ch:8446"
 
+monitor:
+  carbon_server: "lsdataitb.fnal.gov"
+  carbon_port: 8225
+  user_scope: "rucio.dune_okd_dev"
 
 ## common config values used to configure the Rucio daemons
 config:
@@ -106,11 +110,6 @@ config:
     # loglevel: "DEBUG"
     ## config.common.mailtemplatedir: directory containing the mail templates (default: "/opt/rucio/etc/mail_templates")
     # mailtemplatedir: "/opt/rucio/etc/mail_templates"
-
-  monitor:
-    carbon_server: "lsdataitb.fnal.gov"
-    carbon_server: "8225"
-    user_scope: "rucio.dune"
 
   # database:
     ## config.database.default: the connection string for the database (default: "sqlite:////tmp/rucio.db")
@@ -155,9 +154,9 @@ config:
   conveyor:
     # scheme: "srm,gsiftp,root,http,https"
     # transfertool: "fts3"
-    # ftshosts: "https://fts3-pilot.cern.ch:8446, https://fts3-pilot.cern.ch:8446"
-    cacert: "/opt/certs/CERN-bundle.pem"
-    usercert: "/opt/proxy/x509up"
+    ftshosts: "https://fts3-public.cern.ch:8446"
+    cacert: "/etc/grid-security/certificates"
+    usercert: "/tmp/fts_proxy.pem"
     # cache_time: ""
     # user_deterministic_id: ""
     # poll_timeout: ""

@@ -65,4 +65,10 @@ spec:
               value: "/opt/rucio/reaper"
             - name: X509_USER_PROXY
               value: "/opt/proxy/x509up"
+            - name: RUCIO_CFG_MONITOR_CARBON_SERVER
+              value: "{{ .Values.monitor.carbon_server }}"
+            - name: RUCIO_CFG_MONITOR_CARBON_PORT
+              value: "{{ .Values.monitor.carbon_port }}"
+            - name: RUCIO_CFG_MONITOR_USER_SCOPE
+              value: "{{ .Values.monitor.user_scope }}"
 {{ end }}

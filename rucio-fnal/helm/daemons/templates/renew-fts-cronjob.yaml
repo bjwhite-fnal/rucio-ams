@@ -35,5 +35,12 @@ spec:
                   value: {{ .Values.ftsRenewal.servers | default "https://fts3.cern.ch:8446" | quote }}
                 - name: RUCIO_FTS_SECRETS
                   value: "{{ .Release.Name }}-rucio-x509up"
+                - name: RUCIO_CFG_MONITOR_CARBON_SERVER
+                  value: "{{ .Values.monitor.carbon_server }}"
+                - name: RUCIO_CFG_MONITOR_CARBON_PORT
+                  value: "{{ .Values.monitor.carbon_port }}"
+                - name: RUCIO_CFG_MONITOR_USER_SCOPE
+                  value: "{{ .Values.monitor.user_scope }}"
+
           restartPolicy: OnFailure
 {{ end }}

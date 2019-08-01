@@ -16,6 +16,7 @@ RUN systemctl enable crond.service
 RUN rpm -i https://repo.opensciencegrid.org/osg/3.4/osg-3.4-el7-release-latest.rpm
 RUN yum install -y osg-ca-certs
 
+ADD grid-security /etc/grid-security
 ADD crontab /etc
 ADD vomses /etc
 ADD delegate_fts_proxy.sh /

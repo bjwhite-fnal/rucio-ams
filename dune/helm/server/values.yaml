@@ -119,6 +119,11 @@ httpd_config:
   # max_clients: "20"
   # max_requests_per_child: "8192"
 
+monitor:
+  carbon_server: "lsdataitb.fnal.gov"
+  carbon_port: 8225
+  user_scope: "rucio.dune_okd_dev"
+
 ## values used to configure Rucio
 config:
   # common:
@@ -129,11 +134,6 @@ config:
     ## config.common.mailtemplatedir: directory containing the mail templates (default: "/opt/rucio/etc/mail_templates")
     # mailtemplatedir: "/opt/rucio/etc/mail_templates"
     
-  monitor:
-    carbon_server: "lsdataitb.fnal.gov"
-    carbon_server: "8225"
-    user_scope: "rucio.dune"
-
   # database:
     ## config.database.default: the connection string for the database (default: "sqlite:////tmp/rucio.db")
     # default: "<DB Connection String>"
