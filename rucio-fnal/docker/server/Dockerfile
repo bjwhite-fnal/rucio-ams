@@ -23,5 +23,6 @@ RUN echo "32 */6 * * * root ! /usr/sbin/fetch-crl -q -r 360" > /etc/cron.d/fetch
 
 ADD rucio.conf.j2 /tmp/
 ADD gacl /opt/rucio/etc
+ADD start-server.sh /
 
 ENTRYPOINT ['start-server.sh']

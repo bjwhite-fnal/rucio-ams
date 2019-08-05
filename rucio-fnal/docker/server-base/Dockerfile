@@ -28,7 +28,6 @@ ADD rucio.cfg.j2 /tmp/
 ADD alembic.ini.j2 /tmp
 ADD rucio.conf.j2 /tmp/
 ADD httpd.conf /etc/httpd/conf/
-ADD docker-entrypoint.sh /
 RUN rm /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/userdir.conf /etc/httpd/conf.d/ssl.conf
 
 # Patches
@@ -41,5 +40,3 @@ VOLUME /etc/grid-security
 
 EXPOSE 80
 EXPOSE 443
-
-ENTRYPOINT ["/docker-entrypoint.sh"]
