@@ -63,7 +63,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "conveyor-submitter"
             - name: RUCIO_DAEMON_ARGS
-              value: "--total-threads {{ .Values.conveyorTransferSubmitter.threads }} --sleep-time {{ .Values.conveyorTransferSubmitter.sleepTime }}"
+              value: "--total-threads {{ .Values.conveyorTransferSubmitter.threads }} --activities {{ .Values.conveyorTransferSubmitter.activities }} --sleep-time {{ .Values.conveyorTransferSubmitter.sleepTime }}"
             - name: DELEGATE_FTS_PROXY
               value: "true"
             - name: RUCIO_CFG_MONITOR_CARBON_SERVER
@@ -72,4 +72,6 @@ spec:
               value: "{{ .Values.monitor.carbon_port }}"
             - name: RUCIO_CFG_MONITOR_USER_SCOPE
               value: "{{ .Values.monitor.user_scope }}"
+            - name: RUCIO_CFG_DATABASE_ECHO
+              value: "{{ .Values.logging.log_level }}"
 {{ end }}

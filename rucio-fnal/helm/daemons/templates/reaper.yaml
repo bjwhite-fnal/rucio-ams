@@ -71,4 +71,6 @@ spec:
               value: "{{ .Values.monitor.carbon_port }}"
             - name: RUCIO_CFG_MONITOR_USER_SCOPE
               value: "{{ .Values.monitor.user_scope }}"
+            - name: RUCIO_CFG_DATABASE_ECHO
+              value: "{{ .Values.logging.log_level }}"
 {{ end }}
