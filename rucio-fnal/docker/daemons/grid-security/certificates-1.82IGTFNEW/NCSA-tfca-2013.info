@@ -1,9 +1,0 @@
-alias = NCSA-tfca-2013
-url = https://security.ncsa.illinois.edu/CA/
-ca_url = https://security.ncsa.illinois.edu/CA/48c8f10a.0
-crl_url = http://crl-ncsa.ncsa-security.net/tfca2013.crl;http://crl.ncsa.illinois.edu/tfca2013.crl
-email = security@ncsa.illinois.edu
-status =  accredited:slcs
-version = 1.99
-sha1fp.0 = 33:1A:3B:E7:4C:D7:58:62:E8:A8:19:4E:5D:BD:6F:D2:C7:6F:EA:0A
-subjectdn = "/C=US/O=National Center for Supercomputing Applications/OU=Certificate Authorities/CN=Two Factor CA 2013"

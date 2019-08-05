@@ -28,7 +28,11 @@ echo "starting daemon with: $RUCIO_DAEMON $RUCIO_DAEMON_ARGS"
 echo ""
 
 if [ -z "$RUCIO_ENABLE_LOGS" ]; then
+    /usr/sbin/fetch-crl &
+    /usr/sbin/crond
     eval "/usr/bin/rucio-$RUCIO_DAEMON $RUCIO_DAEMON_ARGS"
 else
+    /usr/sbin/fetch-crl &
+    /usr/sbin/crond
     eval "/usr/bin/rucio-$RUCIO_DAEMON $RUCIO_DAEMON_ARGS >> /var/log/rucio/daemon.log 2>> /var/log/rucio/error.log"
 fi

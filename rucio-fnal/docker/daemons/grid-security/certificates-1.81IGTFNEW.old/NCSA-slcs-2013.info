@@ -1,9 +1,0 @@
-alias = NCSA-slcs-2013
-url = https://security.ncsa.uiuc.edu/CA/
-ca_url = https://security.ncsa.illinois.edu/CA/7aa2b7bd.0
-crl_url = http://crl-ncsa.ncsa-security.net/myproxy2013.crl;http://crl.ncsa.illinois.edu/myproxy2013.crl
-email = security@ncsa.uiuc.edu
-status =  accredited:slcs
-sha1fp.0 = 5E:48:9B:42:D3:63:5E:9A:8E:37:DF:D3:5E:73:62:4E:1C:C1:FA:F2
-version = 1.98
-subjectdn = "/C=US/O=National Center for Supercomputing Applications/OU=Certificate Authorities/CN=MyProxy CA 2013"

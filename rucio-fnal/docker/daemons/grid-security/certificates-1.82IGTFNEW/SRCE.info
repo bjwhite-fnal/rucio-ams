@@ -1,9 +1,0 @@
-alias = SRCE
-url = http://ra.srce.hr
-ca_url = http://ra.srce.hr/cacert.pem
-crl_url = http://ra.srce.hr/cacrl.crl
-email = srce-ca@srce.hr
-status = accredited:classic
-version = 1.99
-sha1fp.0 = 68:20:69:5A:4E:95:F4:48:BB:8F:BE:DE:67:77:84:C0:0D:E5:46:C0
-subjectdn = "/C=HR/O=edu/OU=srce/CN=SRCE CA"

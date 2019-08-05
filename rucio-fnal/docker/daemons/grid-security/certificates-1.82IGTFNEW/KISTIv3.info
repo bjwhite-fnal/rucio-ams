@@ -1,9 +1,0 @@
-alias = KISTIv3
-crl_url = http://ca.gridcenter.or.kr/CRL/kisti-ca-v3.crl
-email = kisti-grid-ca@kisti.re.kr
-status = accredited:classic
-url = http://ca.gridcenter.or.kr/
-policy_url = http://ca.gridcenter.or.kr/cps/KISTI-CA-CPCPS-3.0.pdf
-version = 1.99
-sha1fp.0 = 06:52:34:EE:81:0A:E5:9C:43:68:54:84:8C:8A:D4:DF:0D:75:A7:45
-subjectdn = "/C=KR/O=KISTI/CN=KISTI Certification Authority"

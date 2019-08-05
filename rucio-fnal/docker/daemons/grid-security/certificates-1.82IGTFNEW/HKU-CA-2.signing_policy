@@ -1,5 +1,0 @@
-#
-#
-access_id_CA      X509         '/DC=HK/DC=HKU/DC=GRID/CN=HKU Grid CA 2'
-pos_rights        globus        CA:sign
-cond_subjects     globus       '"/DC=HK/DC=HKU/DC=GRID/*"'

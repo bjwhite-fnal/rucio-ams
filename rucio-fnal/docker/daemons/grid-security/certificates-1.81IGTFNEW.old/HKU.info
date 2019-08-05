@@ -1,8 +1,0 @@
-alias = HKU
-crl_url = http://ca.grid.hku.hk/crl/cacrl.pem
-email = gridca@hku.hk
-status = accredited:classic
-url = http://ca.grid.hku.hk/
-version = 1.98
-sha1fp.0 = 1B:C4:B5:FB:88:0B:D6:13:BB:70:E8:F0:1D:59:EA:F0:5A:48:9B:96
-subjectdn = "/DC=HK/DC=HKU/DC=GRID/CN=HKU Grid CA"

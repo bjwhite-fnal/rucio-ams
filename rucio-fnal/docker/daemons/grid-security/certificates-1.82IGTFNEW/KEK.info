@@ -1,8 +1,0 @@
-alias = KEK
-crl_url = http://gridca.kek.jp/repository/617ff41b.r0
-email = kekgridca-contact@ml.post.kek.jp
-status = accredited:classic
-url = https://gridca.kek.jp/
-version = 1.99
-sha1fp.0 = 7F:F3:8B:69:A2:9A:1F:F2:EA:FF:99:7F:EB:40:9B:B7:DD:47:5A:1D
-subjectdn = "/C=JP/O=KEK/OU=CRC/CN=KEK GRID Certificate Authority"

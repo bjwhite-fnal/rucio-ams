@@ -1,3 +1,0 @@
-access_id_CA   X509    '/C=GB/ST=Greater Manchester/L=Salford/O=COMODO CA Limited/CN=COMODO RSA Certification Authority'
-pos_rights     globus  CA:sign
-cond_subjects  globus  '"/C=US/O=Internet2/OU=InCommon/CN=InCommon IGTF Server CA"'
