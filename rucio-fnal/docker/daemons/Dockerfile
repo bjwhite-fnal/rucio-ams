@@ -14,7 +14,7 @@ RUN yum install -y less cronie fts-client voms-clients gfal2-python gfal-all
 RUN systemctl enable crond.service
 
 RUN rpm -i https://repo.opensciencegrid.org/osg/3.4/osg-3.4-el7-release-latest.rpm
-RUN yum install -y osg-ca-certs fetch-crl cronnie
+RUN yum install -y osg-ca-certs fetch-crl
 
 ADD crontab /etc
 ADD vomses /etc

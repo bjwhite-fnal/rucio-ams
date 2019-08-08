@@ -79,11 +79,8 @@ undertaker:
   threads: 1
 
 reaper:
-  greedy: 1 
-  scheme: ""
-  workers: 1
-  threadsPerWorker: 4
-  includeRses: ""
+  scheme: "gsiftp"
+  threads: 1
 
 ftsRenewal:
   enabled: 0

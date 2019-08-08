@@ -15,7 +15,8 @@ RUN yum install -y mod_ssl
 RUN yum install -y gridsite
 
 RUN rpm -i https://repo.opensciencegrid.org/osg/3.4/osg-3.4-el7-release-latest.rpm
-RUN yum install -y osg-ca-certs fetch-crl cronnie
+RUN yum install -y osg-ca-certs fetch-crl cronie
+RUN systemctl enable crond.service
 
 RUN mv /etc/httpd/conf.d/zgridsite.conf /etc/httpd/conf.d/zgridsite.conf-hide
 
@@ -25,4 +26,4 @@ ADD rucio.conf.j2 /tmp/
 ADD gacl /opt/rucio/etc
 ADD start-server.sh /
 
-ENTRYPOINT ['start-server.sh']
+ENTRYPOINT ["/start-server.sh"]
