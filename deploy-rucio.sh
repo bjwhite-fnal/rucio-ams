@@ -37,6 +37,8 @@ $FNAL_RUCIO_DIR/rucio-fnal/helm/create_cert_secrets.sh
 echo "Generating configuration files..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/gen-daemons.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/gen-server.sh
+echo "Creating cache service..."
+$FNAL_RUCIO_DIR/rucio-fnal/helm/create-cache.sh
 echo "Creating servers..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/create-server.sh
 echo "Creating daemons..."

@@ -1,0 +1,16 @@
+# Default values for rucio.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+serviceAccountName: useroot
+experiment: dune
+
+cacheServerCount: 1
+
+service:
+  type
+
+image:
+  repository: bjwhitefnal/fnal-rucio-cache
+  tag: latest
+  pullPolicy: Always
