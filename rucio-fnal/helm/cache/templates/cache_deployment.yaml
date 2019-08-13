@@ -1,9 +1,9 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-cache
+  name: {{ .Release.Name }}
   labels:
-    app: {{ template "rucio.name" . }}-cache
+    app: {{ template "rucio.name" . }}
     chart: {{ template "rucio.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
