@@ -1,9 +1,9 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ .Release.Name }}-cache
   labels:
-    app: {{ template "rucio.name" . }}
+    app: {{ template "rucio.name" . }}-cache
     chart: {{ template "rucio.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -11,12 +11,12 @@ spec:
   replicas: {{ .Values.cacheServerCount }}
   selector:
     matchLabels:
-      app: {{ template "rucio.name" . }}
+      app: {{ template "rucio.name" . }}-cache
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ template "rucio.name" . }}
+        app: {{ template "rucio.name" . }}-cache
         release: {{ .Release.Name }}
     spec:
     {{- if .Values.serviceAccountName }}

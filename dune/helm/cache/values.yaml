@@ -8,7 +8,8 @@ experiment: dune
 cacheServerCount: 1
 
 service:
-  type
+  port: 11211
+  targetPort: 11211
 
 image:
   repository: bjwhitefnal/fnal-rucio-cache
