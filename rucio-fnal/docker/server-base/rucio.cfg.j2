@@ -20,6 +20,9 @@ pool_recycle = {{ RUCIO_CFG_DATABASE_POOL_RECYCLE | default('600') }}
 {% if RUCIO_CFG_DATABASE_POWUSERACCOUNT is defined %}powuseraccount = {{ RUCIO_CFG_DATABASE_POWUSERACCOUNT }}{% endif %}
 {% if RUCIO_CFG_DATABASE_POWUSERPASSWORD is defined %}powuserpassword = {{ RUCIO_CFG_DATABASE_POWUSERPASSWORD }}{% endif %}
 
+[cache]
+{% if RUCIO_CACHE_SERVICE_HOST is defined %}url = {{ RUCIO_CACHE_SERVICE_HOST }}:{{ RUCIO_CACHE_SERVICE_PORT }}{% endif %}
+
 [monitor]
 carbon_server = {{ RUCIO_CFG_MONITOR_CARBON_SERVER | default('localhost') }}
 carbon_port = {{ RUCIO_CFG_MONITOR_CARBON_PORT | default('8125') }}

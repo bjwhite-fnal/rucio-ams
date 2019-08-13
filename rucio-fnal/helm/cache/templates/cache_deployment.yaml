@@ -11,12 +11,12 @@ spec:
   replicas: {{ .Values.cacheServerCount }}
   selector:
     matchLabels:
-      app: {{ template "rucio.name" . }}-cache
+      app: {{ template "rucio.name" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ template "rucio.name" . }}-cache
+        app: {{ template "rucio.name" . }}
         release: {{ .Release.Name }}
     spec:
     {{- if .Values.serviceAccountName }}
