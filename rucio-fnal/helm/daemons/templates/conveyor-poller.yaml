@@ -63,7 +63,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "conveyor-poller"
             - name: RUCIO_DAEMON_ARGS
-              value: "--total-threads {{ .Values.conveyorPoller.threads }}"
+              value: "--total-threads {{ .Values.conveyorPoller.threads }} --activities {{ .Values.conveyorPoller.activities }}"
             - name: DELEGATE_FTS_PROXY
               value: "true"
             - name: RUCIO_CFG_MONITOR_CARBON_SERVER

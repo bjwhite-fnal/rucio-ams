@@ -49,9 +49,11 @@ conveyorTransferSubmitter:
 
 conveyorPoller:
   threads: 1
+  activities: "'User Subscriptions'"
 
 conveyorFinisher:
   threads: 1
+  activities: "'User Subscriptions'"
 
 hermes:
   threads: 1

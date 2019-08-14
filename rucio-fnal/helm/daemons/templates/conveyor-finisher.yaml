@@ -63,7 +63,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "conveyor-finisher"
             - name: RUCIO_DAEMON_ARGS
-              value: "--total-threads {{ .Values.conveyorFinisher.threads }}"
+              value: "--total-threads {{ .Values.conveyorFinisher.threads }} --activities {{ .Values.conveyorFinisher.activities }}"
             - name: DELEGATE_FTS_PROXY
               value: "true"
             - name: RUCIO_CFG_MONITOR_CARBON_SERVER
