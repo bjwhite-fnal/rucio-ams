@@ -7,4 +7,4 @@ else
     echo "********************* Building Docker images from scratch (--no-cache) *********************"
     
 fi
-    ./build-daemons-base.sh && ./build-daemons.sh && ./build-server-base.sh && ./build-server.sh && ./build-cache.sh
+    ./build-daemons-base.sh && ./build-daemons.sh && ./build-server-base.sh && ./build-server.sh && ./build-cache.sh && ./build-messenger.sh
