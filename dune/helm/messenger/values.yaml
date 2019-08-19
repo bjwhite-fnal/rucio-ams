@@ -5,7 +5,7 @@
 serviceAccountName: useroot
 experiment: dune
 
-messengerCount: 1
+messengerServerCount: 1
 
 service:
   port: 63613 

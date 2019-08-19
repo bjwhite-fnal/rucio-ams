@@ -1,7 +1,7 @@
-name: rucio-cache
+name: rucio-messenger
 version: 0.3.0
 apiVersion: v1
-description: A Helm chart to deploy a caching system for Rucio
+description: A Helm chart to deploy a message broker for Rucio
 keywords:
   - data-management
   - science
