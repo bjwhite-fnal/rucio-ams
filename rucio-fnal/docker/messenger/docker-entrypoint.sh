@@ -14,10 +14,10 @@ cat << EOF > /etc/rabbitmq/rabbitmq.conf
 
 loopback_users.guest = false
 listeners.ssl.default = 5671
-ssl_options.cacertfile = /etc/rabbitmq/ssl/cacerts.pem
-ssl_options.certfile = /etc/rabbitmq/ssl/cert.pem
+ssl_options.cacertfile = /etc/rabbitmq/ssl/ca.pem
+ssl_options.certfile = /etc/rabbitmq/ssl/hostcert.pem
 ssl_options.fail_if_no_peer_cert = true
-ssl_options.keyfile = /etc/rabbitmq/ssl/key.pem
+ssl_options.keyfile = /etc/rabbitmq/ssl/hostkey.pem
 ssl_options.verify = verify_peer
 ssl_options.depth  = 5
 

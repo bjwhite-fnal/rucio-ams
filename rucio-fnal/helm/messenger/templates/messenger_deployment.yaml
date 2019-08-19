@@ -13,6 +13,7 @@ spec:
     matchLabels:
       app: {{ template "rucio.name" . }}
       release: {{ .Release.Name }}
+  minReadySeconds: {{ .Values.minReadySeconds }}
   template:
     metadata:
       labels:
@@ -22,7 +23,15 @@ spec:
     {{- if .Values.serviceAccountName }}
       serviceAccountName: {{ .Values.serviceAccountName }}
     {{- end }}
+      volumes:
+        - name: ssl-credentials
+          secret:
+            secretName: ssl-secrets
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: ssl-credentials
+              mountPath: /etc/rabbitmq/ssl
+              readOnly: true
