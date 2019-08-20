@@ -1,3 +1,4 @@
+{{- if gt .Values.messengerServerCount 0.0 -}}
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
@@ -35,3 +36,7 @@ spec:
             - name: ssl-credentials
               mountPath: /etc/rabbitmq/ssl
               readOnly: true
+          env:
+            - name: EXPERIMENT
+              value: "{{ .Values.experiment }}"
+{{ end }}

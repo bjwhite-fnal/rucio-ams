@@ -56,9 +56,18 @@ conveyorFinisher:
   activities: "'User Subscriptions'"
 
 hermes:
+  username: ____
+  password: ____
   threads: 1
   bulk: 100
   delay: 10
+  port: 61614
+  nonssl_port: 61613
+  use_ssl: True
+  destination: /topic/rucio.events.dune
+  voname: dune
+  email_from: Dune Rucio <bjwhite@fnal.gov>
+  email_test: bjwhite@fnal.gov
 
 judgeCleaner:
   threads: 1
@@ -71,11 +80,6 @@ judgeInjector:
 
 judgeRepairer:
   threads: 1
-
-hermes:
-  threads: 1
-  bulk: 1000
-  delay: 10
 
 undertaker:
   threads: 1

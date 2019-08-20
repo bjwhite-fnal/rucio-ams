@@ -32,26 +32,17 @@ spec:
     {{- if .Values.serviceAccountName }}
       serviceAccountName: {{ .Values.serviceAccountName }}
     {{- end }}
-{{ if .Values.hermes.useSSL }}
       volumes:
-        - name: usercert
-          secret:
-            secretName: host-cert
-        - name: userkey
-          secret:
-            secretName: host-key
-{{ end }}
+      - name: ssl-credentials 
+      secret:
+          secretName: ssl-secrets 
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-{{ if .Values.hermes.useSSL }}
           volumeMounts:
-            - name: usercert
-              mountPath: /opt/rucio/certs/
-            - name: userkey
-              mountPath: /opt/rucio/keys/
-{{ end }}
+            - name: ssl-credentials 
+              mountPath: /etc/grid-security/hostcert.pem
           env:
             {{- range $key1, $val1 := .Values.config }}
             {{- range $key2, $val2 := $val1}}
@@ -76,4 +67,40 @@ spec:
               value: "{{ .Values.monitor.user_scope }}"
             - name: RUCIO_CFG_DATABASE_ECHO
               value: "{{ .Values.logging.log_level }}"
+            {{ if .Values.hermes.username }}
+            - name: RUCIO_CFG_MESSAGING_HERMES_USERNAME
+              value: "{{ .Values.hermes.username }}" 
+            {{ end }}
+            {{ if .Values.hermes.password }}
+            - name: RUCIO_CFG_MESSAGING_HERMES_PASSWORD 
+              value: "{{ .Values.hermes.password }}"
+            {{ end }}
+            {{ if .Values.hermes.port }}
+            - name: RUCIO_CFG_MESSAGING_HERMES_PORT 
+              value: "{{ .Values.hermes.port }}"
+            {{ end }}
+            {{ if .Values.hermes.nonssl_port }}
+            - name: RUCIO_CFG_MESSAGING_HERMES_NONSSL_PORT 
+              value: "{{ .Values.hermes.nonssl_port }}"
+            {{ end }}
+            {{ if .Values.hermes.use_ssl }}
+            - name: RUCIO_CFG_MESSAGING_HERMES_USE_SSL 
+              value: "{{ .Values.hermes.use_ssl }}"
+            {{ end }}
+            {{ if .Values.hermes.destination }}
+            - name: RUCIO_CFG_MESSAGING_HERMES_DESTINATION 
+              value: "{{ .Values.hermes.destination }}"  
+            {{ end }}
+            {{ if .Values.hermes.voname }}
+            - name: RUCIO_CFG_MESSAGING_HERMES_VONAME 
+              value: "{{ .Values.hermes.voname }}"
+            {{ end }}
+            {{ if .Values.hermes.email_from }}
+            - name: RUCIO_CFG_MESSAGING_HERMES_EMAIL_FROM 
+              value: "{{ .Values.hermes.email_from }}"  
+            {{ end }}
+            {{ if .Values.hermes.email_test }}
+            - name: RUCIO_CFG_MESSAGING_HERMES_EMAIL_TEST
+              value: "{{ .Values.hermes.email_test }}"  
+            {{ end }}
 {{ end }}
