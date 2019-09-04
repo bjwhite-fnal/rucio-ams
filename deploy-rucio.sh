@@ -37,6 +37,7 @@ $FNAL_RUCIO_DIR/rucio-fnal/helm/create_cert_secrets.sh
 echo "Generating configuration files..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/gen-daemons.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/gen-server.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/gen-osg-authentication.sh
 echo "Creating cache service..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/create-cache.sh
 echo "Creating messenger service..."
@@ -45,4 +46,6 @@ echo "Creating servers..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/create-server.sh
 echo "Creating daemons..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/create-daemons.sh
+echo "Creating OSG authentication service..."
+$FNAL_RUCIO_DIR/rucio-fnal/helm/create-osg-authentication.sh
 echo "**************** Openshift application rucio-$EXPERIMENT deployment successful ****************" 

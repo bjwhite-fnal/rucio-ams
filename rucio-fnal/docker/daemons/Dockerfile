@@ -10,11 +10,7 @@
 
 FROM rucio-daemons-base
 
-RUN yum install -y less cronie fts-client voms-clients gfal2-python gfal-all
-RUN systemctl enable crond.service
-
-RUN rpm -i https://repo.opensciencegrid.org/osg/3.4/osg-3.4-el7-release-latest.rpm
-RUN yum install -y osg-ca-certs fetch-crl
+RUN yum install -y less fts-client voms-clients gfal2-python gfal-all
 
 ADD crontab /etc
 ADD vomses /etc
@@ -22,8 +18,6 @@ ADD delegate_fts_proxy.sh /
 ADD start-daemon.sh /
 
 CMD chmod +x /delegate_fts_proxy.sh
-
-RUN echo "32 */6 * * * root ! /usr/sbin/fetch-crl -q -r 360" > /etc/cron.d/fetch-crl-docker
 
 ENTRYPOINT ["/start-daemon.sh"]
 

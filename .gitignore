@@ -5,3 +5,4 @@ daemons.yaml
 server.yaml
 cache.yaml
 messenger.yaml
+osg_authentication.yaml
