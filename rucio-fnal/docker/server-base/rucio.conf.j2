@@ -50,7 +50,7 @@ CacheRoot /tmp
  SSLCACertificatePath {{ RUCIO_CA_PATH }}
  SSLCARevocationPath {{ RUCIO_CA_PATH }}
 {% else %}
- SSLCACertificateFile /etc/grid-security/ca.pem
+ SSLCACertificateFile /etc/grid-security/certificates
 {% endif %}
  SSLVerifyClient optional_no_ca
  SSLVerifyDepth 10

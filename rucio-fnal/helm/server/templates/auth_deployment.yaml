@@ -35,9 +35,12 @@ spec:
       - name: aliases
         configMap:
           name: {{ template "rucio.fullname" . }}-auth-aliases
-      - name: ssl-credentials 
+      - name: ssl-secrets
         secret:
-          secretName: ssl-secrets
+            secretName: ssl-secrets 
+      - name: osg-authentication-volume
+        persistentVolumeClaim:
+          claimName: pvc-osg-authentication
       containers:
         - name: {{ .Chart.Name }}-auth
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -50,9 +53,11 @@ spec:
             - name: aliases
               mountPath: /opt/rucio/etc/aliases.conf
               subPath: aliases.conf
-            - name: ssl-credentials
-              mountPath: /etc/grid-security
-              readOnly: true
+            - name: ssl-secrets
+              mountPath: /etc/grid-security 
+              readOnly: true 
+            - name: osg-authentication-volume
+              mountPath: /etc/grid-security/certificates
           env:
             {{- range $key1, $val1 := .Values.config }}
             {{- range $key2, $val2 := $val1}}

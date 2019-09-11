@@ -33,16 +33,21 @@ spec:
       serviceAccountName: {{ .Values.serviceAccountName }}
     {{- end }}
       volumes:
-      - name: ssl-credentials 
-      secret:
+      - name: ssl-secrets 
+        secret:
           secretName: ssl-secrets 
+      - name: osg-authentication-volume
+        persistentVolumeClaim:
+          claimName: pvc-osg-authentication
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-            - name: ssl-credentials 
-              mountPath: /etc/grid-security/hostcert.pem
+            - name: ssl-secrets
+              mountPath: /etc/grid-security
+            - name: osg-authentication-volume
+              mountPath: /etc/grid-security/certificates
           env:
             {{- range $key1, $val1 := .Values.config }}
             {{- range $key2, $val2 := $val1}}

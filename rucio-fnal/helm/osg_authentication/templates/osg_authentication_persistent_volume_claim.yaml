@@ -1,0 +1,14 @@
+# Create a persistent volume claim to make accessible
+# the storage that OSG CA certs live in
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-osg-authentication 
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Mi 
+  #storageClassName: glusterfs-storage 
