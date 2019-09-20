@@ -12,20 +12,3 @@ spec:
   to:
     kind: Service
     name: rucio-{{ .Values.experiment }}-{{ .Values.route.serviceName }}
-
----
-
-apiVersion: v1
-kind: Route
-metadata:
-  name: {{ .Values.authRoute.serviceName  }}-route
-  labels:
-    app: {{ .Values.authRoute.app }} 
-    chart: {{ template "rucio.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-spec:
-  host: {{ .Values.authRoute.host }} 
-  to:
-    kind: Service
-    name: rucio-{{ .Values.experiment }}-{{ .Values.authRoute.serviceName }}

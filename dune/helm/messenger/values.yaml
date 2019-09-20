@@ -8,8 +8,10 @@ experiment: dune
 messengerServerCount: 1
 
 service:
-  port: 63613 
-  targetPort: 63613
+  ssl_port: 63614
+  ssl_targetPort: 63614
+  non_ssl_port: 63613 
+  non_ssl_targetPort: 63613
 
 image:
   repository: bjwhitefnal/fnal-rucio-messenger
