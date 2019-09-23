@@ -19,10 +19,6 @@ spec:
       targetPort: {{ .Values.service.ssl_targetPort }}
       protocol: TCP
       name: https
-    - port: {{ .Values.service.non_ssl_port }}
-      targetPort: {{ .Values.service.non_ssl_targetPort }}
-      protocol: TCP
-      name: http
   selector:
     app: {{ template "rucio.name" . }}
     release: {{ .Release.Name }}
