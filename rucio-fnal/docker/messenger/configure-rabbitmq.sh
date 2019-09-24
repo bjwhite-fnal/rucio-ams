@@ -4,8 +4,8 @@ set -x
 
 cat << EOF > /etc/rabbitmq/rabbitmq.conf
 
+log.console.level = debug
 loopback_users.guest = false
-#listeners.ssl.default = 5671
 ssl_options.cacertfile = /etc/rabbitmq/ssl/ca.pem
 ssl_options.certfile = /etc/rabbitmq/ssl/hostcert.pem
 ssl_options.fail_if_no_peer_cert = true
@@ -30,6 +30,7 @@ ssl_options.ciphers.4 = ECDHE-RSA-AES128-GCM-SHA256
 
 hipe_compile = false
 
+listeners.tcp = none
 stomp.listeners.tcp = none
 stomp.listeners.ssl.1 = 0.0.0.0:$RUCIO_MESSENGER_SERVICE_PORT_HTTPS
 
