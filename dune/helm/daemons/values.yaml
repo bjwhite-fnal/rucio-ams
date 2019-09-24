@@ -62,7 +62,6 @@ hermes:
   bulk: 100
   delay: 10
   port: 61614
-  nonssl_port: 61613
   use_ssl: True
   destination: /topic/rucio.events.dune
   voname: dune

@@ -84,10 +84,6 @@ spec:
             - name: RUCIO_CFG_MESSAGING_HERMES_PORT 
               value: "{{ .Values.hermes.port }}"
             {{ end }}
-            {{ if .Values.hermes.nonssl_port }}
-            - name: RUCIO_CFG_MESSAGING_HERMES_NONSSL_PORT 
-              value: "{{ .Values.hermes.nonssl_port }}"
-            {{ end }}
             {{ if .Values.hermes.use_ssl }}
             - name: RUCIO_CFG_MESSAGING_HERMES_USE_SSL 
               value: "{{ .Values.hermes.use_ssl }}"
