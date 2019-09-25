@@ -58,10 +58,10 @@ conveyorFinisher:
 hermes:
   username: ____
   password: ____
-  threads: 1
+  threads: 2 
   bulk: 100
   delay: 10
-  port: 61614
+  port: 63614
   use_ssl: True
   destination: /topic/rucio.events.dune
   voname: dune

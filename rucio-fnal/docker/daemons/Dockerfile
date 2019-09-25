@@ -16,8 +16,6 @@ ADD crontab /etc
 ADD vomses /etc
 ADD delegate_fts_proxy.sh /
 ADD start-daemon.sh /
-ADD transport.py /usr/lib/python2.7/site-packages/stomp
-
 CMD chmod +x /delegate_fts_proxy.sh
 
 ENTRYPOINT ["/start-daemon.sh"]
