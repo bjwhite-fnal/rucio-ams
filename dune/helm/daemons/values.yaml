@@ -102,7 +102,7 @@ monitor:
   user_scope: "rucio.dune_okd_dev"
 
 logging:
-    log_level: 1
+    log_level: 0 
 
 ## common config values used to configure the Rucio daemons
 config:
