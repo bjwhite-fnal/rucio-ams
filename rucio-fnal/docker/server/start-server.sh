@@ -23,6 +23,4 @@ echo "=================== /opt/rucio/etc/alembic.ini ========================"
 cat /opt/rucio/etc/alembic.ini
 echo ""
 
-/usr/sbin/fetch-crl & 
-/usr/sbin/crond
 httpd -D FOREGROUND
