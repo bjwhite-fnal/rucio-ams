@@ -108,7 +108,7 @@ build-messenger-nc:
 	$(build-messenger-nc-cmd)	
 
 define push-server-cmd =
-	docker tag rucio-cache bjwhitefnal/fnal-rucio-cache
+	docker tag rucio-server bjwhitefnal/fnal-rucio-server
 	docker push bjwhitefnal/fnal-rucio-cache
 endef
 
