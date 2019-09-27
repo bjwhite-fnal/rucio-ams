@@ -109,7 +109,7 @@ build-messenger-nc:
 
 define push-server-cmd =
 	docker tag rucio-server bjwhitefnal/fnal-rucio-server
-	docker push bjwhitefnal/fnal-rucio-cache
+	docker push bjwhitefnal/fnal-rucio-server
 endef
 
 define push-daemons-cmd =
