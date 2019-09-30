@@ -33,9 +33,15 @@ spec:
       serviceAccountName: {{ .Values.serviceAccountName }}
     {{- end }}
       volumes:
-      - name: ssl-secrets 
+      - name: host-cert
         secret:
-          secretName: ssl-secrets 
+          secretName: host-cert
+      - name: host-key
+        secret:
+          secretName: host-key
+      - name: ca-bundle
+        secret:
+          secretName: ca-bundle
       - name: osg-authentication-volume
         persistentVolumeClaim:
           claimName: pvc-osg-authentication
@@ -44,8 +50,15 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-            - name: ssl-secrets
-              mountPath: /etc/grid-security
+            - name: host-cert
+              mountPath: /etc/grid-security/hostcert.pem
+              readOnly: true
+            - name: host-key
+              mountPath: /etc/grid-security/hostkey.pem
+              readOnly: true
+            - name: ca-bundle
+              mountPath: /etc/grid-security/ca.pem
+              readOnly: true
             - name: osg-authentication-volume
               mountPath: /etc/grid-security/certificates
           env:
