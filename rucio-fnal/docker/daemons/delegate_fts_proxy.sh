@@ -8,10 +8,6 @@ log="/var/log/rucio/delegate.log"
 service="https://fts3-public.cern.ch:8446"
 secrets_dir="/opt/rucio/fts_secrets"
 
-if [ ! -d $secrets_dir ]; then
-	exit 0				# no need to do this ?
-fi
-
 if [[ -z $EXPERIMENT ]]; then
     echo "Please ensure that you have EXPERIMENT set to the name of your experiment."
     exit -1
@@ -23,16 +19,16 @@ fi
 	echo $0 started at `date` 
 
 	cd /tmp
-	cp ${secrets_dir}/fts_usercert.pem ${secrets_dir}/fts_userkey.pem .
-	chmod go-rwx fts_usercert.pem fts_userkey.pem
+	cp /etc/grid-security/hostcert.pem/hostcert.pem /etc/grid-security/hostkey.pem/hostkey.pem .
+	chmod go-rwx hostcert.pem hostkey.pem
 	
 	echo ----voms-proxy-init----
 
 	voms-proxy-init \
 		-rfc \
 		-voms $EXPERIMENT:/$EXPERIMENT/Role=Production \
-		-cert fts_usercert.pem \
-		-key fts_userkey.pem \
+		-cert hostcert.pem \
+		-key hostkey.pem \
 		-out fts_proxy.pem
 
 	# the web server needs to be able to read this too.
