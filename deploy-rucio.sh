@@ -46,8 +46,8 @@ echo "Creating cache service..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/create-cache.sh
 echo "Creating messenger service..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/create-messenger.sh
-echo "Creating servers..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/create-server.sh
 echo "Creating daemons..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/create-daemons.sh
+echo "Creating servers..."
+$FNAL_RUCIO_DIR/rucio-fnal/helm/create-server.sh
 echo "**************** Openshift application rucio-$EXPERIMENT deployment successful ****************" 
