@@ -44,13 +44,13 @@ CacheRoot /tmp
 {% endif %}
 {% if RUCIO_ENABLE_SSL|default('False') == 'True' %}
  SSLEngine on
- SSLCertificateFile /etc/grid-security/hostcert.pem
- SSLCertificateKeyFile /etc/grid-security/hostkey.pem
+ SSLCertificateFile /etc/grid-security/hostcert.pem/hostcert.pem
+ SSLCertificateKeyFile /etc/grid-security/hostkey.pem/hostkey.pem
 {% if RUCIO_CA_PATH is defined %}
- SSLCACertificatePath {{ RUCIO_CA_PATH }}
- SSLCARevocationPath {{ RUCIO_CA_PATH }}
+ SSLCACertificatePath /etc/grid-security/certificates
+ SSLCARevocationPath /etc/grid-security/certificates
 {% else %}
- SSLCACertificateFile /etc/grid-security/certificates
+ SSLCACertificateFile /etc/grid-security/ca.pem
 {% endif %}
  SSLVerifyClient optional_no_ca
  SSLVerifyDepth 10

@@ -35,9 +35,12 @@ spec:
       - name: aliases
         configMap:
           name: {{ template "rucio.fullname" . }}-auth-aliases
-      - name: ssl-secrets
+      - name: host-cert
         secret:
-            secretName: ssl-secrets 
+          secretName: host-cert
+      - name: host-key
+        secret:
+          secretName: host-key
       - name: osg-authentication-volume
         persistentVolumeClaim:
           claimName: pvc-osg-authentication
@@ -53,8 +56,11 @@ spec:
             - name: aliases
               mountPath: /opt/rucio/etc/aliases.conf
               subPath: aliases.conf
-            - name: ssl-secrets
-              mountPath: /etc/grid-security 
+            - name: host-cert
+              mountPath: /etc/grid-security/hostcert.pem
+              readOnly: true
+            - name: host-key
+              mountPath: /etc/grid-security/hostkey.pem
               readOnly: true 
             - name: osg-authentication-volume
               mountPath: /etc/grid-security/certificates
@@ -86,6 +92,8 @@ spec:
               value: "{{ .Values.monitor.user_scope }}"
             - name: RUCIO_CFG_DATABASE_ECHO
               value: "{{ .Values.logging.log_level }}"
+            - name: RUCIO_CA_PATH
+              value: "{{ .Values.httpd_config.use_ca_path }}"
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}

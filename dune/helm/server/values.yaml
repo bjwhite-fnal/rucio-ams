@@ -111,6 +111,7 @@ authIngress:
 
 ## values used to configure apache
 httpd_config:
+  use_ca_path: "1"
   # mpm_mode: "worker"
   # start_servers: "1"
   # min_spare_threads: "1"
