@@ -42,6 +42,9 @@ spec:
       - name: ca-bundle 
         secret:
           secretName: ca-bundle 
+      - name: osg-authentication-volume
+        persistentVolumeClaim:
+          claimName: pvc-osg-authentication
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -53,7 +56,8 @@ spec:
               mountPath: /etc/grid-security/hostkey.pem
             - name: ca-bundle 
               mountPath: /etc/grid-security/ca.pem
-
+            - name: osg-authentication-volume
+              mountPath: /etc/grid-security/certificates
           env:
             {{- range $key1, $val1 := .Values.config }}
             {{- range $key2, $val2 := $val1}}
