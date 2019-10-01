@@ -79,7 +79,7 @@ spec:
             - name: RUCIO_HOME
               value: "/opt/rucio/reaper"
             - name: X509_USER_PROXY
-              value: "/opt/proxy/x509up"
+              value: "/tmp/fts_proxy.pem"
             - name: DELEGATE_FTS_PROXY
               value: "true"
             - name: RUCIO_CFG_MONITOR_CARBON_SERVER
