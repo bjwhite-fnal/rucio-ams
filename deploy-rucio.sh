@@ -42,6 +42,7 @@ $FNAL_RUCIO_DIR/rucio-fnal/helm/gen-messenger.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/gen-osg-authentication.sh
 echo "Creating OSG authentication service..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/create-osg-authentication.sh
+sleep 60
 echo "Creating cache service..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/create-cache.sh
 echo "Creating messenger service..."
