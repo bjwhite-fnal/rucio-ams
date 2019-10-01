@@ -110,9 +110,11 @@ config:
   conveyor:
     # scheme: "srm,gsiftp,root,http,https"
     # transfertool: "fts3"
+    max_time_in_queue:
+      User Subscriptions: 10 
     ftshosts: "https://fts3-public.cern.ch:8446"
     cacert: "/etc/grid-security/ca.pem"
-    usercert: "/etc/grid-security/hostcert.pem"
+    usercert: "/tmp/fts_proxy.pem"
     # cache_time: ""
     # user_deterministic_id: ""
     # poll_timeout: ""

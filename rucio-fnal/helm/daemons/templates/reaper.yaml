@@ -33,15 +33,30 @@ spec:
       serviceAccountName: {{ .Values.serviceAccountName }}
     {{- end }}
       volumes:
-      - name: ca-volume
+      - name: host-cert
         secret:
-          secretName: ca-bundle
+          secretName: host-cert
+      - name: host-key
+        secret:
+          secretName: host-key
+      - name: ca-bundle 
+        secret:
+          secretName: ca-bundle 
+      - name: osg-authentication-volume
+        persistentVolumeClaim:
+          claimName: pvc-osg-authentication
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-            - name: ca-volume
+            - name: host-cert
+              mountPath: /etc/grid-security/hostcert.pem
+            - name: host-key
+              mountPath: /etc/grid-security/hostkey.pem
+            - name: ca-bundle 
+              mountPath: /etc/grid-security/ca.pem
+            - name: osg-authentication-volume
               mountPath: /etc/grid-security/certificates
           env:
             {{- range $key1, $val1 := .Values.config }}
@@ -65,6 +80,8 @@ spec:
               value: "/opt/rucio/reaper"
             - name: X509_USER_PROXY
               value: "/opt/proxy/x509up"
+            - name: DELEGATE_FTS_PROXY
+              value: "true"
             - name: RUCIO_CFG_MONITOR_CARBON_SERVER
               value: "{{ .Values.monitor.carbon_server }}"
             - name: RUCIO_CFG_MONITOR_CARBON_PORT
