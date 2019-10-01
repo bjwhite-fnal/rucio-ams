@@ -40,6 +40,7 @@ $FNAL_RUCIO_DIR/rucio-fnal/helm/gen-server.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/gen-cache.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/gen-messenger.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/gen-osg-authentication.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/gen-webui.sh
 echo "Creating OSG authentication service..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/create-osg-authentication.sh
 sleep 60
@@ -51,4 +52,6 @@ echo "Creating daemons..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/create-daemons.sh
 echo "Creating servers..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/create-server.sh
+echo "Creating web UI..."
+$FNAL_RUCIO_DIR/rucio-fnal/helm/create-webui.sh
 echo "**************** Openshift application rucio-$EXPERIMENT deployment successful ****************" 

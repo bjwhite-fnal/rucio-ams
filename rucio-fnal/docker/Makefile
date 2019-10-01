@@ -6,6 +6,7 @@ push-all:
 	$(push-daemons-cmd)
 	$(push-cache-cmd)
 	$(push-messenger-cmd)
+	$(push-webui-cmd)
 
 build-all:
 	$(build-server-base-cmd)
@@ -14,6 +15,7 @@ build-all:
 	$(build-daemons-cmd)
 	$(build-cache-cmd)
 	$(build-messenger-cmd)
+	$(build-webui-cmd)
 
 build-all-nc:
 	$(build-server-base-nc-cmd)
@@ -22,6 +24,15 @@ build-all-nc:
 	$(build-daemons-nc-cmd)
 	$(build-cache-nc-cmd)
 	$(build-messenger-nc-cmd)
+	$(build-webui-nc-cmd)
+
+define build-webui-cmd =
+docker build -t rucio-webui webui
+endef
+
+define build-webui-nc-cmd =
+docker build --no-cache -t rucio-webui webui
+endef
 
 define build-server-base-cmd =
 docker build -t rucio-server-base server-base
@@ -71,6 +82,12 @@ define build-messenger-nc-cmd =
 docker build --no-cache -t rucio-messenger messenger
 endef
 
+build-webui:
+	$(build-webui-cmd)
+
+build-webui-nc:
+	$(build-webui-nc-cmd)
+
 build-server-base:
 	$(build-server-base-cmd)
 
@@ -107,6 +124,11 @@ build-messenger:
 build-messenger-nc:
 	$(build-messenger-nc-cmd)	
 
+define push-webui-cmd =
+	docker tag rucio-webui bjwhitefnal/fnal-rucio-webui
+	docker push bjwhitefnal/fnal-rucio-webui
+endef
+
 define push-server-cmd =
 	docker tag rucio-server bjwhitefnal/fnal-rucio-server
 	docker push bjwhitefnal/fnal-rucio-server
@@ -126,6 +148,9 @@ define push-messenger-cmd =
 	docker tag rucio-messenger bjwhitefnal/fnal-rucio-messenger
 	docker push bjwhitefnal/fnal-rucio-messenger
 endef
+
+push-webui:
+	$(push-webui-cmd)
 
 push-server:
 	$(push-server-cmd)
