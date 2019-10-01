@@ -5,8 +5,6 @@ export TZ=US/Central
 date
 
 log="/var/log/rucio/delegate.log"
-service="https://fts3-public.cern.ch:8446"
-secrets_dir="/opt/rucio/fts_secrets"
 
 if [[ -z $EXPERIMENT ]]; then
     echo "Please ensure that you have EXPERIMENT set to the name of your experiment."
@@ -38,7 +36,7 @@ fi
 	echo ----fts-delegation-init----
 
 	fts-delegation-init -v \
-		-s $service \
+		-s $RUCIO_CFG_CONVEYOR_FTSHOSTS \
 		--proxy fts_proxy.pem
 ) >> $log 2>&1
 
