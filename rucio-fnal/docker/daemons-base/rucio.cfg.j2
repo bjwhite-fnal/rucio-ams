@@ -56,6 +56,7 @@ transfertool = {{ RUCIO_CFG_CONVEYOR_TRANSFERTOOL | default('fts3') }}
 ftshosts = {{ RUCIO_CFG_CONVEYOR_FTSHOSTS | default('https://fts3-pilot.cern.ch:8446, https://fts3-pilot.cern.ch:8446') }}
 cacert = {{ RUCIO_CFG_CONVEYOR_CACERT | default('/opt/rucio/etc/web/ca.crt') }}
 usercert = {{ RUCIO_CFG_CONVEYOR_USERCERT | default('/opt/rucio/tools/x509up') }}
+{% if RUCIO_CFG_CONVEYOR_MAX_TIME_IN_QUEUE is defined %}max_time_in_queue = {{ RUCIO_CFG_CONVEYOR_MAX_TIME_IN_QUEUE }}{% endif %}
 {% if RUCIO_CFG_CONVEYOR_CACHE_TIME is defined %}cache_time = {{ RUCIO_CFG_CONVEYOR_CACHE_TIME }}{% endif %}
 {% if RUCIO_CFG_CONVEYOR_USE_DETERMINISTIC_ID is defined %}use_deterministic_id = {{ RUCIO_CFG_CONVEYOR_USE_DETERMINISTIC_ID }}{% endif %}
 {% if RUCIO_CFG_CONVEYOR_POLL_TIMEOUT is defined %}poll_timeout ={{ RUCIO_CFG_CONVEYOR_POLL_TIMEOUT }}{% endif %}
