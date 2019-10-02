@@ -6,3 +6,4 @@ server.yaml
 cache.yaml
 messenger.yaml
 osg_authentication.yaml
+webui.yaml
