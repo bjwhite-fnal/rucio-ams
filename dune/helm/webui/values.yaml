@@ -1,0 +1,28 @@
+# Rucio Web UI container configuration options
+# This is a YAML-formatted file
+# Declare variables to be passed into your templates.
+
+serviceAccountName: useroot
+
+experiment: dune
+
+image:
+  repository: bjwhitefnal/fnal-rucio-webui
+  tag: latest
+  pullPolicy: Always
+
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 1
+
+minReadySeconds: 5
+
+service:
+  type: ClusterIP
+  port: 8082
+  targetPort: 443
+  externalIP: 131.225.218.128
+  tls:
+    enabled: true
