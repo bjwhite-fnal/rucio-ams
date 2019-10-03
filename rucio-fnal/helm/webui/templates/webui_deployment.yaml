@@ -48,6 +48,10 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: https
+              containerPort: 443
+              protocol: TCP
           volumeMounts:
             - name: host-cert
               mountPath: /etc/grid-security/hostcert.pem

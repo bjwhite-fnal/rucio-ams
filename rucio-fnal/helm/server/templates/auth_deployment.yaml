@@ -49,8 +49,8 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: http
-              containerPort: 80
+            - name: https
+              containerPort: 443 
               protocol: TCP
           volumeMounts:
             - name: aliases
@@ -58,9 +58,11 @@ spec:
               subPath: aliases.conf
             - name: host-cert
               mountPath: /etc/grid-security/hostcert.pem
+              subPath: hostcert.pem
               readOnly: true
             - name: host-key
               mountPath: /etc/grid-security/hostkey.pem
+              subPath: hostkey.pem
               readOnly: true 
             - name: osg-authentication-volume
               mountPath: /etc/grid-security/certificates

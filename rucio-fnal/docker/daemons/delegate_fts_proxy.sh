@@ -17,7 +17,7 @@ fi
 	echo $0 started at `date` 
 
 	cd /tmp
-	cp /etc/grid-security/hostcert.pem/hostcert.pem /etc/grid-security/hostkey.pem/hostkey.pem .
+	cp /etc/grid-security/hostcert.pem /etc/grid-security/hostkey.pem .
 	chmod go-rwx hostcert.pem hostkey.pem
 	
 	echo ----voms-proxy-init----

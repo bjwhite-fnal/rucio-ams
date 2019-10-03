@@ -52,10 +52,16 @@ spec:
           volumeMounts:
             - name: host-cert
               mountPath: /etc/grid-security/hostcert.pem
+              subPath: hostcert.pem
+              readOnly: true
             - name: host-key
               mountPath: /etc/grid-security/hostkey.pem
-            - name: ca-bundle 
+              subPath: hostkey.pem
+              readOnly: true
+            - name: ca-bundle
               mountPath: /etc/grid-security/ca.pem
+              subPath: ca.pem
+              readOnly: true
             - name: osg-authentication-volume
               mountPath: /etc/grid-security/certificates
           env:
