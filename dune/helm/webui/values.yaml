@@ -27,3 +27,11 @@ service:
   targetPort: 443
   tls:
     enabled: true
+
+monitor:
+  carbon_server: "lsdataitb.fnal.gov"
+  carbon_port: 8225
+  user_scope: "rucio.dune_okd_dev"
+
+logging:
+    log_level: 0
