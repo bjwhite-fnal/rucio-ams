@@ -21,8 +21,8 @@ minReadySeconds: 5
 
 service:
   type: ClusterIP
+  externalIP: 131.225.218.128
   port: 8082
   targetPort: 443
-  externalIP: 131.225.218.128
   tls:
     enabled: true
