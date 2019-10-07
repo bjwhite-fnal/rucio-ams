@@ -67,3 +67,6 @@ spec:
               readOnly: true
             - name: osg-authentication-volume
               mountPath: /etc/grid-security/certificates
+          env:
+            - name: EXPERIMENT
+              value: "{{ .Values.experiment }}"
