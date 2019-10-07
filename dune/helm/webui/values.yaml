@@ -5,6 +5,7 @@
 serviceAccountName: useroot
 
 experiment: dune
+rucio_ca_path: /etc/grid-security/certificates
 
 image:
   repository: bjwhitefnal/fnal-rucio-webui
