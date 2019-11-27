@@ -33,25 +33,25 @@ verify_project () {
 echo "**************** Initializing Openshift Application: rucio-$EXPERIMENT ****************"
 verify_project
 echo "Creating application secrets..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/create_cert_secrets.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create_cert_secrets.sh
 echo "Generating configuration files..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/gen-daemons.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/gen-server.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/gen-cache.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/gen-messenger.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/gen-osg-authentication.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/gen-webui.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-daemons.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-server.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-cache.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-messenger.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-osg-authentication.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-webui.sh
 echo "Creating OSG authentication service..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/create-osg-authentication.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-osg-authentication.sh
 sleep 60
 echo "Creating cache service..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/create-cache.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-cache.sh
 echo "Creating messenger service..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/create-messenger.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-messenger.sh
 echo "Creating daemons..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/create-daemons.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-daemons.sh
 echo "Creating servers..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/create-server.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-server.sh
 echo "Creating web UI..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/create-webui.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-webui.sh
 echo "**************** Openshift application rucio-$EXPERIMENT deployment successful ****************" 
