@@ -25,7 +25,7 @@ oc delete services -l "app=rucio-server"
 oc delete services -l "app=rucio-server-auth"
 oc delete services -l "app=rucio-cache"
 oc delete services -l "app=rucio-messenger"
-#oc delete services -l "app=osg-authentication"
+oc delete services -l "app=osg-authentication"
 oc delete services -l "app=rucio-webui"
 oc delete configmaps --all
 oc delete ingress --all
