@@ -35,11 +35,11 @@ docker build --no-cache -t rucio-webui webui
 endef
 
 define build-server-base-cmd =
-docker build -t rucio-server-base server-base
+docker build -t rucio-server-base --build-arg rucio_version=${FNAL_RUCIO_VERSION} server-base
 endef
 
 define build-server-base-nc-cmd =
-docker build --no-cache -t rucio-server-base server-base
+docker build --no-cache -t rucio-server-base --build-arg rucio_version=${FNAL_RUCIO_VERSION} server-base
 endef
 
 define build-server-cmd =
@@ -51,11 +51,11 @@ docker build --no-cache -t rucio-server server
 endef
 
 define build-daemons-base-cmd =
-docker build -t rucio-daemons-base daemons-base
+docker build -t rucio-daemons-base --build-arg rucio_version=${FNAL_RUCIO_VERSION} daemons-base
 endef
 
 define build-daemons-base-nc-cmd =
-docker build --no-cache -t rucio-daemons-base daemons-base
+docker build --no-cache -t rucio-daemons-base --build-arg rucio_version=${FNAL_RUCIO_VERSION} daemons-base
 endef
 
 define build-daemons-cmd =

@@ -13,6 +13,7 @@ In particular please make sure that the following are set by the sourcing of the
     FNAL_EXP_RUCIO_KEY: Key for service authentication.
     FNAL_EXP_RUCIO_CA_BUNDLE: CA certificates for service authentication.
     FNAL_EXP_RUCIO_CERT_KEY_COMBINED: Certificate and key concatenated. Needed for the Web UI.
+    FNAL_RUCIO_VERSION: Use this when building fnal-rucio-* images to select the desired Rucio version for installation into the image. 
 ~~~~
 
 Use deploy-rucio.sh to deploy services onto the OKD cluster after the environment is configured appropriately as described above.
