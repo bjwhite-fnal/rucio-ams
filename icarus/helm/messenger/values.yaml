@@ -8,7 +8,7 @@ experiment: icarus
 messengerServerCount: 1
 
 service:
-  externalIP: 131.225.218.128
+  externalIP: < INSERT INSTANCE EXTERNAL IP HERE>
   ssl_port: 63614
   ssl_targetPort: 63614
 

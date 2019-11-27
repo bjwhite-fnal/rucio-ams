@@ -22,7 +22,7 @@ minReadySeconds: 5
 
 service:
   type: ClusterIP
-  externalIP: 131.225.218.128
+  externalIP: < INSERT INSTANCE EXTERNAL IP HERE>
   port: 8082
   targetPort: 443
   tls:
