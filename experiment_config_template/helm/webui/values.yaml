@@ -1,0 +1,37 @@
+# Rucio Web UI container configuration options
+# This is a YAML-formatted file
+# Declare variables to be passed into your templates.
+
+serviceAccountName: useroot
+
+experiment: REPLACE_ME_EXPERIMENT
+rucio_ca_path: /etc/grid-security/certificates
+
+image:
+  repository: bjwhitefnal/fnal-rucio-webui
+  tag: latest
+  pullPolicy: Always
+
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 1
+
+minReadySeconds: 5
+
+service:
+  type: ClusterIP
+  externalIP: REPLACE_ME_EXT_IP
+  port: 8082
+  targetPort: 443
+  tls:
+    enabled: true
+
+monitor:
+  carbon_server: "lsdataitb.fnal.gov"
+  carbon_port: 8225
+  user_scope: "rucio.REPLACE_ME_EXPERIMENT_okd_dev"
+
+logging:
+    log_level: 0
