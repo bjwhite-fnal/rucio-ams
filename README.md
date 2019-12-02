@@ -24,7 +24,7 @@ The Rucio code may be monkey patched at image build time by placing patch files 
 ## EXAMPLE DIRECTORY STRUCTURE FOR AN EXPERIMENT:
 ~~~~
     dune
-    ├── certs                               < Experiment specific certificate, key, and CA certificate bundle. ( certs/ will not be committed to the repository ) >
+    ├── certs                               < Experiment specific certificate, key, cert/key concatenated, and CA certificate bundle. >
     │   ├── ca_bundle.pem
     │   ├── rucio.fnal.gov_cert.pem
     │   ├── rucio.fnal.gov_combined.pem
@@ -39,7 +39,7 @@ The Rucio code may be monkey patched at image build time by placing patch files 
     │   ├── osg_authentication
     │   │   └── values.yaml
     │   ├── secret
-    │   │   └── config.yaml                 < Secret information such as DB connection string. ( secret/ will not be committed to the repository ) >
+    │   │   └── config.yaml                 < Secret information such as DB connection string. >
     │   ├── server
     │   │   └── values.yaml
     │   └── webui
@@ -47,3 +47,5 @@ The Rucio code may be monkey patched at image build time by placing patch files 
     ├── patches
     └── setup_dune_rucio_env.sh             < Export the needed environment variables for experiment setup >
 ~~~~
+
+Directories named cert/ and secret/ will not be committed to the repository according to the default .gitignore file.
