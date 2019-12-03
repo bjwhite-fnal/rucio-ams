@@ -32,8 +32,10 @@ verify_project () {
 
 echo "**************** Initializing Openshift Application: rucio-$EXPERIMENT ****************"
 verify_project
+
 echo "Creating application secrets..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create_cert_secrets.sh
+
 echo "Generating configuration files..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-daemons.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-server.sh
@@ -41,17 +43,24 @@ $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-cache.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-messenger.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-osg-authentication.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-webui.sh
+
 echo "Creating OSG authentication service..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-osg-authentication.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-osg-authentication.sh > /dev/null
 sleep 60
+
 echo "Creating cache service..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-cache.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-cache.sh > /dev/null
+
 echo "Creating messenger service..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-messenger.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-messenger.sh > /dev/null
+
 echo "Creating daemons..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-daemons.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-daemons.sh > /dev/null
+
 echo "Creating servers..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-server.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-server.sh > /dev/null
+
 echo "Creating web UI..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-webui.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-webui.sh > /dev/null
+
 echo "**************** Openshift application rucio-$EXPERIMENT deployment successful ****************" 
