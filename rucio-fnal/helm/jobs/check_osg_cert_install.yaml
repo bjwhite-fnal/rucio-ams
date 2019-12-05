@@ -1,0 +1,22 @@
+apiVersion: batch/v1 
+kind: Job 
+metadata:
+  name: check-osg-cert-install
+  labels:
+    app: check-osg-cert-install 
+spec:
+  template:
+    spec:
+      volumes:
+      - name: osg-authentication-volume
+        persistentVolumeClaim:
+          claimName: pvc-osg-authentication 
+      containers:
+      - name: check-osg-cert-install 
+        image: "centos"
+        imagePullPolicy: Always
+        command: [ 'sh', '-c', 'while true; do if [ -f /etc/grid-security/certificates/jobs_done ]; then break; fi; sleep 1; done' ]
+        volumeMounts:
+        - name: osg-authentication-volume
+          mountPath: /etc/grid-security/certificates
+      restartPolicy: Never

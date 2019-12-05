@@ -3,6 +3,19 @@
 # Use this to deploy Rucio for an experiment. Create and use an Openshift project named rucio-<experiment name>. Make sure you have the proper configurations setup and
 #   the environment is correct with FNAL_RUCIO_DIR set.
 
+
+wait_for_cert_installation_completion () {
+    # Kick off and wait for  a job that will check for a completion flag for certificate installation
+    echo "Waiting for OSG certificates to install..."
+    oc apply -f $FNAL_RUCIO_DIR/rucio-fnal/helm/jobs/check_osg_cert_install.yaml > /dev/null
+    if kubectl wait --for=condition=complete --timeout 1200s job/check-osg-cert-install > /dev/null; then
+        oc delete jobs/check-osg-cert-install > /dev/null
+    else
+        echo "OSG CA Certificate installation check timed out after 120 seconds."
+        exit -1
+    fi
+}
+
 verify_project () {
     # Verify that the currently active Openshift project appears to be correct for the value in EXPERIMENT and all other required environment variables are set
     if [[ -z $EXPERIMENT ]]; then
@@ -46,7 +59,7 @@ $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-webui.sh
 
 echo "Creating OSG authentication service..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-osg-authentication.sh > /dev/null
-sleep 60
+wait_for_cert_installation_completion
 
 echo "Creating cache service..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-cache.sh > /dev/null
