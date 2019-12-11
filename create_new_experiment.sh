@@ -25,6 +25,10 @@ fi
 experiment=${1,,}
 external_ip=$2
 
+if [ -z $3 ]; then
+   db_conn_str=$3
+fi
+
 
 # Create new exp directory structure
 cp -r experiment_config_template/ $experiment
@@ -34,4 +38,7 @@ for f in `find $experiment/helm -name "*.yaml"`
 do
     sed -i 's/REPLACE_ME_EXPERIMENT/$experiment/g' $f
     sed -i 's/REPLACE_ME_EXT_IP/$external_ip/g' $f
+    if [ -z $db_conn_str ]; then
+        sed -i "s/REPLACE_ME_DB_CONN_STR/$db_conn_str/g" $f
+    fi
 done
