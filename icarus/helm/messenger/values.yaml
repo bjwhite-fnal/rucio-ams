@@ -1,0 +1,18 @@
+# Default values for rucio.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+serviceAccountName: useroot
+experiment: icarus
+
+messengerServerCount: 1
+
+service:
+  externalIP: 131.225.218.139
+  ssl_port: 63614
+  ssl_targetPort: 63614
+
+image:
+  repository: bjwhitefnal/fnal-rucio-messenger
+  tag: latest
+  pullPolicy: Always
