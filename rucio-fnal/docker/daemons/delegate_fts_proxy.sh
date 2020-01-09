@@ -11,6 +11,11 @@ if [[ -z $EXPERIMENT ]]; then
     exit -1
 fi
 
+if [[ -z $FNAL_EXP_RUCIO_VOMS_STR ]]; then
+    echo "Please ensure that the VOMS string has been set."
+    exit -1
+fi
+
 
 (
 	echo ====================================================================================== 
@@ -24,7 +29,7 @@ fi
 
 	voms-proxy-init \
 		-rfc \
-		-voms $EXPERIMENT:/$EXPERIMENT/Role=Production \
+		-voms $FNAL_EXP_RUCIO_VOMS_STR \
 		-cert hostcert.pem \
 		-key hostkey.pem \
 		-out fts_proxy.pem

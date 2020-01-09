@@ -67,4 +67,6 @@ spec:
               value: "{{ .Values.monitor.user_scope }}"
             - name: RUCIO_CFG_DATABASE_ECHO
               value: "{{ .Values.logging.log_level }}"
+            - name: FNAL_EXP_RUCIO_VOMS_STR
+              value: "{{ .Values.ftsRenewal.voms }}"
 {{ end }}

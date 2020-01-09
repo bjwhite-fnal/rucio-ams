@@ -24,21 +24,18 @@ fi
 
 experiment=${1,,}
 external_ip=$2
-
-if [ -z $3 ]; then
-   db_conn_str=$3
-fi
+db_conn_str=$3
 
 
 # Create new exp directory structure
 cp -r experiment_config_template/ $experiment
 
 # Replace placeholders with provided values
+sed -i "s/REPLACE_ME_EXPERIMENT/$experiment/g" $experiment/setup_rucio_env.sh
 for f in `find $experiment/helm -name "*.yaml"`
 do
-    sed -i 's/REPLACE_ME_EXPERIMENT/$experiment/g' $f
-    sed -i 's/REPLACE_ME_EXT_IP/$external_ip/g' $f
-    if [ -z $db_conn_str ]; then
-        sed -i "s/REPLACE_ME_DB_CONN_STR/$db_conn_str/g" $f
-    fi
+    sed -i "s/REPLACE_ME_EXPERIMENT/$experiment/g" $f
+    sed -i "s/REPLACE_ME_EXT_IP/$external_ip/g" $f
+    # The following assumes that there are no semicolons in the database connection string that will conflict with the sed delimiters.
+    sed -i "s;REPLACE_ME_DB_CONN_STR;$db_conn_str;g" $f
 done

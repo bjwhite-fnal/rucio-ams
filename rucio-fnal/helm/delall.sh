@@ -31,4 +31,5 @@ oc delete ingress --all
 oc delete cronjobs --all
 oc delete pods --all --now
 oc delete pvc --all
+oc delete jobs --all
 echo "**************** Openshift application rucio-$EXPERIMENT removed successfully. ****************" 

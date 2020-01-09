@@ -1,4 +1,4 @@
-# Environtment set up file for the DUNE environment
+# Environtment set up file for the REPLACE_ME_EXPERIMENT environment
 
 
 # Make sure to set EXPERIMENT, FNAL_RUCIO_DIR, FNAL_EXP_RUCIO_CERT, FNAL_EXP_RUCIO_KEY, FNAL_EXP_RUCIO_CA_BUNDLE

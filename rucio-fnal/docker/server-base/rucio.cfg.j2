@@ -3,6 +3,11 @@ logdir = {{ RUCIO_CFG_COMMON_LOGDIR | default('/var/log/rucio') }}
 loglevel = {{ RUCIO_CFG_COMMON_LOGLEVEL | default('DEBUG') }}
 mailtemplatedir = {{ RUCIO_CFG_COMMON_MAILTEMPLATEDIR | default('/opt/rucio/etc/mail_templates') }}
 
+[client]
+auth_type = x509_proxy
+client_cert = /etc/grid-security/hostcert.pem
+client_key = /etc/grid-security/hostkey.pem
+
 [alembic]
 cfg = /opt/rucio/etc/alembic.ini
 
