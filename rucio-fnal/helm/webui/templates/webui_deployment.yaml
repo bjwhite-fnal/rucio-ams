@@ -32,6 +32,9 @@ spec:
       serviceAccountName: {{ .Values.serviceAccountName }}
     {{- end }} 
       volumes:
+        - name: host-cert-key-combined
+          secret:
+            secretName: host-cert-key-combined
         - name: host-cert
           secret:
             secretName: host-cert
@@ -53,6 +56,10 @@ spec:
               containerPort: 443
               protocol: TCP
           volumeMounts:
+            - name: host-cert-key-combined
+              mountPath: /etc/grid-security/hostcertkeycombined.pem
+              subPath: hostcertkeycombined.pem
+              readOnly: true
             - name: host-cert
               mountPath: /etc/grid-security/hostcert.pem
               subPath: hostcert.pem
@@ -89,5 +96,7 @@ spec:
               value: "{{ .Values.monitor.user_scope }}"
             - name: RUCIO_CFG_DATABASE_ECHO
               value: "{{ .Values.logging.log_level }}"
+            - name: RUCIO_CFG_WEBUI_USERCERT
+              value: "{{ .Values.webui_certkeycombined_path }}"
             - name: RUCIO_CA_PATH
               value: "{{ .Values.rucio_ca_path }}"

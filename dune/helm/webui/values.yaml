@@ -6,6 +6,7 @@ serviceAccountName: useroot
 
 experiment: dune
 rucio_ca_path: /etc/grid-security/certificates
+webui_certkeycombined_path: /etc/grid-security/hostcertkeycombined.pem
 
 image:
   repository: bjwhitefnal/fnal-rucio-webui
