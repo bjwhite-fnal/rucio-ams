@@ -63,6 +63,8 @@ spec:
                   key: {{ $key1 }}_{{ $key2 }}
             {{- end}}
             {{- end}}
+            - name: EXPERIMENT
+              value: "{{ .Values.experiment }}"
             - name: RUCIO_ENABLE_SSL
               value: "False"
             - name: RUCIO_LOG_FORMAT
