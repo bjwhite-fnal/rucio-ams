@@ -28,7 +28,7 @@ authRoute:
 service:
   type: ClusterIP
   port: 8080
-  targetPort: 80
+  targetPort: 443
   externalIP: 131.225.218.139
 
 authService:

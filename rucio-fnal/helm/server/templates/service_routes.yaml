@@ -12,3 +12,5 @@ spec:
   to:
     kind: Service
     name: rucio-{{ .Values.experiment }}-{{ .Values.route.serviceName }}
+  tls:
+    termination: passthrough

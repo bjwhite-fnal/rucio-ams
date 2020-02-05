@@ -52,6 +52,13 @@ spec:
             - name: https
               containerPort: 443 
               protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 120
+            timeoutSeconds: 5
           volumeMounts:
             - name: aliases
               mountPath: /opt/rucio/etc/aliases.conf
@@ -82,6 +89,8 @@ spec:
               {{- else }}
               value: "False"
               {{- end }}
+            - name: FNAL_RUCIO_AUTH_ENABLE
+              value: "True"
             - name: RUCIO_DEFINE_ALIASES
               value: "True"
             - name: RUCIO_LOG_FORMAT

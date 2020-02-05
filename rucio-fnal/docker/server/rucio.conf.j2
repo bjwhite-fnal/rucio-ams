@@ -53,8 +53,13 @@ CacheRoot /tmp
 {% else %}
  SSLCACertificateFile /etc/grid-security/ca.pem
 {% endif %}
- #SSLVerifyClient optional_no_ca
- SSLVerifyClient require
+
+{% if FNAL_RUCIO_AUTH_ENABLE is defined %}
+ SSLVerifyClient optional
+{% else %}
+ SSLVerifyClient optional_no_ca
+{% endif %}
+
  SSLVerifyDepth 10
  SSLOptions +StdEnvVars
 

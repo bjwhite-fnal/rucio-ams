@@ -17,7 +17,7 @@ spec:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.targetPort }}
       protocol: TCP
-      name: http
+      name: https
   selector:
     app: {{ template "rucio.name" . }}
     release: {{ .Release.Name }}

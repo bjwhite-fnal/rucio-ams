@@ -17,6 +17,12 @@ echo "=================== /etc/httpd/conf.d/rucio.conf ========================"
 cat /etc/httpd/conf.d/rucio.conf
 echo ""
 
+j2 /tmp/fnal_rucio.conf.j2 | sed '/^\s*$/d' > /etc/httpd/conf.d/fnal_rucio.conf
+
+echo "=================== /etc/httpd/conf.d/fnal_rucio.conf ========================"
+cat /etc/httpd/conf.d/fnal_rucio.conf
+echo ""
+
 j2 /tmp/alembic.ini.j2 | sed '/^\s*$/d' > /opt/rucio/etc/alembic.ini
 
 echo "=================== /opt/rucio/etc/alembic.ini ========================"

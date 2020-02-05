@@ -31,12 +31,28 @@ spec:
     {{- if .Values.serviceAccountName }}
       serviceAccountName: {{ .Values.serviceAccountName }}
     {{- end }} 
+      volumes:
+      - name: aliases
+        configMap:
+          name: {{ template "rucio.fullname" . }}-auth-aliases
+      - name: host-cert
+        secret:
+          secretName: host-cert
+      - name: host-key
+        secret:
+          secretName: host-key
+      - name: osg-authentication-volume
+        persistentVolumeClaim:
+          claimName: pvc-osg-authentication
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: http
+            - name: https
+              containerPort: 443
+              protocol: TCP
+            - name: probe
               containerPort: 80
               protocol: TCP
           livenessProbe:
@@ -44,8 +60,22 @@ spec:
               path: /ping
               port: 80
             initialDelaySeconds: 10
-            periodSeconds: 20
+            periodSeconds: 120
             timeoutSeconds: 5
+          volumeMounts:
+            - name: aliases
+              mountPath: /opt/rucio/etc/aliases.conf
+              subPath: aliases.conf
+            - name: host-cert
+              mountPath: /etc/grid-security/hostcert.pem
+              subPath: hostcert.pem
+              readOnly: true
+            - name: host-key
+              mountPath: /etc/grid-security/hostkey.pem
+              subPath: hostkey.pem
+              readOnly: true
+            - name: osg-authentication-volume
+              mountPath: /etc/grid-security/certificates
           env:
             {{- range $key, $val := .Values.httpd_config }}
             - name: RUCIO_HTTPD_{{ $key | upper }}
@@ -66,7 +96,7 @@ spec:
             - name: EXPERIMENT
               value: "{{ .Values.experiment }}"
             - name: RUCIO_ENABLE_SSL
-              value: "False"
+              value: "True"
             - name: RUCIO_LOG_FORMAT
               value: '[%{%Y-%m-%d %H:%M:%S}t]\t%v\t%h\t%{X-Forwarded-For}i\t%{X-Rucio-RequestId}i\t%>s\t%I\t%B\t%D\t\"%r\"\t\"%{X-Rucio-Auth-Token}i\"\t\"%{User-Agent}i\"\t%{X-Rucio-Script}i'
             - name: RUCIO_CFG_MONITOR_CARBON_SERVER
@@ -77,6 +107,8 @@ spec:
               value: "{{ .Values.monitor.user_scope }}"
             - name: RUCIO_CFG_DATABASE_ECHO
               value: "{{ .Values.logging.log_level }}"
+            - name: RUCIO_CA_PATH
+              value: "{{ .Values.httpd_config.use_ca_path }}"
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
