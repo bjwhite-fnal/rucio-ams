@@ -8,7 +8,7 @@ wait_for_cert_installation_completion () {
     # Kick off and wait for  a job that will check for a completion flag for certificate installation
     echo "Waiting for OSG certificates to install..."
     oc apply -f $FNAL_RUCIO_DIR/rucio-fnal/helm/jobs/check_osg_cert_install.yaml > /dev/null
-    if kubectl wait --for=condition=complete --timeout 1200s job/check-osg-cert-install > /dev/null; then
+    if kubectl wait --for=condition=complete --timeout 240s job/check-osg-cert-install > /dev/null; then
         oc delete jobs/check-osg-cert-install > /dev/null
     else
         echo "OSG CA Certificate installation check timed out after 120 seconds."
