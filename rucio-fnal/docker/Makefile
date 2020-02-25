@@ -27,11 +27,11 @@ build-all-nc:
 	$(build-webui-nc-cmd)
 
 define build-webui-cmd =
-docker build -t rucio-webui webui
+docker build -t rucio-webui --build-arg rucio_version=${FNAL_RUCIO_VERSION} webui
 endef
 
 define build-webui-nc-cmd =
-docker build --no-cache -t rucio-webui webui
+docker build --no-cache -t rucio-webui --build-arg rucio_version=${FNAL_RUCIO_VERSION} webui
 endef
 
 define build-server-base-cmd =

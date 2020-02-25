@@ -1,7 +1,7 @@
 # Dockerfile for creating a Rucio WebUI container for use with FNAL Rucio deployments
 
-FROM rucio/rucio-ui
-
+ARG rucio_version 
+FROM rucio/rucio-ui:release-1.21.5
 
 RUN yum install -y patch net-tools vim less
 
