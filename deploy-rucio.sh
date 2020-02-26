@@ -7,8 +7,8 @@
 wait_for_cert_installation_completion () {
     # Kick off and wait for  a job that will check for a completion flag for certificate installation
     echo "Waiting for OSG certificates to install..."
-    oc apply -f $FNAL_RUCIO_DIR/rucio-fnal/helm/jobs/check_osg_cert_install.yaml > /dev/null
-    if kubectl wait --for=condition=complete --timeout 240s job/check-osg-cert-install > /dev/null; then
+    oc apply -f $FNAL_RUCIO_DIR/rucio-fnal/helm/jobs/check_osg_cert_install.yaml
+    if kubectl wait --for=condition=complete --timeout 240s job/check-osg-cert-install; then
         oc delete jobs/check-osg-cert-install > /dev/null
     else
         echo "OSG CA Certificate installation check timed out after 120 seconds."
@@ -16,7 +16,7 @@ wait_for_cert_installation_completion () {
     fi
 }
 
-verify_project () {
+verify_environment () {
     # Verify that the currently active Openshift project appears to be correct for the value in EXPERIMENT and all other required environment variables are set
     if [[ -z $EXPERIMENT ]]; then
         echo "Please provide a value for the EXPERIMENT environment variable"
@@ -36,6 +36,9 @@ verify_project () {
     elif [[ -z $FNAL_EXP_RUCIO_CERT_KEY_COMBINED ]]; then
         echo "Please provide a value for the FNAL_EXP_RUCIO_CERT_KEY_COMBINED environment variable"
         exit -1
+    elif [[ -z $FNAL_EXP_RUCIO_EXTERNAL_IP ]]; then
+        echo "Please provide a value for the FNAL_EXP_RUCIO_EXTERNAL_IP environment variable"
+        exit -1
     else
         ocproject=$(oc project)
         proj=($ocproject)
@@ -47,7 +50,7 @@ verify_project () {
 }
 
 echo "**************** Initializing Openshift Application: rucio-$EXPERIMENT ****************"
-verify_project
+verify_environment
 
 echo "Creating application secrets..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create_cert_secrets.sh
@@ -61,7 +64,7 @@ $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-osg-authentication.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-webui.sh
 
 echo "Creating OSG authentication service..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-osg-authentication.sh > /dev/null
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-osg-authentication.sh
 wait_for_cert_installation_completion
 
 echo "Creating cache service..."
