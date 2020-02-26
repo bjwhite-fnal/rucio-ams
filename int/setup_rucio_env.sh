@@ -6,7 +6,7 @@ export FNAL_RUCIO_VERSION=1.21.5
 export EXPERIMENT=int
 export FNAL_RUCIO_DIR=/cloud/login/bjwhite/dev/rucio/rucio-fnal
 
-export FNAL_EXP_RUCIO_EXTERNAL_IP=UNASSIGNED
+export FNAL_EXP_RUCIO_EXTERNAL_IP=131.225.218.134
 
 # Only the filenames are needed. The files should be resident in $FNAL_EXP_RUCIO_DEPLOYMENT_CONF_DIR/certs 
 export FNAL_EXP_RUCIO_CERT=icaruspro.cert
