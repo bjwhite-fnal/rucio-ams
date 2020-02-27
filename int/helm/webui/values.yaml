@@ -5,6 +5,7 @@
 serviceAccountName: useroot
 
 experiment: Uses $EXPERIMENT 
+externalIP: Use $FNAL_EXP_RUCIO_EXTERNAL_IP
 rucio_ca_path: /etc/grid-security/certificates
 webui_certkeycombined_path: /etc/grid-security/hostcertkeycombined.pem
 
@@ -23,7 +24,6 @@ minReadySeconds: 5
 
 service:
   type: ClusterIP
-  externalIP: Use $FNAL_EXP_RUCIO_EXTERNAL_IP
   port: 8082
   targetPort: 443
   tls:

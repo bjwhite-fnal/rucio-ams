@@ -10,9 +10,9 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   type: ClusterIP 
-  {{- if .Values.service.externalIP }}
+  {{- if .Values.externalIP }}
   externalIPs:
-    - {{ .Values.service.externalIP }}
+    - {{ .Values.externalIP }}
   {{- end }}
   ports:
     - port: {{ .Values.service.ssl_port }}

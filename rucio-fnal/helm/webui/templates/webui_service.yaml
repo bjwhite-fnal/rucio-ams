@@ -9,9 +9,9 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   type: {{ .Values.service.type }}
-  {{- if .Values.service.externalIP }}
+  {{- if .Values.externalIP }}
   externalIPs:
-    - {{ .Values.service.externalIP }}
+    - {{ .Values.externalIP }}
   {{- end }}
   ports:
     - port: {{ .Values.service.port }}

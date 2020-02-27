@@ -4,11 +4,11 @@
 
 serviceAccountName: useroot
 experiment: Uses $EXPERIMENT 
+externalIP: Use $FNAL_EXP_RUCIO_EXTERNAL_IP
 
 messengerServerCount: 1
 
 service:
-  externalIP: Use $FNAL_EXP_RUCIO_EXTERNAL_IP
   ssl_port: 63614
   ssl_targetPort: 63614
 
