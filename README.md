@@ -17,6 +17,16 @@ In particular please make sure that the following are set by the sourcing of the
     FNAL_RUCIO_VERSION: Use this when building fnal-rucio-* images to select the desired Rucio version for installation into the image. 
 ~~~~
 
+## Before Deployment To-Do List
+~~~~
+    0. Have a database created for the new deployment to use. (Duh)
+    1. Create rucio-<experiment> project in OKD
+    2. Make sure you have the certificate and key for the experiment, and create the combined certificate+key PEM file.
+    3. Edit <experiment>/setup_rucio_env.sh to set the required environment variables
+    4. Have the FNAL OKD cluster administrators allocate an external IPv4 address and set up DNS resolution for the deployment to use
+    5. Have the FNAL OKD cluster administrators create the `useroot` account for the deployment to use
+~~~~
+
 Use deploy-rucio.sh to deploy services onto the OKD cluster after the environment is configured appropriately as described above. Use the setup_rucio_env.sh environment file at the top of the given experiment's configuration tree.
 Use undeploy-rucio.sh to remove them.
 
