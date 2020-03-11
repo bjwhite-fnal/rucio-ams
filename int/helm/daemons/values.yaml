@@ -113,7 +113,8 @@ config:
 
   conveyor:
     max_time_in_queue: "User Subscriptions:5"
-    ftshosts: "https://fts3-public.cern.ch:8446"
+    #ftshosts: "https://fts3-public.cern.ch:8446"
+    ftshosts: "https://fts3-dev.fnal.gov:8446"
     cacert: "/etc/grid-security/ca.pem"
     usercert: "/tmp/fts_proxy.pem"
     # scheme: "srm,gsiftp,root,http,https"
