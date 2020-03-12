@@ -23,7 +23,6 @@ minReadySeconds: 5
 
 service:
   type: ClusterIP
-  externalIP: Use $FNAL_EXP_RUCIO_EXTERNAL_IP
   port: 8082
   targetPort: 443
   tls:

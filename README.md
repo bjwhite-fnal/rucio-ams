@@ -13,7 +13,6 @@ In particular please make sure that the following are set by the sourcing of the
     FNAL_EXP_RUCIO_KEY: Key for service authentication.
     FNAL_EXP_RUCIO_CA_BUNDLE: CA certificates for service authentication.
     FNAL_EXP_RUCIO_CERT_KEY_COMBINED: Certificate and key concatenated. Needed for the Web UI.
-    FNAL_EXP_RUCIO_EXTERNAL_IP: Specifies the external IPV4 address of the deployment
     FNAL_RUCIO_VERSION: Use this when building fnal-rucio-* images to select the desired Rucio version for installation into the image. 
 ~~~~
 
@@ -23,7 +22,6 @@ In particular please make sure that the following are set by the sourcing of the
     1. Create rucio-<experiment> project in OKD
     2. Make sure you have the certificate and key for the experiment, and create the combined certificate+key PEM file.
     3. Edit <experiment>/setup_rucio_env.sh to set the required environment variables
-    4. Have the FNAL OKD cluster administrators allocate an external IPv4 address and set up DNS resolution for the deployment to use
     5. Have the FNAL OKD cluster administrators create the `useroot` account for the deployment to use
 ~~~~
 

@@ -5,7 +5,6 @@
 serviceAccountName: useroot
 
 experiment: Uses $EXPERIMENT 
-externalIP: Use $FNAL_EXP_RUCIO_EXTERNAL_IP
 rucio_ca_path: /etc/grid-security/certificates
 webui_certkeycombined_path: /etc/grid-security/hostcertkeycombined.pem
 

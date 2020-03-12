@@ -9,7 +9,6 @@ authReplicaCount: 1
 serviceAccountName: useroot
 
 experiment: Uses $EXPERIMENT
-externalIP: Use $FNAL_EXP_RUCIO_EXTERNAL_IP
 
 image:
   repository: bjwhitefnal/fnal-rucio-server
