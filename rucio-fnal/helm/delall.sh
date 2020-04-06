@@ -20,6 +20,7 @@ echo "**************** Removing Openshift application: rucio-$EXPERIMENT *******
 verify_project
 oc delete deployments --all
 oc delete secrets --all
+oc delete route --all
 oc delete services -l "app=rucio-server"
 oc delete services -l "app=rucio-server-auth"
 oc delete services -l "app=rucio-cache"

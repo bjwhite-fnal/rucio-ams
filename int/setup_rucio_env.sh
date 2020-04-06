@@ -1,6 +1,6 @@
 # Environtment set up file for the icarus environment
 
-export FNAL_RUCIO_VERSION=1.21.10.post1
+export FNAL_RUCIO_VERSION=1.22.1
 
 # Make sure to set EXPERIMENT, FNAL_RUCIO_DIR, FNAL_EXP_RUCIO_CERT, FNAL_EXP_RUCIO_KEY, FNAL_EXP_RUCIO_CA_BUNDLE, FNAL_EXP_RUCIO_CERT_KEY_COMBINED
 export EXPERIMENT=int
