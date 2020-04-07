@@ -21,9 +21,14 @@ strategy:
 
 minReadySeconds: 5
 
+route:
+  app: rucio-webui
+  host: webui-icarus-rucio.okd.fnal.gov
+  serviceName: rucio-webui
+
 service:
   type: ClusterIP
-  port: 8082
+  port: 443 
   targetPort: 443
   tls:
     enabled: true

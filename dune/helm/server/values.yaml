@@ -18,22 +18,22 @@ image:
 
 route:
   app: rucio-server
-  host: www.dune-rucio.fnal.gov
+  host: dune-rucio.okd.fnal.gov
   serviceName: rucio-server
 
 authRoute:
   app: rucio-server-auth
-  host: www.auth-dune-rucio.fnal.gov
+  host: auth-dune-rucio.okd.fnal.gov
   serviceName: rucio-server-auth
 
 service:
   type: ClusterIP
-  port: 8080
+  port: 80
   targetPort: 443
 
 authService:
   type: ClusterIP
-  port: 8081
+  port: 443 
   targetPort: 443
   tls: 
     enabled: true
