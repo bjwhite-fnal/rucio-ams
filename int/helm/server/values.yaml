@@ -27,7 +27,7 @@ authRoute:
 
 service:
   type: ClusterIP
-  port: 80
+  port: 443
   targetPort: 443
 
 authService:
