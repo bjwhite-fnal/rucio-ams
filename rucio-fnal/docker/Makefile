@@ -10,7 +10,6 @@ push-all:
 
 build-all:
 	$(build-server-cmd)
-	$(build-daemons-base-cmd)
 	$(build-daemons-cmd)
 	$(build-cache-cmd)
 	$(build-messenger-cmd)
@@ -18,7 +17,6 @@ build-all:
 
 build-all-nc:
 	$(build-server-nc-cmd)
-	$(build-daemons-base-nc-cmd)
 	$(build-daemons-nc-cmd)
 	$(build-cache-nc-cmd)
 	$(build-messenger-nc-cmd)
@@ -37,23 +35,15 @@ docker build -t rucio-server --build-arg rucio_version=${FNAL_RUCIO_VERSION} ser
 endef
 
 define build-server-nc-cmd =
-docker build --no-cache -t rucio-server server	
-endef
-
-define build-daemons-base-cmd =
-docker build -t rucio-daemons-base --build-arg rucio_version=${FNAL_RUCIO_VERSION} daemons-base
-endef
-
-define build-daemons-base-nc-cmd =
-docker build --no-cache -t rucio-daemons-base --build-arg rucio_version=${FNAL_RUCIO_VERSION} daemons-base
+docker build --no-cache -t rucio-server --build-arg rucio_version=${FNAL_RUCIO_VERSION} server	
 endef
 
 define build-daemons-cmd =
-docker build -t rucio-daemons daemons
+docker build -t rucio-daemons --build-arg rucio_version=${FNAL_RUCIO_VERSION} daemons
 endef
 
 define build-daemons-nc-cmd =
-docker build --no-cache -t rucio-daemons daemons
+docker build --no-cache -t rucio-daemons --build-arg rucio_version=${FNAL_RUCIO_VERSION} daemons
 endef
 
 define build-cache-cmd =
@@ -83,12 +73,6 @@ build-server:
 
 build-server-nc:
 	$(build-server-nc-cmd)
-
-build-daemons-base:
-	$(build-daemons-base-cmd)
-
-build-daemons-base-nc:
-	$(build-daemons-base-nc-cmd)
 
 build-daemons:
 	$(build-daemons-cmd)

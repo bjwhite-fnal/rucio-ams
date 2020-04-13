@@ -1,22 +1,27 @@
-# Copyright European Organization for Nuclear Research (CERN) 2017
+# Fermilab Rucio Daemons Docker Image Specification
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# You may not use this file except in compliance with the License.
-# You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
-#
-# Authors:
-# - Cedric Serfon, <cedric.serfon@cern.ch>, 2017
-# - Thomas Beermann, <thomas.beermann@cern.ch>, 2018
+# Author:
+# - Brandon White, <bjwhite@fnal.gov>, 2020
 
-FROM rucio-daemons-base
+ARG rucio_version
+FROM rucio/rucio-daemons:release-${rucio_version}
 
-RUN yum install -y less fts-client voms-clients gfal2-python gfal-all
+RUN yum install -y less \
+    fts-client \
+    voms-clients \
+    gfal-all \
+    patch
 
+ADD rucio.cfg.j2 /tmp/
+ADD start-daemon.sh /
 ADD crontab /etc
 ADD vomses /etc
 ADD delegate_fts_proxy.sh /
-ADD start-daemon.sh /
 CMD chmod +x /delegate_fts_proxy.sh
+
+# Patches
+ADD patches/* /tmp/patches/
+RUN if ls -1 /tmp/patches/ | grep -Eq '\.patch$'; then for p in /tmp/patches/*.patch; do echo "Patching: $p" && patch -p0 -d /usr/lib/python2.7/site-packages/ < $p; done; fi
 
 ENTRYPOINT ["/start-daemon.sh"]
 
