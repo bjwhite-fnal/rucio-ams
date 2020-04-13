@@ -9,7 +9,6 @@ push-all:
 	$(push-webui-cmd)
 
 build-all:
-	$(build-server-base-cmd)
 	$(build-server-cmd)
 	$(build-daemons-base-cmd)
 	$(build-daemons-cmd)
@@ -18,7 +17,6 @@ build-all:
 	$(build-webui-cmd)
 
 build-all-nc:
-	$(build-server-base-nc-cmd)
 	$(build-server-nc-cmd)
 	$(build-daemons-base-nc-cmd)
 	$(build-daemons-nc-cmd)
@@ -34,16 +32,8 @@ define build-webui-nc-cmd =
 docker build --no-cache -t rucio-webui --build-arg rucio_version=${FNAL_RUCIO_VERSION} webui
 endef
 
-define build-server-base-cmd =
-docker build -t rucio-server-base --build-arg rucio_version=${FNAL_RUCIO_VERSION} server-base
-endef
-
-define build-server-base-nc-cmd =
-docker build --no-cache -t rucio-server-base --build-arg rucio_version=${FNAL_RUCIO_VERSION} server-base
-endef
-
 define build-server-cmd =
-docker build -t rucio-server server	
+docker build -t rucio-server --build-arg rucio_version=${FNAL_RUCIO_VERSION} server
 endef
 
 define build-server-nc-cmd =
@@ -87,12 +77,6 @@ build-webui:
 
 build-webui-nc:
 	$(build-webui-nc-cmd)
-
-build-server-base:
-	$(build-server-base-cmd)
-
-build-server-base-nc:
-	$(build-server-base-nc-cmd)	
 
 build-server:
 	$(build-server-cmd)
