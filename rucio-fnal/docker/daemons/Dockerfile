@@ -10,7 +10,11 @@ RUN yum install -y less \
     fts-client \
     voms-clients \
     gfal-all \
-    patch
+    patch \
+    net-tools \
+    telnet
+
+RUN pip install remote-pdb
 
 ADD rucio.cfg.j2 /tmp/
 ADD start-daemon.sh /

@@ -6,10 +6,8 @@
 ARG rucio_version
 FROM rucio/rucio-server:release-${rucio_version}
 
-RUN yum install -y mod_ssl
-RUN yum install -y gridsite
-RUN yum install -y patch
-
+RUN yum install -y mod_ssl gridsite patch net-tools telnet
+RUN pip install remote-pdb
 RUN mv /etc/httpd/conf.d/zgridsite.conf /etc/httpd/conf.d/zgridsite.conf-hide
 
 ADD oic.rpm /tmp
