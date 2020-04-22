@@ -96,7 +96,7 @@ ftsRenewal:
     repository: rucio/fts-cron
     tag: latest
     pullPolicy: Always
-  voms: "fermilab:/fermilab/int/Role=Production"
+  voms: "fermilab:/fermilab/Role=Production"
   servers: "https://fts3-public.cern.ch:8446"
 
 monitor:

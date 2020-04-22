@@ -30,9 +30,6 @@ verify_environment () {
     elif [[ -z $FNAL_EXP_RUCIO_KEY ]]; then
         echo "Please provide a value for the FNAL_EXP_RUCIO_KEY environment variable"
         exit -1
-    elif [[ -z $FNAL_EXP_RUCIO_CA_BUNDLE ]]; then
-        echo "Please provide a value for the FNAL_EXP_RUCIO_CA_BUNDLE environment variable"
-        exit -1
     elif [[ -z $FNAL_EXP_RUCIO_CERT_KEY_COMBINED ]]; then
         echo "Please provide a value for the FNAL_EXP_RUCIO_CERT_KEY_COMBINED environment variable"
         exit -1

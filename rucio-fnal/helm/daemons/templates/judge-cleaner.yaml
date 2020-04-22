@@ -33,9 +33,6 @@ spec:
       serviceAccountName: {{ .Values.serviceAccountName }}
     {{- end }}
       volumes:
-      - name: ca-volume
-        secret:
-          secretName: ca-bundle
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

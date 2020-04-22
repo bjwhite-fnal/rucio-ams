@@ -62,7 +62,7 @@ monitor:
   user_scope: "rucio.int_okd_dev"
 
 logging:
-    log_level: 0
+    log_level: 1 
 
 ## values used to configure Rucio
 config:
