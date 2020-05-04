@@ -28,7 +28,7 @@ authRoute:
 
 service:
   type: ClusterIP
-  port: 80
+  port: 443
   targetPort: 443
 
 authService:
@@ -63,7 +63,7 @@ monitor:
   user_scope: "rucio.dune_okd_dev"
 
 logging:
-    log_level: 0
+    log_level: 1
 
 ## values used to configure Rucio
 config:
