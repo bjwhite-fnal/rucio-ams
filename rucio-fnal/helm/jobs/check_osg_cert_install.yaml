@@ -15,7 +15,7 @@ spec:
       - name: check-osg-cert-install 
         image: "centos"
         imagePullPolicy: Always
-        command: [ 'sh', '-c', 'while true; do if [ -f /etc/grid-security/certificates/jobs_done ]; then break; fi; sleep 1; done' ]
+        command: [ 'sh', '-c', 'while true; do if [ -f /etc/grid-security/certificates/jobs_done ]; then break; fi; echo "Completion flag not found, sleeping 10 seconds."; sleep 10; done' ]
         volumeMounts:
         - name: osg-authentication-volume
           mountPath: /etc/grid-security/certificates
