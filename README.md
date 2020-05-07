@@ -20,15 +20,15 @@ In particular please make sure that the following are set by the sourcing of the
 ~~~~
     0. Have a database created for the new deployment to use. (Duh)
     1. Create rucio-<experiment> project in OKD
-    2. Make sure you have the certificate and key for the experiment, and create the combined certificate+key PEM file.
+    2. Make sure you have the certificate and key for the Rucio service, and create the combined certificate+key PEM file.
     3. Edit <experiment>/setup_rucio_env.sh to set the required environment variables
     5. Have the FNAL OKD cluster administrators create the `useroot` account for the deployment to use
 ~~~~
 
-Use deploy-rucio.sh to deploy services onto the OKD cluster after the environment is configured appropriately as described above. Use the setup_rucio_env.sh environment file at the top of the given experiment's configuration tree.
+Use deploy-rucio.sh to deploy services onto the OKD cluster after the environment is configured appropriately as described above. Use the setup_rucio_env.sh environment file at the top of the given experiment's configuration tree to do this.
 Use undeploy-rucio.sh to remove them.
 
-The Rucio code may be monkey patched at image build time by placing patch files into one of two locations: $FNAL_RUCIO_DIR/rucio-fnal/docker/[server,daemon]-base/patches
+The Rucio code may be monkey patched at image build time by placing patch files into one of two locations: $FNAL_RUCIO_DIR/rucio-fnal/docker/[server,daemon]/patches
 
 ## EXAMPLE DIRECTORY STRUCTURE FOR AN EXPERIMENT:
 ~~~~
