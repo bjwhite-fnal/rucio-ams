@@ -15,3 +15,8 @@ image:
   repository: bjwhitefnal/fnal-rucio-messenger
   tag: latest
   pullPolicy: Always
+
+route:
+  app: rucio-messenger
+  host: msg-int-rucio.okd.fnal.gov
+  serviceName: rucio-messenger
