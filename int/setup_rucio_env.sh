@@ -11,3 +11,4 @@ export FNAL_RUCIO_DIR=/cloud/login/bjwhite/dev/rucio/rucio-fnal
 export FNAL_EXP_RUCIO_CERT=int-rucio.okd.fnal.gov-cert.pem
 export FNAL_EXP_RUCIO_KEY=int-rucio.okd.fnal.gov-key.pem
 export FNAL_EXP_RUCIO_CERT_KEY_COMBINED=int-rucio.okd.fnal.gov-combined.pem
+export FNAL_EXP_RUCIO_CA_BUNDLE=ca_bundle.pem

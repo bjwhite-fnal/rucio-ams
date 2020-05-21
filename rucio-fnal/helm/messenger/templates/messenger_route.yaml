@@ -11,6 +11,6 @@ spec:
   host: {{ .Values.route.host }} 
   to:
     kind: Service
-    name: rucio-{{ .Values.experiment }}-{{ .Values.route.serviceName }}
+    name: rucio-messenger
   tls:
     termination: passthrough

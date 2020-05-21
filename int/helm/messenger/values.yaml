@@ -19,4 +19,4 @@ image:
 route:
   app: rucio-messenger
   host: msg-int-rucio.okd.fnal.gov
-  serviceName: rucio-messenger
+  serviceName: messenger

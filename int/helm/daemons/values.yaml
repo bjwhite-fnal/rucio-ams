@@ -49,16 +49,16 @@ abacusRse:
 
 conveyorTransferSubmitter:
   threads: 1
-  activities: "'User Subscriptions'"
+  activities: "'User Subscriptions' 'Recovery'"
   sleepTime: 10
 
 conveyorPoller:
   threads: 1
-  activities: "'User Subscriptions'"
+  activities: "'User Subscriptions' 'Recovery'"
 
 conveyorFinisher:
   threads: 1
-  activities: "'User Subscriptions'"
+  activities: "'User Subscriptions' 'Recovery'"
 
 hermes:
   username: ____
@@ -114,7 +114,7 @@ monitor:
 
 logging:
     # Set to 1 to turn on database queries in the logging output
-    log_level: 0 
+    log_level: 0
 
 ## common config values used to configure the Rucio daemons
 config:
