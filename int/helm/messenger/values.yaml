@@ -8,8 +8,8 @@ experiment: Uses $EXPERIMENT
 messengerServerCount: 1
 
 service:
-  ssl_port: 63614
-  ssl_targetPort: 63614
+  ssl_port: 443
+  ssl_targetPort: 443
 
 image:
   repository: bjwhitefnal/fnal-rucio-messenger
