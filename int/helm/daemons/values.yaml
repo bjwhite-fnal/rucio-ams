@@ -107,21 +107,11 @@ ftsRenewal:
   voms: "fermilab:/fermilab/Role=Production"
   servers: "https://fts3-public.cern.ch:8446"
 
-monitor:
-  carbon_server: "lsdataitb.fnal.gov"
-  carbon_port: 8225
-  user_scope: "rucio.int_okd"
-
-logging:
-    # Set to 1 to turn on database queries in the logging output
-    log_level: 0
-
 ## common config values used to configure the Rucio daemons
 config:
 
   conveyor:
     max_time_in_queue: "User Subscriptions:5"
-    #ftshosts: "https://fts3-public.cern.ch:8446"
     ftshosts: "https://fts3-dev.fnal.gov:8446"
     cacert: "/etc/grid-security/ca.pem"
     usercert: "/tmp/fts_proxy.pem"
@@ -135,3 +125,15 @@ config:
     # queue_mode: ""
     # using_memcache: ""
     # ftsmonhosts: ""
+
+  monitor:
+    # Not sure if this will work here due to the secrets stuff in the RUCIO_CFG_ env var generation
+    carbon_server: "lsdataitb.fnal.gov"
+    carbon_port: "8225"
+    user_scope: "rucio.int_okd"
+
+optional_config:
+  rucio_cfg_database_echo: 1
+  delegate_fts_proxy: "true"
+  rucio_fts_voms: "fermilab:/fermilab/Role=Production"
+  fnal_exp_rucio_voms_str: "fermilab:/fermilab/Role=Production"

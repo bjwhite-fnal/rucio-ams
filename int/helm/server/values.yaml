@@ -15,13 +15,17 @@ image:
   tag: latest
   pullPolicy: Always
 
-route:
-  app: rucio-server
+serverRoute:
+  app: rucio-int-rucio-server
   host: int-rucio.okd.fnal.gov
   serviceName: rucio-server
 
-authRoute:
-  app: rucio-server-auth
+useSSL:
+  authServer: 1
+  server: 1
+
+authServerRoute:
+  app: rucio-int-rucio-server-auth
   host: auth-int-rucio.okd.fnal.gov
   serviceName: rucio-server-auth
 
@@ -45,7 +49,6 @@ strategy:
 
 minReadySeconds: 5
 
-# values used to configure apache
 httpd_config:
   mpm_mode: "prefork"
   use_ca_path: "1"
@@ -56,28 +59,19 @@ httpd_config:
   max_clients: "10"
   max_requests_per_child: "200"
 
-monitor:
-  carbon_server: "lsdataitb.fnal.gov"
-  carbon_port: 8225
-  user_scope: "rucio.int_okd_dev"
-
-logging:
-    log_level: 0
-
-## values used to configure Rucio
-config:
+config: 
+  monitor:
+    carbon_server: "lsdataitb.fnal.gov"
+    carbon_port: "8225"
+    user_scope: "rucio.int_okd"
 
 resources: {}
-  # limits:
-  #  cpu: 100m
-  #  memory: 128Mi
-  # requests:
-  #  cpu: 100m
-  #  memory: 128Mi
-
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
 
+optional_config:
+  rucio_cfg_database_echo: 1
+  delegate_fts_proxy: "true"
+  rucio_fts_voms: "fermilab:/fermilab/Role=Production"
+  fnal_exp_rucio_voms_str: "fermilab:/fermilab/Role=Production"

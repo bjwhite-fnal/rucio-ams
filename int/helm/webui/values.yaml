@@ -21,10 +21,10 @@ strategy:
 
 minReadySeconds: 5
 
-route:
+webuiRoute:
   app: rucio-webui
   host: webui-int-rucio.okd.fnal.gov
-  serviceName: rucio-webui
+  serviceName: rucio-int-rucio-ui
 
 service:
   type: ClusterIP

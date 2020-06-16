@@ -16,12 +16,7 @@ RUN yum install -y less \
 
 RUN pip install remote-pdb
 
-ADD rucio.cfg.j2 /tmp/
-ADD start-daemon.sh /
-ADD crontab /etc
 ADD vomses /etc
-ADD delegate_fts_proxy.sh /
-CMD chmod +x /delegate_fts_proxy.sh
 
 # Patches
 ADD patches/* /tmp/patches/
