@@ -1,8 +1,8 @@
 
-# Bridle: Fermilab Rucio Deployment Management
+# Fermilab Rucio OKD Cluster Deployment 
 ## Scientific Data Management
 ### Brandon White
-### bjwhite@fnal.gov
+bjwhite@fnal.gov
 
 Use this to deploy Rucio for an experiment. First source an experiments environment file and deploy with the experiment generic rucio-fnal framework.
 In particular please make sure that the following are set by the sourcing of the environment file:
@@ -57,4 +57,4 @@ The Rucio code may be monkey patched at image build time by placing patch files 
     └── setup_dune_rucio_env.sh             < Export the needed environment variables for experiment setup >
 ~~~~
 
-Directories named cert/ and secret/ will not be committed to the repository according to the default .gitignore file.
+Directories named certs/ and secret/ will not be committed to the repository according to the default .gitignore file.
