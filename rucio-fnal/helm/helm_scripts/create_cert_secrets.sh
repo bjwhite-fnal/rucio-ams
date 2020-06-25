@@ -31,6 +31,12 @@ kubectl create secret generic rucio-$EXPERIMENT-rucio-x509up \
         --from-file=hostcert.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CERT \
         --from-file=hostkey.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_KEY \
 
+kubectl create secret generic rucio-$EXPERIMENT-fts-cert \
+        --from-file=usercert.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CERT
+
+kubectl create secret generic rucio-$EXPERIMENT-fts-key \
+        --from-file=new_userkey.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_KEY
+
 kubectl create secret generic rucio-$EXPERIMENT-rucio-ca-bundle \
         --from-file=ca.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CA_BUNDLE
 
