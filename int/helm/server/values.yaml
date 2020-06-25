@@ -49,6 +49,10 @@ strategy:
 
 minReadySeconds: 5
 
+exposeErrorLogs:
+  server: 0
+  authServer: 0
+
 httpd_config:
   mpm_mode: "prefork"
   use_ca_path: "1"
@@ -71,7 +75,6 @@ tolerations: []
 affinity: {}
 
 optional_config:
-  rucio_cfg_database_echo: 1
+  #rucio_cfg_database_echo: 1
   delegate_fts_proxy: "true"
   rucio_fts_voms: "fermilab:/fermilab/Role=Production"
-  fnal_exp_rucio_voms_str: "fermilab:/fermilab/Role=Production"

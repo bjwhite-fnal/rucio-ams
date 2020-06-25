@@ -21,7 +21,6 @@ verify_project
 oc delete deployments --all
 oc delete secrets --all
 oc delete route --all
-oc delete ingress --all
 oc delete services -l "app=rucio-server"
 oc delete services -l "app=rucio-server-auth"
 oc delete services -l "app=rucio-cache"
@@ -32,4 +31,5 @@ oc delete cronjobs --all
 oc delete pods --all --now
 oc delete pvc --all
 oc delete jobs --all
+oc delete serviceaccount rucio-int-rucio-edit
 echo "**************** Openshift application rucio-$EXPERIMENT removed successfully. ****************" 

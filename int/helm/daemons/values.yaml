@@ -99,13 +99,14 @@ necromancer:
   threads: 1
 
 ftsRenewal:
-  enabled: 0
+  enabled: 1
   image:
-    repository: rucio/fts-cron
+    repository: bjwhitefnal/fnal-rucio-fts-cron
     tag: latest
     pullPolicy: Always
+  vo: "fermilab"
   voms: "fermilab:/fermilab/Role=Production"
-  servers: "https://fts3-public.cern.ch:8446"
+  servers: "https://fts3-dev.fnal.gov:8446"
 
 ## common config values used to configure the Rucio daemons
 config:
@@ -114,7 +115,7 @@ config:
     max_time_in_queue: "User Subscriptions:5"
     ftshosts: "https://fts3-dev.fnal.gov:8446"
     cacert: "/etc/grid-security/ca.pem"
-    usercert: "/tmp/fts_proxy.pem"
+    usercert: "/opt/proxy/x509up"
     # scheme: "srm,gsiftp,root,http,https"
     # transfertool: "fts3"
     # cache_time: ""
@@ -133,7 +134,6 @@ config:
     user_scope: "rucio.int_okd"
 
 optional_config:
-  rucio_cfg_database_echo: 1
+  #rucio_cfg_database_echo: 1
   delegate_fts_proxy: "true"
   rucio_fts_voms: "fermilab:/fermilab/Role=Production"
-  fnal_exp_rucio_voms_str: "fermilab:/fermilab/Role=Production"

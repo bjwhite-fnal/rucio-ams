@@ -10,7 +10,8 @@ RUN yum install -y gridsite patch net-tools telnet
 RUN pip install remote-pdb
 RUN mv /etc/httpd/conf.d/zgridsite.conf /etc/httpd/conf.d/zgridsite.conf-hide
 
-ADD fnal_rucio.conf.j2 /tmp/
+# Add FNAL specific files
+ADD alembic.ini.j2 /tmp
 ADD gacl /opt/rucio/etc/
 ADD start-server.sh /
 
