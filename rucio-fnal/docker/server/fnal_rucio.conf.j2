@@ -1,5 +1,0 @@
-# Open up port 80 so liveness probes can hit the servers.
-Listen 80
-<VirtualHost *:80>
-WSGIScriptAlias /ping                   /usr/lib/python2.7/site-packages/rucio/web/rest/ping.py
-</VirtualHost>
