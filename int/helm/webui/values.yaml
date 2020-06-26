@@ -4,7 +4,6 @@
 
 serviceAccountName: useroot
 
-experiment: Uses $EXPERIMENT 
 rucio_ca_path: /etc/grid-security/certificates
 webui_certkeycombined_path: /etc/grid-security/hostcertkeycombined.pem
 
@@ -20,6 +19,11 @@ strategy:
     maxUnavailable: 1
 
 minReadySeconds: 5
+
+exposeErrorLogs: 0
+
+ingress:
+  enabled: 0
 
 webuiRoute:
   app: rucio-webui
@@ -39,4 +43,7 @@ monitor:
   user_scope: "rucio.icarus_okd_dev"
 
 logging:
-    log_level: 0
+  log_level: 0
+
+optional_config:
+  experiment: Uses $EXPERIMENT 

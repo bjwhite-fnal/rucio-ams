@@ -11,6 +11,6 @@ spec:
   host: {{ .Values.webuiRoute.host }} 
   to:
     kind: Service
-    name: rucio-{{ .Values.experiment }}-{{ .Values.webuiRoute.serviceName }}
+    name: {{ .Values.webuiRoute.serviceName }}
   tls:
     termination: passthrough

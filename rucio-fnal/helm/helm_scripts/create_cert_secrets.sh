@@ -44,13 +44,13 @@ kubectl create secret generic rucio-$EXPERIMENT-rucio-ca-bundle-reaper \
         --from-file=ca.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CA_BUNDLE
 
 # WebUI
-kubectl create secret generic hostcert \
+kubectl create secret generic rucio-$EXPERIMENT-hostcert \
 	--from-file=hostcert.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CERT
 
-kubectl create secret generic hostkey \
+kubectl create secret generic rucio-$EXPERIMENT-hostkey \
 	--from-file=hostkey.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_KEY
 
-kubectl create secret generic cafile \
+kubectl create secret generic rucio-$EXPERIMENT-cafile \
         --from-file=ca.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CA_BUNDLE
 
 
