@@ -43,6 +43,13 @@ kubectl create secret generic rucio-$EXPERIMENT-rucio-ca-bundle \
 kubectl create secret generic rucio-$EXPERIMENT-rucio-ca-bundle-reaper \
         --from-file=ca.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CA_BUNDLE
 
+# Hermes
+kubectl create secret generic rucio-$EXPERIMENT-hermes-cert \
+        --from-file=usercert.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CERT
+
+kubectl create secret generic rucio-$EXPERIMENT-hermes-key \
+        --from-file=new_userkey.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_KEY
+
 # WebUI
 kubectl create secret generic rucio-$EXPERIMENT-hostcert \
 	--from-file=hostcert.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CERT
@@ -52,7 +59,6 @@ kubectl create secret generic rucio-$EXPERIMENT-hostkey \
 
 kubectl create secret generic rucio-$EXPERIMENT-cafile \
         --from-file=ca.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CA_BUNDLE
-
 
 # Messenger
 kubectl create secret generic ssl-secrets \
