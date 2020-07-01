@@ -17,6 +17,7 @@ RUN yum install -y less \
 RUN pip install remote-pdb
 
 ADD vomses /etc
+ADD rucio.cfg.j2 /tmp/
 
 # Patches
 ADD patches/* /tmp/patches/
