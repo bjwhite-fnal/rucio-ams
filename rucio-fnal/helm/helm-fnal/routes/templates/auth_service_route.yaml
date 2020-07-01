@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Route
+metadata:
+  name: {{ .Values.authServerRoute.serviceName  }}-route
+  labels:
+    app: {{ .Values.authServerRoute.app }} 
+    chart: {{ template "rucio.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  host: {{ .Values.authServerRoute.host }} 
+  to:
+    kind: Service
+    name: rucio-{{ .Values.experiment }}-{{ .Values.authServerRoute.serviceName }}
+  tls:
+    termination: passthrough

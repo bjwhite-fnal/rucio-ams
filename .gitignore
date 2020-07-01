@@ -1,6 +1,7 @@
 secret
 *.swp
 certs/
+routes.yaml
 daemons.yaml
 server.yaml
 cache.yaml

@@ -60,10 +60,6 @@ $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-messenger.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-osg-authentication.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-webui.sh
 
-echo "Creating OSG authentication service..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-osg-authentication.sh
-wait_for_cert_installation_completion
-
 echo "Creating cache service..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-cache.sh > /dev/null
 
@@ -78,5 +74,8 @@ $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-server.sh > /dev/null
 
 echo "Creating web UI..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-webui.sh > /dev/null
+
+echo "Creating networking routes..."
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-routes.sh > /dev/null
 
 echo "**************** Openshift application rucio-$EXPERIMENT deployment successful ****************" 

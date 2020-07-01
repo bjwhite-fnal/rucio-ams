@@ -7,6 +7,7 @@ push-all:
 	$(push-cache-cmd)
 	$(push-messenger-cmd)
 	$(push-webui-cmd)
+	$(push-fts-cron-cmd)
 
 build-all:
 	$(build-server-cmd)
@@ -14,6 +15,7 @@ build-all:
 	$(build-cache-cmd)
 	$(build-messenger-cmd)
 	$(build-webui-cmd)
+	$(build-fts-cron-cmd)
 
 build-all-nc:
 	$(build-server-nc-cmd)
@@ -21,6 +23,15 @@ build-all-nc:
 	$(build-cache-nc-cmd)
 	$(build-messenger-nc-cmd)
 	$(build-webui-nc-cmd)
+	$(build-fts-cron-nc-cmd)
+
+define build-fts-cron-cmd =
+docker build -t rucio-fts-cron fts-cron
+endef
+
+define build-fts-cron-nc-cmd =
+docker build --no-cache -t rucio-fts-cron fts-cron
+endef
 
 define build-webui-cmd =
 docker build -t rucio-webui --build-arg rucio_version=${FNAL_RUCIO_VERSION} webui
@@ -62,6 +73,12 @@ define build-messenger-nc-cmd =
 docker build --no-cache -t rucio-messenger messenger
 endef
 
+build-fts-cron:
+	$(build-fts-cron-cmd)
+
+build-fts-cron-nc:
+	$(build-fts-cron-nc-cmd)
+
 build-webui:
 	$(build-webui-cmd)
 
@@ -92,6 +109,11 @@ build-messenger:
 build-messenger-nc:
 	$(build-messenger-nc-cmd)	
 
+define push-fts-cron-cmd =
+	docker tag rucio-fts-cron bjwhitefnal/fnal-rucio-fts-cron
+	docker push bjwhitefnal/fnal-rucio-fts-cron
+endef
+
 define push-webui-cmd =
 	docker tag rucio-webui bjwhitefnal/fnal-rucio-webui
 	docker push bjwhitefnal/fnal-rucio-webui
@@ -116,6 +138,9 @@ define push-messenger-cmd =
 	docker tag rucio-messenger bjwhitefnal/fnal-rucio-messenger
 	docker push bjwhitefnal/fnal-rucio-messenger
 endef
+
+push-fts-cron:
+	$(push-fts-cron-cmd)
 
 push-webui:
 	$(push-webui-cmd)

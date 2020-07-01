@@ -23,9 +23,9 @@ oc delete secrets --all
 oc delete route --all
 oc delete services --all 
 oc delete configmaps --all
-oc delete ingress --all
 oc delete cronjobs --all
 oc delete pods --all --now
 oc delete pvc --all
 oc delete jobs --all
+oc delete serviceaccount rucio-int-rucio-edit
 echo "**************** Openshift application rucio-$EXPERIMENT removed successfully. ****************" 

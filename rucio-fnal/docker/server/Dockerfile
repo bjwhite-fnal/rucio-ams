@@ -6,22 +6,14 @@
 ARG rucio_version
 FROM rucio/rucio-server:release-${rucio_version}
 
-RUN yum install -y mod_ssl gridsite patch net-tools telnet
+RUN yum install -y gridsite patch net-tools telnet
 RUN pip install remote-pdb
 RUN mv /etc/httpd/conf.d/zgridsite.conf /etc/httpd/conf.d/zgridsite.conf-hide
 
-ADD oic.rpm /tmp
-ADD httpd.conf /etc/httpd/conf/
+# Add FNAL specific files
 ADD alembic.ini.j2 /tmp
-ADD rucio.conf.j2 /tmp/
-ADD rucio.cfg.j2 /tmp/
-ADD fnal_rucio.conf.j2 /tmp/
 ADD gacl /opt/rucio/etc/
 ADD start-server.sh /
-
-RUN rpm -i /tmp/oic.rpm; \
-    echo "/usr/lib/oracle/12.2/client64/lib" >/etc/ld.so.conf.d/oracle.conf; \
-    ldconfig
 
 # Patches
 ADD patches/* /tmp/patches/
