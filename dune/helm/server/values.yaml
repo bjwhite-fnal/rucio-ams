@@ -2,27 +2,30 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-## replicaCount gives the number of server pods to run
+# Number of pods to run for server (replicaCount) and auth server (authReplicaCount)
 replicaCount: 1 
-## authReplicaCount gives the number of authentication server pods to run
 authReplicaCount: 1
 
 serviceAccountName: useroot
 
-experiment: dune
+experiment: Uses $EXPERIMENT
 
 image:
   repository: bjwhitefnal/fnal-rucio-server
   tag: latest
   pullPolicy: Always
 
-route:
-  app: rucio-server
+serverRoute:
+  app: rucio-dune-rucio-server
   host: dune-rucio.okd.fnal.gov
   serviceName: rucio-server
 
-authRoute:
-  app: rucio-server-auth
+useSSL:
+  authServer: 1
+  server: 1
+
+authServerRoute:
+  app: rucio-dune-rucio-server-auth
   host: auth-dune-rucio.okd.fnal.gov
   serviceName: rucio-server-auth
 
@@ -33,9 +36,9 @@ service:
 
 authService:
   type: ClusterIP
-  port: 443 
+  port: 443
   targetPort: 443
-  tls: 
+  tls:
     enabled: true
 
 strategy:
@@ -46,7 +49,10 @@ strategy:
 
 minReadySeconds: 5
 
-# values used to configure apache
+exposeErrorLogs:
+  server: 0
+  authServer: 0
+
 httpd_config:
   mpm_mode: "prefork"
   use_ca_path: "1"
@@ -57,28 +63,18 @@ httpd_config:
   max_clients: "10"
   max_requests_per_child: "200"
 
-monitor:
-  carbon_server: "lsdataitb.fnal.gov"
-  carbon_port: 8225
-  user_scope: "rucio.dune_okd_dev"
-
-logging:
-    log_level: 1
-
-## values used to configure Rucio
-config:
+config: 
+  monitor:
+    carbon_server: "lsdataitb.fnal.gov"
+    carbon_port: "8225"
+    user_scope: "rucio.dune_okd"
 
 resources: {}
-  # limits:
-  #  cpu: 100m
-  #  memory: 128Mi
-  # requests:
-  #  cpu: 100m
-  #  memory: 128Mi
-
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
 
+optional_config:
+  #rucio_cfg_database_echo: 1
+  delegate_fts_proxy: "true"
+  #rucio_fts_voms: "dune:/dune/Role=Production"

@@ -1,6 +1,6 @@
 # Default values for rucio.
 # This is a YAML-formatted file.
-# Declare configuration parametersto be used when generating 
+# Declare configuration parameters that are to be used when generating 
 # OKD deployment YAML configs via Helm templates.
 
 experiment: Uses $EXPERIMENT
@@ -142,7 +142,5 @@ config:
 
 optional_config:
   #rucio_cfg_database_echo: 1
-
   delegate_fts_proxy: "true"
-  rucio_fts_voms: "fermilab:/fermilab/Role=Production"
-
+  #rucio_fts_voms: "fermilab:/fermilab/Role=Production"
