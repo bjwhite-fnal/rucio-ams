@@ -1,9 +1,9 @@
 # Default values for rucio.
 # This is a YAML-formatted file.
-# Declare configuration parametersto be used when generating 
+# Declare configuration parameters that are to be used when generating 
 # OKD deployment YAML configs via Helm templates.
 
-experiment: icarus
+experiment: Uses $EXPERIMENT
 
 # Number of pods to run for each daemon
 abacusAccountCount: 1
@@ -19,6 +19,8 @@ judgeRepairerCount: 1
 undertakerCount: 1
 reaperCount: 1 
 transmogrifierCount: 1
+minosCount: 1
+necromancerCount: 1
 
 # Service Account
 serviceAccountName: useroot
@@ -47,29 +49,16 @@ abacusRse:
 
 conveyorTransferSubmitter:
   threads: 1
-  activities: "'User Subscriptions'"
+  activities: "'User Subscriptions' 'Recovery'"
   sleepTime: 10
 
 conveyorPoller:
   threads: 1
-  activities: "'User Subscriptions'"
+  activities: "'User Subscriptions' 'Recovery'"
 
 conveyorFinisher:
   threads: 1
-  activities: "'User Subscriptions'"
-
-hermes:
-  username: ____
-  password: ____
-  threads: 2 
-  bulk: 100
-  delay: 10
-  port: 63614
-  use_ssl: True
-  destination: /topic/rucio.events.icarus
-  voname: icarus
-  email_from: icarus Rucio <bjwhite@fnal.gov>
-  email_test: bjwhite@fnal.gov
+  activities: "'User Subscriptions' 'Recovery'"
 
 judgeCleaner:
   threads: 1
@@ -90,39 +79,68 @@ reaper:
   scheme: "gsiftp"
   threads: 1
 
+minos:
+  threads: 1
+
+necromancer:
+  threads: 1
+
+hermes:
+  threads: 2
+  useSSL: "True"
+  bulk: "100"
+  delay: "10"
+
 ftsRenewal:
-  enabled: 0
+  enabled: 1
   image:
-    repository: rucio/fts-cron
+    repository: bjwhitefnal/fnal-rucio-fts-cron
     tag: latest
     pullPolicy: Always
-  voms: "fermilab:/fermilab/icarus/Role=Production"
-  servers: "https://fts3-public.cern.ch:8446"
+  vo: "fermilab"
+  voms: "fermilab:/fermilab/Role=Production"
+  servers: "https://fts3-dev.fnal.gov:8446"
 
-monitor:
-  carbon_server: "lsdataitb.fnal.gov"
-  carbon_port: 8225
-  user_scope: "rucio.icarus_okd"
-
-logging:
-    # Set to 1 to turn on database queries in the logging output
-    log_level: 0 
-
-## common config values used to configure the Rucio daemons
+# Config values used to configure the Rucio daemons
+# These are turned into RUCIO_CFG_<section>_<variable>=value environment variables
 config:
 
   conveyor:
     max_time_in_queue: "User Subscriptions:5"
-    ftshosts: "https://fts3-public.cern.ch:8446"
-    cacert: "/etc/grid-security/ca.pem"
-    usercert: "/tmp/fts_proxy.pem"
-    # scheme: "srm,gsiftp,root,http,https"
-    # transfertool: "fts3"
-    # cache_time: ""
-    # user_deterministic_id: ""
-    # poll_timeout: ""
-    # submit_timeout: ""
-    # bring_online: ""
-    # queue_mode: ""
-    # using_memcache: ""
-    # ftsmonhosts: ""
+    ftshosts: "https://fts3-dev.fnal.gov:8446"
+    cacert: "/opt/certs/ca.pem"
+    usercert: "/opt/proxy/x509up"
+
+  monitor:
+    # Not sure if this will work here due to the secrets stuff in the RUCIO_CFG_ env var generation
+    carbon_server: "lsdataitb.fnal.gov"
+    carbon_port: "8225"
+    user_scope: "rucio.icarus_okd"
+
+  messaging:
+    cache_port: "11211"
+    #cache_ssl_key_file: ?
+    #cache_ssl_cert_file: ?
+    cache_destination: "/topic/rucio.events.icarus"
+    cache_brokers: "rucio-cache"
+    cache_voname: "fermilab"
+    cache_account: "memcache"
+
+    hermes_username: "guest"
+    hermes_password: "guest"
+    hermes_port: "443"
+    hermes_use_ssl: "True"
+    hermes_ssl_key_file: "/opt/rucio/keys/new_userkey.pem"
+    hermes_ssl_cert_file: "/opt/rucio/certs/usercert.pem"
+    hermes_destination: "/topic/rucio.events.icarus"
+    hermes_brokers: "rucio-messenger"
+    hermes_broker_virtual_host: "/"
+    hermes_voname: "/"
+    hermes_email_from: "Icarus Rucio <bjwhite@fnal.gov>"
+    hermes_email_test: "bjwhite@fnal.gov"
+
+
+optional_config:
+  #rucio_cfg_database_echo: 1
+  delegate_fts_proxy: "true"
+  #rucio_fts_voms: "fermilab:/fermilab/Role=Production"

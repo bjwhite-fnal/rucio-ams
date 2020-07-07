@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 serviceAccountName: useroot
-experiment: icarus
+experiment: Uses $EXPERIMENT 
 
 cacheServerCount: 1
 
