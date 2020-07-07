@@ -23,6 +23,11 @@ In particular please make sure that the following are set by the sourcing of the
     2. Make sure you have the certificate and key for the Rucio service, and create the combined certificate+key PEM file.
     3. Edit <experiment>/setup_rucio_env.sh to set the required environment variables
     5. Have the FNAL OKD cluster administrators create the `useroot` account for the deployment to use
+    6. Have the FNAL OKD cluster administrators create:
+        <experiment>-rucio.okd.fnal.gov
+        auth-<experiment>-rucio.okd.fnal.gov
+        msg-<experiment>-rucio.okd.fnal.gov
+        webui-<experiment>-rucio.okd.fnal.gov
 ~~~~
 
 Use deploy-rucio.sh to deploy services onto the OKD cluster after the environment is configured appropriately as described above. Use the setup_rucio_env.sh environment file at the top of the given experiment's configuration tree to do this.
