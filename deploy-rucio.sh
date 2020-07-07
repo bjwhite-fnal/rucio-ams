@@ -4,18 +4,6 @@
 #   the environment is correct with FNAL_RUCIO_DIR set.
 
 
-wait_for_cert_installation_completion () {
-    # Kick off and wait for  a job that will check for a completion flag for certificate installation
-    echo "Waiting for OSG certificates to install..."
-    oc apply -f $FNAL_RUCIO_DIR/rucio-fnal/helm/jobs/check_osg_cert_install.yaml
-    if kubectl wait --for=condition=complete --timeout 240s job/check-osg-cert-install; then
-        oc delete jobs/check-osg-cert-install > /dev/null
-    else
-        echo "OSG CA Certificate installation check timed out after 120 seconds."
-        exit -1
-    fi
-}
-
 verify_environment () {
     # Verify that the currently active Openshift project appears to be correct for the value in EXPERIMENT and all other required environment variables are set
     if [[ -z $EXPERIMENT ]]; then
@@ -57,8 +45,8 @@ $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-daemons.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-server.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-cache.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-messenger.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-osg-authentication.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-webui.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-routes.sh
 
 echo "Creating cache service..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-cache.sh > /dev/null
