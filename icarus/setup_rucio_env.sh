@@ -8,7 +8,6 @@ export EXPERIMENT=icarus
 export FNAL_RUCIO_DIR=/cloud/login/bjwhite/dev/rucio/rucio-fnal
 
 # Only the filenames are needed. The files should be resident in $FNAL_EXP_RUCIO_DEPLOYMENT_CONF_DIR/certs 
-export FNAL_EXP_RUCIO_CERT=icaruspro.cert
-export FNAL_EXP_RUCIO_KEY=icaruspro.key
-export FNAL_EXP_RUCIO_CERT_KEY_COMBINED=icaruspro.combined
+export FNAL_EXP_RUCIO_CERT=icarus-rucio.okd.fnal.gov-cert.pem
+export FNAL_EXP_RUCIO_KEY=icarus-rucio.okd.fnal.gov-key.pem
 export FNAL_EXP_RUCIO_CA_BUNDLE=ca_bundle.pem
