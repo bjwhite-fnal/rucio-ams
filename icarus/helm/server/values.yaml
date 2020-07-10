@@ -5,6 +5,7 @@
 # Number of pods to run for server (replicaCount) and auth server (authReplicaCount)
 replicaCount: 1 
 authReplicaCount: 1
+traceReplicaCount: 0
 
 serviceAccountName: useroot
 
@@ -69,6 +70,8 @@ config:
     carbon_port: "8225"
     user_scope: "rucio.icarus_okd"
 
+metricsExporterResources: {}
+errorLogsExporterResources: {}
 resources: {}
 nodeSelector: {}
 tolerations: []
@@ -77,4 +80,12 @@ affinity: {}
 optional_config:
   #rucio_cfg_database_echo: 1
   delegate_fts_proxy: "true"
-  rucio_fts_voms: "fermilab:/fermilab/Role=Production"
+
+authIngress:
+  enabled: false
+
+ingress:
+  enabled: false
+
+monitoring:
+  enabled: false
