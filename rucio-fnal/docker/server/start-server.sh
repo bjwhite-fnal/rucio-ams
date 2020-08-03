@@ -1,11 +1,5 @@
 #!/bin/bash -e
 
-j2 /tmp/fnal_rucio.conf.j2 | sed '/^\s*$/d' > /etc/httpd/conf.d/fnal_rucio.conf
-
-echo "=================== /etc/httpd/conf.d/fnal_rucio.conf ========================"
-cat /etc/httpd/conf.d/fnal_rucio.conf
-echo ""
-
 j2 /tmp/00-mpm.conf.j2 > /etc/httpd/conf.modules.d/00-mpm.conf
 
 echo "=================== /etc/httpd/conf.modules.d/00-mpm.conf ========================"
