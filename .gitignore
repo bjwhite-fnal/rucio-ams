@@ -6,5 +6,6 @@ daemons.yaml
 server.yaml
 cache.yaml
 messenger.yaml
+filebeat.yaml
 osg_authentication.yaml
 webui.yaml

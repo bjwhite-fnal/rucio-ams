@@ -25,6 +25,7 @@ oc delete services --all
 oc delete configmaps --all
 oc delete cronjobs --all
 oc delete pods --all --now
+oc delete daemonset --all
 oc delete pvc --all
 oc delete jobs --all
 oc delete serviceaccount rucio-int-rucio-edit
