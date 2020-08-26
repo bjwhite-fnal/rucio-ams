@@ -1,0 +1,102 @@
+# Default values for rucio.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Number of pods to run for server (replicaCount) and auth server (authReplicaCount)
+replicaCount: 1 
+authReplicaCount: 1
+traceReplicaCount: 0
+
+serviceAccountName: useroot
+
+experiment: Uses $EXPERIMENT
+
+image:
+  repository: bjwhitefnal/fnal-rucio-server
+  tag: latest
+  pullPolicy: Always
+
+serverRoute:
+  app: rucio-accelai-rucio-server
+  host: accelai-rucio.okd.fnal.gov
+  serviceName: rucio-server
+
+useSSL:
+  authServer: 1
+  server: 1
+
+authServerRoute:
+  app: rucio-accelai-rucio-server-auth
+  host: auth-accelai-rucio.okd.fnal.gov
+  serviceName: rucio-server-auth
+
+service:
+  type: ClusterIP
+  port: 443
+  targetPort: 443
+
+authService:
+  type: ClusterIP
+  port: 443
+  targetPort: 443
+  tls:
+    enabled: true
+
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 1
+
+minReadySeconds: 5
+
+exposeErrorLogs:
+  server: 0
+  authServer: 0
+
+httpd_config:
+  mpm_mode: "prefork"
+  use_ca_path: "1"
+  start_servers: "1"
+  min_spare_servers: "1"
+  max_spare_servers: "1"
+  server_limit: "1"
+  max_clients: "10"
+  max_requests_per_child: "200"
+  log_dir: "/rucio/logs"
+
+config: 
+  common:
+    logdir: /rucio/logs
+
+  monitor:
+    carbon_server: "lsdataitb.fnal.gov"
+    carbon_port: "8225"
+    user_scope: "rucio.accelai"
+
+metricsExporterResources: {}
+errorLogsExporterResources: {}
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+optional_config:
+  rucio_enable_logfile: "True"
+  delegate_fts_proxy: "true"
+  rucio_fts_voms: "fermilab:/fermilab/Role=Production"
+  #rucio_cfg_database_echo: 1
+
+persistentVolumes:
+  rucio-logs:
+    name: "pv-rucio-accelai-logs"
+    mountPath: /rucio/logs
+
+authIngress:
+  enabled: false
+
+ingress:
+  enabled: false
+
+monitoring:
+  enabled: false

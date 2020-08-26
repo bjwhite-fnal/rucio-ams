@@ -1,0 +1,155 @@
+# Default values for rucio.
+# This is a YAML-formatted file.
+# Declare configuration parameters that are to be used when generating 
+# OKD deployment YAML configs via Helm templates.
+
+experiment: Uses $EXPERIMENT
+
+# Number of pods to run for each daemon
+abacusAccountCount: 1
+abacusRseCount: 1
+conveyorTransferSubmitterCount: 1
+conveyorPollerCount: 1
+conveyorFinisherCount: 1
+hermesCount: 1
+judgeCleanerCount: 1
+judgeEvaluatorCount: 1
+judgeInjectorCount: 1
+judgeRepairerCount: 1
+undertakerCount: 1
+reaperCount: 1 
+transmogrifierCount: 1
+minosCount: 1
+necromancerCount: 1
+
+# Service Account
+serviceAccountName: useroot
+
+# Daemon Image
+image:
+  repository: bjwhitefnal/fnal-rucio-daemons
+  tag: latest
+  pullPolicy: Always
+
+# Pod Upgrade Strategy
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 1
+
+minReadySeconds: 5
+
+# Daemons Specific Configuration Parameters
+abacusAccount:
+  threads: 1
+
+abacusRse:
+  threads: 1
+
+conveyorTransferSubmitter:
+  threads: 1
+  activities: "'User Subscriptions' 'Recovery'"
+  sleepTime: 10
+
+conveyorPoller:
+  threads: 1
+  activities: "'User Subscriptions' 'Recovery'"
+
+conveyorFinisher:
+  threads: 1
+  activities: "'User Subscriptions' 'Recovery'"
+
+judgeCleaner:
+  threads: 1
+
+judgeEvaluator:
+  threads: 1
+
+judgeInjector:
+  threads: 1
+
+judgeRepairer:
+  threads: 1
+
+undertaker:
+  threads: 1
+
+reaper:
+  scheme: "gsiftp"
+  threads: 1
+
+minos:
+  threads: 1
+
+necromancer:
+  threads: 1
+
+hermes:
+  threads: 2
+  useSSL: "True"
+  bulk: "100"
+  delay: "10"
+
+ftsRenewal:
+  enabled: 1
+  image:
+    repository: bjwhitefnal/fnal-rucio-fts-cron
+    tag: latest
+    pullPolicy: Always
+  vo: "fermilab"
+  voms: "fermilab:/fermilab/Role=Production"
+  servers: "https://fts3-dev.fnal.gov:8446"
+
+persistentVolumes:
+  rucio-logs:
+    name: "pv-rucio-accelai-logs"
+    mountPath: /rucio/logs
+
+# Config values used to configure the Rucio daemons
+# These are turned into RUCIO_CFG_<section>_<variable>=value environment variables
+config:
+
+  common:
+    logdir: /rucio/logs
+
+  conveyor:
+    max_time_in_queue: "User Subscriptions:5"
+    ftshosts: "https://fts3-dev.fnal.gov:8446"
+    cacert: "/opt/certs/ca.pem"
+    usercert: "/opt/proxy/x509up"
+
+  monitor:
+    # Not sure if this will work here due to the secrets stuff in the RUCIO_CFG_ env var generation
+    carbon_server: "lsdataitb.fnal.gov"
+    carbon_port: "8225"
+    user_scope: "rucio.accelai"
+
+  messaging:
+    cache_port: "11211"
+    #cache_ssl_key_file: ?
+    #cache_ssl_cert_file: ?
+    cache_destination: "/topic/rucio.events.accelai"
+    cache_brokers: "rucio-cache"
+    cache_voname: "fermilab"
+    cache_account: "memcache"
+
+    hermes_username: "guest"
+    hermes_password: "guest"
+    hermes_port: "443"
+    hermes_use_ssl: "True"
+    hermes_ssl_key_file: "/opt/rucio/keys/new_userkey.pem"
+    hermes_ssl_cert_file: "/opt/rucio/certs/usercert.pem"
+    hermes_destination: "/topic/rucio.events.accelai"
+    hermes_brokers: "rucio-messenger"
+    hermes_broker_virtual_host: "/"
+    hermes_voname: "/"
+    hermes_email_from: "accelai Rucio <bjwhite@fnal.gov>"
+    hermes_email_test: "bjwhite@fnal.gov"
+
+
+optional_config:
+  rucio_enable_logfile: "True"
+  #rucio_cfg_database_echo: 1
+  delegate_fts_proxy: "true"
+  #rucio_fts_voms: "fermilab:/fermilab/Role=Production"
