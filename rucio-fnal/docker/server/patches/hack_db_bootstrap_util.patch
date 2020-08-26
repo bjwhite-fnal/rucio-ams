@@ -1,8 +1,8 @@
---- util.py	2019-12-30 14:38:26.010087722 -0600
-+++ rucio/db/sqla/util.py	2019-12-31 10:26:06.144807413 -0600
-@@ -133,30 +133,12 @@
- def create_root_account():
-     """ Inserts the default root account to an existing database. Make sure to change the default password later. """
+--- util.py	2020-08-13 02:53:58.000000000 -0500
++++ rucio/db/sqla/util.py	2020-08-25 10:54:54.539101988 -0500
+@@ -152,30 +152,12 @@
+ 
+     multi_vo = bool(config_get('common', 'multi_vo', False, False))
  
 -    up_id = 'ddmlab'
 -    up_pwd = 'secret'
@@ -33,9 +33,9 @@
      except:
          pass
          # print 'Config values are missing (check rucio.cfg{.template}). Using hardcoded defaults.'
-@@ -165,35 +147,16 @@
+@@ -189,43 +171,25 @@
  
-     account = models.Account(account=InternalAccount('root'), account_type=AccountType.SERVICE, status=AccountStatus.ACTIVE)
+     account = models.Account(account=InternalAccount(access, 'def'), account_type=AccountType.SERVICE, status=AccountStatus.ACTIVE)
  
 -    salt = urandom(255)
 -    if PY3:
@@ -47,7 +47,7 @@
 -    identity1 = models.Identity(identity=up_id, identity_type=IdentityType.USERPASS, password=hashed_password, salt=salt, email=up_email)
 -    iaa1 = models.IdentityAccountAssociation(identity=identity1.identity, identity_type=identity1.identity_type, account=account.account, is_default=True)
 -
--    # X509 authentication
+     # X509 authentication
 -    identity2 = models.Identity(identity=x509_id, identity_type=IdentityType.X509, email=x509_email)
 -    iaa2 = models.IdentityAccountAssociation(identity=identity2.identity, identity_type=identity2.identity_type, account=account.account, is_default=True)
 -
@@ -58,18 +58,27 @@
 -    # SSH authentication
 -    identity4 = models.Identity(identity=ssh_id, identity_type=IdentityType.SSH, email=ssh_email)
 -    iaa4 = models.IdentityAccountAssociation(identity=identity4.identity, identity_type=identity4.identity_type, account=account.account, is_default=True)
-+    identity = models.Identity(identity=x509_id, identity_type=IdentityType.X509, email=x509_email)
-+    iaa = models.IdentityAccountAssociation(identity=identity.identity, identity_type=identity.identity_type, account=account.account, is_default=True)
++    identity1 = models.Identity(identity=x509_id, identity_type=IdentityType.X509, email=x509_email)
++    iaa1 = models.IdentityAccountAssociation(identity=identity1.identity, identity_type=identity1.identity_type, account=account.account, is_default=True)
  
      # Account counters
-     create_counters_for_new_account(account=account.account, session=s)
+     if create_counters:
+         create_counters_for_new_account(account=account.account, session=s)
  
      # Apply
--    s.add_all([account, identity1, identity2, identity3, identity4])
-+    s.add_all([account, identity])
+-    for identity in [identity1, identity2, identity3, identity4]:
++    for identity in [identity1]:
+         try:
+-            s.add(identity)
++            s.add(identity1)
+             s.commit()
+         except IntegrityError:
+             # Identities may already be in the DB when running multi-VO conversion
+             s.rollback()
+     s.add(account)
      s.commit()
 -    s.add_all([iaa1, iaa2, iaa3, iaa4])
-+    s.add_all([iaa])
++    s.add_all([iaa1])
      s.commit()
  
  
