@@ -1,5 +1,6 @@
 #!/bin/bash
 
 # Start Filebeat for delivery of Rucio logs to Elasticsearch
+envsubst < /usr/share/filebeat/filebeat.yml > /usr/share/filebeat/filebeat.yml
 
-filebeat run --path.config /etc/filebeat -c filebeat.yml
+filebeat run --path.config /usr/share/filebeat -c filebeat.yml
