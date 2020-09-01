@@ -9,7 +9,6 @@ FROM rucio/fts-cron:latest
 RUN rm /etc/vomses/*
 ADD ./vomses /etc/vomses/
 
-RUN rm /renew_fts_proxy*
 RUN mkdir -p -m 775 /opt/rucio/fts-delegate/
 
 ADD docker-entrypoint.sh /opt/rucio/fts-delegate/
