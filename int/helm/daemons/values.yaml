@@ -101,9 +101,17 @@ ftsRenewal:
   voms: "fermilab:/fermilab/Role=Production"
   servers: "https://fts3-dev.fnal.gov:8446"
 
+persistentVolumes:
+  rucio-logs:
+    name: "pv-rucio-int-logs"
+    mountPath: /rucio/logs
+
 # Config values used to configure the Rucio daemons
 # These are turned into RUCIO_CFG_<section>_<variable>=value environment variables
 config:
+
+  common:
+    logdir: /rucio/logs
 
   conveyor:
     max_time_in_queue: "User Subscriptions:5"
@@ -141,6 +149,9 @@ config:
 
 
 optional_config:
+  rucio_enable_logfile: "True"
+  rucio_enable_logs: "True"
+  rucio_daemon_log_dir: "/rucio/logs"
   #rucio_cfg_database_echo: 1
   delegate_fts_proxy: "true"
   #rucio_fts_voms: "fermilab:/fermilab/Role=Production"

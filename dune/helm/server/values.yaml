@@ -63,8 +63,12 @@ httpd_config:
   server_limit: "1"
   max_clients: "10"
   max_requests_per_child: "200"
+  log_dir: "/rucio/logs"
 
 config: 
+  common:
+    logdir: /rucio/logs
+
   monitor:
     carbon_server: "lsdataitb.fnal.gov"
     carbon_port: "8225"
@@ -78,9 +82,17 @@ tolerations: []
 affinity: {}
 
 optional_config:
+  rucio_enable_logfile: "True"
+  rucio_enable_logs: "True"
+  delegate_fts_proxy: "true"
   #rucio_cfg_database_echo: 1
   delegate_fts_proxy: "true"
-  #rucio_fts_voms: "dune:/dune/Role=Production"
+  rucio_fts_voms: "dune:/dune/Role=Production"
+
+persistentVolumes:
+  rucio-logs:
+    name: "pv-rucio-int-logs"
+    mountPath: /rucio/logs
 
 authIngress:
   enabled: false

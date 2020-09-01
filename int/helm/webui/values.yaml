@@ -45,5 +45,14 @@ monitor:
 logging:
   log_level: 0
 
+persistentVolumes:
+  rucio-logs:
+    name: "pv-rucio-int-logs"
+    mountPath: /rucio/logs
+
+httpd_config:
+  log_dir: "/rucio/logs"
+
 optional_config:
   experiment: Uses $EXPERIMENT 
+  rucio_enable_logfile: "True"
