@@ -17,11 +17,13 @@ RUN yum install -y less \
 RUN pip install remote-pdb
 
 ADD vomses /etc
-ADD rucio.cfg.j2 /tmp/
+ADD ./start-daemon.sh /
+
+# TEMP SOLUTION
 
 # Patches
-ADD patches/* /tmp/patches/
-RUN if ls -1 /tmp/patches/ | grep -Eq '\.patch$'; then for p in /tmp/patches/*.patch; do echo "Patching: $p" && patch -p0 -d /usr/lib/python2.7/site-packages/ < $p; done; fi
+#ADD patches/* /tmp/patches/
+#RUN if ls -1 /tmp/patches/ | grep -Eq '\.patch$'; then for p in /tmp/patches/*.patch; do echo "Patching: $p" && patch -p0 -d /usr/lib/python2.7/site-packages/ < $p; done; fi
 
 ENTRYPOINT ["/start-daemon.sh"]
 
