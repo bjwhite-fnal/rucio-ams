@@ -12,5 +12,6 @@ else
         --set experiment=$EXPERIMENT \
         -f $FNAL_RUCIO_DIR/$EXPERIMENT/helm/server/values.yaml \
         -f $FNAL_RUCIO_DIR/$EXPERIMENT/helm/messenger/values.yaml \
+        -f $FNAL_RUCIO_DIR/$EXPERIMENT/helm/logstash/values.yaml \
         -f $FNAL_RUCIO_DIR/$EXPERIMENT/helm/webui/values.yaml > $FNAL_RUCIO_DIR/$EXPERIMENT/routes.yaml
 fi

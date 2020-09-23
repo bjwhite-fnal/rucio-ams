@@ -45,6 +45,7 @@ $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-messenger.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-webui.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-routes.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-filebeat.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-logstash.sh
 
 echo "Creating cache service..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-cache.sh > /dev/null
@@ -52,8 +53,11 @@ $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-cache.sh > /dev/null
 echo "Creating messenger service..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-messenger.sh > /dev/null
 
-echo "Creating Filebeat logging manager..."
+echo "Creating Filebeat logging scraper..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-filebeat.sh > /dev/null
+
+echo "Creating Logstash logging processor..."
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-logstash.sh > /dev/null
 
 echo "Creating daemons..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-daemons.sh > /dev/null

@@ -9,6 +9,7 @@ push-all:
 	$(push-webui-cmd)
 	$(push-fts-cron-cmd)
 	$(push-filebeat-cmd)
+	$(push-logstash-cmd)
 
 build-all:
 	$(build-server-cmd)
@@ -18,6 +19,7 @@ build-all:
 	$(build-webui-cmd)
 	$(build-fts-cron-cmd)
 	$(build-filebeat-cmd)
+	$(build-logstash-cmd)
 
 build-all-nc:
 	$(build-server-nc-cmd)
@@ -27,6 +29,15 @@ build-all-nc:
 	$(build-webui-nc-cmd)
 	$(build-fts-cron-nc-cmd)
 	$(build-filebeat-nc-cmd)
+	$(build-logstash-nc-cmd)
+
+define build-logstash-cmd =
+docker build -t rucio-logstash logstash
+endef
+
+define build-logstash-nc-cmd =
+docker build --no-cache -t rucio-logstash logstash
+endef
 
 define build-filebeat-cmd =
 docker build -t rucio-filebeat filebeat
@@ -84,6 +95,12 @@ define build-messenger-nc-cmd =
 docker build --no-cache -t rucio-messenger messenger
 endef
 
+build-logstash:
+	$(build-logstash-cmd)
+
+build-logstash-nc:
+	$(build-logstash-nc-cmd)
+
 build-filebeat:
 	$(build-filebeat-cmd)
 
@@ -126,6 +143,11 @@ build-messenger:
 build-messenger-nc:
 	$(build-messenger-nc-cmd)	
 
+define push-logstash-cmd =
+	docker tag rucio-logstash bjwhitefnal/fnal-rucio-logstash
+	docker push bjwhitefnal/fnal-rucio-logstash
+endef
+
 define push-filebeat-cmd =
 	docker tag rucio-filebeat bjwhitefnal/fnal-rucio-filebeat
 	docker push bjwhitefnal/fnal-rucio-filebeat
@@ -160,6 +182,9 @@ define push-messenger-cmd =
 	docker tag rucio-messenger bjwhitefnal/fnal-rucio-messenger
 	docker push bjwhitefnal/fnal-rucio-messenger
 endef
+
+push-logstash:
+	$(push-logstash-cmd)
 
 push-filebeat:
 	$(push-filebeat-cmd)

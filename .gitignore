@@ -9,3 +9,4 @@ messenger.yaml
 filebeat.yaml
 osg_authentication.yaml
 webui.yaml
+logstash.yaml
