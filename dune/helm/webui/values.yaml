@@ -47,7 +47,7 @@ logging:
 
 persistentVolumes:
   rucio-logs:
-    name: "pv-rucio-int-logs"
+    name: "pv-rucio-dune-logs"
     mountPath: /rucio/logs
 
 httpd_config:

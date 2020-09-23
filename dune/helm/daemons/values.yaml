@@ -103,7 +103,7 @@ ftsRenewal:
 
 persistentVolumes:
   rucio-logs:
-    name: "pv-rucio-int-logs"
+    name: "pv-rucio-dune-logs"
     mountPath: /rucio/logs
 
 # Config values used to configure the Rucio daemons

@@ -91,7 +91,7 @@ optional_config:
 
 persistentVolumes:
   rucio-logs:
-    name: "pv-rucio-int-logs"
+    name: "pv-rucio-dune-logs"
     mountPath: /rucio/logs
 
 authIngress:
