@@ -40,10 +40,19 @@ service:
 monitor:
   carbon_server: "lsdataitb.fnal.gov"
   carbon_port: 8225
-  user_scope: "rucio.accelai"
+  user_scope: "rucio.accelai_okd"
 
 logging:
   log_level: 0
 
+persistentVolumes:
+  rucio-logs:
+    name: "pv-rucio-accelai-logs"
+    mountPath: /rucio/logs
+
+httpd_config:
+  log_dir: "/rucio/logs"
+
 optional_config:
   experiment: Uses $EXPERIMENT 
+  rucio_enable_logfile: "True"
