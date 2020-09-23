@@ -20,7 +20,7 @@ In particular please make sure that the following are set by the sourcing of the
 ~~~~
     0. Have a database created for the new deployment to use. (Duh)
     1. Create rucio-<experiment> project in OKD
-    2. Make sure you have the certificate and key for the Rucio service, and create the combined certificate+key PEM file.
+    2. Make sure you have the certificate and key for the Rucio service, with alternate names for the various services (webui, msg, auth)
     3. Edit <experiment>/setup_rucio_env.sh to set the required environment variables
     5. Have the FNAL OKD cluster administrators create the `useroot` account for the deployment to use
     6. Have the FNAL OKD cluster administrators create:
@@ -30,10 +30,11 @@ In particular please make sure that the following are set by the sourcing of the
         webui-<experiment>-rucio.okd.fnal.gov
 ~~~~
 
-Use deploy-rucio.sh to deploy services onto the OKD cluster after the environment is configured appropriately as described above. Use the setup_rucio_env.sh environment file at the top of the given experiment's configuration tree to do this.
-Use undeploy-rucio.sh to remove them.
+Source the setup_rucio_env.sh file at the top of the given experiment's configuration tree to configure the environment.
+Use deploy-rucio.sh to deploy services onto the OKD cluster after the environment is configured appropriately as described above.
+Use undeploy-rucio.sh to remove everything (Services, Pods, Routes, Persistent Volumes and Claims, etc..).
 
-The Rucio code may be monkey patched at image build time by placing patch files into one of two locations: $FNAL_RUCIO_DIR/rucio-fnal/docker/[server,daemon]/patches
+The Rucio source code may be patched when the images are built by placing patch files into one of two locations: $FNAL_RUCIO_DIR/rucio-fnal/docker/[server,daemon]/patches
 
 ## EXAMPLE DIRECTORY STRUCTURE FOR AN EXPERIMENT:
 ~~~~
@@ -45,6 +46,10 @@ The Rucio code may be monkey patched at image build time by placing patch files 
     │   └── rucio.fnal.gov_key.pem
     ├── helm
     │   ├── cache
+    │   │   └── values.yaml
+    │   ├── filebeat 
+    │   │   └── values.yaml
+    │   ├── logstash 
     │   │   └── values.yaml
     │   ├── daemons
     │   │   └── values.yaml                 < Daemon configuration specific values > 
