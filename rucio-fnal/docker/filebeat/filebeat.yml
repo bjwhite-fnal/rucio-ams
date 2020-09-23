@@ -3,32 +3,18 @@ filebeat.inputs:
     - type: log
       enabled: true
       paths:
-        - /rucio/logs/*.log
-
-# Drop the log fields containing auth token information
-#processors:
-#  - drop_fields:
-#      fields: ["cpu.user", "cpu.system"]
+        - /rucio/logs/*log
 
 # Logging config
 logging.level: info
-logging.to_files: true
-logging.files:
-    path: /rucio/logs
-    name: filebeat
-    keepfiles: 3
+logging.to_stderr: true
+#logging.to_files: true
+#logging.files:
+#    path: /rucio/logs
+#    name: filebeat
+#    keepfiles: 3
 
-# Ship the log file contents to the Distributed Computing Support Kafka instance
-output.kafka:
+# Ship the events to Logstash for processing/cleaning
+output.logstash:
     enabled: true
-    # Kafka brokers run by Distributed Computing Support
-    hosts: ["lssrv03:9092", "lssrv04:9092", "lssrv05:9092"]
-
-    # message topic selection + partitioning
-    topic: 'ingest.logs.rucio.${EXPERIMENT}'
-    partition.round_robin:
-      reachable_only: false
-
-    required_acks: 1
-    compression: gzip
-    max_message_bytes: 1000000
+    hosts: ["rucio-logstash:5044"]

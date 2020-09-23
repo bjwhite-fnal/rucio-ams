@@ -8,9 +8,8 @@ ADD ./docker-entrypoint.sh /docker-entrypoint.sh
 VOLUME /var/logs/rucio
 
 USER root
-RUN yum install -y gettext
+RUN yum install -y gettext net-tools openssl
 
-#RUN chown root:filebeat /usr/share/filebeat/filebeat.yml
 RUN chown filebeat:filebeat /usr/share/filebeat/filebeat.yml
 USER filebeat
 
