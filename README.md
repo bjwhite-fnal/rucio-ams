@@ -68,3 +68,10 @@ The Rucio source code may be patched when the images are built by placing patch 
 ~~~~
 
 Directories named certs/ and secret/ will not be committed to the repository according to the default .gitignore file.
+
+Use hard links to link the permissions-fnal/ Pythonn files into the server, daemons, and WebUI Docker build contexts via a /permissions directory.
+
+## Using custom Policy Packages
+Rucio policy package directories must be added to the PYTHONPATH search variable inside of the Rucio containers. (See https://github.com/rucio/rucio/blob/master/doc/source/policy_packages.rst for details) 
+Set the environment variable `policy_pkg_dir` in the containers. If this variable is set, the value will be prepended
+to the value of PYTHONPATH inside the container.
