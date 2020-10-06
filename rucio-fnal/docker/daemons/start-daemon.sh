@@ -1,5 +1,14 @@
 #!/bin/sh
 
+if [ ! -z "$POLICY_PKG_DIR" ]; then
+    if [ ! -d "$POLICY_PKG_DIR" ]; then
+        echo "The value provided in POLICY_PKG_DIR does not correspond to an existant directory."
+        exit 1
+    fi
+    export PYTHONPATH=$POLICY_PKG_DIR:$PYTHONPATH
+    echo "Python search path: $PYTHONPATH"
+fi
+
 if [ -z "$RUCIO_DAEMON_LOG_DIR" ]; then
     echo "Make sure to set RUCIO_DAEMON_LOG_DIR!"
     exit 1

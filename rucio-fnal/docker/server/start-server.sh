@@ -1,5 +1,14 @@
 #!/bin/bash -e
 
+if [ ! -z "$POLICY_PKG_DIR" ]; then
+    if [ ! -d "$POLICY_PKG_DIR" ]; then
+        echo "The value provided in POLICY_PKG_DIR does not correspond to an existant directory."
+        exit 1
+    fi
+    export PYTHONPATH=$POLICY_PKG_DIR:$PYTHONPATH
+    echo "Python search path: $PYTHONPATH"
+fi
+
 j2 /tmp/00-mpm.conf.j2 > /etc/httpd/conf.modules.d/00-mpm.conf
 
 echo "=================== /etc/httpd/conf.modules.d/00-mpm.conf ========================"

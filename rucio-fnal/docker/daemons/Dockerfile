@@ -18,6 +18,7 @@ RUN pip install remote-pdb
 
 ADD vomses /etc
 ADD ./start-daemon.sh /
+ADD permissions/ /opt/rucio/permissions
 
 # TEMP SOLUTION
 

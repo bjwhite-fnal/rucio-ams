@@ -12,6 +12,7 @@ RUN yum install -y patch net-tools vim less
 #ADD ./rucio.conf.j2 /tmp/
 
 
+ADD permissions/ /opt/rucio/permissions
 ADD ./docker-entrypoint.sh / 
 ADD ./configure_rucio_environment.sh /
 

@@ -14,6 +14,7 @@ RUN mv /etc/httpd/conf.d/zgridsite.conf /etc/httpd/conf.d/zgridsite.conf-hide
 ADD alembic.ini.j2 /tmp
 ADD gacl /opt/rucio/etc/
 ADD start-server.sh /
+ADD permissions/ /opt/rucio/permissions
 
 # Patches
 ADD patches/* /tmp/patches/
