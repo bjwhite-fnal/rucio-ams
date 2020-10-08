@@ -1,12 +1,21 @@
-secret
-*.swp
+# Ignore the secrets and certificates directories entirely.
+secret/
 certs/
-routes.yaml
-daemons.yaml
-server.yaml
+
+# Ignore all the various YAML files that are created for the deployment.
 cache.yaml
-messenger.yaml
+daemons.yaml
 filebeat.yaml
-osg_authentication.yaml
-webui.yaml
 logstash.yaml
+messenger.yaml
+routes.yaml
+server.yaml
+webui.yaml
+
+# Ignore hard links that make the Fermilab policy package available inside the Docker build contexts.
+rucio-fnal/docker/daemons/permissions/
+rucio-fnal/docker/server/permissions/
+rucio-fnal/docker/webui/permissions/
+
+# Ignore swap files because they are annoying.
+*.swp
