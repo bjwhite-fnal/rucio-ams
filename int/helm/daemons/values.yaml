@@ -147,6 +147,10 @@ config:
     hermes_email_from: "int Rucio <bjwhite@fnal.gov>"
     hermes_email_test: "bjwhite@fnal.gov"
 
+  policy:
+    package: fermilab
+    support: "Brandon White <bjwhite@fnal.gov>"
+
 
 optional_config:
   policy_pkg_dir: /opt/rucio/permissions

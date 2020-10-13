@@ -147,6 +147,10 @@ config:
     hermes_email_from: "AccelAI Rucio <bjwhite@fnal.gov>"
     hermes_email_test: "bjwhite@fnal.gov"
 
+  policy:
+    package: fermilab
+    support: "Brandon White <bjwhite@fnal.gov>"
+
 
 optional_config:
   rucio_enable_logfile: "True"

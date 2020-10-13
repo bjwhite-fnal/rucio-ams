@@ -18,9 +18,10 @@ RUN pip install remote-pdb
 
 ADD vomses /etc
 ADD ./start-daemon.sh /
-ADD permissions/ /opt/rucio/permissions
+ADD permissions/ /opt/rucio/permissions/fermilab
 
-# TEMP SOLUTION
+# TEMPORARY CONFIG ADD FOR UNTIL THE STUFF GETS BUILT INTO THE REAL CONTAINERS 
+ADD rucio.cfg.j2 /tmp
 
 # Patches
 #ADD patches/* /tmp/patches/

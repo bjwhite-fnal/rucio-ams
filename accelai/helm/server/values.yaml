@@ -74,6 +74,10 @@ config:
     carbon_port: "8225"
     user_scope: "rucio.accelai_okd"
 
+  policy:
+    package: fermilab
+    support: "Brandon White <bjwhite@fnal.gov>"
+
 metricsExporterResources: {}
 errorLogsExporterResources: {}
 resources: {}

@@ -24,6 +24,7 @@
 # - Benedikt Ziemons <benedikt.ziemons@cern.ch>, 2020
 # - Eli Chadwick <eli.chadwick@stfc.ac.uk>, 2020
 # - Patrick Austin <patrick.austin@stfc.ac.uk>, 2020
+# - Brandon White <bjwhite@fnal.gov>, 2020
 #
 # PY3K COMPATIBLE
 
@@ -47,9 +48,6 @@ def has_permission(issuer, action, kwargs):
     :param kwargs: List of arguments for the action.
     :returns: True if account is allowed, otherwise False
     """
-    if action not in perm:
-        return rucio.core.permission.generic.has_permission(issuer, action, kwargs)
-
     perm = {
             'add_rule': perm_add_rule,
             'add_subscription': perm_add_subscription,
@@ -76,6 +74,9 @@ def has_permission(issuer, action, kwargs):
             'add_bad_pfns': perm_add_bad_pfns,
             'remove_did_from_followed': perm_remove_did_from_followed,
             'remove_dids_from_followed': perm_remove_dids_from_followed}
+
+    if action not in perm:
+        return rucio.core.permission.generic.has_permission(issuer, action, kwargs)
 
     return perm.get(action, perm_default)(issuer=issuer, kwargs=kwargs)
 

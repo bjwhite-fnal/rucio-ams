@@ -14,7 +14,10 @@ RUN mv /etc/httpd/conf.d/zgridsite.conf /etc/httpd/conf.d/zgridsite.conf-hide
 ADD alembic.ini.j2 /tmp
 ADD gacl /opt/rucio/etc/
 ADD start-server.sh /
-ADD permissions/ /opt/rucio/permissions
+ADD permissions/ /opt/rucio/permissions/fermilab
+
+# TEMPORARY CONFIG ADD FOR UNTIL THE STUFF GETS BUILT INTO THE REAL CONTAINERS 
+ADD rucio.cfg.j2 /tmp
 
 # Patches
 ADD patches/* /tmp/patches/

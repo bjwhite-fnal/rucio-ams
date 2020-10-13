@@ -12,9 +12,13 @@ RUN yum install -y patch net-tools vim less
 #ADD ./rucio.conf.j2 /tmp/
 
 
-ADD permissions/ /opt/rucio/permissions
+ADD permissions/ /opt/rucio/permissions/fermilab
 ADD ./docker-entrypoint.sh / 
 ADD ./configure_rucio_environment.sh /
+
+# TEMPORARY CONFIG ADD FOR UNTIL THE STUFF GETS BUILT INTO THE REAL CONTAINERS 
+ADD rucio.cfg.j2 /tmp
+
 
 # Patches
 #ADD patches/* /tmp/patches/

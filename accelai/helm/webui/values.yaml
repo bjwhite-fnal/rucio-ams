@@ -53,6 +53,11 @@ persistentVolumes:
 httpd_config:
   log_dir: "/rucio/logs"
 
+config:
+  policy:
+    package: fermilab
+    support: "Brandon White <bjwhite@fnal.gov>"
+
 optional_config:
   experiment: Uses $EXPERIMENT 
   rucio_enable_logfile: "True"

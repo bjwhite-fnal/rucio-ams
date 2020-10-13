@@ -74,11 +74,9 @@ config:
     carbon_port: "8225"
     user_scope: "rucio.int_okd"
 
-#  policy:
-#    package: fermilab
-#    permission: fermilab
-#    schema: fermilab
-#    support: "Brandon White <bjwhite@fnal.gov>"
+  policy:
+    package: fermilab
+    support: "Brandon White <bjwhite@fnal.gov>"
     
 
 metricsExporterResources: {}
@@ -90,7 +88,7 @@ affinity: {}
 
 optional_config:
   policy_pkg_dir: /opt/rucio/permissions
-  rucio_enable_logfile: "True"
+  #rucio_enable_logfile: "True"
   rucio_enable_logs: "True"
   delegate_fts_proxy: "true"
   rucio_fts_voms: "fermilab:/fermilab/Role=Production"
