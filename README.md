@@ -73,5 +73,13 @@ Use hard links to link the permissions-fnal/ Pythonn files into the server, daem
 
 ## Using custom Policy Packages
 Rucio policy package directories must be added to the PYTHONPATH search variable inside of the Rucio containers. (See https://github.com/rucio/rucio/blob/master/doc/source/policy_packages.rst for details) 
-Set the environment variable `policy_pkg_dir` in the containers. If this variable is set, the value will be prepended
+Make sure to set the environment variable `policy_pkg_dir` in the containers (using the optional_config section in the Helm values files of the server/daemon/webui/etc... If this variable is set, the value will be prepended
 to the value of PYTHONPATH inside the container.
+
+Finally, make sure to specify under the `config` section the following settings for policies:
+```
+policy:
+  package: fermilab
+  support: "Brandon White <bjwhite@fnal.gov>"
+```
+Do NOT specify the permission and schema options... This prevents the correct policy from being imported.
