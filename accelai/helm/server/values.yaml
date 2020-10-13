@@ -86,6 +86,7 @@ tolerations: []
 affinity: {}
 
 optional_config:
+  policy_pkg_dir: /opt/rucio/permissions
   rucio_enable_logfile: "True"
   rucio_enable_logs: "True"
   delegate_fts_proxy: "true"
