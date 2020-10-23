@@ -101,9 +101,17 @@ ftsRenewal:
   voms: "fermilab:/fermilab/icarus/Role=Production"
   servers: "https://fts3-dev.fnal.gov:8446"
 
+persistentVolumes:
+  rucio-logs:
+    name: "pv-rucio-icarus-logs"
+    mountPath: /rucio/logs
+
 # Config values used to configure the Rucio daemons
 # These are turned into RUCIO_CFG_<section>_<variable>=value environment variables
 config:
+
+  common:
+    logdir: /rucio/logs
 
   conveyor:
     max_time_in_queue: "User Subscriptions:5"
@@ -139,7 +147,14 @@ config:
     hermes_email_from: "DUNE Rucio <bjwhite@fnal.gov>"
     hermes_email_test: "bjwhite@fnal.gov"
 
+  policy:
+    package: fermilab
+    support: "Brandon White <bjwhite@fnal.gov>"
 
 optional_config:
+  policy_pkg_dir: /opt/rucio/permissions
+  rucio_enable_logfile: "True"
+  rucio_enable_logs: "True"
+  rucio_daemon_log_dir: "/rucio/logs"
   #rucio_cfg_database_echo: 1
   delegate_fts_proxy: "true"
