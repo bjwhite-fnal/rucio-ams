@@ -50,6 +50,7 @@ def has_permission(issuer, action, kwargs):
     """
     perm = {
             'add_rule': perm_add_rule,
+            'add_scope': perm_add_scope,
             'add_subscription': perm_add_subscription,
             'declare_bad_file_replicas': perm_declare_bad_file_replicas,
             'add_replicas': perm_add_replicas,
@@ -112,6 +113,17 @@ def perm_add_rule(issuer, kwargs):
     ):
         return True
     return False
+
+
+def perm_add_scope(issuer, kwargs):
+    """
+    Checks if an account can add a scope to a account.
+
+    :param issuer: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed, otherwise False
+    """
+    return _is_root(issuer) or issuer == kwargs.get('account') or has_account_attribute(account=issuer, key='add_scope')
 
 
 def perm_add_subscription(issuer, kwargs):
