@@ -11,7 +11,7 @@ abacusRseCount: 0
 conveyorTransferSubmitterCount: 1
 conveyorPollerCount: 0
 conveyorFinisherCount: 0
-hermesCount: 0
+hermesCount: 1
 judgeCleanerCount: 0
 judgeEvaluatorCount: 0
 judgeInjectorCount: 0
@@ -129,7 +129,7 @@ config:
     cache_port: "11211"
     #cache_ssl_key_file: ?
     #cache_ssl_cert_file: ?
-    cache_destination: "/topic/rucio.events.int"
+    cache_destination: "/topic/rucio.events.dune"
     cache_brokers: "rucio-cache"
     cache_voname: "dune"
     cache_account: "memcache"
@@ -140,18 +140,21 @@ config:
     hermes_use_ssl: "True"
     hermes_ssl_key_file: "/opt/rucio/keys/new_userkey.pem"
     hermes_ssl_cert_file: "/opt/rucio/certs/usercert.pem"
-    hermes_destination: "/topic/rucio.events.int"
+    hermes_destination: "/topic/rucio.events.dune"
     hermes_brokers: "rucio-messenger"
     hermes_broker_virtual_host: "/"
     hermes_voname: "/"
     hermes_email_from: "DUNE Rucio <bjwhite@fnal.gov>"
     hermes_email_test: "bjwhite@fnal.gov"
 
+  policy:
+    package: fermilab
+    support: "Brandon White <bjwhite@fnal.gov>"
 
 optional_config:
+  policy_pkg_dir: /opt/rucio/permissions
   rucio_enable_logfile: "True"
   rucio_enable_logs: "True"
   rucio_daemon_log_dir: "/rucio/logs"
   #rucio_cfg_database_echo: 1
   delegate_fts_proxy: "true"
-  #rucio_fts_voms: "dune:/dune/Role=Production"
