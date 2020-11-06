@@ -60,3 +60,6 @@ usercert = {{ RUCIO_CFG_WEBUI_USERCERT | default('/opt/rucio/etc/usercert_with_k
 [oidc]
 idpsecrets = {{ RUCIO_CFG_OIDC_IDPSECRETS | default('/opt/rucio/etc/idpsecrets.json') }}
 {% if RUCIO_CFG_OIDC_ADMIN_ISSUER is defined %}admin_issuer = {{ RUCIO_CFG_OIDC_ADMIN_ISSUER }}{% endif %}
+
+[alembic]
+config = /opt/rucio/etc/alembic.ini
