@@ -22,8 +22,8 @@ In particular please make sure that the following are set by the sourcing of the
     1. Create rucio-<experiment> project in OKD
     2. Make sure you have the certificate and key for the Rucio service, with alternate names for the various services (webui, msg, auth)
     3. Edit <experiment>/setup_rucio_env.sh to set the required environment variables
-    5. Have the FNAL OKD cluster administrators create the `useroot` account for the deployment to use
-    6. Have the FNAL OKD cluster administrators create:
+    5. Have the FNAL OKD cluster administrators create the `useroot` account for the deployment to use in order to allow the containers to run as root
+    6. Have the FNAL OKD cluster administrators create the following DNS records:
         <experiment>-rucio.okd.fnal.gov
         auth-<experiment>-rucio.okd.fnal.gov
         msg-<experiment>-rucio.okd.fnal.gov
@@ -42,7 +42,6 @@ The Rucio source code may be patched when the images are built by placing patch 
     ├── certs                               < Experiment specific certificate, key, cert/key concatenated, and CA certificate bundle. >
     │   ├── ca_bundle.pem
     │   ├── rucio.fnal.gov_cert.pem
-    │   ├── rucio.fnal.gov_combined.pem
     │   └── rucio.fnal.gov_key.pem
     ├── helm
     │   ├── cache
@@ -69,7 +68,8 @@ The Rucio source code may be patched when the images are built by placing patch 
 
 Directories named certs/ and secret/ will not be committed to the repository according to the default .gitignore file.
 
-Use hard links to link the permissions-fnal/ Pythonn files into the server, daemons, and WebUI Docker build contexts via a /permissions directory.
+When building new container images, setup the the FNAL OKD Rucio environment. Use hard links to link the permissions-fnal/ Python files into the server, daemons, and WebUI Docker build contexts via a /permissions in each directory.
+Use the Makefile in fnal-rucio/docker to build and push Docker images.
 
 ## Using custom Policy Packages
 Rucio policy package directories must be added to the PYTHONPATH search variable inside of the Rucio containers. (See https://github.com/rucio/rucio/blob/master/doc/source/policy_packages.rst for details) 
