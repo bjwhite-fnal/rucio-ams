@@ -144,43 +144,43 @@ build-messenger-nc:
 	$(build-messenger-nc-cmd)	
 
 define push-logstash-cmd =
-	docker tag rucio-logstash bjwhitefnal/fnal-rucio-logstash
-	docker push bjwhitefnal/fnal-rucio-logstash
+	docker tag rucio-logstash imageregistry.fnal.gov/rucio-fnal/fnal-rucio-logstash
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-logstash
 endef
 
 define push-filebeat-cmd =
-	docker tag rucio-filebeat bjwhitefnal/fnal-rucio-filebeat
-	docker push bjwhitefnal/fnal-rucio-filebeat
+	docker tag rucio-filebeat imageregistry.fnal.gov/rucio-fnal/fnal-rucio-filebeat
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-filebeat
 endef
 
 define push-fts-cron-cmd =
-	docker tag rucio-fts-cron bjwhitefnal/fnal-rucio-fts-cron
-	docker push bjwhitefnal/fnal-rucio-fts-cron
+	docker tag rucio-fts-cron imageregistry.fnal.gov/rucio-fnal/fnal-rucio-fts-cron
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-fts-cron
 endef
 
 define push-webui-cmd =
-	docker tag rucio-webui bjwhitefnal/fnal-rucio-webui
-	docker push bjwhitefnal/fnal-rucio-webui
+	docker tag rucio-webui imageregistry.fnal.gov/rucio-fnal/fnal-rucio-webui
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-webui
 endef
 
 define push-server-cmd =
-	docker tag rucio-server bjwhitefnal/fnal-rucio-server
-	docker push bjwhitefnal/fnal-rucio-server
+	docker tag rucio-server imageregistry.fnal.gov/rucio-fnal/fnal-rucio-server
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-server
 endef
 
 define push-daemons-cmd =
-	docker tag rucio-daemons bjwhitefnal/fnal-rucio-daemons
-	docker push bjwhitefnal/fnal-rucio-daemons
+	docker tag rucio-daemons imageregistry.fnal.gov/rucio-fnal/fnal-rucio-daemons
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-daemons
 endef
 
 define push-cache-cmd =
-	docker tag rucio-cache bjwhitefnal/fnal-rucio-cache
-	docker push bjwhitefnal/fnal-rucio-cache
+	docker tag rucio-cache imageregistry.fnal.gov/rucio-fnal/fnal-rucio-cache
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-cache
 endef
 
 define push-messenger-cmd =
-	docker tag rucio-messenger bjwhitefnal/fnal-rucio-messenger
-	docker push bjwhitefnal/fnal-rucio-messenger
+	docker tag rucio-messenger imageregistry.fnal.gov/rucio-fnal/fnal-rucio-messenger
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-messenger
 endef
 
 push-logstash:

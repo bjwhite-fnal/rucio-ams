@@ -8,7 +8,7 @@ rucio_ca_path: /etc/grid-security/certificates
 webui_certkeycombined_path: /etc/grid-security/hostcertkeycombined.pem
 
 image:
-  repository: bjwhitefnal/fnal-rucio-webui
+  repository: imageregistry.fnal.gov/rucio-fnal/fnal-rucio-webui
   tag: latest
   pullPolicy: Always
 

@@ -5,7 +5,7 @@ experiment: Uses $EXPERIMENT
 minReadySeconds: 5
 
 image:
-  repository: bjwhitefnal/fnal-rucio-logstash
+  repository: imageregistry.fnal.gov/rucio-fnal/fnal-rucio-logstash
   tag: latest
   pullPolicy: Always
 

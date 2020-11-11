@@ -4,7 +4,7 @@ filebeatCount: 1
 experiment: Uses $EXPERIMENT
 
 image:
-  repository: bjwhitefnal/fnal-rucio-filebeat
+  repository: imageregistry.fnal.gov/rucio-fnal/fnal-rucio-filebeat
   tag: latest
   pullPolicy: Always
 
