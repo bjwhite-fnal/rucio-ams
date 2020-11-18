@@ -1,6 +1,8 @@
 
 # Use this to control building and pushing of Docker images in a significantly less ugly fashion.
 #
+
+# Top level Makefile commands (also can build individual images with `make build-<server|daemons|webui|etc...>`)
 push-all:
 	$(push-server-cmd)
 	$(push-daemons-cmd)
@@ -31,6 +33,7 @@ build-all-nc:
 	$(build-filebeat-nc-cmd)
 	$(build-logstash-nc-cmd)
 
+# Image build command definitions
 define build-logstash-cmd =
 docker build -t rucio-logstash logstash
 endef
@@ -95,6 +98,7 @@ define build-messenger-nc-cmd =
 docker build --no-cache -t rucio-messenger messenger
 endef
 
+# Image build command declarations
 build-logstash:
 	$(build-logstash-cmd)
 
@@ -143,46 +147,48 @@ build-messenger:
 build-messenger-nc:
 	$(build-messenger-nc-cmd)	
 
+# Image push command definitions
 define push-logstash-cmd =
-	docker tag rucio-logstash imageregistry.fnal.gov/rucio-fnal/fnal-rucio-logstash
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-logstash
+	docker tag rucio-logstash imageregistry.fnal.gov/rucio-fnal/fnal-rucio-logstash:${FNAL_RUCIO_VERSION}
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-logstash:${FNAL_RUCIO_VERSION}
 endef
 
 define push-filebeat-cmd =
-	docker tag rucio-filebeat imageregistry.fnal.gov/rucio-fnal/fnal-rucio-filebeat
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-filebeat
+	docker tag rucio-filebeat imageregistry.fnal.gov/rucio-fnal/fnal-rucio-filebeat:${FNAL_RUCIO_VERSION}
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-filebeat:${FNAL_RUCIO_VERSION}
 endef
 
 define push-fts-cron-cmd =
-	docker tag rucio-fts-cron imageregistry.fnal.gov/rucio-fnal/fnal-rucio-fts-cron
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-fts-cron
+	docker tag rucio-fts-cron imageregistry.fnal.gov/rucio-fnal/fnal-rucio-fts-cron:${FNAL_RUCIO_VERSION}
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-fts-cron:${FNAL_RUCIO_VERSION}
 endef
 
 define push-webui-cmd =
-	docker tag rucio-webui imageregistry.fnal.gov/rucio-fnal/fnal-rucio-webui
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-webui
+	docker tag rucio-webui imageregistry.fnal.gov/rucio-fnal/fnal-rucio-webui:${FNAL_RUCIO_VERSION}
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-webui:${FNAL_RUCIO_VERSION}
 endef
 
 define push-server-cmd =
-	docker tag rucio-server imageregistry.fnal.gov/rucio-fnal/fnal-rucio-server
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-server
+	docker tag rucio-server imageregistry.fnal.gov/rucio-fnal/fnal-rucio-server:${FNAL_RUCIO_VERSION}
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-server:${FNAL_RUCIO_VERSION}
 endef
 
 define push-daemons-cmd =
-	docker tag rucio-daemons imageregistry.fnal.gov/rucio-fnal/fnal-rucio-daemons
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-daemons
+	docker tag rucio-daemons imageregistry.fnal.gov/rucio-fnal/fnal-rucio-daemons:${FNAL_RUCIO_VERSION}
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-daemons:${FNAL_RUCIO_VERSION}
 endef
 
 define push-cache-cmd =
-	docker tag rucio-cache imageregistry.fnal.gov/rucio-fnal/fnal-rucio-cache
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-cache
+	docker tag rucio-cache imageregistry.fnal.gov/rucio-fnal/fnal-rucio-cache:${FNAL_RUCIO_VERSION}
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-cache:${FNAL_RUCIO_VERSION}
 endef
 
 define push-messenger-cmd =
-	docker tag rucio-messenger imageregistry.fnal.gov/rucio-fnal/fnal-rucio-messenger
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-messenger
+	docker tag rucio-messenger imageregistry.fnal.gov/rucio-fnal/fnal-rucio-messenger:${FNAL_RUCIO_VERSION}
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-messenger:${FNAL_RUCIO_VERSION}
 endef
 
+# Image push command declarations
 push-logstash:
 	$(push-logstash-cmd)
 
