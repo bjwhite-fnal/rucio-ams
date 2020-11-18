@@ -10,6 +10,7 @@ elif [ -z "$EXPERIMENT" ]; then
 else
     helm template --name rucio-$EXPERIMENT $FNAL_RUCIO_DIR/rucio-fnal/helm/helm-charts/rucio-daemons \
         --set experiment=$EXPERIMENT \
+        --set image.tag=$FNAL_RUCIO_VERSION \
         -f $FNAL_RUCIO_DIR/$EXPERIMENT/helm/daemons/values.yaml \
         -f $FNAL_RUCIO_DIR/$EXPERIMENT/helm/secret/config.yaml > $FNAL_RUCIO_DIR/$EXPERIMENT/daemons.yaml
 fi
