@@ -98,7 +98,7 @@ ftsRenewal:
     tag: latest
     pullPolicy: Always
   vo: "fermilab"
-  voms: "fermilab:/fermilab/Role=Production"
+  voms: "fermilab:/fermilab/accelai/Role=Production"
   servers: "https://fts-dev.fnal.gov:8446"
 
 persistentVolumes:
@@ -159,4 +159,3 @@ optional_config:
   rucio_daemon_log_dir: "/rucio/logs"
   #rucio_cfg_database_echo: 1
   delegate_fts_proxy: "true"
-  #rucio_fts_voms: "fermilab:/fermilab/Role=Production"

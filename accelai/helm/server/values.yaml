@@ -90,8 +90,8 @@ optional_config:
   rucio_enable_logfile: "True"
   rucio_enable_logs: "True"
   delegate_fts_proxy: "true"
-  rucio_fts_voms: "fermilab:/fermilab/Role=Production"
   #rucio_cfg_database_echo: 1
+  #rucio_fts_voms: "fermilab:/fermilab/accelai/Role=Production"
 
 persistentVolumes:
   rucio-logs:
