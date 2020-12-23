@@ -10,6 +10,6 @@ elif [ -z "$EXPERIMENT" ]; then
 else
     helm template --name rucio-$EXPERIMENT-cache $FNAL_RUCIO_DIR/rucio-fnal/helm/helm-fnal/cache \
         --set experiment=$EXPERIMENT \
-        --set image.tag=$FNAL_RUCIO_VERSION \
+        --set image.tag=$FNAL_RUCIO_VERSION_TAG \
         -f $FNAL_RUCIO_DIR/$EXPERIMENT/helm/cache/values.yaml > $FNAL_RUCIO_DIR/$EXPERIMENT/cache.yaml
 fi

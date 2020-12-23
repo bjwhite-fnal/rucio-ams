@@ -10,6 +10,6 @@ elif [ -z "$EXPERIMENT" ]; then
 else
     helm template --name rucio-$EXPERIMENT-logstash $FNAL_RUCIO_DIR/rucio-fnal/helm/helm-fnal/logstash \
         --set experiment=$EXPERIMENT \
-        --set image.tag=$FNAL_RUCIO_VERSION \
+        --set image.tag=$FNAL_RUCIO_VERSION_TAG \
         -f $FNAL_RUCIO_DIR/$EXPERIMENT/helm/logstash/values.yaml > $FNAL_RUCIO_DIR/$EXPERIMENT/logstash.yaml
 fi
