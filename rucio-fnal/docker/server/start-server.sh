@@ -36,6 +36,10 @@ fi
 
 j2 /tmp/rucio.conf.j2 | sed '/^\s*$/d' > /etc/httpd/conf.d/rucio.conf
 
+if [ ! -z "$RUCIO_HTTPD_LOG_DIR" ]; then
+    /configure_server_log_location.sh
+fi
+
 echo "=================== /etc/httpd/conf.d/rucio.conf ========================"
 cat /etc/httpd/conf.d/rucio.conf
 echo ""

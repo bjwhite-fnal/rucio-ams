@@ -13,6 +13,7 @@ RUN mv /etc/httpd/conf.d/zgridsite.conf /etc/httpd/conf.d/zgridsite.conf-hide
 # Add FNAL specific files
 ADD alembic.ini.j2 /tmp
 ADD gacl /opt/rucio/etc/
+ADD configure_server_log_location.sh /
 ADD start-server.sh /
 ADD permissions/ /opt/rucio/permissions/fermilab
 
