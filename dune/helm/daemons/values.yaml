@@ -8,7 +8,7 @@ experiment: Uses $EXPERIMENT
 # Number of pods to run for each daemon
 abacusAccountCount: 0
 abacusRseCount: 0
-conveyorTransferSubmitterCount: 1
+conveyorTransferSubmitterCount: 0
 conveyorPollerCount: 0
 conveyorFinisherCount: 0
 hermesCount: 1
