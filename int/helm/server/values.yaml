@@ -14,7 +14,6 @@ experiment: Uses $EXPERIMENT
 
 image:
   repository: imageregistry.fnal.gov/rucio-fnal/fnal-rucio-server
-  tag: latest
   pullPolicy: Always
 
 serverRoute:
@@ -81,21 +80,14 @@ config:
     package: fermilab
     support: "Brandon White <bjwhite@fnal.gov>"
     
-
-metricsExporterResources: {}
-errorLogsExporterResources: {}
-resources: {}
-nodeSelector: {}
-tolerations: []
-affinity: {}
-
+# FNAL (and likely OKD) Specific Configuration Stuff
 optional_config:
   # Set the path (inside the container) where the experiment policy package will be located.
   policy_pkg_dir: /opt/rucio/permissions
 
-  # Enable logging to files instead of the container STDOUT and set the location that they will go to
-  #rucio_enable_logfile: "True"
-  #rucio_httpd_log_dir: /rucio/logs
+  # Enable logging to files instead of the container STDOUT and set the location that they will go to (Default: /var/log/ if rucio_httpd_log_dir not set)
+  rucio_enable_logfile: "True"
+  rucio_httpd_log_dir: /rucio/logs
 
   # Database debugging messages
   #rucio_cfg_database_echo: 1
@@ -120,3 +112,10 @@ authIngress:
   enabled: false
 ingress:
   enabled: false
+
+metricsExporterResources: {}
+errorLogsExporterResources: {}
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
