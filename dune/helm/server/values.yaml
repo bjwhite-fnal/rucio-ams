@@ -7,13 +7,13 @@ replicaCount: 1
 authReplicaCount: 1
 traceReplicaCount: 0
 
+# Leave this as useroot (or whatever the ServiceAccount setup by the admins with the ability to run privileged containers).
 serviceAccountName: useroot
 
 experiment: Uses $EXPERIMENT
 
 image:
   repository: imageregistry.fnal.gov/rucio-fnal/fnal-rucio-server
-  tag: latest
   pullPolicy: Always
 
 serverRoute:
@@ -21,14 +21,14 @@ serverRoute:
   host: dune-rucio.okd.fnal.gov
   serviceName: rucio-server
 
-useSSL:
-  authServer: 1
-  server: 1
-
 authServerRoute:
   app: rucio-dune-rucio-server-auth
   host: auth-dune-rucio.okd.fnal.gov
   serviceName: rucio-server-auth
+
+useSSL:
+  authServer: 1
+  server: 1
 
 service:
   type: ClusterIP
@@ -50,6 +50,7 @@ strategy:
 
 minReadySeconds: 5
 
+# Don't worry about this, we have our own logging solution. This is for CERN.
 exposeErrorLogs:
   server: 0
   authServer: 0
@@ -63,10 +64,10 @@ httpd_config:
   server_limit: "1"
   max_clients: "10"
   max_requests_per_child: "200"
-  log_dir: "/rucio/logs"
 
 config: 
   common:
+    # Sets the location that the daemons will log to.
     logdir: /rucio/logs
 
   monitor:
@@ -74,24 +75,22 @@ config:
     carbon_port: "8225"
     user_scope: "rucio.dune_okd"
 
+  # Configure the policy package that is to be used for this deployment.
   policy:
     package: fermilab
     support: "Brandon White <bjwhite@fnal.gov>"
 
-metricsExporterResources: {}
-errorLogsExporterResources: {}
-resources: {}
-nodeSelector: {}
-tolerations: []
-affinity: {}
-
+# FNAL (and likely OKD) Specific Configuration Stuff
 optional_config:
+  # Set the path (inside the container) where the experiment policy package will be located.
   policy_pkg_dir: /opt/rucio/permissions
+
+  # Enable logging to files instead of the container STDOUT and set the location that they will go to (Default: /var/log/ if rucio_httpd_log_dir not set)
   rucio_enable_logfile: "True"
-  rucio_enable_logs: "True"
-  delegate_fts_proxy: "true"
+  rucio_httpd_log_dir: /rucio/logs
+
+  # Database debugging messages
   #rucio_cfg_database_echo: 1
-  delegate_fts_proxy: "true"
 
 persistentVolumes:
   rucio-logs:
@@ -106,3 +105,10 @@ ingress:
 
 monitoring:
   enabled: false
+
+metricsExporterResources: {}
+errorLogsExporterResources: {}
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
