@@ -21,7 +21,8 @@ In particular please make sure that the following are set by the sourcing of the
     0. Have a database created for the new deployment to use. (Duh)
     1. Create rucio-<experiment> project in OKD
     2. Make sure you have the certificate and key for the Rucio service, with alternate names for the various services (webui, msg, auth)
-    3. Edit <experiment>/setup_rucio_env.sh to set the required environment variables
+    3. Ensure that the certificate is registered in a federated identity system (e.g. FERRY/VOMS) to the <experiment>pro user so that Rucio can access data on the RSEs
+    4. Edit <experiment>/setup_rucio_env.sh to set the required environment variables
     5. Have the FNAL OKD cluster administrators create the `useroot` account for the deployment to use in order to allow the containers to run as root
     6. Have the FNAL OKD cluster administrators create the following DNS records:
         <experiment>-rucio.okd.fnal.gov
