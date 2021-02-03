@@ -1,7 +1,7 @@
 # Environtment set up file for the DUNE environment
 
 export DOCKER_BUILDKIT=1
-export FNAL_RUCIO_VERSION=1.23.12
+export FNAL_RUCIO_VERSION=1.22.7
 
 if [ "${RUCIO_FNAL_DEV}" = "true" ]; then
     export FNAL_RUCIO_VERSION_TAG="latest"
