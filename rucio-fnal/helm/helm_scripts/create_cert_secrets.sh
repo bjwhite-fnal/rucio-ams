@@ -40,8 +40,13 @@ kubectl create secret generic rucio-$EXPERIMENT-fts-key \
 kubectl create secret generic rucio-$EXPERIMENT-rucio-ca-bundle \
         --from-file=ca.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CA_BUNDLE
 
+# Reapers need the whole directory of certificates
+mkdir /tmp/reaper-certs
+cp /etc/grid-security/certificates/*.0 /tmp/reaper-certs/
+cp /etc/grid-security/certificates/*.signing_policy /tmp/reaper-certs/
 kubectl create secret generic rucio-$EXPERIMENT-rucio-ca-bundle-reaper \
         --from-file=ca.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CA_BUNDLE
+rm -r /tmp/reaper-certs
 
 # Hermes
 kubectl create secret generic rucio-$EXPERIMENT-hermes-cert \
