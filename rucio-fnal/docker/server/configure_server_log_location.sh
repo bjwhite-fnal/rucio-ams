@@ -18,5 +18,5 @@ fi
 echo $name_prefix
 
 # TODO: Figure out the capture groups to grab the custom path at the front while still being able to add the prefix we need to the filename that is put back into the modified rucio.conf file.
-sed -e "s% CustomLog \([/A-Za-z_-]*\)/access_log% CustomLog \1/${name_prefix}access_log%g" /etc/httpd/conf.d/rucio.conf > /etc/httpd/conf.d/rucio.conf.sed
-sed -e "s% ErrorLog \([/A-Za-z_-]*\)/error_log% ErrorLog \1/${name_prefix}error_log%g" /etc/httpd/conf.d/rucio.conf.sed > /etc/httpd/conf.d/rucio.conf
+sed -e "s% CustomLog logs/access_log% CustomLog ${RUCIO_HTTPD_LOG_DIR}/${name_prefix}access_log%g" /etc/httpd/conf.d/rucio.conf > /tmp/rucio.conf.sed
+sed -e "s% ErrorLog logs/error_log% ErrorLog ${RUCIO_HTTPD_LOG_DIR}/${name_prefix}error_log%g" /tmp/rucio.conf.sed > /etc/httpd/conf.d/rucio.conf
