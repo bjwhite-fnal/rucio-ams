@@ -45,7 +45,7 @@ mkdir /tmp/reaper-certs
 cp /etc/grid-security/certificates/*.0 /tmp/reaper-certs/
 cp /etc/grid-security/certificates/*.signing_policy /tmp/reaper-certs/
 kubectl create secret generic rucio-$EXPERIMENT-rucio-ca-bundle-reaper \
-        --from-file=ca.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CA_BUNDLE
+        --from-file=/tmp/reaper-certs
 rm -r /tmp/reaper-certs
 
 # Hermes
