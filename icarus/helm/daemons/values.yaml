@@ -6,21 +6,31 @@
 experiment: Uses $EXPERIMENT
 
 # Number of pods to run for each daemon
+reaper2Count: 1
+hermesCount: 1
+
 abacusAccountCount: 1
+abacusCollectionReplicaCount: 1
 abacusRseCount: 1
+
 conveyorTransferSubmitterCount: 1
 conveyorPollerCount: 1
 conveyorFinisherCount: 1
-hermesCount: 1
+conveyorStagerCount: 1
+conveyorReceiverCount: 0
+
 judgeCleanerCount: 1
 judgeEvaluatorCount: 1
 judgeInjectorCount: 1
 judgeRepairerCount: 1
+
 undertakerCount: 1
-reaperCount: 0
 transmogrifierCount: 1
 minosCount: 1
 necromancerCount: 1
+#kronosCount: 0
+##cacheConsumerCount: 0
+##auditor?
 
 # Service Account
 serviceAccountName: useroot
@@ -57,6 +67,14 @@ conveyorPoller:
   activities: "'User Subscriptions' 'Recovery'"
 
 conveyorFinisher:
+  threads: 1
+  activities: "'User Subscriptions' 'Recovery'"
+
+conveyorStager:
+  threads: 1
+  activities: "'User Subscriptions' 'Recovery'"
+
+conveyorReceiver:
   threads: 1
   activities: "'User Subscriptions' 'Recovery'"
 
@@ -99,7 +117,7 @@ ftsRenewal:
     pullPolicy: Always
   vo: "icarus"
   voms: "fermilab:/fermilab/icarus/Role=Production"
-  servers: "https://fts3-dev.fnal.gov:8446"
+  servers: "https://fts-dev.fnal.gov:8446"
 
 persistentVolumes:
   rucio-logs:
@@ -115,7 +133,7 @@ config:
 
   conveyor:
     max_time_in_queue: "User Subscriptions:5"
-    ftshosts: "https://fts3-dev.fnal.gov:8446"
+    ftshosts: "https://fts-dev.fnal.gov:8446"
     cacert: "/opt/certs/ca.pem"
     usercert: "/opt/proxy/x509up"
 

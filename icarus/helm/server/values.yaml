@@ -48,7 +48,9 @@ strategy:
     maxSurge: 1
     maxUnavailable: 1
 
-minReadySeconds: 5
+minReadySeconds:
+  server: 5
+  authServer: 5
 
 # Don't worry about this, we have our own logging solution. This is for CERN.
 exposeErrorLogs:
@@ -77,7 +79,8 @@ config:
   monitor:
     carbon_server: "lsdataitb.fnal.gov"
     carbon_port: "8225"
-    user_scope: "rucio.icarus_okd"
+    user_scope: "rucio_icarus_okd"
+    enable_metrics: "true"
 
   policy:
     package: fermilab
