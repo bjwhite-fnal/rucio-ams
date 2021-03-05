@@ -84,3 +84,6 @@ policy:
   support: "Brandon White <bjwhite@fnal.gov>"
 ```
 Do NOT specify the permission and schema options... This prevents the correct policy from being imported.
+
+## Note about Reaper certificates
+The Reaper needs a full directory of certificats as opposed to a concatenated PEM. This should be handled by this framework, but it is worth keeping in mind.
