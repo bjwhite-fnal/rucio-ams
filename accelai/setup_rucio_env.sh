@@ -3,7 +3,7 @@
 export DOCKER_BUILDKIT=1
 export FNAL_RUCIO_VERSION=1.23.12
 
-if [ "${RUCIO_FNAL_DEV}" = "true" ]; then
+if [ -z ${RUCIO_FNAL_DEV} ]; then
     export FNAL_RUCIO_VERSION_TAG="latest"
 else
     export FNAL_RUCIO_VERSION_TAG=${FNAL_RUCIO_VERSION}
