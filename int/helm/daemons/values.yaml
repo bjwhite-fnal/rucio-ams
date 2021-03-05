@@ -8,16 +8,20 @@ experiment: Uses $EXPERIMENT
 # Number of pods to run for each daemon
 abacusAccountCount: 1
 abacusRseCount: 1
+
 conveyorTransferSubmitterCount: 1
 conveyorPollerCount: 1
 conveyorFinisherCount: 1
+conveyorStagerCount: 1
+conveyorReceiverCount: 1
+
 hermesCount: 1
 judgeCleanerCount: 1
 judgeEvaluatorCount: 1
 judgeInjectorCount: 1
 judgeRepairerCount: 1
 undertakerCount: 1
-reaperCount: 1 
+reaper2Count: 1 
 transmogrifierCount: 1
 minosCount: 1
 necromancerCount: 1
@@ -60,6 +64,10 @@ conveyorFinisher:
   threads: 1
   activities: "'User Subscriptions' 'Recovery'"
 
+conveyorStager:
+  threads: 1
+  activities: "'User Subscriptions' 'Recovery'"
+
 judgeCleaner:
   threads: 1
 
@@ -75,7 +83,7 @@ judgeRepairer:
 undertaker:
   threads: 1
 
-reaper:
+reaper2:
   scheme: "gsiftp"
   threads: 1
 
@@ -99,7 +107,7 @@ ftsRenewal:
     pullPolicy: Always
   vo: "fermilab"
   voms: "fermilab:/fermilab/Role=Production"
-  servers: "https://fts3-dev.fnal.gov:8446"
+  servers: "https://fts-dev.fnal.gov:8446"
 
 persistentVolumes:
   rucio-logs:
@@ -115,7 +123,7 @@ config:
 
   conveyor:
     max_time_in_queue: "User Subscriptions:5"
-    ftshosts: "https://fts3-dev.fnal.gov:8446"
+    ftshosts: "https://fts-dev.fnal.gov:8446"
     cacert: "/opt/certs/ca.pem"
     usercert: "/opt/proxy/x509up"
 
@@ -124,6 +132,7 @@ config:
     carbon_server: "lsdataitb.fnal.gov"
     carbon_port: "8225"
     user_scope: "rucio.int_okd"
+    enable_metrics: "true"
 
   messaging:
     cache_port: "11211"

@@ -48,7 +48,9 @@ strategy:
     maxSurge: 1
     maxUnavailable: 1
 
-minReadySeconds: 5
+minReadySeconds:
+  server: 5
+  authServer: 5
 
 # Don't worry about this, we have our own logging solution. This is for CERN.
 exposeErrorLogs:
@@ -64,6 +66,16 @@ httpd_config:
   server_limit: "1"
   max_clients: "10"
   max_requests_per_child: "200"
+
+livenessProbe:
+  server:
+    initialDelaySeconds: 10
+    periodSeconds: 60
+    timeoutSeconds: 30
+  authServer:
+    initialDelaySeconds: 10
+    periodSeconds: 60
+    timeoutSeconds: 30
 
 config: 
   common:
