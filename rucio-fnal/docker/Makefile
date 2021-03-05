@@ -12,6 +12,7 @@ push-all:
 	$(push-fts-cron-cmd)
 	$(push-filebeat-cmd)
 	$(push-logstash-cmd)
+	$(push-logrotate-cmd)
 
 build-all:
 	$(build-server-cmd)
@@ -22,6 +23,7 @@ build-all:
 	$(build-fts-cron-cmd)
 	$(build-filebeat-cmd)
 	$(build-logstash-cmd)
+	$(build-logrotate-cmd)
 
 build-all-nc:
 	$(build-server-nc-cmd)
@@ -32,8 +34,17 @@ build-all-nc:
 	$(build-fts-cron-nc-cmd)
 	$(build-filebeat-nc-cmd)
 	$(build-logstash-nc-cmd)
+	$(build-logrotate-nc-cmd)
 
 # Image build command definitions
+define build-logrotate-cmd =
+docker build -t rucio-logrotate logrotate
+endef
+
+define build-logrotate-nc-cmd =
+docker build --no-cache -t rucio-logrotate logrotate
+endef
+
 define build-logstash-cmd =
 docker build -t rucio-logstash logstash
 endef
@@ -99,6 +110,12 @@ docker build --no-cache -t rucio-messenger messenger
 endef
 
 # Image build command declarations
+build-logrotate:
+	$(build-logrotate-cmd)
+
+build-logrotate-nc:
+	$(build-logrotate-nc-cmd)
+
 build-logstash:
 	$(build-logstash-cmd)
 
@@ -148,6 +165,11 @@ build-messenger-nc:
 	$(build-messenger-nc-cmd)	
 
 # Image push command definitions
+define push-logrotate-cmd =
+	docker tag rucio-logrotate imageregistry.fnal.gov/rucio-fnal/fnal-rucio-logrotate:${FNAL_RUCIO_VERSION_TAG}
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-logrotate:${FNAL_RUCIO_VERSION_TAG}
+endef
+
 define push-logstash-cmd =
 	docker tag rucio-logstash imageregistry.fnal.gov/rucio-fnal/fnal-rucio-logstash:${FNAL_RUCIO_VERSION_TAG}
 	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-logstash:${FNAL_RUCIO_VERSION_TAG}
@@ -191,6 +213,9 @@ define push-messenger-cmd =
 endef
 
 # Image push command declarations
+push-logrotate:
+	$(push-logrotate-cmd)
+
 push-logstash:
 	$(push-logstash-cmd)
 

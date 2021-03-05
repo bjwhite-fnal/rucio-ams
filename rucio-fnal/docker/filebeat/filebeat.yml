@@ -3,7 +3,7 @@ filebeat.inputs:
     - type: log
       enabled: true
       paths:
-        - /rucio/logs/*log
+        - /rucio/logs/*log*
 
 # Logging config
 logging.level: info
