@@ -8,7 +8,7 @@ if [ ! -z "$POLICY_PKG_DIR" ]; then
         echo "The value provided in POLICY_PKG_DIR does not correspond to an existant directory."
         exit 1
     fi
-    export PYTHONPATH=$POLICY_PKG_DIR:$PYTHONPATH
+    export PYTHONPATH=${POLICY_PKG_DIR}:${PYTHONPATH:+:}${PYTHONPATH}
     echo "Python search path: $PYTHONPATH"
 fi
 
