@@ -1,3 +1,7 @@
+[bootstrap]
+x509_identity = /DC=org/DC=cilogon/C=US/O=Fermi National Accelerator Laboratory/OU=People/CN=Brandon White/CN=UID:bjwhite
+x509_email = bjwhite@fnal.gov
+
 [common]
 logdir = {{ RUCIO_CFG_COMMON_LOGDIR | default('/var/log/rucio') }}
 loglevel = {{ RUCIO_CFG_COMMON_LOGLEVEL | default('DEBUG') }}
