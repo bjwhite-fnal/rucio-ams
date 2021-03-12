@@ -16,6 +16,22 @@ image:
   repository: imageregistry.fnal.gov/rucio-fnal/fnal-rucio-server
   pullPolicy: Always
 
+serverResources:
+  limits:
+    memory: "600Mi"
+    cpu: "700m"
+  requests:
+    memory: "200Mi"
+    cpu: "200m"
+
+authServerResources:
+  limits:
+    memory: "600Mi"
+    cpu: "700m"
+  requests:
+    memory: "200Mi"
+    cpu: "200m"
+
 serverRoute:
   app: rucio-icarus-rucio-server
   host: icarus-rucio.okd.fnal.gov

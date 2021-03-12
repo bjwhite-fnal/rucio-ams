@@ -61,18 +61,46 @@ conveyorTransferSubmitter:
   threads: 1
   activities: "'User Subscriptions' 'Recovery'"
   sleepTime: 10
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
 
 conveyorPoller:
   threads: 1
   activities: "'User Subscriptions' 'Recovery'"
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
 
 conveyorFinisher:
   threads: 1
   activities: "'User Subscriptions' 'Recovery'"
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
 
 conveyorStager:
   threads: 1
   activities: "'User Subscriptions' 'Recovery'"
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
 
 conveyorReceiver:
   threads: 1
@@ -80,22 +108,57 @@ conveyorReceiver:
 
 judgeCleaner:
   threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
 
 judgeEvaluator:
   threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
 
 judgeInjector:
   threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
 
 judgeRepairer:
   threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
 
 undertaker:
   threads: 1
 
-reaper:
+reaper2:
   scheme: "gsiftp"
   threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
 
 minos:
   threads: 1

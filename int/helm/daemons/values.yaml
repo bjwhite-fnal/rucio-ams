@@ -13,7 +13,7 @@ conveyorTransferSubmitterCount: 1
 conveyorPollerCount: 1
 conveyorFinisherCount: 1
 conveyorStagerCount: 1
-conveyorReceiverCount: 1
+conveyorReceiverCount: 0
 
 hermesCount: 1
 judgeCleanerCount: 1
@@ -55,37 +55,107 @@ conveyorTransferSubmitter:
   threads: 1
   activities: "'User Subscriptions' 'Recovery'"
   sleepTime: 10
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
 
 conveyorPoller:
   threads: 1
   activities: "'User Subscriptions' 'Recovery'"
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
 
 conveyorFinisher:
   threads: 1
   activities: "'User Subscriptions' 'Recovery'"
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
 
 conveyorStager:
   threads: 1
   activities: "'User Subscriptions' 'Recovery'"
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
 
 judgeCleaner:
   threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
 
 judgeEvaluator:
   threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
 
 judgeInjector:
   threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
 
 judgeRepairer:
   threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
 
 undertaker:
   threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
 
 reaper2:
   scheme: "gsiftp"
   threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
 
 minos:
   threads: 1
