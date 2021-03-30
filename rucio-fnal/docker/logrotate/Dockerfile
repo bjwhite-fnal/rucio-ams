@@ -5,7 +5,7 @@
 
 FROM centos:7
 
-RUN yum install -y logrotate
+RUN yum install -y logrotate findutils
 
 ADD ./logrotate.conf /etc/logrotate.d/logrotate.conf
 ADD ./docker-entrypoint.sh /docker-entrypoint.sh
