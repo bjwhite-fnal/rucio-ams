@@ -76,3 +76,6 @@ echo "Creating networking routes..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-routes.sh > /dev/null
 
 echo "**************** Openshift application rucio-$EXPERIMENT deployment successful ****************" 
+
+echo "Setting the Reaper2 log level to ERROR only so that it does not take up the whole log volume."
+oc set env deployment.apps/rucio-${EXPERIMENT}-reaper2 RUCIO_CFG_COMMON_LOGLEVEL=ERROR

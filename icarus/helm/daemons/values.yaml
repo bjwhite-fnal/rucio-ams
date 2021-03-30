@@ -210,7 +210,7 @@ config:
     cache_port: "11211"
     #cache_ssl_key_file: ?
     #cache_ssl_cert_file: ?
-    cache_destination: "/topic/rucio.events.int"
+    cache_destination: "/topic/rucio.events.icarus"
     cache_brokers: "rucio-cache"
     cache_voname: "icarus"
     cache_account: "memcache"
@@ -221,7 +221,7 @@ config:
     hermes_use_ssl: "True"
     hermes_ssl_key_file: "/opt/rucio/keys/new_userkey.pem"
     hermes_ssl_cert_file: "/opt/rucio/certs/usercert.pem"
-    hermes_destination: "/topic/rucio.events.int"
+    hermes_destination: "/topic/rucio.events.icarus"
     hermes_brokers: "rucio-messenger"
     hermes_broker_virtual_host: "/"
     hermes_voname: "/"
