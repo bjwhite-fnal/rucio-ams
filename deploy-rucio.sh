@@ -79,3 +79,6 @@ echo "**************** Openshift application rucio-$EXPERIMENT deployment succes
 
 echo "Setting the Reaper2 log level to ERROR only so that it does not take up the whole log volume."
 oc set env deployment.apps/rucio-${EXPERIMENT}-reaper2 RUCIO_CFG_COMMON_LOGLEVEL=ERROR
+
+echo "Running the proxy generation cronjob."
+kubectl create job --from=cronjob/rucio-${EXPERIMENT}-renew-fts-proxy ${USER}-manual-proxy-1
