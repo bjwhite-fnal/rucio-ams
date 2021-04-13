@@ -18,10 +18,10 @@ image:
 
 serverResources:
   limits:
-    memory: "600Mi"
+    memory: "1200Mi"
     cpu: "700m"
   requests:
-    memory: "600Mi"
+    memory: "1200Mi"
     cpu: "200m"
 
 authServerResources:
