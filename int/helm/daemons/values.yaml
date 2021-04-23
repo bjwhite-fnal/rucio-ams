@@ -201,7 +201,7 @@ config:
     # Not sure if this will work here due to the secrets stuff in the RUCIO_CFG_ env var generation
     carbon_server: "lsdataitb.fnal.gov"
     carbon_port: "8225"
-    user_scope: "rucio.int_okd"
+    user_scope: "rucio_int_okd"
     enable_metrics: "true"
 
   messaging:

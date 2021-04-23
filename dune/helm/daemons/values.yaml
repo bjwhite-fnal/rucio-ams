@@ -53,9 +53,33 @@ minReadySeconds: 5
 # Daemons Specific Configuration Parameters
 abacusAccount:
   threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "400Mi"
+      cpu: "700m"
 
 abacusRse:
   threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "400Mi"
+      cpu: "700m"
+
+abacusCollectionReplica:
+  threads: 1
+  resources:
+    limits:
+      memory: "800Mi"
+      cpu: "700m"
+    requests:
+      memory: "800Mi"
+      cpu: "700m"
 
 conveyorTransferSubmitter:
   threads: 1
@@ -180,7 +204,7 @@ ftsRenewal:
     pullPolicy: Always
   vo: "dune"
   voms: "dune:/dune/Role=Production"
-  servers: "https://fts3-public.cern.ch:8446"
+  servers: "https://fts3-public.cern.ch:8446,https://fts-dev.fnal.gov:8446"
 
 persistentVolumes:
   rucio-logs:

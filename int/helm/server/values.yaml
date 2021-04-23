@@ -101,7 +101,7 @@ config:
   monitor:
     carbon_server: "lsdataitb.fnal.gov"
     carbon_port: "8225"
-    user_scope: "rucio.int_okd"
+    user_scope: "rucio_int_okd"
 
   # Configure the policy package that is to be used for this deployment.
   policy:
