@@ -51,10 +51,19 @@ def has_permission(issuer, action, kwargs):
     perm = {
             'add_rule': perm_add_rule,
             'add_scope': perm_add_scope,
+            'add_rse': perm_add_rse,
+            'add_protocol': perm_add_protocol,
+            'del_protocol': perm_del_protocol,
+            'update_protocol': perm_update_protocol,
             'add_subscription': perm_add_subscription,
             'declare_bad_file_replicas': perm_declare_bad_file_replicas,
             'add_replicas': perm_add_replicas,
             'update_replicas_states': perm_update_replicas_states,
+            'add_rse_attribute': perm_add_rse_attribute,
+            'del_rse_attribute': perm_del_rse_attribute,
+            'del_rse': perm_del_rse,
+            'set_rse_usage': perm_set_rse_usage,
+            'set_rse_limits': perm_set_rse_limits,
             'del_rule': perm_del_rule,
             'update_rule': perm_update_rule,
             'approve_rule': perm_approve_rule,
@@ -74,7 +83,13 @@ def has_permission(issuer, action, kwargs):
             'update_lifetime_exceptions': perm_update_lifetime_exceptions,
             'add_bad_pfns': perm_add_bad_pfns,
             'remove_did_from_followed': perm_remove_did_from_followed,
-            'remove_dids_from_followed': perm_remove_dids_from_followed}
+            'remove_dids_from_followed': perm_remove_dids_from_followed,
+            'set_local_account_limit': perm_set_local_account_limit,
+            'set_global_account_limit': perm_set_global_account_limit,
+            'delete_local_account_limit': perm_delete_local_account_limit,
+            'delete_global_account_limit': perm_delete_global_account_limit,
+            'get_local_account_usage': perm_get_local_account_usage,
+            'get_global_account_usage': perm_get_global_account_usage}
 
     if action not in perm:
         return rucio.core.permission.generic.has_permission(issuer, action, kwargs)
@@ -124,6 +139,17 @@ def perm_add_scope(issuer, kwargs):
     :returns: True if account is allowed, otherwise False
     """
     return _is_root(issuer) or issuer == kwargs.get('account') or has_account_attribute(account=issuer, key='add_scope')
+
+
+def perm_add_rse(issuer, kwargs):
+    """
+    Checks if an account can add a RSE.
+
+    :param issuer: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed, otherwise False
+    """
+    return _is_root(issuer) or has_account_attribute(account=issuer, key='admin') or has_account_attribute(account=issuer, key='add_rse')
 
 
 def perm_add_subscription(issuer, kwargs):
@@ -362,6 +388,19 @@ def perm_update_replicas_states(issuer, kwargs):
         or has_account_attribute(account=issuer, key='update_replicas_states')
 
 
+def perm_add_rse_attribute(issuer, kwargs):
+    """
+    Checks if an account can add a RSE attribute.
+
+    :param issuer: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed, otherwise False
+    """
+    if _is_root(issuer) or has_account_attribute(account=issuer, key='admin') or has_account_attribute(account=issuer, key='add_rse_attribute'):
+        return True
+    return False
+
+
 def perm_queue_requests(issuer, kwargs):
     """
     Checks if an account can submit transfer or deletion requests on destination RSEs for data identifiers.
@@ -478,3 +517,206 @@ def perm_remove_dids_from_followed(issuer, kwargs):
     if not kwargs['account'] == issuer:
         return False
     return True
+
+def perm_add_protocol(issuer, kwargs):
+    """
+    Checks if an account can add a protocol to an RSE.
+
+    :param issuer: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed, otherwise False
+    """
+    return _is_root(issuer) or has_account_attribute(account=issuer, key='admin') or has_account_attribute(account=issuer, key='add_protocol')
+
+
+def perm_del_protocol(issuer, kwargs):
+    """
+    Checks if an account can delete protocols from an RSE.
+
+    :param issuer: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed, otherwise False
+    """
+    return _is_root(issuer) or has_account_attribute(account=issuer, key='admin') or has_account_attribute(account=issuer, key='add_protocol')
+
+
+def perm_update_protocol(issuer, kwargs):
+    """
+    Checks if an account can update protocols of an RSE.
+
+    :param issuer: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed, otherwise False
+    """
+    return _is_root(issuer) or has_account_attribute(account=issuer, key='admin') or has_account_attribute(account=issuer, key='add_protocol')
+
+def perm_del_rse_attribute(issuer, kwargs):
+    """
+    Checks if an account can delete a RSE attribute.
+
+    :param issuer: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed, otherwise False
+    """
+    if _is_root(issuer) or has_account_attribute(account=issuer, key='admin') or has_account_attribute(account=issuer, key='del_rse_attribute'):
+        return True
+    return False
+
+
+def perm_del_rse(issuer, kwargs):
+    """
+    Checks if an account can delete a RSE.
+
+    :param issuer: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed, otherwise False
+    """
+    return _is_root(issuer) or has_account_attribute(account=issuer, key='admin') or has_account_attribute(account=issuer, key='del_rse')
+
+
+def perm_set_rse_usage(issuer, kwargs):
+    """
+    Checks if an account can set RSE usage information.
+
+    :param issuer: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed to call the API call, otherwise False
+    """
+    return _is_root(issuer) or has_account_attribute(account=issuer, key='set_rse_usage')
+
+
+def perm_set_rse_limits(issuer, kwargs):
+    """
+    Checks if an account can set RSE limits.
+
+    :param issuer: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed to call the API call, otherwise False
+    """
+    return _is_root(issuer) or has_account_attribute(account=issuer, key='admin') or has_account_attribute(account=issuer, key='set_rse_limits')
+
+
+def perm_set_local_account_limit(issuer, kwargs):
+    """
+    Checks if an account can set an account limit.
+
+    :param account: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed, otherwise False
+    """
+    if _is_root(issuer) or has_account_attribute(account=issuer, key='admin') or has_account_attribute(account=issuer, key='set_local_account_limit'):
+        return True
+    # Check if user is a country admin
+    admin_in_country = []
+    for kv in list_account_attributes(account=issuer):
+        if kv['key'].startswith('country-') and kv['value'] == 'admin':
+            admin_in_country.append(kv['key'].partition('-')[2])
+    if admin_in_country and list_rse_attributes(rse_id=kwargs['rse_id']).get('country') in admin_in_country:
+        return True
+    return False
+
+
+def perm_set_global_account_limit(issuer, kwargs):
+    """
+    Checks if an account can set a global account limit.
+
+    :param account: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed, otherwise False
+    """
+    if _is_root(issuer) or has_account_attribute(account=issuer, key='admin') or has_account_attribute(account=issuer, key='set_global_account_limit'):
+        return True
+    # Check if user is a country admin
+    admin_in_country = set()
+    for kv in list_account_attributes(account=issuer):
+        if kv['key'].startswith('country-') and kv['value'] == 'admin':
+            admin_in_country.add(kv['key'].partition('-')[2])
+    resolved_rse_countries = {list_rse_attributes(rse_id=rse['rse_id']).get('country') for rse in parse_expression(kwargs['rse_expression'])}
+    if resolved_rse_countries.issubset(admin_in_country):
+        return True
+    return False
+
+
+def perm_delete_local_account_limit(issuer, kwargs):
+    """
+    Checks if an account can delete an account limit.
+
+    :param account: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed, otherwise False
+    """
+    if _is_root(issuer) or has_account_attribute(account=issuer, key='admin') or has_account_attribute(account=issuer, key='delete_local_account_limit'):
+        return True
+    # Check if user is a country admin
+    admin_in_country = []
+    for kv in list_account_attributes(account=issuer):
+        if kv['key'].startswith('country-') and kv['value'] == 'admin':
+            admin_in_country.append(kv['key'].partition('-')[2])
+    if admin_in_country and list_rse_attributes(rse_id=kwargs['rse_id']).get('country') in admin_in_country:
+        return True
+    return False
+
+
+def perm_delete_global_account_limit(issuer, kwargs):
+    """
+    Checks if an account can delete a global account limit.
+
+    :param issuer: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed, otherwise False
+    """
+    if _is_root(issuer) or has_account_attribute(account=issuer, key='admin') or has_account_attribute(account=issuer, key='delete_global_account_limit'):
+        return True
+    # Check if user is a country admin
+    admin_in_country = set()
+    for kv in list_account_attributes(account=issuer):
+        if kv['key'].startswith('country-') and kv['value'] == 'admin':
+            admin_in_country.add(kv['key'].partition('-')[2])
+    if admin_in_country:
+        resolved_rse_countries = {list_rse_attributes(rse_id=rse['rse_id']).get('country') for rse in parse_expression(kwargs['rse_expression'])}
+        if resolved_rse_countries.issubset(admin_in_country):
+            return True
+    return False
+
+
+def perm_get_local_account_usage(issuer, kwargs):
+    """
+    Checks if an account can get the account usage of an account.
+
+    :param issuer: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed, otherwise False
+    """
+    if _is_root(issuer) or has_account_attribute(account=issuer, key='admin') \
+        or kwargs.get('account') == issuer or has_account_attribute(account=issuer, key='get_local_account_usage'):
+        return True
+    # Check if user is a country admin
+    for kv in list_account_attributes(account=issuer):
+        if kv['key'].startswith('country-') and kv['value'] == 'admin':
+            return True
+    return False
+
+
+def perm_get_global_account_usage(issuer, kwargs):
+    """
+    Checks if an account can get the account usage of an account.
+
+    :param issuer: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed, otherwise False
+    """
+    if _is_root(issuer) or has_account_attribute(account=issuer, key='admin') \
+        or kwargs.get('account') == issuer or has_account_attribute(account=issuer, key='get_global_account_usage'):
+        return True
+
+    # Check if user is a country admin for all involved countries
+    admin_in_country = set()
+    for kv in list_account_attributes(account=issuer):
+        if kv['key'].startswith('country-') and kv['value'] == 'admin':
+            admin_in_country.add(kv['key'].partition('-')[2])
+    resolved_rse_countries = {list_rse_attributes(rse_id=rse['rse_id']).get('country')
+                              for rse in parse_expression(kwargs['rse_exp'])}
+
+    if resolved_rse_countries.issubset(admin_in_country):
+        return True
+    return False
