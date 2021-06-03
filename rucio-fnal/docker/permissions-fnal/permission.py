@@ -89,7 +89,9 @@ def has_permission(issuer, action, kwargs):
             'delete_local_account_limit': perm_delete_local_account_limit,
             'delete_global_account_limit': perm_delete_global_account_limit,
             'get_local_account_usage': perm_get_local_account_usage,
-            'get_global_account_usage': perm_get_global_account_usage}
+            'get_global_account_usage': perm_get_global_account_usage,
+            'add_distance': perm_add_distance,
+            'update_distance', perm_update_distance}
 
     if action not in perm:
         return rucio.core.permission.generic.has_permission(issuer, action, kwargs)
@@ -720,3 +722,25 @@ def perm_get_global_account_usage(issuer, kwargs):
     if resolved_rse_countries.issubset(admin_in_country):
         return True
     return False
+
+
+def perm_add_distance(issuer, kwargs):
+    """
+    Checks if an account can add a distance between RSEs.
+
+    :param issuer: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed to call the API call, otherwise False
+    """
+    return _is_root(issuer) or has_account_attribute(account=issuer, key='admin') or has_account_attribute(account=issuer, key='add_distance')
+
+
+def perm_update_distance(issuer, kwargs):
+    """
+    Checks if an account can add a distance between RSEs.
+
+    :param issuer: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed to call the API call, otherwise False
+    """
+    return _is_root(issuer) or has_account_attribute(account=issuer, key='admin') or has_account_attribute(account=issuer, key='update_distance')
