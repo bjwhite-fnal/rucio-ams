@@ -91,8 +91,8 @@ def has_permission(issuer, action, kwargs):
             'get_local_account_usage': perm_get_local_account_usage,
             'get_global_account_usage': perm_get_global_account_usage,
             'add_distance': perm_add_distance,
-            'update_distance', perm_update_distance,
-            'access_rule_vo', perm_access_rule_vo}
+            'update_distance': perm_update_distance,
+            'access_rule_vo': perm_access_rule_vo}
 
     if action not in perm:
         return rucio.core.permission.generic.has_permission(issuer, action, kwargs)
