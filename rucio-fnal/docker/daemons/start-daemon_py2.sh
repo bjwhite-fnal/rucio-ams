@@ -27,13 +27,17 @@ if [ ! -z "$RUCIO_PRINT_CFG" ]; then
     echo ""
 fi
 
+if [ "$RUCIO_DAEMON" == "hermes" ]
+then
+  echo "starting sendmail for $RUCIO_DAEMON"
+  sendmail -bd
+fi
+
 echo "starting daemon with: $RUCIO_DAEMON $RUCIO_DAEMON_ARGS"
 echo ""
 
-#sleep 1000000
-
 if [ -z "$RUCIO_ENABLE_LOGS" ]; then
-    eval "/usr/bin/python3 /usr/local/bin/rucio-$RUCIO_DAEMON $RUCIO_DAEMON_ARGS"
+    eval "/usr/bin/rucio-$RUCIO_DAEMON $RUCIO_DAEMON_ARGS"
 else
-    eval "/usr/bin/python3 /usr/local/bin/rucio-$RUCIO_DAEMON $RUCIO_DAEMON_ARGS >> /var/log/rucio/daemon.log 2>> /var/log/rucio/error.log"
+    eval "/usr/bin/rucio-$RUCIO_DAEMON $RUCIO_DAEMON_ARGS >> ${RUCIO_DAEMON_LOG_DIR}/${RUCIO_DAEMON}.log 2>> ${RUCIO_DAEMON_LOG_DIR}/${RUCIO_DAEMON}.error.log"
 fi
