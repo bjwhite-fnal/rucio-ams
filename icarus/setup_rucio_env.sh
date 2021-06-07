@@ -1,7 +1,7 @@
 # Environtment set up file for the icarus environment
 
 export DOCKER_BUILDKIT=1
-export FNAL_RUCIO_VERSION=1.23.12
+export FNAL_RUCIO_VERSION=1.23.14
 
 if [ -z ${RUCIO_FNAL_DEV} ]; then
     export FNAL_RUCIO_VERSION_TAG="latest"

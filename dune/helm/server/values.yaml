@@ -92,7 +92,7 @@ config:
     carbon_server: "lsdataitb.fnal.gov"
     carbon_port: "8225"
     user_scope: "rucio_dune_okd"
-    enable_metrics: "true"
+    #enable_metrics: "true"
 
   # Configure the policy package that is to be used for this deployment.
   policy:
