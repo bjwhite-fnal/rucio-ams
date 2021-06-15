@@ -3,10 +3,10 @@
 export DOCKER_BUILDKIT=1
 export FNAL_RUCIO_VERSION=1.22.7
 
-if [ -z $RUCIO_FNAL_DEV ]; then
-    export FNAL_RUCIO_VERSION_TAG="latest"
-else
+if [ -z ${RUCIO_FNAL_DEV} ]; then
     export FNAL_RUCIO_VERSION_TAG=${FNAL_RUCIO_VERSION}
+else
+    export FNAL_RUCIO_VERSION_TAG="latest"
 fi
 
 # Make sure to set EXPERIMENT, FNAL_RUCIO_DIR, FNAL_EXP_RUCIO_CERT, FNAL_EXP_RUCIO_KEY, FNAL_EXP_RUCIO_CA_BUNDLE
