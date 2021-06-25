@@ -11,7 +11,7 @@ RUN yum install -y gridsite \
     net-tools \
     telnet \
     less
-RUN pip install remote-pdb
+RUN pip3 install remote-pdb
 RUN mv /etc/httpd/conf.d/zgridsite.conf /etc/httpd/conf.d/zgridsite.conf-hide
 
 # Add FNAL specific files
