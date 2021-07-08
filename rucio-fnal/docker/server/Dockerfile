@@ -24,10 +24,6 @@ ADD permissions/ /opt/rucio/permissions/fermilab
 # TEMPORARY CONFIG ADD FOR UNTIL THE STUFF GETS BUILT INTO THE REAL CONTAINERS 
 ADD rucio.cfg.j2 /tmp
 
-# Patches
-ADD patches/* /tmp/patches/
-RUN if ls -1 /tmp/patches/ | grep -Eq '\.patch$'; then for p in /tmp/patches/*.patch; do echo "Patching: $p" && patch -p0 -d /usr/lib/python2.7/site-packages/ < $p; done; fi
-
 VOLUME /etc/grid-security
 
 ENTRYPOINT ["/start-server.sh"]
