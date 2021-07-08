@@ -1,17 +1,9 @@
-# Copyright European Organization for Nuclear Research (CERN)
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# You may not use this file except in compliance with the License.
-# You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
-#
-# Authors:
-# - Vincent Garonne, <vincent.garonne@cern.ch>, 2014
-
-# A generic, single database configuration.
-
 [alembic]
 # path to migration scripts
-script_location = /usr/lib/python2.7/site-packages/rucio/db/sqla/migrate_repo
+# Python 2
+# script_location = /opt/rucio/lib/rucio/db/sqla/migrate_repo/
+# Python 3
+script_location = /usr/local/lib/python3.6/site-packages/rucio/db/sqla/migrate_repo
 
 # template used to generate migration files
 # file_template = %%(rev)s_%%(slug)s
@@ -25,6 +17,7 @@ script_location = /usr/lib/python2.7/site-packages/rucio/db/sqla/migrate_repo
 # revision_environment = false
 
 sqlalchemy.url = {{ RUCIO_CFG_DATABASE_DEFAULT }} 
+{% if RUCIO_CFG_DATABASE_SCHEMA is defined %}version_table_schema = {{ RUCIO_CFG_DATABASE_SCHEMA }}{% endif %}
 
 # version_table_schema = ATLAS_RUCIO
 
