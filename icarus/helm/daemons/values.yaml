@@ -176,7 +176,7 @@ ftsRenewal:
   enabled: 1
   image:
     repository: imageregistry.fnal.gov/rucio-fnal/fnal-rucio-fts-cron
-    tag: latest
+    tag: 1.23.14
     pullPolicy: Always
   vo: "icarus"
   voms: "fermilab:/fermilab/icarus/Role=Production"
