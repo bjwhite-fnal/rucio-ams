@@ -1,8 +1,6 @@
 #! /bin/bash
 
 # We have to copy the certificates because we cannot change permissions on them as mounted secrets and voms-proxy is particular about permissions
-sleep 100000
-
 cp /opt/rucio/certs/usercert.pem /tmp/cert.pem
 cp /opt/rucio/keys/new_userkey.pem /tmp/key.pem
 chmod 400 /tmp/key.pem

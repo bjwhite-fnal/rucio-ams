@@ -180,7 +180,8 @@ ftsRenewal:
     pullPolicy: Always
   vo: "icarus"
   voms: "fermilab:/fermilab/icarus/Role=Production"
-  servers: "https://fts-dev.fnal.gov:8446"
+  #servers: "https://fts-dev.fnal.gov:8446"
+  servers: "https://fts3-public.cern.ch:8446"
 
 persistentVolumes:
   rucio-logs:
@@ -196,7 +197,8 @@ config:
 
   conveyor:
     max_time_in_queue: "User Subscriptions:5"
-    ftshosts: "https://fts-dev.fnal.gov:8446"
+    #ftshosts: "https://fts-dev.fnal.gov:8446"
+    ftshosts: "https://fts3-public.cern.ch:8446"
     cacert: "/opt/certs/ca.pem"
     usercert: "/opt/proxy/x509up"
 
