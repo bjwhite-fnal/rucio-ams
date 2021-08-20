@@ -1,9 +1,12 @@
 # Environtment set up file for the int testing "experiment" 
 export RUCIO_FNAL_DEV=true
 export DOCKER_BUILDKIT=1
-export FNAL_RUCIO_VERSION=1.24.5.post1
 #export FNAL_RUCIO_VERSION=1.23.11.post2
 #export FNAL_RUCIO_VERSION=1.23.14
+#export FNAL_RUCIO_VERSION=1.24.5.post1
+#export FNAL_RUCIO_VERSION=1.25.7
+#export FNAL_RUCIO_VERSION=1.26.1.post1
+export FNAL_RUCIO_VERSION=1.26.2
 
 if [ -z ${RUCIO_FNAL_DEV} ]; then
     export FNAL_RUCIO_VERSION_TAG=${FNAL_RUCIO_VERSION}
