@@ -2,6 +2,7 @@
 logdir = {{ RUCIO_CFG_COMMON_LOGDIR | default('/var/log/rucio') }}
 loglevel = {{ RUCIO_CFG_COMMON_LOGLEVEL | default('DEBUG') }}
 mailtemplatedir = {{ RUCIO_CFG_COMMON_MAILTEMPLATEDIR | default('/opt/rucio/etc/mail_templates') }}
+{% if RUCIO_CFG_COMMON_MULTI_VO is defined %}multi_vo = {{ RUCIO_CFG_COMMON_MULTI_VO }}{% endif %}
 
 [database]
 default = {{ RUCIO_CFG_DATABASE_DEFAULT | default('sqlite:////tmp/rucio.db') }}
@@ -26,17 +27,27 @@ user_scope = {{ RUCIO_CFG_MONITOR_USER_SCOPE | default('default_docker') }}
 tracedir = {{ RUCIO_CFG_TRACE_TRACEDIR | default('/var/log/rucio') }}
 brokers = {{ RUCIO_CFG_TRACE_BROKERS | default('localhost') }}
 port = {{ RUCIO_CFG_TRACE_PORT | default('61013') }}
+topic = {{ RUCIO_CFG_TRACE_TOPIC | default('/topic/rucio.tracer') }}
 {% if RUCIO_CFG_TRACE_USERNAME is defined -%}username = {{ RUCIO_CFG_TRACE_USERNAME }}{% endif %}
 {% if RUCIO_CFG_TRACE_PASSWORD is defined -%}password = {{ RUCIO_CFG_TRACE_PASSWORD }}{% endif %}
-topic = {{ RUCIO_CFG_TRACE_TOPIC | default('/topic/rucio.tracer') }}
+{% if RUCIO_CFG_TRACE_LOGLEVEL is defined -%}loglevel = {{ RUCIO_CFG_TRACE_LOGLEVEL }}{% endif %}
+{% if RUCIO_CFG_TRACE_LOGFORMAT is defined -%}logformat = {{ RUCIO_CFG_TRACE_LOGFORMAT }}{% endif %}
+{% if RUCIO_CFG_TRACE_MAXBYTES is defined -%}maxbytes = {{ RUCIO_CFG_TRACE_MAXBYTES }}{% endif %}
+{% if RUCIO_CFG_TRACE_BACKUPCOUNT is defined -%}backupCount = {{ RUCIO_CFG_TRACE_BACKUPCOUNT }}{% endif %}
+{% if RUCIO_CFG_TRACE_BROKER_VIRTUAL_HOST is defined -%}broker_virtual_host = {{ RUCIO_CFG_TRACE_BROKER_VIRTUAL_HOST }}{% endif %}
 
-[nongrid_trace]
+[nongrid-trace]
 tracedir = {{ RUCIO_CFG_NONGRID_TRACE_TRACEDIR | default('/var/log/rucio/trace') }}
 brokers = {{ RUCIO_CFG_NONGRID_TRACE_BROKERS | default('localhost') }}
 port = {{ RUCIO_CFG_NONGRID_TRACE_PORT | default('61013') }}
-{%- if RUCIO_CFG_NONGRID_TRACE_USERNAME is defined -%}username = {{ RUCIO_CFG_NONGRID_TRACE_USERNAME }}{% endif %}
-{%- if RUCIO_CFG_NONGRID_TRACE_PASSWORD is defined -%}password = {{ RUCIO_CFG_NONGRID_TRACE_PASSWORD }}{% endif %}
 topic = {{ RUCIO_CFG_NONGRID_TRACE_TOPIC | default('/topic/rucio.tracer') }}
+{% if RUCIO_CFG_NONGRID_TRACE_USERNAME is defined -%}username = {{ RUCIO_CFG_NONGRID_TRACE_USERNAME }}{% endif %}
+{% if RUCIO_CFG_NONGRID_TRACE_PASSWORD is defined -%}password = {{ RUCIO_CFG_NONGRID_TRACE_PASSWORD }}{% endif %}
+{% if RUCIO_CFG_NONGRID_TRACE_LOGLEVEL is defined -%}loglevel = {{ RUCIO_CFG_NONGRID_TRACE_LOGLEVEL }}{% endif %}
+{% if RUCIO_CFG_NONGRID_TRACE_LOGFORMAT is defined -%}logformat = {{ RUCIO_CFG_NONGRID_TRACE_LOGFORMAT }}{% endif %}
+{% if RUCIO_CFG_NONGRID_TRACE_MAXBYTES is defined -%}maxbytes = {{ RUCIO_CFG_NONGRID_TRACE_MAXBYTES }}{% endif %}
+{% if RUCIO_CFG_NONGRID_TRACE_BACKUPCOUNT is defined -%}backupCount = {{ RUCIO_CFG_NONGRID_TRACE_BACKUPCOUNT }}{% endif %}
+{% if RUCIO_CFG_NONGRID_TRACE_BROKER_VIRTUAL_HOST is defined -%}broker_virtual_host = {{ RUCIO_CFG_NONGRID_TRACE_BROKER_VIRTUAL_HOST }}{% endif %}
 
 [policy]
 permission = {{ RUCIO_CFG_POLICY_PERMISSION | default('generic') }}
@@ -61,5 +72,9 @@ idpsecrets = {{ RUCIO_CFG_OIDC_IDPSECRETS | default('/opt/rucio/etc/idpsecrets.j
 {% if RUCIO_CFG_OIDC_ADMIN_ISSUER is defined %}admin_issuer = {{ RUCIO_CFG_OIDC_ADMIN_ISSUER }}{% endif %}
 {% if RUCIO_CFG_OIDC_EXPECTED_AUDIENCE is defined %}expected_audience = {{ RUCIO_CFG_OIDC_EXPECTED_AUDIENCE }}{% endif %}
 
-[alembic]
-cfg = /opt/rucio/etc/alembic.ini
+[api]
+{% if RUCIO_CFG_API_ENDPOINTS is defined %}endpoints = {{ RUCIO_CFG_API_ENDPOINTS }}{% endif %}
+
+[conveyor]
+{% if RUCIO_CFG_CONVEYOR_USE_PREPARER is defined %}use_preparer = {{ RUCIO_CFG_CONVEYOR_USE_PREPARER }}{% endif %}
+{% if RUCIO_CFG_CONVEYOR_USERCERT is defined %}usercert = {{ RUCIO_CFG_CONVEYOR_USERCERT }}{% endif %}

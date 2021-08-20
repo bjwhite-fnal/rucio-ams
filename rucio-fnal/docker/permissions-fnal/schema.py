@@ -1,4 +1,5 @@
-# Copyright 2017-2019 CERN for the benefit of the ATLAS collaboration.
+# -*- coding: utf-8 -*-
+# Copyright 2017-2021 CERN
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,20 +14,18 @@
 # limitations under the License.
 #
 # Authors:
-# - Vincent Garonne <vgaronne@gmail.com>, 2017
-# - Hannes Hansen <hannes.jakob.hansen@cern.ch>, 2018
+# - Vincent Garonne <vincent.garonne@cern.ch>, 2017
+# - Hannes Hansen <hannes.jakob.hansen@cern.ch>, 2018-2019
 # - Robert Illingworth <illingwo@fnal.gov>, 2018
-# - Mario Lassnig <mario.lassnig@cern.ch>, 2019
-# - Jaroslav Guenther <jaroslav.guenther@gmail.com>, 2019
+# - Mario Lassnig <mario.lassnig@cern.ch>, 2019-2021
+# - Jaroslav Guenther <jaroslav.guenther@cern.ch>, 2019
 # - Andrew Lister <andrew.lister@stfc.ac.uk>, 2019
 # - Eli Chadwick <eli.chadwick@stfc.ac.uk>, 2020
-#
-# PY3K COMPATIBLE
+# - Radu Carpa <radu.carpa@cern.ch>, 2021
 
 from jsonschema import validate, ValidationError
 
 from rucio.common.exception import InvalidObject
-
 
 ACCOUNT_LENGTH = 25
 
@@ -52,7 +51,7 @@ ACTIVITY = {"description": "Activity name",
                      "Production Input", "Production Output",
                      "Analysis Input", "Analysis Output", "Staging",
                      "T0 Export", "T0 Tape", "Upload/Download (Job)",
-                     "Upload/Download (User)", "User Subscriptions"]}
+                     "Upload/Download (User)", "User Subscriptions", "Data Challenge"]}
 
 SCOPE_LENGTH = 25
 
@@ -64,13 +63,11 @@ R_SCOPE = {"description": "Scope name",
            "type": "string",
            "pattern": "\\w"}
 
-# Name length reduced from 250 to 199 to fit Enstore constraints.
-NAME_LENGTH = 199
+NAME_LENGTH = 250
 
-# Added '+' character to name regex
 NAME = {"description": "Data Identifier name",
         "type": "string",
-        "pattern": "^[A-Za-z0-9][A-Za-z0-9\\.\\-\\_\\+]{1,%s}$" % NAME_LENGTH}
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9\\.\\-\\_]{1,%s}$" % NAME_LENGTH}
 
 R_NAME = {"description": "Data Identifier name",
           "type": "string",
@@ -84,6 +81,9 @@ ASK_APPROVAL = {"description": "Rule approval request",
 
 ASYNCHRONOUS = {"description": "Asynchronous rule creation",
                 "type": ["boolean", "null"]}
+
+DELAY_INJECTION = {"description": "Time (in seconds) to wait before starting applying the rule. Implies asynchronous rule creation.",
+                   "type": ["integer", "null"]}
 
 PURGE_REPLICAS = {"description": "Rule purge replica status",
                   "type": "boolean"}
@@ -193,6 +193,7 @@ RULE = {"description": "Replication rule",
                        "comment": COMMENT,
                        "ask_approval": ASK_APPROVAL,
                        "asynchronous": ASYNCHRONOUS,
+                       "delay_injection": DELAY_INJECTION,
                        "priority": PRIORITY,
                        'split_container': SPLIT_CONTAINER,
                        'meta': METADATA},
