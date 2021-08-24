@@ -21,9 +21,6 @@ ADD configure_server_log_location.sh /
 ADD start-server.sh /
 ADD permissions/ /opt/rucio/permissions/fermilab
 
-# TEMPORARY CONFIG ADD FOR UNTIL THE STUFF GETS BUILT INTO THE REAL CONTAINERS 
-ADD rucio.cfg.j2 /tmp
-
 VOLUME /etc/grid-security
 
 ENTRYPOINT ["/start-server.sh"]
