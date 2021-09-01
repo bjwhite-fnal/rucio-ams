@@ -6,7 +6,7 @@
 experiment: Uses $EXPERIMENT
 
 # Number of pods to run for each daemon
-reaper2Count: 1
+reaperCount: 1
 hermesCount: 1
 
 abacusAccountCount: 1
@@ -149,7 +149,7 @@ judgeRepairer:
 undertaker:
   threads: 1
 
-reaper2:
+reaper:
   scheme: "gsiftp"
   threads: 1
   resources:
