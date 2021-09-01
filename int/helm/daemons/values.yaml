@@ -146,7 +146,7 @@ undertaker:
       memory: "200Mi"
       cpu: "700m"
 
-reaper2:
+reaper:
   scheme: "gsiftp"
   threads: 1
   resources:
