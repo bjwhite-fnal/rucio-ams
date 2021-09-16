@@ -32,6 +32,11 @@ authServerResources:
     memory: "200Mi"
     cpu: "200m"
 
+serverType:
+    server: flask
+    authServer: flask
+    traceserver: trace
+
 serverRoute:
   app: rucio-dune-int-rucio-server
   host: dune-int-rucio.okd.fnal.gov
@@ -98,6 +103,9 @@ config:
   policy:
     package: fermilab
     support: "Brandon White <bjwhite@fnal.gov>"
+
+  api:
+    endpoints: auth,accountlimits,accounts,config,credentials,dids,export,heartbeats,identities,import,lifetime_exceptions,locks,meta,ping,redirect,replicas,requests,rses,rules,scopes,subscriptions
 
 # FNAL (and likely OKD) Specific Configuration Stuff
 optional_config:
