@@ -1,0 +1,10 @@
+---
+serviceAccountName: useroot
+logrotateCount: 1
+experiment: Uses $EXPERIMENT
+minReadySeconds: 5
+
+image:
+  repository: imageregistry.fnal.gov/rucio-fnal/fnal-rucio-logrotate
+  tag: latest
+  pullPolicy: Always
