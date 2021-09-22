@@ -6,7 +6,7 @@
 experiment: Uses $EXPERIMENT
 
 # Number of pods to run for each daemon
-reaperCount: 1
+reaperCount: 0
 hermesCount: 1
 
 abacusAccountCount: 1
@@ -258,8 +258,7 @@ config:
 
 optional_config:
   policy_pkg_dir: /opt/rucio/permissions
-  rucio_enable_logfile: "True"
-  rucio_enable_logs: "True"
+  #rucio_enable_logs: "True"
   rucio_daemon_log_dir: "/rucio/logs"
   #rucio_cfg_database_echo: 1
   delegate_fts_proxy: "true"
