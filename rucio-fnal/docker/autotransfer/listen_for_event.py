@@ -1,9 +1,10 @@
+# Subscribe to the Rucio instance and listen for the completion of a particular event
 import time
 import sys
 import os
 import json
 import argparse
-import Queue
+import queue
 import threading
 import logging
 import stomp
@@ -41,21 +42,30 @@ class TestListener(stomp.ConnectionListener):
     def on_disconnected(self):
         if self.shutdown:
             return
-        # Reconnect
-        connect(self.host, self.cert, self.key, vhost=self.vhost, durable=self.durable)
 
-    def on_error(self, headers, message):
+    def on_error(self, message):
         logger.error('Received an error "%s"', message)
 
-    def on_message(self, headers, message):
-        message_id = headers['message-id']
+    def on_message(self, message):
+        message_id = message.headers['message-id']
         try:
-            msg_data = json.loads(message)
+            msg_data = json.loads(message.body)
         except ValueError:
             logger.error('Unable to decode JSON data')
             _ack_queue.put( (True, message_id) )
             return
+
+        event_type = msg_data['event_type']
         logger.info('Successfully received message: %s', msg_data)
+
+        if event_type == 'transfer-done':
+            logger.error(f'Transfer successful: {msg_data}')
+            self.shutdown = True
+
+        if event_type == 'transfer-submission_failed':
+            logger.error(f'Transfer submission failed: {msg_data}')
+            self.shutdown = True
+
 
 
 def connect(hosts, cert, key=None, vhost='/', durable=False, unsubscribe=False, topic=None):
@@ -89,7 +99,6 @@ def connect(hosts, cert, key=None, vhost='/', durable=False, unsubscribe=False, 
     while True:
         # Retry starting the connection until it works
         try:
-            conn.start()
             conn.connect(wait=True)
             break
         except stomp.exception.ConnectFailedException:
@@ -99,7 +108,7 @@ def connect(hosts, cert, key=None, vhost='/', durable=False, unsubscribe=False, 
 
     # Start up a thread to send acks and nacks for messages
     global _ack_queue
-    _ack_queue = Queue.Queue()
+    _ack_queue = queue.Queue()
     ack_thread = threading.Thread(target=_send_acks, args=(conn,))
     ack_thread.daemon = True
     ack_thread.start()
@@ -127,8 +136,12 @@ def connect(hosts, cert, key=None, vhost='/', durable=False, unsubscribe=False, 
     try:
         while True:
             time.sleep(1)
+            if listener.shutdown == True:
+                logger.info('Shutting down!')
+                break
     except KeyboardInterrupt:
-        if listener: listener.shutdown = True
+        if listener:
+            listener.shutdown = True
     finally:
         conn.disconnect()
 
@@ -136,6 +149,7 @@ def connect(hosts, cert, key=None, vhost='/', durable=False, unsubscribe=False, 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('host', help='Broker host', nargs='+')
+    parser.add_argument('--listen-event', help='Event to watch for in the STOMP stream')
     parser.add_argument('--cert', help='Client certificate')
     parser.add_argument('--key', help='Client key')
     parser.add_argument('--topic', help='RabbitMQ Broker topic to sub to')
@@ -154,7 +168,7 @@ def main():
     hosts = [ tuple(a.split(':',1)) for a in args.host ] # Split list of hostname port args into tuples of (hostname, port)
 
     try:
-        listener = connect(hosts, cert, key, durable=args.durable, unsubscribe=args.unsubscribe, topic=args.topic)
+        connect(hosts, cert, key, durable=args.durable, unsubscribe=args.unsubscribe, topic=args.topic)
     except KeyboardInterrupt:
         pass
 

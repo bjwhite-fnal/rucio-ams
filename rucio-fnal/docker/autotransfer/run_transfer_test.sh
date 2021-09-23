@@ -1,12 +1,11 @@
 #!/bin/bash
 
 # This script tests that Rucio is taking file uploads, and transferring files appropriately
-
 # STOMP listener script configuration
 listen_event="transfer-done"
 experiment=${1:-int}
-cert=${2:-/tmp/x509up_u}
-key=${3:-/tmp/x509up_u}
+cert=${2:-/opt/rucio/etc/proxy}
+key=${3:-/opt/rucio/etc/proxy}
 topic=${4:-/topic/rucio.events.}
 durable=${5:-false}
 unsubscribe=${6:-false}
@@ -14,8 +13,6 @@ debug=${7:-false}
 dry_run=${8:-false}
 
 host=msg-${experiment}-rucio.okd.fnal.gov:443
-cert=${cert}$(id -u)
-key=${key}$(id -u)
 topic=${topic}${experiment}
 
 printf "Listener settings:\n\texperiment: ${experiment}\n\tcert: ${cert}\n\tkey: ${key}\n\ttopic: ${topic}\n\tdurable: ${durable}\n\tunsubscribe: ${unsubscribe}\n\tdebug: ${debug}\n\n"
@@ -111,7 +108,7 @@ fi
 all_done=0
 # Subscribe to the STOMP broker and wait for notifiations that the transfers have been completed
 if [[ ${dry_run} == false ]]; then
-    python listen_for_event.py ${host} \
+    python3 /listen_for_event.py ${host} \
         --listen-event ${listen_event} \
         --cert ${cert} \
         --key ${key} \
