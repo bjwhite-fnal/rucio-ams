@@ -28,8 +28,8 @@ def _send_acks(conn):
             pass
 
 
-class TestListener(stomp.ConnectionListener):
-    def __init__(self, conn, sub_id, host, cert, key, vhost, durable):
+class RucioListener(stomp.ConnectionListener):
+    def __init__(self, conn, sub_id, host, cert, key, vhost, durable, listen_event):
         self.conn = conn
         self.sub_id = sub_id
         self.host = host
@@ -37,6 +37,7 @@ class TestListener(stomp.ConnectionListener):
         self.key = key
         self.vhost = vhost
         self.durable = durable
+        self.listen_event = listen_event
         self.shutdown = False
 
     def on_disconnected(self):
@@ -45,6 +46,7 @@ class TestListener(stomp.ConnectionListener):
 
     def on_error(self, message):
         logger.error('Received an error "%s"', message)
+        self.shutdown = True
 
     def on_message(self, message):
         message_id = message.headers['message-id']
@@ -58,8 +60,12 @@ class TestListener(stomp.ConnectionListener):
         event_type = msg_data['event_type']
         logger.info('Successfully received message: %s', msg_data)
 
+        if event_type == self.listen_event:
+            logger.info(f'Found the desired event: {msg_data}')
+            self.shutdown = True
+
         if event_type == 'transfer-done':
-            logger.error(f'Transfer successful: {msg_data}')
+            logger.info(f'Transfer successful: {msg_data}')
             self.shutdown = True
 
         if event_type == 'transfer-submission_failed':
@@ -68,7 +74,7 @@ class TestListener(stomp.ConnectionListener):
 
 
 
-def connect(hosts, cert, key=None, vhost='/', durable=False, unsubscribe=False, topic=None):
+def connect(hosts, cert, key=None, vhost='/', durable=False, unsubscribe=False, topic=None, listen_event=None):
     if topic is None:
         raise ValueError('Please provide a topic to subscribe to')
 
@@ -91,8 +97,8 @@ def connect(hosts, cert, key=None, vhost='/', durable=False, unsubscribe=False, 
         sub_id = uuid.uuid1()
 
     if not unsubscribe:
-        listener = TestListener(conn, sub_id, hosts, cert, key, vhost, durable)
-        conn.set_listener('TestListener', listener)
+        listener = RucioListener(conn, sub_id, hosts, cert, key, vhost, durable, listen_event)
+        conn.set_listener('RucioListener', listener)
     else:
         listener = None
 
@@ -168,7 +174,7 @@ def main():
     hosts = [ tuple(a.split(':',1)) for a in args.host ] # Split list of hostname port args into tuples of (hostname, port)
 
     try:
-        connect(hosts, cert, key, durable=args.durable, unsubscribe=args.unsubscribe, topic=args.topic)
+        connect(hosts, cert, key, durable=args.durable, unsubscribe=args.unsubscribe, topic=args.topic, listen_event=args.listen_event)
     except KeyboardInterrupt:
         pass
 
