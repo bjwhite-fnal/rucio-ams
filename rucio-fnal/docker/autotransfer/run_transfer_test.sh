@@ -19,11 +19,11 @@ printf "Listener settings:\n\texperiment: ${experiment}\n\tcert: ${cert}\n\tkey:
 
 # Rucio Configuration
 start_rse=${9:-DCACHE_BJWHITE_START}
-end_rse=${10:-DCACHE_BJWHITE_END}
+end_rses=${10:-DCACHE_BJWHITE_END,DCACHE_BJWHITE_END2}
 dataset_name=rucio_transfer_test_$(uuidgen)
 rucio_user=root # This should be the experiment production user eventually to get this to run automatically on OKD
 
-printf "Rucio settings:\n\tStart RSE: ${start_rse}\n\tEnd RSE: ${end_rse}\n\tDataset name: ${dataset_name}\n\tRucio user: ${rucio_user}\n\n"
+printf "Rucio settings:\n\tStart RSE: ${start_rse}\n\tEnd RSE: ${end_rses}\n\tDataset name: ${dataset_name}\n\tRucio user: ${rucio_user}\n\n"
 
 # Settings controlling the number and size of files to generate
 data_dir=/tmp/rucio_status_test.$(uuidgen)
@@ -97,13 +97,21 @@ if [[ ${dry_run} == false ]]; then
     fi
 fi
 
-# Add rule to move the dataset from $start_rse to $end_rse
+# Add rule to move the dataset from $start_rse to $end_rses
+rules=()
 if [[ ${dry_run} == false ]]; then
-    printf "Making a rule to start the transfer of user.${rucio_user}:${dataset_name} from ${start_rse} -> ${end_rse}\n"
-    if ! rucio -a ${rucio_user} add-rule user.${rucio_user}:${dataset_name} 1 ${end_rse}; then
-        exit 1
-    fi
+    dest_rses=$(echo ${end_rses} | tr "," "\n")
+    for dest_rse in ${dest_rses}; do
+        printf "Making a rule to start the transfer of user.${rucio_user}:${dataset_name} from ${start_rse} -> ${dest_rse}\n"
+        rule_id=$(rucio -a ${rucio_user} add-rule user.${rucio_user}:${dataset_name} 1 ${dest_rse})
+        rules+=( ${rule_id} )
+        if [[ !"${?}" == "0" ]]; then
+            exit 1
+        fi
+    done
 fi
+echo "Created rules to be monitored: ${rules[@]}\n"
+rulestrings=${rules[@]}
 
 all_done=0
 # Subscribe to the STOMP broker and wait for notifiations that the transfers have been completed
@@ -113,6 +121,7 @@ if [[ ${dry_run} == false ]]; then
         --cert ${cert} \
         --key ${key} \
         --topic ${topic} \
+        --rules "${rulestrings}" \
         #--durable ${durable} \
         #--unsubscribe ${unsubscribe} \
         #--debug ${debug}

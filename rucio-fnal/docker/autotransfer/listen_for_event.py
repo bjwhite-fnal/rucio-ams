@@ -156,6 +156,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('host', help='Broker host', nargs='+')
     parser.add_argument('--listen-event', help='Event to watch for in the STOMP stream')
+    parser.add_argument('--rules', help='Space delimited list of Rucio rule IDs to monitor for completed transfers')
     parser.add_argument('--cert', help='Client certificate')
     parser.add_argument('--key', help='Client key')
     parser.add_argument('--topic', help='RabbitMQ Broker topic to sub to')
@@ -170,6 +171,8 @@ def main():
 
     cert = args.cert or os.environ.get('X509_USER_CERT') or os.path.expanduser('~/.globus/usercert.pem')
     key = args.key or os.environ.get('X509_USER_KEY') or args.cert or os.environ.get('X509_USER_CERT') or os.path.expanduser('~/.globus/userkey.pem')
+
+    logger.info(f'Rucio IDs: {args.rules}')
 
     hosts = [ tuple(a.split(':',1)) for a in args.host ] # Split list of hostname port args into tuples of (hostname, port)
 
