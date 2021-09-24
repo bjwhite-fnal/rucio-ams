@@ -29,7 +29,7 @@ def _send_acks(conn):
 
 
 class RucioListener(stomp.ConnectionListener):
-    def __init__(self, conn, sub_id, host, cert, key, vhost, durable, listen_event):
+    def __init__(self, conn, sub_id, host, cert, key, vhost, durable, listen_event, rules):
         self.conn = conn
         self.sub_id = sub_id
         self.host = host
@@ -38,6 +38,8 @@ class RucioListener(stomp.ConnectionListener):
         self.vhost = vhost
         self.durable = durable
         self.listen_event = listen_event
+        self.rules = rules
+        self.num_processed = 0
         self.shutdown = False
 
     def on_disconnected(self):
@@ -60,21 +62,37 @@ class RucioListener(stomp.ConnectionListener):
         event_type = msg_data['event_type']
         logger.info('Successfully received message: %s', msg_data)
 
-        if event_type == self.listen_event:
-            logger.info(f'Found the desired event: {msg_data}')
-            self.shutdown = True
+        #if event_type == self.listen_event:
+        #    self.num_processed += 1
+        #    logger.info(f'Found the desired event ({self.num_processed}/{len(self.rules)}): {msg_data}')
 
         if event_type == 'transfer-done':
-            logger.info(f'Transfer successful: {msg_data}')
-            self.shutdown = True
+            self.num_processed += 1
+            logger.info(f'Transfer successful ({self.num_processed}/{len(self.rules)}): {msg_data}')
 
         if event_type == 'transfer-submission_failed':
-            logger.error(f'Transfer submission failed: {msg_data}')
+            self.num_processed += 1
+            logger.error(f'Transfer submission failed ({self.num_processed}/{len(self.rules)}): {msg_data}')
+
+        self.check_if_finished()
+
+    def check_if_finished(self):
+        if self.num_processed == len(self.rules):
             self.shutdown = True
 
 
 
-def connect(hosts, cert, key=None, vhost='/', durable=False, unsubscribe=False, topic=None, listen_event=None):
+
+
+def connect(hosts, cert, key=None, vhost='/', durable=False, unsubscribe=False, topic=None, listen_event=None, rule_ids=None):
+    if rule_ids is None:
+        raise ValueError('connect() did not get any rule ids.')
+    else:
+        rules = rule_ids.split(' ')
+        logger.info(f'Rucio IDs: {rules}')
+    
+
+
     if topic is None:
         raise ValueError('Please provide a topic to subscribe to')
 
@@ -97,7 +115,7 @@ def connect(hosts, cert, key=None, vhost='/', durable=False, unsubscribe=False, 
         sub_id = uuid.uuid1()
 
     if not unsubscribe:
-        listener = RucioListener(conn, sub_id, hosts, cert, key, vhost, durable, listen_event)
+        listener = RucioListener(conn, sub_id, hosts, cert, key, vhost, durable, listen_event, rules)
         conn.set_listener('RucioListener', listener)
     else:
         listener = None
@@ -172,12 +190,16 @@ def main():
     cert = args.cert or os.environ.get('X509_USER_CERT') or os.path.expanduser('~/.globus/usercert.pem')
     key = args.key or os.environ.get('X509_USER_KEY') or args.cert or os.environ.get('X509_USER_CERT') or os.path.expanduser('~/.globus/userkey.pem')
 
-    logger.info(f'Rucio IDs: {args.rules}')
-
     hosts = [ tuple(a.split(':',1)) for a in args.host ] # Split list of hostname port args into tuples of (hostname, port)
 
     try:
-        connect(hosts, cert, key, durable=args.durable, unsubscribe=args.unsubscribe, topic=args.topic, listen_event=args.listen_event)
+        connect(hosts, cert, key, 
+            durable=args.durable,
+            unsubscribe=args.unsubscribe,
+            topic=args.topic,
+            listen_event=args.listen_event,
+            rule_ids=args.rules
+        )
     except KeyboardInterrupt:
         pass
 
