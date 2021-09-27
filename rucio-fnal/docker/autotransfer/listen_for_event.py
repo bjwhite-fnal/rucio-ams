@@ -38,8 +38,7 @@ class RucioListener(stomp.ConnectionListener):
         self.vhost = vhost
         self.durable = durable
         self.listen_event = listen_event
-        self.rules = rules
-        self.num_processed = 0
+        self.rules = {} 
         self.shutdown = False
 
     def on_disconnected(self):
@@ -60,29 +59,32 @@ class RucioListener(stomp.ConnectionListener):
             return
 
         event_type = msg_data['event_type']
+        request_id = msg_data['payload']['rule-id']
+        request_id = msg_data['payload']['request-id']
         logger.info('Successfully received message: %s', msg_data)
 
-        #if event_type == self.listen_event:
-        #    self.num_processed += 1
-        #    logger.info(f'Found the desired event ({self.num_processed}/{len(self.rules)}): {msg_data}')
-
-        if event_type == 'transfer-done':
-            self.num_processed += 1
+        if event_type == 'transfer-queued':
+            if self.rules[rule_id] is None:
+                self.rules[rule_id] = {} 
+            self.rules[rule_id][request_id] = False
+        elif event_type == 'transfer-done':
+            self.rules[rule_id][request_id] = True
             logger.info(f'Transfer successful ({self.num_processed}/{len(self.rules)}): {msg_data}')
-
-        if event_type == 'transfer-submission_failed':
-            self.num_processed += 1
+        elif event_type == 'transfer-submission_failed':
+            self.rules[rule_id][request_id] = True
             logger.error(f'Transfer submission failed ({self.num_processed}/{len(self.rules)}): {msg_data}')
 
         self.check_if_finished()
 
     def check_if_finished(self):
-        if self.num_processed == len(self.rules):
+        rules_done = []
+        for rule in self.rules:
+            rule_requests = self.rules[rule]
+            rule_done = all(transferred == True for transferred in rule_requests.values())
+            rules_done.append(rule_done)
+        done = all(rules_done)
+        if done:
             self.shutdown = True
-
-
-
-
 
 def connect(hosts, cert, key=None, vhost='/', durable=False, unsubscribe=False, topic=None, listen_event=None, rule_ids=None):
     if rule_ids is None:
@@ -91,8 +93,6 @@ def connect(hosts, cert, key=None, vhost='/', durable=False, unsubscribe=False, 
         rules = rule_ids.split(' ')
         logger.info(f'Rucio IDs: {rules}')
     
-
-
     if topic is None:
         raise ValueError('Please provide a topic to subscribe to')
 
