@@ -14,7 +14,7 @@ debug=False
 num_files=1
 file_size=1024
 
-python3 ./run_transfer_test.py \
+python3 /run_transfer_test.py \
     --experiment ${experiment} \
     --cert ${cert} \
     --key ${key} \

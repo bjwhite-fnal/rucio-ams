@@ -138,10 +138,10 @@ def main():
         rule_id = rucio_add_rule(args.rucio_account, dataset_did, dest_rse)
         rule_ids.append(rule_id)
         logger.info(f'Added rule {rule_id} to transfer dataset {dataset_did} from {args.start_rse} to {dest_rse}')
-    
+
     # Now monitor for the completion of the transfers.
     logger.info(f'Commencing monitoring of transfer completion for {len(rule_ids)} rules:\n\t{rule_ids}')
-    
-        
+
+
 if __name__ == '__main__':
     main()
