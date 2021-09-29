@@ -4,6 +4,7 @@ experiment=int
 cert=/opt/rucio/etc/proxy
 key=/opt/rucio/etc/proxy
 host=msg-int-rucio.okd.fnal.gov
+port=443
 topic=/topic/rucio.events.int
 durable=False
 unsubscribe=False
@@ -19,6 +20,7 @@ python3 /run_transfer_test.py \
     --cert ${cert} \
     --key ${key} \
     --host ${host} \
+    --port ${port} \
     --topic ${topic} \
     --durable ${durable} \
     --unsubscribe ${unsubscribe} \
