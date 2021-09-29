@@ -67,6 +67,7 @@ class RucioTransferTest:
         self.rules = queue.Queue()
         self.listener_thread = None
         self.is_subscribed = threading.Event()
+        self.wait_for_rules = threading.Event()
         self.rules_to_monitor = []
 
     def create_file(self):
@@ -117,7 +118,7 @@ class RucioTransferTest:
         rucio_add_rule_proc = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE)
         assert rucio_add_rule_proc.returncode == 0
         rule_id = rucio_add_rule_proc.stdout.strip().decode('utf-8')
-        self.rules.put(rule_id)
+        self.rules_to_monitor.append(rule_id)
         return rule_id
 
     def setup_listener(self, host, port, cert, key, topic, sub_id, vhost):
@@ -144,17 +145,12 @@ class RucioTransferTest:
         logger.info(f'Listener thread successfully subscribed to topic: {topic}')
         self.is_subscribed.set()
 
-        while True:
-                
-            logger.info(f'Listener waiting for rule.')
-            new_rule = self.rules.get()
-            self.rules_to_monitor.append(new_rule)
-            logger.info(f'Listener thread got rule: {new_rule}')
-            time.sleep(1)
-        logger.info(f'Listener thread will monitor rules:\n\t{self.rules_to_monitor}')
+        self.wait_for_rules.wait()
+
+        # Process rules
+        logger.info(f'The listener will monitor for the completion of transfers for rules:\n\t{self.rules_to_monitor}')
+
             
-            
-        time.sleep(100000)    
         
         
         logger.info('Listener thread completing...')
@@ -215,9 +211,8 @@ def main():
     end_rses = args.end_rses.split(',')
     for dest_rse in end_rses:
         rule_id = tester.rucio_add_rule(dataset_did, dest_rse)
-        tester.rules.put(rule_id)
-        logger.info(f'Added rule {rule_id} to transfer dataset {dataset_did} from {args.start_rse} to {dest_rse}. Listener thread has been notified of rule.')
-    tester.rules.put(Sentinel())
+        logger.info(f'Added rule {rule_id} to transfer dataset {dataset_did} from {args.start_rse} to {dest_rse}.')
+    tester.wait_for_rules.set()
     
 
     # Now monitor for the completion of the transfers.
