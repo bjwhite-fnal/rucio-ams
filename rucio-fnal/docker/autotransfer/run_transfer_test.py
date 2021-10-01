@@ -9,54 +9,59 @@ import threading
 import stomp
 import time
 import queue
+import collections
+import json
 
 logging.basicConfig(format='%(asctime)-15s %(name)s %(levelname)s %(message)s', level=logging.INFO)
 logging.getLogger('stomp.py').setLevel(logging.WARNING)
 logger = logging.getLogger('transfer_test')
 
-class Sentinel:
-    pass
+class RucioListener(stomp.ConnectionListener):
+    def __init__(self, conn, topic, sub_id):
+        self.conn = conn
+        self.shutdown = False
+        self.rule_transfers = None
+        self.rule_transfers = collections.defaultdict(list)
 
-def parse_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--experiment',
-        help='Name of the experiment this transfer test will be run for')
-    parser.add_argument('--cert',
-        help='PEM certificate for Rucio authentication')
-    parser.add_argument('--key',
-        help='PEM key for Rucio authentication')
-    parser.add_argument('--host',
-        help='Rucio message broker to connect to in order to listen to the event stream.')
-    parser.add_argument('--port',
-        type=int,
-        help='Rucio message broker to connect to in order to listen to the event stream.')
-    parser.add_argument('--topic',
-        help='Message topic to connect to.')
-    parser.add_argument('--durable',
-        help='')
-    parser.add_argument('--unsubscribe',
-        help='')
-    parser.add_argument('--start_rse',
-        help='Rucio RSE to upload transfer files to.')
-    parser.add_argument('--end_rses',
-        help='Comma-separated list of RSEs that the generated transfer files will be have rules created for.')
-    parser.add_argument('--rucio_account',
-        default='root',
-        help='User that Rucio commands will be run as')
-    parser.add_argument('--num_files',
-        default = 1,
-        type=int,
-        help='Number of files that will be generated the rules to transfer.')
-    parser.add_argument('--file_size',
-        default = 1024,
-        type=int,
-        help='Size of each generated test transfer file')
-    parser.add_argument('--data_dir',
-        default = '/tmp/%s' % str(uuid.uuid1()),
-        help='Where to store the temporary data generated for this test.')
-    parser.add_argument('--debug',
-        help='Enable debug level logging.')
-    return parser.parse_args()
+    def reconnect_and_subscribe(self):
+        self.conn.connect(wait=True)
+        self.conn.subscribe(topic, sub_id)
+
+    def on_disconnected(self):
+        logger.error(f'Lost connection to broker')
+        self.reconnect_and_subscribe()
+
+    def on_error(self, msg):
+        logger.error(f'Recieved error frame: {msg}')
+
+    def on_message(self, msg):
+        logger.info(f'Received raw message: {msg}')
+        msg_id = msg.headers['message-id']
+        try:
+            msg_data = json.loads(msg.body)
+        except ValueError:
+            logger.error('Unable to decode JSON data')
+            return
+
+        # Need to map transfers to rules
+        self.process_message(msg_data)
+
+    def process_message(self, msg):
+        event_type = msg['event_type']
+        rule_id = msg['payload']['rule-id']
+        request_id = msg['payload']['request-id']
+        logger.info(f'Successfully received message: {msg_data}')
+
+        if event_type == 'transfer-queued':
+            logger.info(msg)
+        elif event_type == 'transfer-done':
+            logger.info(msg)
+        elif event_type == 'transfer-submission-failed':
+            logger.error(msg)
+        else:
+            logger.info(msg)
+
+        self.check_if_finished()
 
 class RucioTransferTest:
     def __init__(self, rucio_account, data_dir, file_size, start_rse):
@@ -64,11 +69,59 @@ class RucioTransferTest:
         self.data_dir = data_dir
         self.file_size = file_size
         self.start_rse = start_rse
-        self.rules = queue.Queue()
         self.listener_thread = None
         self.is_subscribed = threading.Event()
         self.wait_for_rules = threading.Event()
+        self.failed = threading.Event()
         self.rules_to_monitor = []
+        self.conn = None
+        self.retry_count = 3
+
+    def setup_listener(self, host, port, cert, key, topic, sub_id, vhost):
+        logger.info('Creating the listener thread to monitor the Rucio event stream')
+        sub_id = 'placeholder'
+        self.listener_thread = threading.Thread(target=self.run_listener, args=(host, port, cert, key, topic, sub_id, vhost))
+        self.listener_thread.start()
+        return self.listener_thread
+
+    def run_listener(self, host, port, cert, key, topic, sub_id, vhost):
+        logger.info(f'''Listener thread starting up.\nCreating Connection to\n\t{host}:{port}\n\tCert: {cert}\n\tKey: {key}\n\tTopic: {topic}\n\tSub ID: {sub_id}\n\tvhost: {vhost}''')
+        self.conn = stomp.Connection12(
+            [(host, port)],
+            use_ssl=True,
+            ssl_cert_file=cert,
+            ssl_key_file=key,
+            vhost=vhost
+        )
+        rucio_listener = RucioListener(self.conn, topic, sub_id)
+        self.conn.set_listener('RucioListener', rucio_listener)
+        logger.info(f'Listener thread connecting to event stream at: {host}:{port}')
+        i = 0
+        while i < self.retry_count:
+            try:
+                self.conn.connect(wait=True)
+            except stomp.exception.ConnectFailedException as ex:
+                if i == self.retry_count-1:
+                    logger.error('Listener thread failed to connect.')
+                    self.failed.set()
+                    return
+                time.sleep(1)
+                i += 1
+            else:
+                break
+        logger.info(f'Listener thread successfully connected to event stream at: {host}:{port}')
+        self.conn.subscribe(topic, sub_id)
+        logger.info(f'Listener thread successfully subscribed to topic: {topic}')
+        self.is_subscribed.set()
+        self.wait_for_rules.wait()
+        # Process rules
+        logger.info(f'The listener will monitor for the completion of transfers for rules:\n\t{self.rules_to_monitor}')
+
+        while not rucio_listener.shutdown:
+            time.sleep(1)
+
+        logger.info('Listener thread completing...')
+        self.conn.disconnect()
 
     def create_file(self):
         filename = uuid.uuid1()
@@ -121,42 +174,7 @@ class RucioTransferTest:
         self.rules_to_monitor.append(rule_id)
         return rule_id
 
-    def setup_listener(self, host, port, cert, key, topic, sub_id, vhost):
-        logger.info('Creating the listener thread to monitor the Rucio event stream')
-        sub_id = 'placeholder'
-        self.listener_thread = threading.Thread(target=self.run_listener, args=(host, port, cert, key, topic, sub_id, vhost))
-        self.listener_thread.start()
-        return self.listener_thread
-
-    def run_listener(self, host, port, cert, key, topic, sub_id, vhost):
-        logger.info(f'Listener thread starting up. Connecting to {host}:{port}\n\tCert: {cert}\n\tKey: {key}\n\tTopic: {topic}\n\tSub ID: {sub_id}\n\tvhost: {vhost}')
-        conn = stomp.Connection12(
-            [(host, port)],
-            use_ssl=True,
-            ssl_cert_file=cert,
-            ssl_key_file=key,
-            vhost=vhost
-            
-        )
-        rucio_listener = stomp.PrintingListener()
-        conn.set_listener('RucioListener', rucio_listener)
-        conn.connect(wait=True)
-        conn.subscribe(topic, sub_id)
-        logger.info(f'Listener thread successfully subscribed to topic: {topic}')
-        self.is_subscribed.set()
-
-        self.wait_for_rules.wait()
-
-        # Process rules
-        logger.info(f'The listener will monitor for the completion of transfers for rules:\n\t{self.rules_to_monitor}')
-
-            
         
-        
-        logger.info('Listener thread completing...')
-        conn.disconnect()
-
-
 def main(): 
     args = parse_args()
 
@@ -170,7 +188,10 @@ def main():
     vhost = '/'
     sub_id = 'test'
     listener_thread = tester.setup_listener(args.host, args.port, args.cert, args.key, args.topic, sub_id, vhost)
-    while not tester.is_subscribed.is_set():
+    while not tester.is_subscribed.is_set() or tester.failed.is_set():
+        if tester.failed.is_set():
+            logger.error(f'''Failed to connect to the message broker at:\n\t{args.host}:{args.port}\n\tCert:{args.cert}\n\tKey: {args.key}\n\tTopic: {args.topic}\n\tSub ID: {sub_id}\n\tvhost: {vhost}''')
+            sys.exit(-1)
         time.sleep(1)
     logger.info(f'Rucio event stream Listener is ready.')
 
@@ -219,6 +240,49 @@ def main():
     logger.info(f'Commencing monitoring of transfer completion for {len(tester.rules_to_monitor)} rules:\n\t{tester.rules_to_monitor}')
     listener_thread.join()
 
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--experiment',
+        help='Name of the experiment this transfer test will be run for')
+    parser.add_argument('--cert',
+        default=os.environ.get('X509_USER_PROXY', '/opt/rucio/etc/proxy'),
+        help='PEM certificate for Rucio authentication')
+    parser.add_argument('--key',
+        default=os.environ.get('X509_USER_PROXY', '/opt/rucio/etc/proxy'),
+        help='PEM key for Rucio authentication')
+    parser.add_argument('--host',
+        help='Rucio message broker to connect to in order to listen to the event stream.')
+    parser.add_argument('--port',
+        type=int,
+        default=443, # Note that FNAL OKD Rucio STOMP brokers are on 443
+        help='Rucio message broker to connect to in order to listen to the event stream.')
+    parser.add_argument('--topic',
+        help='Message topic to connect to.')
+    parser.add_argument('--durable',
+        help='')
+    parser.add_argument('--unsubscribe',
+        help='')
+    parser.add_argument('--start_rse',
+        help='Rucio RSE to upload transfer files to.')
+    parser.add_argument('--end_rses',
+        help='Comma-separated list of RSEs that the generated transfer files will be have rules created for.')
+    parser.add_argument('--rucio_account',
+        default='root',
+        help='User that Rucio commands will be run as')
+    parser.add_argument('--num_files',
+        default = 1,
+        type=int,
+        help='Number of files that will be generated the rules to transfer.')
+    parser.add_argument('--file_size',
+        default = 1024,
+        type=int,
+        help='Size of each generated test transfer file')
+    parser.add_argument('--data_dir',
+        default = '/tmp/%s' % str(uuid.uuid1()),
+        help='Where to store the temporary data generated for this test.')
+    parser.add_argument('--debug',
+        help='Enable debug level logging.')
+    return parser.parse_args()
 
 if __name__ == '__main__':
     main()

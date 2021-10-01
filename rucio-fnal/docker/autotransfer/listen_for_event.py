@@ -59,7 +59,7 @@ class RucioListener(stomp.ConnectionListener):
             return
 
         event_type = msg_data['event_type']
-        request_id = msg_data['payload']['rule-id']
+        rule_id = msg_data['payload']['rule-id']
         request_id = msg_data['payload']['request-id']
         logger.info('Successfully received message: %s', msg_data)
 
