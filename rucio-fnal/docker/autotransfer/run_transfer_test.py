@@ -42,9 +42,9 @@ class RucioListener(stomp.ConnectionListener):
         except ValueError:
             logger.error('Unable to decode JSON data')
             return
-
-        # Need to map transfers to rules
         self.process_message(msg_data)
+        if self.check_if_finished():
+            self.shutdown = True
 
     def process_message(self, msg):
         event_type = msg['event_type']
@@ -52,6 +52,9 @@ class RucioListener(stomp.ConnectionListener):
 
         if event_type == 'transfer-queued':
             rule_id = msg['payload']['rule-id']
+            if rule_id not in self.rule_transfers.keys():
+                logger.info(f'Transfer for rule {rule_id} is not one submitted by this workflow. Skipping it.')
+                return
             request_id = msg['payload']['request-id']
             request_tracker = [ request_id, False ]
             self.rule_transfers[rule_id].append(request_tracker)
@@ -68,8 +71,6 @@ class RucioListener(stomp.ConnectionListener):
         else:
             #logger.info(msg)
             pass
-        if self.check_if_finished():
-            self.shutdown = True
 
     def update_request_status(self, request_id):
         for rule in self.rule_transfers:
