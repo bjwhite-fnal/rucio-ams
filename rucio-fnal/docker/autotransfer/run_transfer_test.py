@@ -48,18 +48,48 @@ class RucioListener(stomp.ConnectionListener):
 
     def process_message(self, msg):
         event_type = msg['event_type']
-        logger.info(f'Successfully received message: {msg}')
+        logger.info(f'Successfully received message: {msg}\n')
 
         if event_type == 'transfer-queued':
             rule_id = msg['payload']['rule-id']
             request_id = msg['payload']['request-id']
-            logger.info(msg)
+            request_tracker = [ request_id, False ]
+            self.rule_transfers[rule_id].append(request_tracker)
+            logger.info(f'Tracking rule {rule_id} request {request_id}')
         elif event_type == 'transfer-done':
-            logger.info(msg)
+            request_id = msg['payload']['request-id']
+            rule_ids = self.update_request_status(request_id)
+            logger.info(f'Request {request_id} completed for rule {rule_ids}')
         elif event_type == 'transfer-submission-failed':
-            logger.error(msg)
+            request_id = msg['payload']['request-id']
+            rule_ids = self.update_request_status(request_id)
+            request_state = msg['payload']['state']
+            logger.info(f'Request {request_id} (STATE: {request_state}) failed for rule {rule_ids}')
         else:
-            logger.info(msg)
+            #logger.info(msg)
+            pass
+        if self.check_if_finished():
+            self.shutdown = True
+
+    def update_request_status(self, request_id):
+        for rule in self.rule_transfers:
+            transfers = self.rule_transfers[rule]
+            try:
+                idx = transfers.index(request_id)
+            except ValueError:
+                pass
+            else:
+                self.rule_transfers[rule][idx][1] = True
+
+    def check_if_finished(self):
+        rules_done = { (rule, False) for rule in self.rule_transfers.keys() }
+        for rule in self.rule_transfers: # Check if all transfers for a rule are complete
+            transfers = self.rule_transfers[rule]
+            rule_done = all( [ transfer_status[1] == True for transfer_status in transfers ] )
+            if rule_done:
+                rules_done[rule] = True
+        all_done = all( transfer_status == True for transfer_status in self.rule_transfers.values() ) #  Check that all rules are done
+        return all_done
 
 class RucioTransferTest:
     def __init__(self, rucio_account, data_dir, file_size, start_rse):
