@@ -19,13 +19,14 @@ logger = logging.getLogger('transfer_test')
 class RucioListener(stomp.ConnectionListener):
     def __init__(self, conn, topic, sub_id):
         self.conn = conn
+        self.topic = topic
+        self.sub_id = sub_id
         self.shutdown = False
-        self.rule_transfers = None
         self.rule_transfers = collections.defaultdict(list)
 
     def reconnect_and_subscribe(self):
         self.conn.connect(wait=True)
-        self.conn.subscribe(topic, sub_id)
+        self.conn.subscribe(self.topic, self.sub_id)
 
     def on_disconnected(self):
         logger.error(f'Lost connection to broker')
@@ -36,7 +37,6 @@ class RucioListener(stomp.ConnectionListener):
 
     def on_message(self, msg):
         logger.info(f'Received raw message: {msg}')
-        msg_id = msg.headers['message-id']
         try:
             msg_data = json.loads(msg.body)
         except ValueError:
@@ -48,11 +48,11 @@ class RucioListener(stomp.ConnectionListener):
 
     def process_message(self, msg):
         event_type = msg['event_type']
-        rule_id = msg['payload']['rule-id']
-        request_id = msg['payload']['request-id']
-        logger.info(f'Successfully received message: {msg_data}')
+        logger.info(f'Successfully received message: {msg}')
 
         if event_type == 'transfer-queued':
+            rule_id = msg['payload']['rule-id']
+            request_id = msg['payload']['request-id']
             logger.info(msg)
         elif event_type == 'transfer-done':
             logger.info(msg)
@@ -60,8 +60,6 @@ class RucioListener(stomp.ConnectionListener):
             logger.error(msg)
         else:
             logger.info(msg)
-
-        self.check_if_finished()
 
 class RucioTransferTest:
     def __init__(self, rucio_account, data_dir, file_size, start_rse):
