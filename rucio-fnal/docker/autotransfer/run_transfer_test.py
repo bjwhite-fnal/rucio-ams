@@ -16,13 +16,26 @@ logging.basicConfig(format='%(asctime)-15s %(name)s %(levelname)s %(message)s', 
 logging.getLogger('stomp.py').setLevel(logging.WARNING)
 logger = logging.getLogger('transfer_test')
 
+class TransferInfo:
+    def __init__(self, scope, name, src_rse, end_rse, state, request_id):
+        self.scope = scope
+        self.name = name
+        self.src_rse = src_rse
+        self.end_rse = end_rse
+        self.state = state
+        self.request_id = request_id
+
 class RucioListener(stomp.ConnectionListener):
-    def __init__(self, conn, topic, sub_id):
+    def __init__(self, conn, topic, sub_id, all_files):
         self.conn = conn
         self.topic = topic
         self.sub_id = sub_id
         self.shutdown = False
-        self.rule_transfers = collections.defaultdict(list)
+
+        self.scope = scope
+        self.all_files = all_files
+        self.all_completed_files = []
+        self.all_transfers = collections.defaultdict(set) # { 'rse name' : set(TransferInfo) }
 
     def reconnect_and_subscribe(self):
         self.conn.connect(wait=True)
@@ -36,99 +49,85 @@ class RucioListener(stomp.ConnectionListener):
         logger.error(f'Recieved error frame: {msg}')
 
     def on_message(self, msg):
-        logger.info(f'Received raw message: {msg}')
+        logger.debug(f'Received raw message: {msg}')
         try:
             msg_data = json.loads(msg.body)
         except ValueError:
             logger.error('Unable to decode JSON data')
             return
         self.process_message(msg_data)
-        if self.check_if_finished():
-            self.shutdown = True
 
     def process_message(self, msg):
         event_type = msg['event_type']
+        payload = msg['payload']
         logger.info(f'Successfully received message: {msg}\n')
 
-        if event_type == 'transfer-queued':
-            rule_id = msg['payload']['rule-id']
-            if rule_id not in self.rule_transfers.keys():
-                logger.info(f'Transfer for rule {rule_id} is not one submitted by this workflow. Skipping it.')
-                return
-            request_id = msg['payload']['request-id']
-            request_tracker = [ request_id, False ]
-            self.rule_transfers[rule_id].append(request_tracker)
-            logger.info(f'Tracking rule {rule_id} request {request_id}')
-        elif event_type == 'transfer-done':
-            request_id = msg['payload']['request-id']
-            rule_ids = self.update_request_status(request_id)
-            logger.info(f'Request {request_id} completed for rule {rule_ids}')
+        transfer_info = None
+        if 'transfer' in event_type:
+            scope = payload['scope']
+            name = payload['name']
+            src_rse = payload['src-rse']
+            dst_rse = payload['dst-rse']
+            state = payload['state']
+            request_id = payload['request_id']
+            transfer_info = TransferInfo(scope, name, src_rse, dst_rse, state, request_id)
+
+        # Is this a new transfer for that dataset that needs tracked?
+        elif event_type == 'transfer-queued':
+            assert transfer_info is not None
+            if scope == self.scope and name in self.all_files:
+                self.transfers_by_rse[transfer_info.dst_rse].add(TransferInfo)
+                logger.info('Tracking {scope}:{name} to {dest_rse}')
+
+        # Is this failed transfer one that we are tracking for our test?
         elif event_type == 'transfer-submission-failed':
-            request_id = msg['payload']['request-id']
-            rule_ids = self.update_request_status(request_id)
-            request_state = msg['payload']['state']
-            logger.info(f'Request {request_id} (STATE: {request_state}) failed for rule {rule_ids}')
-        else:
-            #logger.info(msg)
+            if transfer_info in self.transfers_by_rse[transfer_info.dst_rse]:
+                # Yup, it is being tracked and it failed
+
+        # Is this completed transfer one that we are tracking for our test?
+        elif event_type == 'transfer-done':
             pass
-
-    def update_request_status(self, request_id):
-        for rule in self.rule_transfers:
-            transfers = self.rule_transfers[rule]
-            try:
-                idx = transfers.index(request_id)
-            except ValueError:
-                pass
-            else:
-                self.rule_transfers[rule][idx][1] = True
-
-    def check_if_finished(self):
-        rules_done = { (rule, False) for rule in self.rule_transfers.keys() }
-        for rule in self.rule_transfers: # Check if all transfers for a rule are complete
-            transfers = self.rule_transfers[rule]
-            rule_done = all( [ transfer_status[1] == True for transfer_status in transfers ] )
-            if rule_done:
-                rules_done[rule] = True
-        all_done = all( transfer_status == True for transfer_status in self.rule_transfers.values() ) #  Check that all rules are done
-        return all_done
+        #else:
+        #    logger.info('Not a queued transfer')
+        #logger.info(f'Full list of transfers being tracked:\n\t{self.rule_transfers}')
 
 class RucioTransferTest:
-    def __init__(self, rucio_account, data_dir, file_size, start_rse):
+    def __init__(self, rucio_account, rucio_scope, data_dir, file_size, start_rse, all_files):
         self.rucio_account = rucio_account
+        self.rucio_scope = rucio_scope
         self.data_dir = data_dir
         self.file_size = file_size
         self.start_rse = start_rse
+        self.all_files = all_files
         self.listener_thread = None
         self.is_subscribed = threading.Event()
-        self.wait_for_rules = threading.Event()
         self.failed = threading.Event()
-        self.rules_to_monitor = []
         self.conn = None
         self.retry_count = 3
 
     def setup_listener(self, host, port, cert, key, topic, sub_id, vhost):
         logger.info('Creating the listener thread to monitor the Rucio event stream')
         sub_id = 'placeholder'
-        self.listener_thread = threading.Thread(target=self.run_listener, args=(host, port, cert, key, topic, sub_id, vhost))
+        self.listener_thread = threading.Thread(target=self.run_listener, args=(host, port, cert, key, topic,
+            sub_id, vhost))
         self.listener_thread.start()
         return self.listener_thread
 
-    def run_listener(self, host, port, cert, key, topic, sub_id, vhost):
-        logger.info(f'''Listener thread starting up.\nCreating Connection to\n\t{host}:{port}\n\tCert: {cert}\n\tKey: {key}\n\tTopic: {topic}\n\tSub ID: {sub_id}\n\tvhost: {vhost}''')
-        self.conn = stomp.Connection12(
+    def establish_broker_connection(self, host, port, cert, key, sub_id, vhost):
+        conn = stomp.Connection12(
             [(host, port)],
             use_ssl=True,
             ssl_cert_file=cert,
             ssl_key_file=key,
             vhost=vhost
         )
-        rucio_listener = RucioListener(self.conn, topic, sub_id)
-        self.conn.set_listener('RucioListener', rucio_listener)
+        rucio_listener = RucioListener(conn, topic, sub_id, all_files)
+        conn.set_listener('RucioListener', rucio_listener)
         logger.info(f'Listener thread connecting to event stream at: {host}:{port}')
         i = 0
         while i < self.retry_count:
             try:
-                self.conn.connect(wait=True)
+                conn.connect(wait=True)
             except stomp.exception.ConnectFailedException as ex:
                 if i == self.retry_count-1:
                     logger.error('Listener thread failed to connect.')
@@ -139,18 +138,29 @@ class RucioTransferTest:
             else:
                 break
         logger.info(f'Listener thread successfully connected to event stream at: {host}:{port}')
-        self.conn.subscribe(topic, sub_id)
+        conn.subscribe(topic, sub_id)
         logger.info(f'Listener thread successfully subscribed to topic: {topic}')
         self.is_subscribed.set()
-        self.wait_for_rules.wait()
-        # Process rules
-        logger.info(f'The listener will monitor for the completion of transfers for rules:\n\t{self.rules_to_monitor}')
+        return conn, rucio_listener
 
-        while not rucio_listener.shutdown:
+    def run_listener(self, host, port, cert, key, topic, sub_id, vhost):
+        logger.info(f'''Listener thread starting up.\nCreating Connection to\n\t{host}:{port}\n\tCert: {cert}\n\tKey: {key}\n\tTopic: {topic}\n\tSub ID: {sub_id}\n\tvhost: {vhost}''')
+        # Setup the connection
+        self.conn, self.rucio_listener = self.establish_broker_connection(host, port, cert, key, sub_id, vhost)
+
+
+        # Process rules
+        logger.info(f'The listener will now watch for test transfer datasets...')
+
+        while not self.rucio_listener.shutdown:
+            self.check_if_finished()
             time.sleep(1)
 
         logger.info('Listener thread completing...')
         self.conn.disconnect()
+
+    def check_if_finished(self):
+        pass
 
     def create_file(self):
         filename = uuid.uuid1()
@@ -173,9 +183,8 @@ class RucioTransferTest:
         rucio_upload_proc = subprocess.run(cmd, shell=True)
         assert rucio_upload_proc.returncode == 0
 
-    def rucio_create_dataset(self, didfile_path, dataset_name=None):
-        if not dataset_name:
-            dataset_name = str(uuid.uuid1())
+    def rucio_create_dataset(self, didfile_path):
+        dataset_name = str(uuid.uuid1())
         account_arg = '-a {rucio_account}'.format(rucio_account=self.rucio_account)
         dataset_did = 'user.{rucio_account}:{dataset_name}'.format(rucio_account=self.rucio_account, dataset_name=dataset_name)
         cmd = 'rucio {account_arg} add-dataset {dataset_did}'.format(account_arg=account_arg, dataset_did=dataset_did)
@@ -200,29 +209,22 @@ class RucioTransferTest:
         rucio_add_rule_proc = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE)
         assert rucio_add_rule_proc.returncode == 0
         rule_id = rucio_add_rule_proc.stdout.strip().decode('utf-8')
-        self.rules_to_monitor.append(rule_id)
         return rule_id
 
-        
-def main(): 
-    args = parse_args()
-
-    tester = RucioTransferTest(
-        args.rucio_account,
-        args.data_dir,
-        args.file_size,
-        args.start_rse
-    )
+def start_listener(tester, host, port, cert, key, topic, sub_id, vhost):
     # Start the listener thread
-    vhost = '/'
-    sub_id = 'test'
-    listener_thread = tester.setup_listener(args.host, args.port, args.cert, args.key, args.topic, sub_id, vhost)
+    listener_thread = tester.setup_listener(host, port, cert, key, topic, sub_id, vhost)
     while not tester.is_subscribed.is_set() or tester.failed.is_set():
         if tester.failed.is_set():
-            logger.error(f'''Failed to connect to the message broker at:\n\t{args.host}:{args.port}\n\tCert:{args.cert}\n\tKey: {args.key}\n\tTopic: {args.topic}\n\tSub ID: {sub_id}\n\tvhost: {vhost}''')
+            logger.error(f'Failed to connect to the message broker at:')
+            logger.error(f'\t{args.host}:{args.port}\n\tCert:{args.cert}\n\tKey: {args.key}\n\tTopic: {args.topic}\n\tSub ID: {sub_id}\n\tvhost: {vhost}')
             sys.exit(-1)
         time.sleep(1)
     logger.info(f'Rucio event stream Listener is ready.')
+    return listener_thread
+
+def main():
+    args = parse_args()
 
     # Generate the files that will be transferred
     logger.info(f'Generating {args.num_files}x{args.file_size}byte files')
@@ -232,6 +234,18 @@ def main():
         filepath = tester.create_file()
         generated_files.append(filepath)
     logger.info(f'Generated {args.num_files} files')
+
+    tester = RucioTransferTest(
+        args.rucio_account,
+        args.data_dir,
+        args.file_size,
+        args.start_rse,
+        generated_files
+    )
+    vhost = '/'
+    sub_id = 'test'
+    listener_thread = start_listener(tester, args.host, args.port, args.cert, args.key, args.topic, sub_id, vhost)
+
 
     # Upload the test files to Rucio
     logger.info(f'Uploading {len(generated_files)} files')
@@ -262,11 +276,8 @@ def main():
     for dest_rse in end_rses:
         rule_id = tester.rucio_add_rule(dataset_did, dest_rse)
         logger.info(f'Added rule {rule_id} to transfer dataset {dataset_did} from {args.start_rse} to {dest_rse}.')
-    tester.wait_for_rules.set()
     
-
     # Now monitor for the completion of the transfers.
-    logger.info(f'Commencing monitoring of transfer completion for {len(tester.rules_to_monitor)} rules:\n\t{tester.rules_to_monitor}')
     listener_thread.join()
 
 def parse_args():
