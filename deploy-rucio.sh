@@ -84,9 +84,6 @@ echo -e "\tCreating ElasticExporter..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-escron.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-escron.sh > /dev/null
 
-echo -e "\tSetting the Reaper log level to ERROR only so that it does not take up the whole log volume."
-oc set env deployment.apps/rucio-${EXPERIMENT}-reaper RUCIO_CFG_COMMON_LOGLEVEL=ERROR
-
 echo -e "\tStarting the proxy generation cronjob."
 kubectl create job --from=cronjob/rucio-${EXPERIMENT}-renew-fts-proxy ${USER}-manual-proxy-1
 
