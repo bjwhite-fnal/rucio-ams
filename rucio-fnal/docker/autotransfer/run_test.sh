@@ -24,5 +24,4 @@ python3 /run_transfer_test.py \
     --end_rses ${end_rses} \
     --rucio_account ${rucio_account} \
     --num_files ${num_files} \
-    --file_size ${file_size} \
-    --debug ${debug}
+    --file_size ${file_size}

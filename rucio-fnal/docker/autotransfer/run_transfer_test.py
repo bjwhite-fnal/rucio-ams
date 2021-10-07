@@ -1,3 +1,5 @@
+# Generate files, send them to RSEs, and monitor transfers for completion
+# Brandon White, FNAL, 2021
 import sys
 import os
 import argparse
@@ -126,10 +128,13 @@ class RucioListener(stomp.ConnectionListener):
                 tracked_transfer.set_complete()
                 logger.info(f'Set completion flag {tracked_transfer.completed} for transfer:\n\t\
                     {tracked_transfer.request_id} for file {tracked_transfer.name}')
+            else:
+                logger.info('Skipping... Not for our files.')
         logger.info(f'Full list of transfers being tracked:\n\t{self.transfers_by_rse}')
 
 class RucioTransferTest:
-    def __init__(self, rucio_account, rucio_scope, data_dir, file_size, start_rse, dst_rses, all_files):
+    def __init__(self, rucio_account, rucio_scope, data_dir, file_size, start_rse, dst_rses, all_files, check_time):
+        self.check_time = check_time
         self.rucio_account = rucio_account
         self.rucio_scope = rucio_scope
         self.data_dir = data_dir
@@ -160,12 +165,33 @@ class RucioTransferTest:
         # Process rules
         logger.info(f'The listener will now watch for test transfer datasets...')
         while not self.rucio_listener.shutdown:
-            time.sleep(120)
+            time.sleep(self.check_time)
             self.rucio_listener.shutdown = self.check_if_finished()
+
+        # Print information about the transfers
+        self.print_statistics()
 
         # Shut down cleanly
         logger.info('Listener thread completing...')
         self.conn.disconnect()
+
+    def print_statistics(self):
+        good_transfers = []
+        bad_transfers = []
+        good_rses = []
+        bad_rses = []
+        for rse in self.dst_rses:
+            transfers = self.rucio_listener.transfers_by_rse[rse]
+            for transfer in transfers:
+                if transfer.state == 'transfer-done':
+                    good_transfers.append(transfer)
+                    good_rses.append(transfer.dst_rse)
+                else:
+                    bad_transfers.append(transfer)
+                    bad_rses.append(transfer.dst_rse)
+        logger.info(f'There were { len(good_transfers) } successful transfers and { len(bad_transfers) } transfers that failed')
+        logger.info(f'Good RSEs: {good_rses}')
+        logger.info(f'Bad RSEs: {bad_rses}')
 
     def establish_broker_connection(self, host, port, cert, key, topic, sub_id, vhost, all_files):
         conn = stomp.Connection12(
@@ -312,7 +338,8 @@ def main():
         args.file_size,
         args.start_rse,
         dest_rses,
-        filenames
+        filenames,
+        args.check_time,
     )
     vhost = '/'
     sub_id = 'test'
@@ -398,6 +425,10 @@ def parse_args():
         help='Where to store the temporary data generated for this test.')
     parser.add_argument('--debug',
         help='Enable debug level logging.')
+    parser.add_argument('--check_time',
+        default = 120,
+        type=int,
+        help='How often to check through all the transfers to see if they are done. Default: 120s')
     return parser.parse_args()
 
 if __name__ == '__main__':
