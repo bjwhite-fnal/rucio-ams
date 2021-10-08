@@ -176,7 +176,8 @@ ftsRenewal:
     tag: latest
     pullPolicy: Always
   vo: "fermilab"
-  voms: "fermilab:/fermilab/Role=Production"
+  #voms: "fermilab:/fermilab/Role=Production"
+  voms: "fermilab:/fermilab"
   servers: "https://fts-dev.fnal.gov:8446"
 
 # Config values used to configure the Rucio daemons
