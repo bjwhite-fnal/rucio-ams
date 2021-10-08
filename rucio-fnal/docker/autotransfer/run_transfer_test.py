@@ -115,7 +115,7 @@ class RucioListener(stomp.ConnectionListener):
                     logger.info('Commencing tracking of transfer for {self.scope}:{transfer_info.name} to {transfer_info.dst_rse}')
                     self.transfers_by_rse[transfer_info.dst_rse].append(transfer_info)
                 else:
-                    logger.info('Transfer of file {self.scope}:{transfer_info.name} is already being tracked. Skipping.')
+                    logger.info(f'Transfer of file {self.scope}:{transfer_info.name} is already being tracked. Skipping.')
 
         # Is this failed transfer one that we are tracking for our test?
         elif event_type in self.terminal_states:
@@ -160,20 +160,23 @@ class RucioTransferTest:
         logger.info(f'Listener thread starting up.')
         # Setup the connection
         logger.info(f'Creating Connection to\n\t{host}:{port}\n\tCert:{cert}\n\tKey: {key}\n\tTopic: {topic}\n\tSub ID: {sub_id}\n\tvhost: {vhost}')
-        self.conn, self.rucio_listener = self.establish_broker_connection(host, port, cert, key, topic, sub_id, vhost, all_files)
+        try:
+            self.conn, self.rucio_listener = self.establish_broker_connection(host, port, cert, key, topic, sub_id, vhost, all_files)
+        except TypeError:
+            logger.info('Unable to connect to broker. Failing test.')
+        else:
+            # Process rules
+            logger.info(f'The listener will now watch for test transfer datasets...')
+            while not self.rucio_listener.shutdown:
+                time.sleep(self.check_time)
+                self.rucio_listener.shutdown = self.check_if_finished()
 
-        # Process rules
-        logger.info(f'The listener will now watch for test transfer datasets...')
-        while not self.rucio_listener.shutdown:
-            time.sleep(self.check_time)
-            self.rucio_listener.shutdown = self.check_if_finished()
+            # Print information about the transfers
+            self.print_statistics()
 
-        # Print information about the transfers
-        self.print_statistics()
-
-        # Shut down cleanly
-        logger.info('Listener thread completing...')
-        self.conn.disconnect()
+            # Shut down cleanly
+            logger.info('Listener thread completing...')
+            self.conn.disconnect()
 
     def print_statistics(self):
         good_transfers = []
