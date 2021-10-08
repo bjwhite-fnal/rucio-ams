@@ -98,6 +98,8 @@ class RucioListener(stomp.ConnectionListener):
             dst_rse = payload['dst-rse']
             if event_type == 'transfer-failed':
                 state = 'failed'
+            elif event_type == 'transfer-done':
+                state = 'done'
             else:
                 state = payload['state']
             request_id = payload['request-id']
@@ -186,7 +188,7 @@ class RucioTransferTest:
         for rse in self.dst_rses:
             transfers = self.rucio_listener.transfers_by_rse[rse]
             for transfer in transfers:
-                if transfer.state == 'transfer-done':
+                if transfer.state == 'done':
                     good_transfers.append(transfer)
                     good_rses.append(transfer.dst_rse)
                 else:
