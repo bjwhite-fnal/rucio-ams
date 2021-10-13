@@ -1,0 +1,27 @@
+---
+serviceAccountName: useroot
+autoTransferCount: 1
+experiment: Uses $EXPERIMENT
+minReadySeconds: 5
+
+autoTransfer:
+  enabled: 1
+  image:
+    repository: imageregistry.fnal.gov/rucio-fnal/fnal-rucio-autotransfer
+    tag: latest
+    pullPolicy: Always
+  schedule: "55 * * * *"
+
+optional_config:
+  x509_user_proxy: "/opt/proxy/x509up"
+  experiment: "int"
+  broker_host: "msg-int-rucio.okd.fnal.gov"
+  broker_port: "443"
+  topic: "/topic/rucio.events.int"
+  durable: "False"
+  unsubscribe: "False"
+  start_rse: "DCACHE_BJWHITE_START"
+  end_rses: "DCACHE_BJWHITE_END,DCACHE_BJWHITE_END2"
+  rucio_account: "root"
+  num_files: "1"
+  file_size: "1024"

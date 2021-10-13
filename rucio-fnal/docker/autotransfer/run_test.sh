@@ -1,27 +1,30 @@
 #!/bin/bash
-
-experiment=int
-host=msg-int-rucio.okd.fnal.gov
-port=443
-topic=/topic/rucio.events.int
-durable=False
-unsubscribe=False
-start_rse=DCACHE_BJWHITE_START
-end_rses=DCACHE_BJWHITE_END,DCACHE_BJWHITE_END2
-rucio_account=root
-debug=False
-num_files=1
-file_size=1024
-
+echo "Running command: python3 /run_transfer_test.py \
+    --experiment ${EXPERIMENT} \
+    --host ${BROKER_HOST} \
+    --port ${BROKER_PORT} \
+    --topic ${TOPIC} \
+    --durable ${DURABLE} \
+    --unsubscribe ${UNSUBSCRIBE} \
+    --start_rse ${START_RSE} \
+    --end_rses ${END_RSES} \
+    --rucio_account ${RUCIO_ACCOUNT} \
+    --num_files ${NUM_FILES} \
+    --file_size ${FILE_SIZE}"
+sleep 1000000
 python3 /run_transfer_test.py \
-    --experiment ${experiment} \
-    --host ${host} \
-    --port ${port} \
-    --topic ${topic} \
-    --durable ${durable} \
-    --unsubscribe ${unsubscribe} \
-    --start_rse ${start_rse} \
-    --end_rses ${end_rses} \
-    --rucio_account ${rucio_account} \
-    --num_files ${num_files} \
-    --file_size ${file_size}
+    --experiment ${EXPERIMENT} \
+    --host ${BROKER_HOST} \
+    --port ${BROKER_PORT} \
+    --topic ${TOPIC} \
+    --durable ${DURABLE} \
+    --unsubscribe ${UNSUBSCRIBE} \
+    --start_rse ${START_RSE} \
+    --end_rses ${END_RSES} \
+    --rucio_account ${RUCIO_ACCOUNT} \
+    --num_files ${NUM_FILES} \
+    --file_size ${FILE_SIZE}
+    # Using defaults for the following
+    #--cert ${BROKER_CERT} \
+    #--key ${BROKER_KEY} \
+    #--proxy ${X509_USER_PROXY}

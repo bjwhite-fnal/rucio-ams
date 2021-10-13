@@ -1,0 +1,45 @@
+{{- if .Values.autoTransfer.enabled -}}
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ .Release.Name }}-autotransfer
+spec:
+  schedule: "{{ .Values.autoTransfer.schedule }}"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: {{ .Values.serviceAccountName }}
+          volumes:
+          - name: ssl-credentials
+            secret:
+              secretName: ssl-secrets
+          - name: proxy-volume
+            secret:
+              secretName: {{ .Release.Name }}-rucio-x509up
+{{- range $key, $val := .Values.persistentVolumes }}
+          - name: {{ $key }}
+            persistentVolumeClaim:
+              claimName: {{ $val.name }}
+{{- end}}
+          containers:
+            - name: autotransfer 
+              image: "{{ .Values.autoTransfer.image.repository }}:{{ .Values.autoTransfer.image.tag }}"
+              imagePullPolicy: {{ .Values.autoTransfer.image.pullPolicy }}
+              volumeMounts:
+                - name: ssl-credentials
+                  mountPath: /opt/certs 
+                  readOnly: true
+                - name: proxy-volume
+                  mountPath: /opt/proxy
+{{- range $key, $val := .Values.persistentVolumes }}
+                - name: {{ $key }}
+                  mountPath: {{ $val.mountPath }}
+{{- end}}
+              env:
+                {{- range $key1, $val1 := .Values.optional_config }}
+                - name: {{ $key1 | upper }}
+                  value: "{{ $val1  }}"
+                {{- end}}
+          restartPolicy: OnFailure
+{{ end }}
