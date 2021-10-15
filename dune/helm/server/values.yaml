@@ -114,16 +114,17 @@ optional_config:
   policy_pkg_dir: /opt/rucio/permissions
 
   # Enable logging to files instead of the container STDOUT and set the location that they will go to (Default: /var/log/ if rucio_httpd_log_dir not set)
-  rucio_enable_logfile: "True"
-  rucio_httpd_log_dir: /rucio/logs
+  #rucio_enable_logfile: "True"
+  #rucio_enable_logs: "True"
+  #rucio_httpd_log_dir: /rucio/logs
 
   # Database debugging messages
   #rucio_cfg_database_echo: 1
 
-persistentVolumes:
-  rucio-logs:
-    name: "pv-rucio-dune-logs"
-    mountPath: /rucio/logs
+#persistentVolumes:
+#  rucio-logs:
+#    name: "pv-rucio-dune-logs"
+#    mountPath: /rucio/logs
 
 authIngress:
   enabled: false

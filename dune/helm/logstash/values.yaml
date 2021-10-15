@@ -1,6 +1,6 @@
 ---
 serviceAccountName: useroot
-logstashCount: 1
+logstashCount: 0
 experiment: Uses $EXPERIMENT
 minReadySeconds: 5
 

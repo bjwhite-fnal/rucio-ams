@@ -1,6 +1,6 @@
 ---
 serviceAccountName: useroot
-filebeatCount: 1
+filebeatCount: 0
 experiment: Uses $EXPERIMENT
 
 image:
