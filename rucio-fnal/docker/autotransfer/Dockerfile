@@ -3,12 +3,18 @@
 # Author:
 # - Brandon White, <bjwhite@fnal.gov>, 2021-2049
 
-FROM rucio/rucio-clients
+ARG rucio_version
+FROM rucio/rucio-clients:release-${rucio_version}
 
 ADD ./run_test.sh /run_test.sh
 ADD ./run_transfer_test.py /run_transfer_test.py
 ADD ./rucio.cfg /opt/rucio/etc/rucio.cfg
 RUN pip3 install stomp.py remote-pdb
+USER root
+RUN yum install -y telnet
+
+# REMOTE PDB DEBUG
+ADD ./baseclient.py /usr/local/lib/python3.6/site-packages/rucio/client/baseclient.py
 
 USER root
 RUN yum install -y telnet

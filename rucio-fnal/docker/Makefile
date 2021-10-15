@@ -36,6 +36,26 @@ build-all-nc:
 # Image build command definitions
 define build-statsd-cmd =
 docker build -t rucio-statsd statsd
+
+define build-autotransfer-cmd =
+docker build -t rucio-autotransfer --build-arg rucio_version=${FNAL_RUCIO_VERSION} autotransfer 
+endef
+
+define build-autotransfer-nc-cmd =
+docker build --no-cache -t rucio-autotransfer --build-arg rucio_version=${FNAL_RUCIO_VERSION} autotransfer 
+endef
+
+define build-logrotate-cmd =
+docker build -t rucio-logrotate logrotate
+endef
+
+define build-logrotate-nc-cmd =
+docker build --no-cache -t rucio-logrotate logrotate
+endef
+
+define build-logstash-cmd =
+docker build -t rucio-logstash logstash
+>>>>>>> Debugging
 endef
 
 define build-statsd-nc-cmd =
