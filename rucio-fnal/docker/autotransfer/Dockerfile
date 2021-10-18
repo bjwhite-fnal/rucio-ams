@@ -14,7 +14,8 @@ USER root
 RUN yum install -y telnet
 
 # REMOTE PDB DEBUG
-ADD ./baseclient.py /usr/local/lib/python3.6/site-packages/rucio/client/baseclient.py
+#ADD ./baseclient.py /usr/local/lib/python3.6/site-packages/rucio/client/baseclient.py
+ADD ./uploadclient.py /usr/local/lib/python3.6/site-packages/rucio/client/uploadclient.py
 
 USER root
 RUN yum install -y telnet
