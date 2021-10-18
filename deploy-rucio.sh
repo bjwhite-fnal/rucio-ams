@@ -42,7 +42,7 @@ $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-daemons.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-server.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-cache.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-messenger.sh
-# $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-webui.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-webui.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-routes.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-filebeat.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-logstash.sh
@@ -70,7 +70,7 @@ echo "Creating servers..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-server.sh > /dev/null
 
 echo "Creating web UI..."
-# $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-webui.sh > /dev/null
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-webui.sh > /dev/null
 
 echo "Creating networking routes..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-routes.sh > /dev/null
