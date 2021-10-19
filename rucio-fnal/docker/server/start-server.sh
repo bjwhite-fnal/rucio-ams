@@ -37,7 +37,10 @@ fi
 j2 /tmp/rucio.conf.j2 | sed '/^\s*$/d' > /etc/httpd/conf.d/rucio.conf
 
 if [ ! -z "$RUCIO_HTTPD_LOG_DIR" ]; then
+    echo "Configuring custom HTTP logging..."
     /configure_server_log_location.sh
+else
+    echo "Using default logging..."
 fi
 
 echo "=================== /etc/httpd/conf.d/rucio.conf ========================"
