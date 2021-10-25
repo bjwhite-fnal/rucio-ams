@@ -13,7 +13,6 @@ push-all:
 	$(push-filebeat-cmd)
 	$(push-logstash-cmd)
 	$(push-logrotate-cmd)
-	$(push-autotransfer-cmd)
 
 build-all:
 	$(build-server-cmd)
@@ -25,7 +24,6 @@ build-all:
 	$(build-filebeat-cmd)
 	$(build-logstash-cmd)
 	$(build-logrotate-cmd)
-	$(build-autotransfer-cmd)
 
 build-all-nc:
 	$(build-server-nc-cmd)
@@ -37,7 +35,6 @@ build-all-nc:
 	$(build-filebeat-nc-cmd)
 	$(build-logstash-nc-cmd)
 	$(build-logrotate-nc-cmd)
-	$(build-autotransfer-nc-cmd)
 
 # Image build command definitions
 define build-autotransfer-cmd =
