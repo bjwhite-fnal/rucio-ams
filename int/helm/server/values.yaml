@@ -104,6 +104,7 @@ config:
     logdir: /rucio/logs
 
   monitor:
+    enable_metrics: "True"
     carbon_server: "lsdataitb.fnal.gov"
     carbon_port: "8225"
     user_scope: "rucio_int_okd"
