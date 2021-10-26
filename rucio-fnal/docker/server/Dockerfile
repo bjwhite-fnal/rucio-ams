@@ -21,6 +21,10 @@ ADD configure_server_log_location.sh /
 ADD start-server.sh /
 ADD permissions/ /opt/rucio/permissions/fermilab
 
+# Temporary. Adds functionality which was not present for configuring HTTPD log dir in the server
+# Remove this file once you can set the server HTTPD log dir based on $RUCIO_HTTPD_LOG_DIR
+ADD rucio.conf.j2 /tmp
+
 VOLUME /etc/grid-security
 
 ENTRYPOINT ["/start-server.sh"]
