@@ -207,6 +207,7 @@ config:
     carbon_server: "lsdataitb.fnal.gov"
     carbon_port: "8225"
     user_scope: "rucio.icarus_okd"
+    enable_metrics: "True"
 
   messaging:
     cache_port: "11211"
