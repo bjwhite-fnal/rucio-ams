@@ -3,6 +3,8 @@ echo "Running command: python3 /run_transfer_test.py \
     --experiment ${EXPERIMENT} \
     --host ${BROKER_HOST} \
     --port ${BROKER_PORT} \
+    --cert ${BROKER_CERT} \
+    --key ${BROKER_KEY} \
     --topic ${TOPIC} \
     --durable ${DURABLE} \
     --unsubscribe ${UNSUBSCRIBE} \
@@ -16,6 +18,8 @@ python3 /run_transfer_test.py \
     --experiment ${EXPERIMENT} \
     --host ${BROKER_HOST} \
     --port ${BROKER_PORT} \
+    --cert ${BROKER_CERT} \
+    --key ${BROKER_KEY} \
     --topic ${TOPIC} \
     --durable ${DURABLE} \
     --unsubscribe ${UNSUBSCRIBE} \
@@ -24,7 +28,4 @@ python3 /run_transfer_test.py \
     --rucio_account ${RUCIO_ACCOUNT} \
     --num_files ${NUM_FILES} \
     --file_size ${FILE_SIZE}
-    # Using defaults for the following
-    #--cert ${BROKER_CERT} \
-    #--key ${BROKER_KEY} \
     #--proxy ${X509_USER_PROXY}
