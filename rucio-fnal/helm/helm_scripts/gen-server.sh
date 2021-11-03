@@ -11,6 +11,7 @@ else
     helm template --name rucio-$EXPERIMENT $FNAL_RUCIO_DIR/rucio-fnal/helm/helm-charts/charts/rucio-server \
         --set experiment=$EXPERIMENT \
         --set image.tag=$FNAL_RUCIO_VERSION_TAG \
+        --set externalIP=$FNAL_RUCIO_EXTERNAL_IP \
         -f $FNAL_RUCIO_DIR/$EXPERIMENT/helm/server/values.yaml \
         -f $FNAL_RUCIO_DIR/$EXPERIMENT/helm/secret/config.yaml > $FNAL_RUCIO_DIR/$EXPERIMENT/server.yaml
 fi
