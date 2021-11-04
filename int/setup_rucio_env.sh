@@ -24,6 +24,6 @@ export FNAL_RUCIO_DIR=/nashome/b/bjwhite/dev/rucio/rucio-fnal
 export FNAL_RUCIO_EXTERNAL_IP=131.225.218.134
 
 # Only the filenames are needed. The files should be resident in $FNAL_EXP_RUCIO_DEPLOYMENT_CONF_DIR/certs 
-export FNAL_EXP_RUCIO_CERT=int-rucio.okd.fnal.gov-cert.pem
-export FNAL_EXP_RUCIO_KEY=int-rucio.okd.fnal.gov-key.pem
+export FNAL_EXP_RUCIO_CERT=int-rucio.fnal.gov-cert.pem
+export FNAL_EXP_RUCIO_KEY=int-rucio.fnal.gov-key.pem
 export FNAL_EXP_RUCIO_CA_BUNDLE=ca_bundle.pem
