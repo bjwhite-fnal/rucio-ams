@@ -27,12 +27,12 @@ ingress:
 
 webuiRoute:
   app: rucio-webui
-  host: int-rucio.fnal.gov
+  host: webui-int-rucio.fnal.gov
   serviceName: rucio-int-rucio-ui
 
 service:
   type: ClusterIP
-  port: 8443 
+  port: 443
   targetPort: 443
   tls:
     enabled: true

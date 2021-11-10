@@ -86,10 +86,13 @@ kubectl create job --from=cronjob/rucio-${EXPERIMENT}-renew-fts-proxy ${USER}-ma
 echo "Setting the external IP addresses for the services."
 # Watch out for some tricky string concatenation to get the external ips into the spec string
 messenger_service=$(oc get services | grep "rucio-messenger" | awk '{print $1}')
-oc patch svc ${messenger_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXTERNAL_IP"'"]}}'
+oc patch svc ${messenger_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_MSG_IP"'"]}}'
+
 webui_service=$(oc get services | grep "rucio-ui" | awk '{print $1}')
-oc patch svc ${webui_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXTERNAL_IP"'"]}}'
+oc patch svc ${webui_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_WEBUI_IP"'"]}}'
+
 server_service=$(oc get services | grep "server" | grep -v "auth" | awk '{print $1}')
-oc patch svc ${server_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXTERNAL_IP"'"]}}'
+oc patch svc ${server_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_SERVER_IP"'"]}}'
+
 auth_server_service=$(oc get services | grep "server-auth" | awk '{print $1}')
-oc patch svc ${auth_server_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXTERNAL_IP"'"]}}'
+oc patch svc ${auth_server_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_AUTH_IP"'"]}}'

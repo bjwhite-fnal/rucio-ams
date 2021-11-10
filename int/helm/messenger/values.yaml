@@ -8,7 +8,7 @@ experiment: Uses $EXPERIMENT
 messengerServerCount: 1
 
 service:
-  ssl_port: 61613
+  ssl_port: 443
   ssl_targetPort: 443
 
 image:
@@ -18,5 +18,5 @@ image:
 
 messengerRoute:
   app: rucio-messenger
-  host: int-rucio.fnal.gov
+  host: msg-int-rucio.fnal.gov
   serviceName: messenger
