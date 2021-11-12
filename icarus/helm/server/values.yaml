@@ -101,7 +101,7 @@ config:
     carbon_server: "lsdataitb.fnal.gov"
     carbon_port: "8225"
     user_scope: "rucio_icarus_okd"
-    enable_metrics: "true"
+    enable_metrics: "True"
 
   policy:
     package: fermilab

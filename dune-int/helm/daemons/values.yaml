@@ -228,7 +228,7 @@ config:
     carbon_server: "lsdataitb.fnal.gov"
     carbon_port: "8225"
     user_scope: "rucio_dune_int_okd"
-    enable_metrics: "true"
+    enable_metrics: "True"
 
   messaging:
     cache_port: "11211"
