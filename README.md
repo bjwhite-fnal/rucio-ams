@@ -14,6 +14,10 @@ In particular please make sure that the following are set by the sourcing of the
     FNAL_EXP_RUCIO_CA_BUNDLE: CA certificates for service authentication.
     FNAL_EXP_RUCIO_CERT_KEY_COMBINED: Certificate and key concatenated. Needed for the Web UI.
     FNAL_RUCIO_VERSION: Use this when building fnal-rucio-* images to select the desired Rucio version for installation into the image. 
+    FNAL_RUCIO_EXT_SERVER_IP: Specifies the external IPV4 address of the server service deployment
+    FNAL_RUCIO_EXT_AUTH_IP: Specifies the external IPV4 address of the auth server service deployment
+    FNAL_RUCIO_EXT_WEBUI_IP: Specifies the external IPV4 address of the webui service deployment
+    FNAL_RUCIO_EXT_MSG_IP: Specifies the external IPV4 address of the messenger service deployment
 ~~~~
 
 ## Before Deployment To-Do List
@@ -23,8 +27,9 @@ In particular please make sure that the following are set by the sourcing of the
     2. Make sure you have the certificate and key for the Rucio service, with alternate names for the various services (webui, msg, auth)
     3. Ensure that the certificate is registered in a federated identity system (e.g. FERRY/VOMS) to the <experiment>pro user so that Rucio can access data on the RSEs
     4. Edit <experiment>/setup_rucio_env.sh to set the required environment variables
-    5. Have the FNAL OKD cluster administrators create the `useroot` account for the deployment to use in order to allow the containers to run as root
-    6. Have the FNAL OKD cluster administrators create the following DNS records:
+    5. Have the FNAL OKD cluster administrators allocate an external IPv4 address and set up DNS resolution for the deployment
+    6. Have the FNAL OKD cluster administrators create the `useroot` account for the deployment to use in order to allow the containers to run as root
+    7. Have the FNAL OKD cluster administrators create the following DNS records:
         <experiment>-rucio.okd.fnal.gov
         auth-<experiment>-rucio.okd.fnal.gov
         msg-<experiment>-rucio.okd.fnal.gov

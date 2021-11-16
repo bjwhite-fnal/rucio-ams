@@ -32,7 +32,7 @@ webuiRoute:
 
 service:
   type: ClusterIP
-  port: 443 
+  port: 443
   targetPort: 443
   tls:
     enabled: true

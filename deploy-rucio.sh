@@ -75,10 +75,34 @@ $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-webui.sh > /dev/null
 echo "Creating networking routes..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-routes.sh > /dev/null
 
-echo "**************** Openshift application rucio-$EXPERIMENT deployment successful ****************" 
+echo "Setting the Reaper log level to ERROR only so that it does not take up the whole log volume."
+oc set env deployment.apps/rucio-${EXPERIMENT}-reaper RUCIO_CFG_COMMON_LOGLEVEL=ERROR
 
-echo "Setting the Reaper2 log level to ERROR only so that it does not take up the whole log volume."
-oc set env deployment.apps/rucio-${EXPERIMENT}-reaper2 RUCIO_CFG_COMMON_LOGLEVEL=ERROR
-
-echo "Running the proxy generation cronjob."
+echo "Starting the proxy generation cronjob."
 kubectl create job --from=cronjob/rucio-${EXPERIMENT}-renew-fts-proxy ${USER}-manual-proxy-1
+
+echo "Applying external IP addresses to the services."
+# Watch out for some tricky string concatenation to get the external ips into the spec string
+if [[ -n ${FNAL_RUCIO_EXT_MSG_IP} ]]; then
+    messenger_service=$(oc get services | grep "rucio-messenger" | awk '{print $1}')
+    oc patch svc ${messenger_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_MSG_IP"'"]}}'
+fi
+if [[ -n ${FNAL_RUCIO_EXT_MSG_IP} ]]; then
+    webui_service=$(oc get services | grep "rucio-ui" | awk '{print $1}')
+    oc patch svc ${webui_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_WEBUI_IP"'"]}}'
+fi
+if [[ -n ${FNAL_RUCIO_EXT_MSG_IP} ]]; then
+    server_service=$(oc get services | grep "server" | grep -v "auth" | awk '{print $1}')
+    oc patch svc ${server_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_SERVER_IP"'"]}}'
+fi
+if [[ -n ${FNAL_RUCIO_EXT_MSG_IP} ]]; then
+    auth_server_service=$(oc get services | grep "server-auth" | awk '{print $1}')
+    oc patch svc ${auth_server_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_AUTH_IP"'"]}}'
+fi
+
+echo "**************** Openshift application rucio-$EXPERIMENT deployment successful ****************"
+echo "Server: ${FNAL_RUCIO_EXT_SERVER_IP}"
+echo "Auth Server: ${FNAL_RUCIO_EXT_AUTH_IP}"
+echo "Messenger: ${FNAL_RUCIO_EXT_MSG_IP}"
+echo "Webui: ${FNAL_RUCIO_EXT_WEBUI_IP}"
+

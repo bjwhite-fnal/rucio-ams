@@ -11,5 +11,6 @@ else
     helm template --name rucio-$EXPERIMENT-messenger $FNAL_RUCIO_DIR/rucio-fnal/helm/helm-fnal/messenger \
         --set experiment=$EXPERIMENT \
         --set image.tag=$FNAL_RUCIO_VERSION_TAG \
+        --set externalIP=$FNAL_RUCIO_EXTERNAL_IP \
         -f $FNAL_RUCIO_DIR/$EXPERIMENT/helm/messenger/values.yaml > $FNAL_RUCIO_DIR/$EXPERIMENT/messenger.yaml
 fi
