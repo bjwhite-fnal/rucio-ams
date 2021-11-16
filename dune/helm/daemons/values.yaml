@@ -223,6 +223,7 @@ config:
     ftshosts: "https://fts3-public.cern.ch:8446"
     cacert: "/opt/certs/ca.pem"
     usercert: "/opt/proxy/x509up"
+    bring_online: "259200"
 
   monitor:
     carbon_server: "lsdataitb.fnal.gov"
