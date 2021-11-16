@@ -39,12 +39,12 @@ serverType:
 
 serverRoute:
   app: rucio-int-rucio-server
-  host: int-rucio.fnal.gov
+  host: int-rucio.okd.fnal.gov
   serviceName: rucio-server
 
 authServerRoute:
   app: rucio-int-rucio-server-auth
-  host: auth-int-rucio.fnal.gov
+  host: auth-int-rucio.okd.fnal.gov
   serviceName: rucio-server-auth
 
 useSSL:
