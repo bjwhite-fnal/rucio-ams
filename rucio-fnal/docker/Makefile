@@ -13,6 +13,7 @@ push-all:
 	$(push-filebeat-cmd)
 	$(push-logstash-cmd)
 	$(push-logrotate-cmd)
+	$(push-statsd-cmd)
 
 build-all:
 	$(build-server-cmd)
@@ -24,6 +25,7 @@ build-all:
 	$(build-filebeat-cmd)
 	$(build-logstash-cmd)
 	$(build-logrotate-cmd)
+	$(build-statsd-cmd)
 
 build-all-nc:
 	$(build-server-nc-cmd)
@@ -35,8 +37,17 @@ build-all-nc:
 	$(build-filebeat-nc-cmd)
 	$(build-logstash-nc-cmd)
 	$(build-logrotate-nc-cmd)
+	$(build-statsd-nc-cmd)
 
 # Image build command definitions
+define build-statsd-cmd =
+docker build -t rucio-statsd statsd
+endef
+
+define build-statsd-nc-cmd =
+docker build --no-cache -t rucio-statsd statsd
+endef
+
 define build-autotransfer-cmd =
 docker build -t rucio-autotransfer autotransfer 
 endef
@@ -118,6 +129,12 @@ docker build --no-cache -t rucio-messenger messenger
 endef
 
 # Image build command declarations
+build-statsd:
+	$(build-statsd-cmd)
+
+build-statsd-nc:
+	$(build-statsd-nc-cmd)
+
 build-autotransfer:
 	$(build-autotransfer-cmd)
 
@@ -179,6 +196,11 @@ build-messenger-nc:
 	$(build-messenger-nc-cmd)	
 
 # Image push command definitions
+define push-statsd-cmd =
+	docker tag rucio-statsd imageregistry.fnal.gov/rucio-fnal/fnal-rucio-statsd:${FNAL_RUCIO_VERSION_TAG}
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-statsd:${FNAL_RUCIO_VERSION_TAG}
+endef
+
 define push-autotransfer-cmd =
 	docker tag rucio-autotransfer imageregistry.fnal.gov/rucio-fnal/fnal-rucio-autotransfer:${FNAL_RUCIO_VERSION_TAG}
 	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-autotransfer:${FNAL_RUCIO_VERSION_TAG}
@@ -232,6 +254,9 @@ define push-messenger-cmd =
 endef
 
 # Image push command declarations
+push-statsd:
+	$(push-statsd-cmd)
+
 push-autotransfer:
 	$(push-autotransfer-cmd)
 

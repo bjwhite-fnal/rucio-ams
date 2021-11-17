@@ -37,7 +37,7 @@ verify_environment
 echo "Creating application secrets..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create_cert_secrets.sh
 
-echo "Generating configuration files..."
+echo "\nGenerating configuration files..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-daemons.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-server.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-cache.sh
@@ -47,6 +47,10 @@ $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-routes.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-filebeat.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-logstash.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-logrotate.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-statsd.sh
+
+echo "\nCreating StatsD service..."
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-statsd.sh > /dev/null
 
 echo "Creating cache service..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-cache.sh > /dev/null
