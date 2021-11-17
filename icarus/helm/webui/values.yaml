@@ -38,9 +38,10 @@ service:
     enabled: true
 
 monitor:
-  carbon_server: "lsdataitb.fnal.gov"
-  carbon_port: 8225
+  carbon_server: "rucio-statsd"
+  carbon_port: "8125"
   user_scope: "rucio_icarus_okd"
+  enable_metrics: "True"
 
 logging:
   log_level: 0
