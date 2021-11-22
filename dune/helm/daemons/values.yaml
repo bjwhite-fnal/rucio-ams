@@ -204,7 +204,7 @@ ftsRenewal:
     pullPolicy: Always
   vo: "dune"
   voms: "dune:/dune/Role=Production"
-  servers: "https://fts3-public.cern.ch:8446,https://fts-dev.fnal.gov:8446"
+  servers: "https://fts3-public.cern.ch:8446,https://fts-dev.fnal.gov:8446,https://fts3-dev.fnal.gov:8446"
 
 #persistentVolumes:
 #  rucio-logs:
