@@ -1,6 +1,6 @@
 ---
 serviceAccountName: useroot
-logrotateCount: 1
+logrotateCount: 0
 experiment: Uses $EXPERIMENT
 minReadySeconds: 5
 
