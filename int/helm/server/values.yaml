@@ -100,8 +100,6 @@ livenessProbe:
 
 config: 
   common:
-    # Sets the location that the daemons will log to.
-    logdir: /rucio/logs
 
   monitor:
     carbon_server: "rucio-statsd"
@@ -122,18 +120,8 @@ optional_config:
   # Set the path (inside the container) where the experiment policy package will be located.
   policy_pkg_dir: /opt/rucio/permissions
 
-  # Enable logging to files instead of the container STDOUT and set the location that they will go to (Default: /var/log/ if rucio_httpd_log_dir not set)
-  #rucio_enable_logs: "True"
-  rucio_httpd_log_dir: /rucio/logs
-
   # Database debugging messages
   #rucio_cfg_database_echo: 1
-
-persistentVolumes:
-  # Setup a persistent volume where the logs can all be written (where they will be read by filebeat).
-  rucio-logs:
-    name: "pv-rucio-int-logs"
-    mountPath: /rucio/logs
 
 monitoring:
   enabled: false
