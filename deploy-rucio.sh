@@ -36,7 +36,7 @@ verify_environment
 echo -e "\tCreating application secrets..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create_cert_secrets.sh
 
-echo -e "\tGenerating configuration files..."
+echo -e "\tGenerating deployment YAML files from Helm templates..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-daemons.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-server.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-cache.sh
@@ -44,6 +44,7 @@ $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-messenger.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-webui.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-routes.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-statsd.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-escron.sh
 
 echo -e "\tCreating StatsD service..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-statsd.sh > /dev/null
@@ -66,6 +67,9 @@ $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-webui.sh > /dev/null
 echo -e "\tCreating networking routes..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-routes.sh > /dev/null
 
+echo -e "\tCreating ElasticSearch monitoring information export CronJob"
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-escron.sh > /dev/null
+
 echo -e "\tSetting the Reaper log level to ERROR only so that it does not take up the whole log volume."
 oc set env deployment.apps/rucio-${EXPERIMENT}-reaper RUCIO_CFG_COMMON_LOGLEVEL=ERROR
 
@@ -73,15 +77,19 @@ echo -e "\tStarting the proxy generation cronjob."
 kubectl create job --from=cronjob/rucio-${EXPERIMENT}-renew-fts-proxy ${USER}-manual-proxy-1
 
 # Only bother with this if operating the OKD Services with OKD externalIPs
+# Check if we have any
 if [[ -n ${FNAL_RUCIO_EXT_SERVER_IP} || \
     -n ${FNAL_RUCIO_EXT_AUTH_IP} || \
     -n ${FNAL_RUCIO_EXT_WEBUI_IP} || \
     -n ${FNAL_RUCIO_EXT_MSG_IP} ]]; then
-
-    if [[ -n ${FNAL_RUCIO_EXT_SERVER_IP} && \
-        -n ${FNAL_RUCIO_EXT_AUTH_IP} && \
-        -n ${FNAL_RUCIO_EXT_WEBUI_IP} && \
-        -n ${FNAL_RUCIO_EXT_MSG_IP} ]]; then
+    # Ensure that we have all
+    if [[ -z ${FNAL_RUCIO_EXT_SERVER_IP} || \
+        -z ${FNAL_RUCIO_EXT_AUTH_IP} || \
+        -z ${FNAL_RUCIO_EXT_WEBUI_IP} || \
+        -z ${FNAL_RUCIO_EXT_MSG_IP} ]]; then
+        echo -e "\tMake sure to set all ofFNAL_RUCIO_EXT_SERVER_IP, FNAL_RUCIO_EXT_AUTH_IP, FNAL_RUCIO_EXT_WEBUI_IP, FNAL_RUCIO_EXT_MSG_IP if you set any of them."
+        exit -3
+    else
         echo -e "\tApplying external IP addresses to the services."
         # Watch out for some tricky string concatenation to get the external ips into the spec string
         auth_server_service=$(oc get services | grep "server-auth" | awk '{print $1}')
@@ -96,9 +104,6 @@ if [[ -n ${FNAL_RUCIO_EXT_SERVER_IP} || \
         echo -e "\tAuth Server: ${FNAL_RUCIO_EXT_AUTH_IP}"
         echo -e "\tMessenger: ${FNAL_RUCIO_EXT_MSG_IP}"
         echo -e "\tWebui: ${FNAL_RUCIO_EXT_WEBUI_IP}"
-    else
-        echo -e "\tMake sure to set all ofFNAL_RUCIO_EXT_SERVER_IP, FNAL_RUCIO_EXT_AUTH_IP, FNAL_RUCIO_EXT_WEBUI_IP, FNAL_RUCIO_EXT_MSG_IP if you set any of them."
-        exit -3
     fi
 fi
 
