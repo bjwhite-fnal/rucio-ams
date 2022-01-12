@@ -10,9 +10,11 @@ if [ ! -z "$POLICY_PKG_DIR" ]; then
     echo "Python search path: $PYTHONPATH"
 fi
 
-if [ -z "$RUCIO_DAEMON_LOG_DIR" ]; then
-    echo "Make sure to set RUCIO_DAEMON_LOG_DIR!"
-    exit 1
+if [ -n "$RUCIO_ENABLE_LOGS" ]; then
+    if [ -z "$RUCIO_DAEMON_LOG_DIR" ]; then
+        echo "Make sure to set RUCIO_DAEMON_LOG_DIR!"
+        exit 1
+    fi
 fi
 # End FNAL Specific Configuration
 

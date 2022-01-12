@@ -14,6 +14,7 @@ push-all:
 	$(push-logstash-cmd)
 	$(push-logrotate-cmd)
 	$(push-statsd-cmd)
+	$(push-escron-cmd)
 
 build-all:
 	$(build-server-cmd)
@@ -26,6 +27,7 @@ build-all:
 	$(build-logstash-cmd)
 	$(build-logrotate-cmd)
 	$(build-statsd-cmd)
+	$(build-escron-cmd)
 
 build-all-nc:
 	$(build-server-nc-cmd)
@@ -38,6 +40,7 @@ build-all-nc:
 	$(build-logstash-nc-cmd)
 	$(build-logrotate-nc-cmd)
 	$(build-statsd-nc-cmd)
+	$(build-escron-nc-cmd)
 
 # Image build command definitions
 define build-statsd-cmd =
@@ -86,6 +89,14 @@ endef
 
 define build-fts-cron-nc-cmd =
 docker build --no-cache -t rucio-fts-cron fts-cron
+endef
+
+define build-escron-cmd =
+docker build -t rucio-escron escron
+endef
+
+define build-escron-nc-cmd =
+docker build --no-cache -t rucio-escron escron
 endef
 
 define build-webui-cmd =
@@ -165,6 +176,12 @@ build-fts-cron:
 build-fts-cron-nc:
 	$(build-fts-cron-nc-cmd)
 
+build-escron:
+	$(build-escron-cmd)
+
+build-escron-nc:
+	$(build-escron-nc-cmd)
+
 build-webui:
 	$(build-webui-cmd)
 
@@ -226,6 +243,11 @@ define push-fts-cron-cmd =
 	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-fts-cron:${FNAL_RUCIO_VERSION_TAG}
 endef
 
+define push-escron-cmd =
+	docker tag rucio-escron imageregistry.fnal.gov/rucio-fnal/fnal-rucio-escron:${FNAL_RUCIO_VERSION_TAG}
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-escron:${FNAL_RUCIO_VERSION_TAG}
+endef
+
 define push-webui-cmd =
 	docker tag rucio-webui imageregistry.fnal.gov/rucio-fnal/fnal-rucio-webui:${FNAL_RUCIO_VERSION_TAG}
 	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-webui:${FNAL_RUCIO_VERSION_TAG}
@@ -271,6 +293,9 @@ push-filebeat:
 
 push-fts-cron:
 	$(push-fts-cron-cmd)
+
+push-escron:
+	$(push-escron-cmd)
 
 push-webui:
 	$(push-webui-cmd)
