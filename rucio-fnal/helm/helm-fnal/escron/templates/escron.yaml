@@ -17,7 +17,6 @@ spec:
           - name: userkey
             secret:
               secretName: {{ .Release.Name }}-escron-key
-{{- end }}
 {{- range $key, $val := .Values.persistentVolumes }}
           - name: {{ $key }}
             persistentVolumeClaim:
