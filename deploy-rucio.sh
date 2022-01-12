@@ -72,28 +72,34 @@ oc set env deployment.apps/rucio-${EXPERIMENT}-reaper RUCIO_CFG_COMMON_LOGLEVEL=
 echo -e "\tStarting the proxy generation cronjob."
 kubectl create job --from=cronjob/rucio-${EXPERIMENT}-renew-fts-proxy ${USER}-manual-proxy-1
 
-echo -e "\tApplying external IP addresses to the services."
-# Watch out for some tricky string concatenation to get the external ips into the spec string
-if [[ -n ${FNAL_RUCIO_EXT_MSG_IP} ]]; then
-    messenger_service=$(oc get services | grep "rucio-messenger" | awk '{print $1}')
-    oc patch svc ${messenger_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_MSG_IP"'"]}}'
-fi
-if [[ -n ${FNAL_RUCIO_EXT_MSG_IP} ]]; then
-    webui_service=$(oc get services | grep "rucio-ui" | awk '{print $1}')
-    oc patch svc ${webui_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_WEBUI_IP"'"]}}'
-fi
-if [[ -n ${FNAL_RUCIO_EXT_MSG_IP} ]]; then
-    server_service=$(oc get services | grep "server" | grep -v "auth" | awk '{print $1}')
-    oc patch svc ${server_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_SERVER_IP"'"]}}'
-fi
-if [[ -n ${FNAL_RUCIO_EXT_MSG_IP} ]]; then
-    auth_server_service=$(oc get services | grep "server-auth" | awk '{print $1}')
-    oc patch svc ${auth_server_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_AUTH_IP"'"]}}'
+# Only bother with this if operating the OKD Services with OKD externalIPs
+if [[ -n ${FNAL_RUCIO_EXT_SERVER_IP} || \
+    -n ${FNAL_RUCIO_EXT_AUTH_IP} || \
+    -n ${FNAL_RUCIO_EXT_WEBUI_IP} || \
+    -n ${FNAL_RUCIO_EXT_MSG_IP} ]]; then
+
+    if [[ -n ${FNAL_RUCIO_EXT_SERVER_IP} && \
+        -n ${FNAL_RUCIO_EXT_AUTH_IP} && \
+        -n ${FNAL_RUCIO_EXT_WEBUI_IP} && \
+        -n ${FNAL_RUCIO_EXT_MSG_IP} ]]; then
+        echo -e "\tApplying external IP addresses to the services."
+        # Watch out for some tricky string concatenation to get the external ips into the spec string
+        auth_server_service=$(oc get services | grep "server-auth" | awk '{print $1}')
+        server_service=$(oc get services | grep "server" | grep -v "auth" | awk '{print $1}')
+        webui_service=$(oc get services | grep "rucio-ui" | awk '{print $1}')
+        messenger_service=$(oc get services | grep "rucio-messenger" | awk '{print $1}')
+        oc patch svc ${messenger_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_MSG_IP"'"]}}'
+        oc patch svc ${webui_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_WEBUI_IP"'"]}}'
+        oc patch svc ${server_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_SERVER_IP"'"]}}'
+        oc patch svc ${auth_server_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_AUTH_IP"'"]}}'
+        echo -e "\tServer: ${FNAL_RUCIO_EXT_SERVER_IP}"
+        echo -e "\tAuth Server: ${FNAL_RUCIO_EXT_AUTH_IP}"
+        echo -e "\tMessenger: ${FNAL_RUCIO_EXT_MSG_IP}"
+        echo -e "\tWebui: ${FNAL_RUCIO_EXT_WEBUI_IP}"
+    else
+        echo -e "\tMake sure to set all ofFNAL_RUCIO_EXT_SERVER_IP, FNAL_RUCIO_EXT_AUTH_IP, FNAL_RUCIO_EXT_WEBUI_IP, FNAL_RUCIO_EXT_MSG_IP if you set any of them."
+        exit -3
+    fi
 fi
 
 echo -e "**************** Openshift application rucio-$EXPERIMENT deployment successful ****************"
-echo -e "Server: ${FNAL_RUCIO_EXT_SERVER_IP}"
-echo -e "Auth Server: ${FNAL_RUCIO_EXT_AUTH_IP}"
-echo -e "Messenger: ${FNAL_RUCIO_EXT_MSG_IP}"
-echo -e "Webui: ${FNAL_RUCIO_EXT_WEBUI_IP}"
-
