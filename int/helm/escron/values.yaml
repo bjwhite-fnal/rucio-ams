@@ -1,0 +1,10 @@
+---
+serviceAccountName: useroot
+
+esCron:
+  enabled: 1
+
+image:
+  repository: imageregistry.fnal.gov/rucio-fnal/fnal-rucio-escron
+  tag: latest
+  pullPolicy: Always
