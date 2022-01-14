@@ -1,23 +1,48 @@
-
+import argparse
+import typing
 import stomp
 import logging
 from time import sleep
 from json import loads as jloads
 import elasticsearch as es
 
-broker = 'msg-dune-rucio.okd.fnal.gov'
-broker_port = 443
-queue = '/topic/rucio.events.dune'
-broker_use_ssl = True
-ssl_key_file = '/monitoring/rucio.fnal.gov_key.pem'
-ssl_cert_file = '/monitoring/rucio.fnal.gov_crt.pem'
+def parse_arguments() -> dict:
+    parser = argparse.ArgumentParser()
+    #broker = 'msg-dune-rucio.okd.fnal.gov'
+    parser.add_argument('broker', help='Rucio message broker URL', nargs='+')
 
-chunksize = 1
-subscription_id = 1
-consumer = 'landscape.fnal.gov'
-consumer_port = 9200
-es_username = "guest"
-es_password = "guest"
+    #broker_port = 443
+    parser.add_argument('broker_port', help='Rucio message broker port', nargs='+')
+
+    #queue = '/topic/rucio.events.dune'
+    parser.add_argument('broker_queue', help='The Rucio message broker queue to subscribe to.', nargs='+')
+
+    #subscription_id = 1
+    parser.add_argument('subscription_id', help='ID to be used for the subscription. Used for reconnecting to a SUBSCRIPTION ensure completed processing.', nargs='+')
+
+    #consumer = 'landscape.fnal.gov'
+    parser.add_argument('consumer', help='The destination ElasticSearch ingest URL.', nargs='+')
+
+    #consumer_port = 9200
+    parser.add_argument('consumer_port', help='The destination ElasticSearch ingest URL.', nargs='+')
+
+    #ssl_cert_file = '/monitoring/rucio.fnal.gov_crt.pem'
+    parser.add_argument('--ssl-cert', default='/opt/rucio/hostcert.pem', help='SSL Certificate for Rucio connection', nargs='+')
+
+    #ssl_key_file = '/monitoring/rucio.fnal.gov_key.pem'
+    parser.add_argument('--ssl-key', default='/opt/rucio/hostkey.pem', help='SSL Key for Rucio connection', nargs='+')
+
+    #chunksize = 1
+    parser.add_argument('--chunk-size', type=int, default=1, help='Number of AMQP messages to process at once.', nargs='+')
+
+    #es_username = "guest"
+    parser.add_argument('--es_username', default='guest', help='The username to connect to ElasticSearch with.', nargs='+')
+
+    #es_password = "guest"
+    parser.add_argument('--es_password', default='guest', help='The password to authenticate to the ElasticSearch user with.', nargs='+')
+
+    return parser.parse_args()
+
 
 indexMap = {
                'rucio_transfer': {
@@ -273,22 +298,26 @@ class AMQConsumer(stomp.ConnectionListener):
     self.__ids = []
 
 if __name__ == "__main__":
-
   logging.basicConfig(level=30)
-  if not broker_use_ssl:
-    conn = stomp.Connection(host_and_ports=[(broker,broker_port)],use_ssl=False,reconnect_attempts_max=5)
-  else:
-    conn = stomp.Connection(host_and_ports=[(broker,broker_port)],use_ssl=True,ssl_key_file=ssl_key_file, ssl_cert_file=ssl_cert_file,reconnect_attempts_max=1)
-    
+
+  args = parse_arguments()
+
+  conn = stomp.Connection(
+          host_and_ports=[(args.broker, args.broker_port)],\
+          use_ssl=True,\
+          ssl_cert_file=args.ssl_cert,\
+          ssl_key_file=args.ssl_key,\
+          reconnect_attempts_max=1
+  )
 
   try:
-    conn.set_listener('', AMQConsumer(conn, chunksize, subscription_id))
+    conn.set_listener('', AMQConsumer(conn, args.chunk_size, args.subscription_id))
     conn.start()
     conn.connect(wait=True)
-    conn.subscribe(destination=queue, ack='client-individual', id=subscription_id)
+    conn.subscribe(destination=args.broker_queue, ack='client-individual', id=args.subscription_id)
   except:
-    print("conn error!")
+    logging.error("There was an error while connecting.")
   while True:
     sleep(3600)
   conn.disconnect()
-  print("disconnect")
+  logging.info('Disconnecting')

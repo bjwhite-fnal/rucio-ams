@@ -28,9 +28,9 @@ spec:
               imagePullPolicy: {{ .Values.esCron.image.pullPolicy }}
               volumeMounts:
                 - name: usercert
-                  mountPath: /opt/rucio/certs/
+                  mountPath: /opt/rucio/hostcert.pem
                 - name: userkey
-                  mountPath: /opt/rucio/keys/
+                  mountPath: /opt/rucio/hostkey.pem
 {{- range $key, $val := .Values.persistentVolumes }}
                 - name: {{ $key }}
                   mountPath: {{ $val.mountPath }}
@@ -40,5 +40,17 @@ spec:
                 - name: {{ $key1 | upper }}
                   value: "{{ $val1  }}"
                 {{- end}}
+                - name: RUCIO_BROKER_HOST
+                  value: {{ .Values.config.env.rucio_broker_host }}
+                - name: RUCIO_BROKER_PORT
+                  value: {{ .Values.config.env.rucio_broker_port }}
+                - name: RUCIO_BROKER_QUEUE
+                  value: {{ .Values.config.env.rucio_broker_queue }}
+                - name: RUCIO_BROKER_SUBSCRIPTION_ID
+                  value: {{ .Values.config.env.rucio_broker_subscription_id }}
+                - name: CONSUMER_HOST
+                  value: {{ .Values.config.env.consumer_host }}
+                - name: CONSUMER_PORT
+                  value: {{ .Values.config.env.consumer_port }}
           restartPolicy: OnFailure
 {{ end }}
