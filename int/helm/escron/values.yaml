@@ -1,20 +1,20 @@
 ---
-serviceAccountName: useroot
+serviceAccountName: "useroot"
 
 esCron:
-  enabled: 1
+  enabled: "1"
   schedule: "30 * * * *"
 
   image:
-    repository: imageregistry.fnal.gov/rucio-fnal/fnal-rucio-escron
-    tag: latest
-    pullPolicy: Always
+    repository: "imageregistry.fnal.gov/rucio-fnal/fnal-rucio-escron"
+    tag: "latest"
+    pullPolicy: "Always"
 
   config:
     env:
-      rucio_broker_host: msg-dune-rucio.okd.fnal.gov
-      rucio_broker_port: 443
-      rucio_broker_queue: /topic/rucio.events.int
-      rucio_broker_subscription_id: 1
-      consumer_host: landscape.fnal.gov
-      consumer_port: 9200
+      rucio_broker_host: "msg-dune-rucio.okd.fnal.gov"
+      rucio_broker_port: "443"
+      rucio_broker_queue: "/topic/rucio.events.int"
+      rucio_broker_subscription_id: "1"
+      consumer_host: "landscape.fnal.gov"
+      consumer_port: "9200"

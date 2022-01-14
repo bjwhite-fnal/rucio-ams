@@ -9,7 +9,6 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: {{ template "rucio.name" . }}
@@ -25,12 +24,12 @@ spec:
       serviceAccountName: {{ .Values.serviceAccountName }}
     {{- end }}
       volumes:
-      - name: usercert
-        secret:
-          secretName: {{ .Release.Name }}-escron-cert
-      - name: userkey
-        secret:
-          secretName: {{ .Release.Name }}-escron-key
+        - name: usercert
+          secret:
+            secretName: {{ .Release.Name }}-escron-cert
+        - name: userkey
+          secret:
+            secretName: {{ .Release.Name }}-escron-key
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.esCron.image.repository }}:{{ .Values.esCron.image.tag }}"
@@ -41,16 +40,16 @@ spec:
             - name: userkey
               mountPath: /opt/rucio/hostkey.pem
           env:
-            - name: RUCIO_BROKER_HOST
-              value: {{ .Values.esCron.config.env.rucio_broker_host }}
-            - name: RUCIO_BROKER_PORT
-              value: {{ .Values.esCron.config.env.rucio_broker_port }}
-            - name: RUCIO_BROKER_QUEUE
-              value: {{ .Values.esCron.config.env.rucio_broker_queue }}
-            - name: RUCIO_BROKER_SUBSCRIPTION_ID
-              value: {{ .Values.esCron.config.env.rucio_broker_subscription_id }}
-            - name: CONSUMER_HOST
-              value: {{ .Values.esCron.config.env.consumer_host }}
-            - name: CONSUMER_PORT
-              value: {{ .Values.esCron.config.env.consumer_port }}
+          - name: RUCIO_BROKER_HOST
+            value: {{ .Values.esCron.config.env.rucio_broker_host }}
+          - name: RUCIO_BROKER_PORT
+            value: {{ .Values.esCron.config.env.rucio_broker_port | quote }}
+          - name: RUCIO_BROKER_QUEUE
+            value: {{ .Values.esCron.config.env.rucio_broker_queue }}
+          - name: RUCIO_BROKER_SUBSCRIPTION_ID
+            value: {{ .Values.esCron.config.env.rucio_broker_subscription_id | quote }}
+          - name: CONSUMER_HOST
+            value: {{ .Values.esCron.config.env.consumer_host }}
+          - name: CONSUMER_PORT
+            value: {{ .Values.esCron.config.env.consumer_port | quote }}
 {{ end }}
