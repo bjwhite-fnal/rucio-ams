@@ -10,9 +10,6 @@ push-all:
 	$(push-messenger-cmd)
 	$(push-webui-cmd)
 	$(push-fts-cron-cmd)
-	$(push-filebeat-cmd)
-	$(push-logstash-cmd)
-	$(push-logrotate-cmd)
 	$(push-statsd-cmd)
 	$(push-escron-cmd)
 
@@ -23,9 +20,6 @@ build-all:
 	$(build-messenger-cmd)
 	$(build-webui-cmd)
 	$(build-fts-cron-cmd)
-	$(build-filebeat-cmd)
-	$(build-logstash-cmd)
-	$(build-logrotate-cmd)
 	$(build-statsd-cmd)
 	$(build-escron-cmd)
 
@@ -36,9 +30,6 @@ build-all-nc:
 	$(build-messenger-nc-cmd)
 	$(build-webui-nc-cmd)
 	$(build-fts-cron-nc-cmd)
-	$(build-filebeat-nc-cmd)
-	$(build-logstash-nc-cmd)
-	$(build-logrotate-nc-cmd)
 	$(build-statsd-nc-cmd)
 	$(build-escron-nc-cmd)
 
@@ -57,30 +48,6 @@ endef
 
 define build-autotransfer-nc-cmd =
 docker build --no-cache -t rucio-autotransfer autotransfer 
-endef
-
-define build-logrotate-cmd =
-docker build -t rucio-logrotate logrotate
-endef
-
-define build-logrotate-nc-cmd =
-docker build --no-cache -t rucio-logrotate logrotate
-endef
-
-define build-logstash-cmd =
-docker build -t rucio-logstash logstash
-endef
-
-define build-logstash-nc-cmd =
-docker build --no-cache -t rucio-logstash logstash
-endef
-
-define build-filebeat-cmd =
-docker build -t rucio-filebeat filebeat
-endef
-
-define build-filebeat-nc-cmd =
-docker build --no-cache -t rucio-filebeat filebeat
 endef
 
 define build-fts-cron-cmd =
@@ -152,24 +119,6 @@ build-autotransfer:
 build-autotransfer-nc:
 	$(build-autotransfer-nc-cmd)
 
-build-logrotate:
-	$(build-logrotate-cmd)
-
-build-logrotate-nc:
-	$(build-logrotate-nc-cmd)
-
-build-logstash:
-	$(build-logstash-cmd)
-
-build-logstash-nc:
-	$(build-logstash-nc-cmd)
-
-build-filebeat:
-	$(build-filebeat-cmd)
-
-build-filebeat-nc:
-	$(build-filebeat-nc-cmd)
-
 build-fts-cron:
 	$(build-fts-cron-cmd)
 
@@ -223,21 +172,6 @@ define push-autotransfer-cmd =
 	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-autotransfer:${FNAL_RUCIO_VERSION_TAG}
 endef
 
-define push-logrotate-cmd =
-	docker tag rucio-logrotate imageregistry.fnal.gov/rucio-fnal/fnal-rucio-logrotate:${FNAL_RUCIO_VERSION_TAG}
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-logrotate:${FNAL_RUCIO_VERSION_TAG}
-endef
-
-define push-logstash-cmd =
-	docker tag rucio-logstash imageregistry.fnal.gov/rucio-fnal/fnal-rucio-logstash:${FNAL_RUCIO_VERSION_TAG}
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-logstash:${FNAL_RUCIO_VERSION_TAG}
-endef
-
-define push-filebeat-cmd =
-	docker tag rucio-filebeat imageregistry.fnal.gov/rucio-fnal/fnal-rucio-filebeat:${FNAL_RUCIO_VERSION_TAG}
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-filebeat:${FNAL_RUCIO_VERSION_TAG}
-endef
-
 define push-fts-cron-cmd =
 	docker tag rucio-fts-cron imageregistry.fnal.gov/rucio-fnal/fnal-rucio-fts-cron:${FNAL_RUCIO_VERSION_TAG}
 	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-fts-cron:${FNAL_RUCIO_VERSION_TAG}
@@ -281,15 +215,6 @@ push-statsd:
 
 push-autotransfer:
 	$(push-autotransfer-cmd)
-
-push-logrotate:
-	$(push-logrotate-cmd)
-
-push-logstash:
-	$(push-logstash-cmd)
-
-push-filebeat:
-	$(push-filebeat-cmd)
 
 push-fts-cron:
 	$(push-fts-cron-cmd)
