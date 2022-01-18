@@ -6,7 +6,8 @@
 
 FROM rucio/rucio-clients
 
-ADD from_mq_to_es.py /from_mq_to_es.py
+ADD ./from_mq_to_es.py /from_mq_to_es.py
+ADD ./start-export.sh /start-export.sh
 
 
 ENTRYPOINT ["/start-export.sh"]
