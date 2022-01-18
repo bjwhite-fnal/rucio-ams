@@ -26,10 +26,10 @@ spec:
       volumes:
         - name: usercert
           secret:
-            secretName: {{ .Release.Name }}-escron-cert
+            secretName: {{ .Release.Name }}-cert
         - name: userkey
           secret:
-            secretName: {{ .Release.Name }}-escron-key
+            secretName: {{ .Release.Name }}-key
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.esCron.image.repository }}:{{ .Values.esCron.image.tag }}"
