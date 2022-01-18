@@ -212,105 +212,106 @@ class ElasticConn():
     """
     res = self.__es.index(index=indexName, doc_type=indexName, body=body)
     #res1 = self.__es1.index(index=indexName,body=body)
-    #logging.info(res)
+    logging.info(res)
     return res['result'] == 'created'
     
 
 class AMQConsumer(stomp.ConnectionListener):
-  def __init__(self, conn, chunksize, subscription_id):
-    self.__conn = conn
-    self.__chunksize = chunksize
-    self.__subscription_id = subscription_id
-    self.__ids = []
-    self.__reports = []
-    self.__esConn = ElasticConn(host_port = (consumer_host, consumer_port), auth = (es_username, es_password))
-
-  def on_error(self, headers, message):
-    pass
-    # Send message to StatsD
-
-  def on_disconnected(self):
-    logging.info('on disconnected')
-    sleep(60)
-    #self.__conn.start()
-    self.__conn.connect(wait=True)
-    self.__conn.subscribe(destination=queue, ack='client-individual', id=self.__subscription_id)
-
-  def on_message(self, headers, message):
-    # Send message to StatsD
-    # Sanity check
-    #logging.info(headers)
-    #logging.info(message)
-    msg_id = headers['message-id']
-
-    if 'resubmitted' in headers:
-      # Send message to StatsD
-      # Ignore resubmitted messages
-      return
-
-    try:
-        report = jloads(message)
-    except Exception:
-      # Corrupt message, ignore
-      # Send message to StatsD
-      self.__conn.ack(msg_id, self.__subscription_id)
-      return
-
-    try:
-      report['payload']['created_at'] = report['created_at']
-      report['payload']['event_type'] = report['event_type']
-      for k,v in report['payload'].items():
-        if k.endswith("_at"):
-          if v:
-            report['payload'][k] = v.split('.')[0]
-    except:
-      pass
-
-    self.__ids.append(msg_id)
-    self.__reports.append({'id': msg_id, 'body': report})
-
-    if len(self.__reports) >= self.__chunksize:
-      self.__send_to_es()
-      
-
-  def __send_to_es(self):
-    for msg in self.__reports:
-      event_type = str(msg['body']['event_type']).lower()
-      res = False
-      if event_type.startswith('transfer'):
-        res = self.__esConn.index_data('rucio_transfer', event_type, msg['body']['payload'])
-      elif event_type.startswith('deletion'):
-        res = self.__esConn.index_data('rucio_deletion', event_type, msg['body']['payload'])
-      else:
-        self.__conn.ack(msg['id'],self.__subscription_id)
-      if res:
-        self.__conn.ack(msg['id'],self.__subscription_id)
-    self.__reports = []
-    self.__ids = []
+    def __init__(self, conn, chunksize, subscription_id):
+        self.__conn = conn
+        self.__chunksize = chunksize
+        self.__subscription_id = subscription_id
+        self.__ids = []
+        self.__reports = []
+        self.__esConn = ElasticConn(host_port = (consumer_host, consumer_port), auth = (es_username, es_password))
+  
+    def on_error(self, headers, message):
+        pass
+        # Send message to StatsD
+  
+    def on_disconnected(self):
+        logging.info('on disconnected')
+        sleep(60)
+        #self.__conn.start()
+        self.__conn.connect(wait=True)
+        self.__conn.subscribe(destination=queue, ack='client-individual', id=self.__subscription_id)
+  
+    def on_message(self, headers, message):
+        # Send message to StatsD
+        # Sanity check
+        #logging.info(headers)
+        #logging.info(message)
+        msg_id = headers['message-id']
+  
+        if 'resubmitted' in headers:
+            # Send message to StatsD
+            # Ignore resubmitted messages
+            return
+  
+        try:
+            report = jloads(message)
+        except Exception:
+            # Corrupt message, ignore
+            # Send message to StatsD
+            self.__conn.ack(msg_id, self.__subscription_id)
+            return
+  
+        try:
+            report['payload']['created_at'] = report['created_at']
+            report['payload']['event_type'] = report['event_type']
+            for k,v in report['payload'].items():
+                if k.endswith("_at"):
+                    if v:
+                        report['payload'][k] = v.split('.')[0]
+        except:
+            pass
+  
+        self.__ids.append(msg_id)
+        self.__reports.append({'id': msg_id, 'body': report})
+  
+        if len(self.__reports) >= self.__chunksize:
+            self.__send_to_es()
+          
+  
+    def __send_to_es(self):
+        for msg in self.__reports:
+            event_type = str(msg['body']['event_type']).lower()
+            res = False
+            if event_type.startswith('transfer'):
+                res = self.__esConn.index_data('rucio_transfer', event_type, msg['body']['payload'])
+            elif event_type.startswith('deletion'):
+                res = self.__esConn.index_data('rucio_deletion', event_type, msg['body']['payload'])
+            else:
+                self.__conn.ack(msg['id'],self.__subscription_id)
+            if res:
+                self.__conn.ack(msg['id'],self.__subscription_id)
+        self.__reports = []
+        self.__ids = []
 
 if __name__ == "__main__":
-  logging.basicConfig(level=30)
-
-  args = parse_arguments()
-
-  conn = stomp.Connection(
-          host_and_ports=[(args.broker_host, args.broker_port)],\
-          use_ssl=True,\
-          ssl_cert_file=args.ssl_cert,\
-          ssl_key_file=args.ssl_key,\
-          reconnect_attempts_max=1
-  )
-
-  amq_consumer = AMQConsumer(conn, args.chunk_size, args.subscription_id)
-
-  try:
-    conn.set_listener('', amq_consumer)
-    conn.start()
-    conn.connect(wait=True)
-    conn.subscribe(destination=args.broker_queue, ack='client-individual', id=args.subscription_id)
-  except:
-    logging.error("There was an error while connecting.")
-  while True:
-    sleep(3600)
-  conn.disconnect()
-  logging.info('Disconnecting')
+    logging.basicConfig(level=30)
+    
+      
+    args = parse_arguments()
+    
+    conn = stomp.Connection(
+            host_and_ports=[(args.broker_host, args.broker_port)],\
+            use_ssl=True,\
+            ssl_cert_file=args.ssl_cert,\
+            ssl_key_file=args.ssl_key,\
+            reconnect_attempts_max=1
+    )
+    
+    amq_consumer = AMQConsumer(conn, args.chunk_size, args.subscription_id)
+    
+    try:
+        conn.set_listener('', amq_consumer)
+        conn.start()
+        conn.connect(wait=True)
+        conn.subscribe(destination=args.broker_queue, ack='client-individual', id=args.subscription_id)
+    except:
+        logging.error("There was an error while connecting.")
+    while True:
+        sleep(3600)
+    conn.disconnect()
+    logging.info('Disconnecting')
