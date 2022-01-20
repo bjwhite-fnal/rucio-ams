@@ -12,7 +12,7 @@ esCron:
 
   config:
     env:
-      rucio_broker_host: "msg-dune-rucio.okd.fnal.gov"
+      rucio_broker_host: "msg-int-rucio.okd.fnal.gov"
       rucio_broker_port: "443"
       rucio_broker_queue: "/topic/rucio.events.int"
       rucio_broker_subscription_id: "1"

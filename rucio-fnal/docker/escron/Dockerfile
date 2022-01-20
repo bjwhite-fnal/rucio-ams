@@ -6,8 +6,13 @@
 
 FROM rucio/rucio-clients
 
+RUN pip3 install stomp.py elasticsearch
 ADD ./from_mq_to_es.py /from_mq_to_es.py
 ADD ./start-export.sh /start-export.sh
 
+RUN pip3 install remote-pdb
+USER root
+RUN yum -y update && yum install -y telnet net-tools
+USER user 
 
 ENTRYPOINT ["/start-export.sh"]
