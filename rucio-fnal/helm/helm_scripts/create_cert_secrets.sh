@@ -72,8 +72,8 @@ kubectl create secret generic ssl-secrets \
 	--from-file=ca.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CA_BUNDLE 
 
 # ESCron
-kubectl create secret generic rucio-$EXPERIMENT-escron-cert \
-        --from-file=usercert.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CERT
+kubectl create secret generic rucio-$EXPERIMENT-escron-hostcert \
+        --from-file=hostcert.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CERT
 
-kubectl create secret generic rucio-$EXPERIMENT-escron-key \
-        --from-file=new_userkey.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_KEY
+kubectl create secret generic rucio-$EXPERIMENT-escron-hostkey \
+        --from-file=hostkey.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_KEY

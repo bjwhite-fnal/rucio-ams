@@ -260,7 +260,7 @@ class STOMPConsumer(stomp.ConnectionListener):
             report['payload']['created_at'] = report['created_at']
             report['payload']['event_type'] = report['event_type']
             for k,v in report['payload'].items():
-                if k.endswith("_at"):
+                if k.endswith('_at'):
                     if v:
                         report['payload'][k] = v.split('.')[0]
         except:
@@ -288,12 +288,17 @@ class STOMPConsumer(stomp.ConnectionListener):
         self.__reports = []
         self.__ids = []
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print('Getting program arguments:')
     args = parse_arguments()
     print(args)
-    
-    conn = stomp.Connection([(args.broker_host, args.broker_port)], use_ssl=True, ssl_cert_file=args.ssl_cert, ssl_key_file=args.ssl_key, reconnect_attempts_max=1)
+
+    conn = stomp.Connection12(
+        [ (args.broker_host, args.broker_port) ],
+        use_ssl=True,
+        ssl_cert_file=args.ssl_cert,
+        ssl_key_file=args.ssl_key,
+        reconnect_attempts_max=1)
     
     stomp_consumer = STOMPConsumer(
         conn,
@@ -303,14 +308,13 @@ if __name__ == "__main__":
         args.subscription_id,
         args.es_username,
         args.es_password)
-    
+
     try:
         conn.set_listener('', stomp_consumer)
-        conn.start()
         conn.connect(wait=True)
         conn.subscribe(destination=args.broker_queue, ack='client-individual', id=args.subscription_id)
-    except:
-        print("There was an error while connecting.")
+    except Exception as ex:
+        print(f'There was an error while connecting: {str(ex)}')
     while True:
         sleep(3600)
     conn.disconnect()

@@ -24,21 +24,23 @@ spec:
       serviceAccountName: {{ .Values.serviceAccountName }}
     {{- end }}
       volumes:
-        - name: usercert
+        - name: hostcert
           secret:
-            secretName: {{ .Release.Name }}-cert
-        - name: userkey
+              secretName: {{ .Release.Name }}-hostcert
+        - name: hostkey
           secret:
-            secretName: {{ .Release.Name }}-key
+              secretName: {{ .Release.Name }}-hostkey
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.esCron.image.repository }}:{{ .Values.esCron.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-            - name: usercert
+            - name: hostcert
               mountPath: /opt/rucio/hostcert.pem
-            - name: userkey
+              subPath: hostcert.pem
+            - name: hostkey
               mountPath: /opt/rucio/hostkey.pem
+              subPath: hostkey.pem
           env:
           - name: RUCIO_BROKER_HOST
             value: {{ .Values.esCron.config.env.rucio_broker_host }}
