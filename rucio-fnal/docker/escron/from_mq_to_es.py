@@ -33,6 +33,8 @@ def parse_arguments():
             help='The username to connect to ElasticSearch with.')
     parser.add_argument('--es_password', default='guest',
             help='The password to authenticate to the ElasticSearch user with.')
+    parser.add_argument('--vhost', default='/',
+            help='The virtual host that will be used to connect to the message broker.')
     return parser.parse_args()
 
 
@@ -298,7 +300,8 @@ if __name__ == '__main__':
         use_ssl=True,
         ssl_cert_file=args.ssl_cert,
         ssl_key_file=args.ssl_key,
-        reconnect_attempts_max=1)
+        reconnect_attempts_max=1,
+        vhost=args.vhost)
     
     stomp_consumer = STOMPConsumer(
         conn,
