@@ -1,12 +1,16 @@
 #!/bin/bash
 
-# Use this to deploy Rucio for an experiment. Create and use an Openshift project named rucio-<experiment name>. Make sure you have the proper configurations setup and
+# Use this to deploy Rucio for an experiment.
+# Create and use an Openshift project named rucio-<experiment name>.
+# Make sure you have the proper configurations setup and
 #   the environment is correct with FNAL_RUCIO_DIR set.
 
 
 verify_environment () {
-    # Verify that the currently active Openshift project appears to be correct for the value in EXPERIMENT and all other required environment variables are set
+    # Verify that the currently active Openshift project appears to be correct for the value 
+    #    in EXPERIMENT and all other required environment variables are set
     echo -e "\tVerifying that the environment is configured correctly for Rucio deployment."
+    # REQUIRED TO BE PRESENT
     for fnal_cfg_env in \
         EXPERIMENT \
         FNAL_RUCIO_DIR \
@@ -20,13 +24,26 @@ verify_environment () {
         fi
     done
 
+    # If you assign an ExternalIP to any service, verify we do it to them all
+    if [[ -n ${FNAL_RUCIO_EXT_SERVER_IP} || \
+            -n ${FNAL_RUCIO_EXT_AUTH_IP} || \
+            -n ${FNAL_RUCIO_EXT_MSG_IP} || \
+            -n ${FNAL_RUCIO_EXT_WEBUI_IP} ]]; then
+        if [[ -z ${FNAL_RUCIO_EXT_SERVER_IP} || \
+                -z ${FNAL_RUCIO_EXT_AUTH_IP} || \
+                -z ${FNAL_RUCIO_EXT_MSG_IP} || \
+                -z ${FNAL_RUCIO_EXT_WEBUI_IP} ]]; then
+            echo -e "\tPlease ensure that all [FNAL_RUCIO_EXT_SERVER_IP, FNAL_RUCIO_EXT_AUTH_IP, FNAL_RUCIO_EXT_MSG_IP, FNAL_RUCIO_EXT_WEBUI_IP] are set if any of them are set."
+            exit -2
+        fi
+    fi
     # IMPORTANT: Ensures we have the OKD project set to the experiment that we intend,
     #   so that we don't accidentally do dumb stuff to the wrong experiment's Rucio deployment
     ocproject=$(oc project)
     proj=($ocproject)
     if ! [[ ${proj[2]} == "\"rucio-$EXPERIMENT\"" ]]; then 
         echo -e "\tPlease ensure that the Openshift project is set to rucio-$EXPERIMENT"
-        exit -2
+        exit -3
     fi
 }
 
