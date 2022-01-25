@@ -5,6 +5,7 @@
 # Make sure you have the proper configurations setup and
 #   the environment is correct with FNAL_RUCIO_DIR set.
 
+deployroutes=1
 
 verify_environment () {
     # Verify that the currently active Openshift project appears to be correct for the value 
@@ -29,6 +30,7 @@ verify_environment () {
             -n ${FNAL_RUCIO_EXT_AUTH_IP} || \
             -n ${FNAL_RUCIO_EXT_MSG_IP} || \
             -n ${FNAL_RUCIO_EXT_WEBUI_IP} ]]; then
+        deployroutes=0 # Since we are using ExternalIPs, we don't need to configure Routes to Services on the OKD Router
         if [[ -z ${FNAL_RUCIO_EXT_SERVER_IP} || \
                 -z ${FNAL_RUCIO_EXT_AUTH_IP} || \
                 -z ${FNAL_RUCIO_EXT_MSG_IP} || \
@@ -53,38 +55,38 @@ verify_environment
 echo -e "\tCreating application secrets..."
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create_cert_secrets.sh
 
-echo -e "\tGenerating deployment YAML files from Helm templates..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-daemons.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-server.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-cache.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-messenger.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-webui.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-routes.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-statsd.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-escron.sh
-
 echo -e "\tCreating StatsD service..."
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-statsd.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-statsd.sh > /dev/null
 
 echo -e "\tCreating cache service..."
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-cache.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-cache.sh > /dev/null
 
 echo -e "\tCreating messenger service..."
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-messenger.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-messenger.sh > /dev/null
 
 echo -e "\tCreating daemons..."
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-daemons.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-daemons.sh > /dev/null
 
 echo -e "\tCreating servers..."
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-server.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-server.sh > /dev/null
 
 echo -e "\tCreating web UI..."
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-webui.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-webui.sh > /dev/null
 
-echo -e "\tCreating networking routes..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-routes.sh > /dev/null
+if [[ ${deployroutes} == 1 ]]; then
+    echo -e "\tCreating networking routes..."
+    $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-routes.sh
+    $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-routes.sh > /dev/null
+fi
 
-echo -e "\tCreating ElasticSearch monitoring information export CronJob"
+echo -e "\tCreating ElasticExporter..."
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-escron.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-escron.sh > /dev/null
 
 echo -e "\tSetting the Reaper log level to ERROR only so that it does not take up the whole log volume."
