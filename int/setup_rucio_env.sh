@@ -29,7 +29,8 @@ export FNAL_RUCIO_DIR=/nashome/b/bjwhite/dev/rucio/rucio-fnal
 export FNAL_EXP_RUCIO_CERT=int-rucio.okd.fnal.gov-cert.pem
 export FNAL_EXP_RUCIO_KEY=int-rucio.okd.fnal.gov-key.pem
 export FNAL_EXP_RUCIO_CA_BUNDLE=ca_bundle.pem
-#export FNAL_RUCIO_EXT_SERVER_IP=131.225.218.134
-#export FNAL_RUCIO_EXT_AUTH_IP=131.225.218.147
-#export FNAL_RUCIO_EXT_WEBUI_IP=131.225.218.148
-#export FNAL_RUCIO_EXT_MSG_IP=131.225.218.149
+
+export FNAL_RUCIO_EXT_SERVER_IP=131.225.218.134
+export FNAL_RUCIO_EXT_AUTH_IP=131.225.218.147
+export FNAL_RUCIO_EXT_WEBUI_IP=131.225.218.148
+export FNAL_RUCIO_EXT_MSG_IP=131.225.218.149
