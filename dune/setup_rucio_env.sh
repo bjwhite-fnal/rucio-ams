@@ -18,6 +18,11 @@ export EXPERIMENT=dune
 export FNAL_RUCIO_DIR=/nashome/b/bjwhite/dev/rucio/rucio-fnal
 
 # Only the filenames are needed. The files should be resident in $FNAL_EXP_RUCIO_DEPLOYMENT_CONF_DIR/certs 
-export FNAL_EXP_RUCIO_CERT=dune-rucio.okd.fnal.gov-cert.pem
-export FNAL_EXP_RUCIO_KEY=dune-rucio.okd.fnal.gov-key.pem
+export FNAL_EXP_RUCIO_CERT=dune-rucio.fnal.gov-cert.pem
+export FNAL_EXP_RUCIO_KEY=dune-rucio.fnal.gov-key.pem
 export FNAL_EXP_RUCIO_CA_BUNDLE=ca_bundle.pem
+
+export FNAL_RUCIO_EXT_SERVER_IP=131.225.218.128
+export FNAL_RUCIO_EXT_AUTH_IP=131.225.218.150
+export FNAL_RUCIO_EXT_MSG_IP=131.225.218.152
+export FNAL_RUCIO_EXT_WEBUI_IP=131.225.218.151
