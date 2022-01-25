@@ -2,11 +2,20 @@
 Connect to a Rucio message stream and inform a designated endpoinnt of transfer and deletion events
 '''
 import argparse
+import logging
 import stomp
+import sys
 import elasticsearch as es
 
 from json import loads as jloads
 from time import sleep
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+logFormatter = logging.Formatter("%(name)-12s %(asctime)s %(levelname)-8s %(filename)s:%(funcName)s %(message)s")
+logHandler = logging.StreamHandler(sys.stdout)
+logHandler.setFormatter(logFormatter)
+logger.addHandler(logHandler)
 
 
 def parse_arguments():
@@ -206,15 +215,15 @@ class ElasticConn():
   def index_data(self, indexName, typeName, body):
     """
     if [indexName,typeName] not in self.__index_type:
-      print("creating doc_type %s %s" % (indexName, typeName))
+      logger.info("creating doc_type %s %s" % (indexName, typeName))
       ret = self.__create_index_type(indexName,typeName)
-      print(ret)
+      logger.info(ret)
       if not ret: 
         return ret
     """
     res = self.__es.index(index=indexName, doc_type=indexName, body=body)
     #res1 = self.__es1.index(index=indexName,body=body)
-    print(res)
+    logger.info(res)
     return res['result'] == 'created'
     
 
@@ -232,7 +241,7 @@ class STOMPConsumer(stomp.ConnectionListener):
         # Send message to StatsD
   
     def on_disconnected(self):
-        print('on disconnected')
+        logger.info('on disconnected')
         sleep(60)
         #self.__conn.start()
         self.__conn.connect(wait=True)
@@ -241,8 +250,8 @@ class STOMPConsumer(stomp.ConnectionListener):
     def on_message(self, headers, message):
         # Send message to StatsD
         # Sanity check
-        #print(headers)
-        #print(message)
+        #logger.info(headers)
+        #logger.info(message)
         msg_id = headers['message-id']
   
         if 'resubmitted' in headers:
@@ -291,9 +300,9 @@ class STOMPConsumer(stomp.ConnectionListener):
         self.__ids = []
 
 if __name__ == '__main__':
-    print('Getting program arguments:')
+    logger.info('Getting program arguments:')
     args = parse_arguments()
-    print(args)
+    logger.info(args)
 
     conn = stomp.Connection12(
         [ (args.broker_host, args.broker_port) ],
@@ -317,8 +326,8 @@ if __name__ == '__main__':
         conn.connect(wait=True)
         conn.subscribe(destination=args.broker_queue, ack='client-individual', id=args.subscription_id)
     except Exception as ex:
-        print(f'There was an error while connecting: {str(ex)}')
+        logger.info(f'There was an error while connecting: {str(ex)}')
     while True:
         sleep(3600)
     conn.disconnect()
-    print('Disconnecting')
+    logger.info('Disconnecting')
