@@ -1,5 +1,5 @@
 '''
-Connect to a Rucio message stream and inform a designated endpoinnt of transfer and deletion events
+Connect to a Rucio message stream and inform a designated endpoint of transfer and deletion events
 '''
 import argparse
 import logging
