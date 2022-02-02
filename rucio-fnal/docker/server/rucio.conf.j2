@@ -49,7 +49,7 @@ CacheRoot /tmp
 {% if RUCIO_SSL_PERMISSIVE is defined %}
  SSLProtocol              all -SSLv2 -SSLv3
 {% else %}
- SSLProtocol              +TLSv1.1 +TLSv1.2
+ SSLProtocol              +TLSv1.2
 {% endif %}
  #AB: for Security
  SSLCipherSuite           HIGH:!CAMELLIA:!ADH:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!3DES
