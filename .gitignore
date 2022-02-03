@@ -14,6 +14,7 @@ webui.yaml
 logrotate.yaml
 statsd.yaml
 escron.yaml
+autotransfer.yaml
 
 # Ignore hard links that make the Fermilab policy package available inside the Docker build contexts.
 rucio-fnal/docker/daemons/permissions/
