@@ -13,13 +13,18 @@ autoTransfer:
   schedule: "55 * * * *"
 
 optional_config:
-  x509_user_proxy: "/opt/proxy/x509up"
   experiment: "int"
   broker_host: "msg-int-rucio.okd.fnal.gov"
   broker_port: "443"
   topic: "/topic/rucio.events.int"
   durable: "False"
   unsubscribe: "False"
+
+  x509_user_proxy: "/opt/proxy/x509up"
+  broker_cert:     "/opt/certs/hostcert.pem"
+  broker_key:      "/opt/certs/hostkey.pem"
+  rucio_autotransfer_voms: "fermilab:/fermilab"
+
   start_rse: "DCACHE_BJWHITE_START"
   end_rses: "DCACHE_BJWHITE_END,DCACHE_BJWHITE_END2"
   rucio_account: "root"
