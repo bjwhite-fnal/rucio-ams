@@ -36,6 +36,7 @@ build-all-nc:
 # Image build command definitions
 define build-statsd-cmd =
 docker build -t rucio-statsd statsd
+endef
 
 define build-autotransfer-cmd =
 docker build -t rucio-autotransfer --build-arg rucio_version=${FNAL_RUCIO_VERSION} autotransfer 
@@ -60,14 +61,6 @@ endef
 
 define build-statsd-nc-cmd =
 docker build --no-cache -t rucio-statsd statsd
-endef
-
-define build-autotransfer-cmd =
-docker build -t rucio-autotransfer autotransfer 
-endef
-
-define build-autotransfer-nc-cmd =
-docker build --no-cache -t rucio-autotransfer autotransfer 
 endef
 
 define build-fts-cron-cmd =
