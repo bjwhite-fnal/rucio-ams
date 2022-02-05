@@ -211,7 +211,6 @@ class RucioTransferTest:
         conn.set_listener('RucioListener', rucio_listener)
         logger.info(f'Listener thread connecting to event stream at: {host}:{port}')
         i = 0
-        import pdb; pdb.set_trace
         while i < self.retry_count:
             try:
                 conn.connect(wait=True)
@@ -263,8 +262,9 @@ class RucioTransferTest:
         return all_done
 
     def rucio_upload(self, filepath):
+        # TODO: Refactor to use the Python client properly
         account_arg = '-a {rucio_account}'.format(rucio_account=self.rucio_account)
-        rse_arg = '--rse {start_rse}'.format(start_rse=self.start_rse)
+        rse_arg = '--register-after-upload --rse {start_rse}'.format(start_rse=self.start_rse)
         cmd = 'rucio {account_arg} upload {rse_arg} {filepath}'\
             .format(account_arg=account_arg, rse_arg=rse_arg, filepath=filepath)
         logger.info(f'Running command: {cmd}')
@@ -272,6 +272,7 @@ class RucioTransferTest:
         assert rucio_upload_proc.returncode == 0
 
     def rucio_create_dataset(self, didfile_path):
+        # TODO: Refactor to use the Python client properly
         dataset_name = str(uuid.uuid1())
         account_arg = '-a {rucio_account}'.format(rucio_account=self.rucio_account)
         dataset_did = 'user.{rucio_account}:{dataset_name}'.format(rucio_account=self.rucio_account, dataset_name=dataset_name)
@@ -283,6 +284,7 @@ class RucioTransferTest:
         return dataset_did
 
     def rucio_attach_dataset(self, dataset_did, didfile_path):
+        # TODO: Refactor to use the Python client properly
         account_arg = '-a {rucio_account}'.format(rucio_account=self.rucio_account)
         didfile_arg = '-f {didfile_path}'.format(didfile_path=didfile_path)
         cmd = 'rucio {account_arg} attach {dataset_did} {didfile_arg}'\
@@ -292,6 +294,7 @@ class RucioTransferTest:
         assert rucio_attach_ds_proc.returncode == 0
 
     def rucio_add_rule(self, dataset_did, dest_rse, num_copies=1):
+        # TODO: Refactor to use the Python client properly
         account_arg = '-a {rucio_account}'.format(rucio_account=self.rucio_account)
         cmd = 'rucio {account_arg} add-rule {dataset_did} {num_copies} {dest_rse}'\
             .format(account_arg=account_arg, dataset_did=dataset_did, num_copies=num_copies, dest_rse=dest_rse)

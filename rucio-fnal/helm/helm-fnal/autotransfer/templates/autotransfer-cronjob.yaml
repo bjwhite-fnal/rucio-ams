@@ -14,9 +14,6 @@ spec:
           - name: ssl-credentials
             secret:
               secretName: ssl-secrets
-          - name: proxy-volume
-            secret:
-              secretName: {{ .Release.Name }}-rucio-x509up
 {{- range $key, $val := .Values.persistentVolumes }}
           - name: {{ $key }}
             persistentVolumeClaim:
@@ -30,8 +27,6 @@ spec:
                 - name: ssl-credentials
                   mountPath: /opt/certs 
                   readOnly: true
-                - name: proxy-volume
-                  mountPath: /opt/proxy
 {{- range $key, $val := .Values.persistentVolumes }}
                 - name: {{ $key }}
                   mountPath: {{ $val.mountPath }}
