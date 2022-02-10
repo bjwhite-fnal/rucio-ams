@@ -1,18 +1,23 @@
 # Generate files, send them to RSEs, and monitor transfers for completion
 # Brandon White, FNAL, 2021
-import sys
-import os
+
 import argparse
-import uuid
-import random
-import subprocess
-import logging
-import threading
-import stomp
-import time
-import queue
 import collections
 import json
+import logging
+import os
+import queue
+import random
+import ssl
+import stomp
+import subprocess
+import sys
+import threading
+import time
+import uuid
+
+from rucio.client import Client as RucioClient
+from rucio.client.uploadclient import UploadClient as RucioUploadClient
 
 logging.basicConfig(format='%(asctime)-15s %(name)s %(levelname)s %(message)s', level=logging.INFO)
 logging.getLogger('stomp.py').setLevel(logging.WARNING)
@@ -150,6 +155,8 @@ class RucioTransferTest:
         self.failed = threading.Event()
         self.conn = None
         self.retry_count = 3
+        self.rucio_client = RucioClient(account=self.rucio_account)
+        self.rucio_upload_client = RucioUploadClient(_client=self.rucio_client, logger=logger)
 
     def setup_listener(self, host, port, cert, key, topic, sub_id, vhost, all_files):
         logger.info('Creating the listener thread to monitor the Rucio event stream')
@@ -202,11 +209,16 @@ class RucioTransferTest:
     def establish_broker_connection(self, host, port, cert, key, topic, sub_id, vhost, all_files):
         conn = stomp.Connection12(
             [(host, port)],
-            use_ssl=True,
-            ssl_cert_file=cert,
-            ssl_key_file=key,
             vhost=vhost
         )
+        logger.info(f'Listener thread created connection object to: {host}:{port}')
+        conn.set_ssl(
+            for_hosts=[(host, port)],
+                cert_file=cert,
+                key_file=key,
+                ssl_version=ssl.PROTOCOL_TLSv1_2
+        )
+        logger.info(f'Listener thread configured SSL connection to: {host}:{port}. Cert: "{cert}" Key: "{key}"')
         rucio_listener = RucioListener(conn, self.rucio_scope, topic, sub_id, all_files)
         conn.set_listener('RucioListener', rucio_listener)
         logger.info(f'Listener thread connecting to event stream at: {host}:{port}')
@@ -263,6 +275,8 @@ class RucioTransferTest:
 
     def rucio_upload(self, filepath):
         # TODO: Refactor to use the Python client properly
+        # self.rucio_upload_client.upload(thing)
+
         account_arg = '-a {rucio_account}'.format(rucio_account=self.rucio_account)
         rse_arg = '--register-after-upload --rse {start_rse}'.format(start_rse=self.start_rse)
         cmd = 'rucio {account_arg} upload {rse_arg} {filepath}'\
@@ -273,6 +287,7 @@ class RucioTransferTest:
 
     def rucio_create_dataset(self, didfile_path):
         # TODO: Refactor to use the Python client properly
+
         dataset_name = str(uuid.uuid1())
         account_arg = '-a {rucio_account}'.format(rucio_account=self.rucio_account)
         dataset_did = 'user.{rucio_account}:{dataset_name}'.format(rucio_account=self.rucio_account, dataset_name=dataset_name)
@@ -285,6 +300,7 @@ class RucioTransferTest:
 
     def rucio_attach_dataset(self, dataset_did, didfile_path):
         # TODO: Refactor to use the Python client properly
+
         account_arg = '-a {rucio_account}'.format(rucio_account=self.rucio_account)
         didfile_arg = '-f {didfile_path}'.format(didfile_path=didfile_path)
         cmd = 'rucio {account_arg} attach {dataset_did} {didfile_arg}'\
@@ -295,6 +311,7 @@ class RucioTransferTest:
 
     def rucio_add_rule(self, dataset_did, dest_rse, num_copies=1):
         # TODO: Refactor to use the Python client properly
+
         account_arg = '-a {rucio_account}'.format(rucio_account=self.rucio_account)
         cmd = 'rucio {account_arg} add-rule {dataset_did} {num_copies} {dest_rse}'\
             .format(account_arg=account_arg, dataset_did=dataset_did, num_copies=num_copies, dest_rse=dest_rse)
@@ -336,7 +353,7 @@ def main():
     dest_rses = args.end_rses.split(',')
 
     # Generate the files that will be transferred
-    logger.info(f'Generating {args.num_files}x{args.file_size}byte files')
+    logger.info(f'Generating files {args.num_files}x{args.file_size} bytes in size.')
     os.mkdir(args.data_dir)
     generated_files = []
     for i in range(args.num_files):
@@ -416,8 +433,10 @@ def parse_args():
         help='')
     parser.add_argument('--unsubscribe',
         help='')
+    # TODO: Change to use --source_rse_expression instead
     parser.add_argument('--start_rse',
         help='Rucio RSE to upload transfer files to.')
+    # TODO: Change to use --dest_rse_expression instead
     parser.add_argument('--end_rses',
         help='Comma-separated list of RSEs that the generated transfer files will be have rules created for.')
     parser.add_argument('--rucio_account',
@@ -443,6 +462,7 @@ def parse_args():
         default = 120,
         type=int,
         help='How often to check through all the transfers to see if they are done. Default: 120s')
+    # TODO: ADD the ability to pass in the transfer activity
     return parser.parse_args()
 
 if __name__ == '__main__':
