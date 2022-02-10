@@ -48,4 +48,3 @@ python3 /run_transfer_test.py \
     --rucio_account ${RUCIO_ACCOUNT} \
     --num_files ${NUM_FILES} \
     --file_size ${FILE_SIZE}
-    #--proxy ${X509_USER_PROXY}

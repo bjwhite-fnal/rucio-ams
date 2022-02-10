@@ -12,9 +12,11 @@ ADD ./rucio.cfg /opt/rucio/etc/rucio.cfg
 #TMP
 #ADD ./gfal.py /usr/local/lib/python3.6/site-packages/rucio/rse/protocols/gfal.py
 
+
+# Just run as root because VOMS literally hates you if you dont
+USER root
 RUN pip3 install stomp.py remote-pdb
 
-USER root
 # Install the OSG repos
 RUN yum install -y yum-plugin-priorities
 RUN yum install -y https://repo.opensciencegrid.org/osg/3.4/osg-3.4-el7-release-latest.rpm
