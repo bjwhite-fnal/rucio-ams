@@ -112,21 +112,21 @@ class RucioListener(stomp.ConnectionListener):
 
         # Is this a new transfer for that dataset that needs tracked?
         if event_type == 'transfer-queued':
-            logger.info('Message is of type transfer-queued')
+            logger.info('Processing event: transfer-queued')
             assert transfer_info is not None
             correct_scope = bool(transfer_info.scope == self.scope)
             correct_name = bool(transfer_info.name in self.all_files)
             if correct_scope and correct_name:
                 logger.info(f'Match for {self.scope}:{transfer_info.name}. Checking if already tracked')
                 if not self.tracking(transfer_info):
-                    logger.info('Commencing tracking of transfer for {self.scope}:{transfer_info.name} to {transfer_info.dst_rse}')
+                    logger.info(f'Commencing tracking of transfer for {self.scope}:{transfer_info.name} to {transfer_info.dst_rse}')
                     self.transfers_by_rse[transfer_info.dst_rse].append(transfer_info)
                 else:
                     logger.info(f'Transfer of file {self.scope}:{transfer_info.name} is already being tracked. Skipping.')
 
         # Is this failed transfer one that we are tracking for our test?
         elif event_type in self.terminal_states:
-            logger.info(f'Message is of type {event_type}')
+            logger.info(f'Processing event: {event_type}')
             if self.tracking(transfer_info):
                 tracked_transfer = self.get_tracked_transfer(transfer_info)
                 tracked_transfer.set_state(transfer_info.state)
@@ -137,7 +137,7 @@ class RucioListener(stomp.ConnectionListener):
                     {tracked_transfer.request_id} for file {tracked_transfer.name}')
             else:
                 logger.info('Skipping... Not for our files.')
-        logger.info(f'Full list of transfers being tracked:\n\t{self.transfers_by_rse}')
+        logger.debug(f'Full list of transfers being tracked:\n\t{self.transfers_by_rse}')
 
 class RucioTransferTest:
     def __init__(self, rucio_account, rucio_scope, data_dir, file_size, start_rse, dst_rses, all_files,
