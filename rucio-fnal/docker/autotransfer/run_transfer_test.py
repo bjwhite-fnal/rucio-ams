@@ -93,7 +93,7 @@ class RucioListener(stomp.ConnectionListener):
                 return tracked_transfer
 
     def process_message(self, msg):
-        logger.info(f'Processing received message: {msg}\n')
+        logger.info(f'Processing received {msg.event_type} message.')
         event_type = msg['event_type']
         payload = msg['payload']
         transfer_info = None
@@ -462,7 +462,8 @@ def parse_args():
         default = 120,
         type=int,
         help='How often to check through all the transfers to see if they are done. Default: 120s')
-    # TODO: ADD the ability to pass in the transfer activity
+    parser.add_argument('--activity',
+        help='The transfer activity to be passed to Rucio.')
     return parser.parse_args()
 
 if __name__ == '__main__':
