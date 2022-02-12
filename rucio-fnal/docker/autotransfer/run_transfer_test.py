@@ -57,6 +57,7 @@ class RucioListener(stomp.ConnectionListener):
         self.terminal_states = ['transfer-submission-failed', 'transfer-failed', 'transfer-done']
 
     def reconnect_and_subscribe(self):
+        logger.info(f'Reconnecting to the message broker @ topic: {self.topic} and subscription id: {self.sub_id}')
         self.conn.connect(wait=True)
         self.conn.subscribe(self.topic, self.sub_id)
 
@@ -143,7 +144,7 @@ class RucioListener(stomp.ConnectionListener):
                 logger.info(f'Set completion flag {tracked_transfer.completed} for transfer:\n\t\
                     {tracked_transfer.request_id} for file {tracked_transfer.name}')
             else:
-                logger.info('Skipping... Not for our files.')
+                logger.debug('Skipping... Not for our files.')
         logger.debug(f'Full list of transfers being tracked:\n\t{self.transfers_by_rse}')
 
 class TransferTestParams:
@@ -152,7 +153,7 @@ class TransferTestParams:
         pass
 
 class RucioTransferTest:
-    def __init__(self, rucio_account, rucio_scope, data_dir, file_size, start_rse, dst_rses, all_files,
+    def __init__(self, rucio_account, rucio_scope, data_dir, file_size, start_rse, dst_rses,
             check_time, transfer_timeout, lifetime):
         # Data and Rucio Parameters
         self.data_dir = data_dir
@@ -166,7 +167,7 @@ class RucioTransferTest:
 
         # Test Internals
         self.check_time = check_time
-        self.all_files = all_files
+        self.all_files = []
         self.listener_thread = None
         self.is_subscribed = threading.Event()
         self.failed = threading.Event()
@@ -175,20 +176,21 @@ class RucioTransferTest:
         self.rucio_client = RucioClient(account=self.rucio_account)
         self.rucio_upload_client = RucioUploadClient(_client=self.rucio_client, logger=logger)
 
-    def setup_listener(self, host, port, cert, key, topic, sub_id, vhost, all_files):
+    def setup_listener(self, host, port, cert, key, topic, sub_id, vhost):
         logger.info('Creating the listener thread to monitor the Rucio event stream')
         sub_id = 'placeholder'
-        self.listener_thread = threading.Thread(target=self.run_listener, args=(host, port, cert, key, topic,
-            sub_id, vhost, all_files))
+        self.listener_thread = threading.Thread(
+            target=self.run_listener,
+            args=(host, port, cert, key, topic, sub_id, vhost, self.all_files))
         self.listener_thread.start()
         return self.listener_thread
 
-    def run_listener(self, host, port, cert, key, topic, sub_id, vhost, all_files):
+    def run_listener(self, host, port, cert, key, topic, sub_id, vhost, files_to_track):
         logger.info(f'Listener thread starting up.')
         # Setup the connection
         logger.info(f'Creating Connection to\n\t{host}:{port}\n\tCert:{cert}\n\tKey: {key}\n\tTopic: {topic}\n\tSub ID: {sub_id}\n\tvhost: {vhost}')
         try:
-            self.conn, self.rucio_listener = self.establish_broker_connection(host, port, cert, key, topic, sub_id, vhost, all_files)
+            self.conn, self.rucio_listener = self.establish_broker_connection(host, port, cert, key, topic, sub_id, vhost, files_to_track)
         except TypeError:
             logger.info('Unable to connect to broker. Failing test.')
         else:
@@ -196,7 +198,7 @@ class RucioTransferTest:
             logger.info(f'The listener will now watch for test transfer datasets...')
             while not self.rucio_listener.shutdown:
                 time.sleep(self.check_time)
-                self.rucio_listener.shutdown = self.check_if_finished()
+                self.rucio_listener.shutdown = self.check_if_finished(files_to_track)
 
             # Print information about the transfers
             self.print_statistics()
@@ -223,7 +225,7 @@ class RucioTransferTest:
         logger.info(f'Good RSEs: {good_rses}')
         logger.info(f'Bad RSEs: {bad_rses}')
 
-    def establish_broker_connection(self, host, port, cert, key, topic, sub_id, vhost, all_files):
+    def establish_broker_connection(self, host, port, cert, key, topic, sub_id, vhost, files_to_track):
         conn = stomp.Connection12(
             [(host, port)],
             vhost=vhost
@@ -236,7 +238,7 @@ class RucioTransferTest:
                 ssl_version=ssl.PROTOCOL_TLSv1_2
         )
         logger.info(f'Listener thread configured SSL connection to: {host}:{port}. Cert: "{cert}" Key: "{key}"')
-        rucio_listener = RucioListener(conn, self.rucio_scope, topic, sub_id, all_files)
+        rucio_listener = RucioListener(conn, self.rucio_scope, topic, sub_id, files_to_track)
         conn.set_listener('RucioListener', rucio_listener)
         logger.info(f'Listener thread connecting to event stream at: {host}:{port}')
         i = 0
@@ -258,11 +260,11 @@ class RucioTransferTest:
         self.is_subscribed.set()
         return conn, rucio_listener
 
-    def check_if_finished(self):
+    def check_if_finished(self, files_to_track):
         logger.info('Checking if all transfers to all RSEs have been completed.')
         all_file_statuses = []
         # For each file we need to track
-        for filename in self.all_files:
+        for filename in files_to_track:
             file_rse_statuses = []
             # See if there is a completed transfer for it at each destination rse 
             for dst_rse in self.dst_rses:
@@ -295,6 +297,7 @@ class RucioTransferTest:
         # TODO: Create the dataset before hand, and upload files directly into it
         items = []
         for f in generated_files:
+            self.all_files.append(os.path.basename(f)) # Keep track of the filenames, the listener needs to know them
             item = {
                 'path': f,
                 'rse': self.start_rse,
@@ -345,9 +348,9 @@ class RucioTransferTest:
         rule_id = rucio_add_rule_proc.stdout.strip().decode('utf-8')
         return rule_id
 
-def start_listener(tester, host, port, cert, key, topic, sub_id, vhost, all_files):
+def start_listener(tester, host, port, cert, key, topic, sub_id, vhost):
     # Start the listener thread
-    listener_thread = tester.setup_listener(host, port, cert, key, topic, sub_id, vhost, all_files)
+    listener_thread = tester.setup_listener(host, port, cert, key, topic, sub_id, vhost)
     while not tester.is_subscribed.is_set() or tester.failed.is_set():
         if tester.failed.is_set():
             logger.error(f'Failed to connect to the message broker at:')
@@ -385,7 +388,6 @@ def main():
     for i in range(args.num_files):
         filepath = create_file(args.data_dir, args.file_size)
         generated_files.append(filepath)
-    filenames = list(map(os.path.basename, generated_files))
     logger.info(f'Generated {args.num_files} files')
 
     tester = RucioTransferTest(
@@ -395,21 +397,21 @@ def main():
         args.file_size,
         args.start_rse,
         dest_rses,
-        filenames,
         args.check_time,
         args.transfer_timeout,
         args.lifetime
     )
-    vhost = '/'
-    sub_id = 'test'
-    logger.info(f'Filenames to listen for: {filenames}')
-    listener_thread = start_listener(tester, args.host, args.port, args.cert, args.key, args.topic, sub_id,
-            vhost, filenames)
 
     # Prepare the files by turning them into `items` for rucio.client.uploadclient.upload()
     logger.info(f'Preparing {len(generated_files)} files')
     items = tester.prepare_items(generated_files)
     logger.info(f'Preparing {len(items)} files for Rucio upload to {tester.start_rse}')
+
+
+    vhost = '/'
+    sub_id = 'test'
+    logger.info(f'Filenames to listen for: {tester.all_files}')
+    listener_thread = start_listener(tester, args.host, args.port, args.cert, args.key, args.topic, sub_id, vhost)
 
     # Upload the test files to Rucio
     logger.info(f'Uploading {len(generated_files)} files')
