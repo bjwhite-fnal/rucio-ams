@@ -19,6 +19,13 @@ import uuid
 from rucio.client import Client as RucioClient
 from rucio.client.uploadclient import UploadClient as RucioUploadClient
 
+DEFAULT_PORT = 443 # Note that FNAL OKD Rucio STOMP brokers are on 443
+DEFAULT_CHECK_TIME = 120
+DEFAULT_NUM_FILES = 1
+DEFAULT_FILE_SIZE = 1024
+DEFAULT_TRANSFER_TIMEOUT = 600
+DEFAULT_RULE_LIFETIME = 10000
+
 logging.basicConfig(format='%(asctime)-15s %(name)s %(levelname)s %(message)s', level=logging.INFO)
 logging.getLogger('stomp.py').setLevel(logging.WARNING)
 logger = logging.getLogger('transfer_test')
@@ -93,7 +100,7 @@ class RucioListener(stomp.ConnectionListener):
                 return tracked_transfer
 
     def process_message(self, msg):
-        logger.info(f'Processing received message: {msg}\n')
+        logger.info(f'Processing received {msg["event_type"]} message.')
         event_type = msg['event_type']
         payload = msg['payload']
         transfer_info = None
@@ -112,21 +119,21 @@ class RucioListener(stomp.ConnectionListener):
 
         # Is this a new transfer for that dataset that needs tracked?
         if event_type == 'transfer-queued':
-            logger.info('Message is of type transfer-queued')
+            logger.info('Processing event: transfer-queued')
             assert transfer_info is not None
             correct_scope = bool(transfer_info.scope == self.scope)
             correct_name = bool(transfer_info.name in self.all_files)
             if correct_scope and correct_name:
                 logger.info(f'Match for {self.scope}:{transfer_info.name}. Checking if already tracked')
                 if not self.tracking(transfer_info):
-                    logger.info('Commencing tracking of transfer for {self.scope}:{transfer_info.name} to {transfer_info.dst_rse}')
+                    logger.info(f'Commencing tracking of transfer for {self.scope}:{transfer_info.name} to {transfer_info.dst_rse}')
                     self.transfers_by_rse[transfer_info.dst_rse].append(transfer_info)
                 else:
                     logger.info(f'Transfer of file {self.scope}:{transfer_info.name} is already being tracked. Skipping.')
 
         # Is this failed transfer one that we are tracking for our test?
         elif event_type in self.terminal_states:
-            logger.info(f'Message is of type {event_type}')
+            logger.info(f'Processing event: {event_type}')
             if self.tracking(transfer_info):
                 tracked_transfer = self.get_tracked_transfer(transfer_info)
                 tracked_transfer.set_state(transfer_info.state)
@@ -137,18 +144,28 @@ class RucioListener(stomp.ConnectionListener):
                     {tracked_transfer.request_id} for file {tracked_transfer.name}')
             else:
                 logger.info('Skipping... Not for our files.')
-        logger.info(f'Full list of transfers being tracked:\n\t{self.transfers_by_rse}')
+        logger.debug(f'Full list of transfers being tracked:\n\t{self.transfers_by_rse}')
+
+class TransferTestParams:
+    def __init__(self):
+        # TODO
+        pass
 
 class RucioTransferTest:
     def __init__(self, rucio_account, rucio_scope, data_dir, file_size, start_rse, dst_rses, all_files,
-            check_time):
-        self.check_time = check_time
+            check_time, transfer_timeout, lifetime):
+        # Data and Rucio Parameters
+        self.data_dir = data_dir
         self.rucio_account = rucio_account
         self.rucio_scope = rucio_scope
-        self.data_dir = data_dir
         self.file_size = file_size
         self.start_rse = start_rse
         self.dst_rses = dst_rses
+        self.transfer_timeout = transfer_timeout
+        self.lifetime = lifetime
+
+        # Test Internals
+        self.check_time = check_time
         self.all_files = all_files
         self.listener_thread = None
         self.is_subscribed = threading.Event()
@@ -273,17 +290,24 @@ class RucioTransferTest:
         logger.info(f'All files transferred: {all_done}')
         return all_done
 
-    def rucio_upload(self, filepath):
-        # TODO: Refactor to use the Python client properly
-        # self.rucio_upload_client.upload(thing)
 
-        account_arg = '-a {rucio_account}'.format(rucio_account=self.rucio_account)
-        rse_arg = '--register-after-upload --rse {start_rse}'.format(start_rse=self.start_rse)
-        cmd = 'rucio {account_arg} upload {rse_arg} {filepath}'\
-            .format(account_arg=account_arg, rse_arg=rse_arg, filepath=filepath)
-        logger.info(f'Running command: {cmd}')
-        rucio_upload_proc = subprocess.run(cmd, shell=True)
-        assert rucio_upload_proc.returncode == 0
+    def prepare_items(self, generated_files, dataset_name=None):
+        # TODO: Create the dataset before hand, and upload files directly into it
+        items = []
+        for f in generated_files:
+            item = {
+                'path': f,
+                'rse': self.start_rse,
+                'did_scope': self.rucio_scope,
+                'dataset_scope': self.rucio_scope,
+                #'dataset_name':,
+                'register_after_upload': True, # I really can't think of a good reason to ever turn this off
+                'lifetime': self.lifetime,
+                'transfer_timeout': self.transfer_timeout,
+            }
+            items.append(item)
+        return items
+
 
     def rucio_create_dataset(self, didfile_path):
         # TODO: Refactor to use the Python client properly
@@ -349,6 +373,8 @@ def create_file(data_dir, file_size):
 
 def main():
     args = parse_args()
+    if args.debug:
+        logger.setLevel(logging.DEBUG)
     logger.info(f'Arguments to Rucio test: {args}')
     dest_rses = args.end_rses.split(',')
 
@@ -371,6 +397,8 @@ def main():
         dest_rses,
         filenames,
         args.check_time,
+        args.transfer_timeout,
+        args.lifetime
     )
     vhost = '/'
     sub_id = 'test'
@@ -378,12 +406,15 @@ def main():
     listener_thread = start_listener(tester, args.host, args.port, args.cert, args.key, args.topic, sub_id,
             vhost, filenames)
 
+    # Prepare the files by turning them into `items` for rucio.client.uploadclient.upload()
+    logger.info(f'Preparing {len(generated_files)} files')
+    items = tester.prepare_items(generated_files)
+    logger.info(f'Preparing {len(items)} files for Rucio upload to {tester.start_rse}')
 
     # Upload the test files to Rucio
     logger.info(f'Uploading {len(generated_files)} files')
-    for f in generated_files:
-        logger.info(f'Uploading: {f}')
-        tester.rucio_upload(f)
+    rc = tester.rucio_upload_client.upload(items)
+    assert rc == 0
     logger.info(f'Uploaded {len(generated_files)} files')
 
     # Create the DID file for specification of dataset files later
@@ -414,55 +445,64 @@ def main():
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--experiment',
-        help='Name of the experiment this transfer test will be run for')
+        help = 'Name of the experiment this transfer test will be run for')
     parser.add_argument('--cert',
-        default=os.environ.get('BROKER_CERT', '/opt/certs/hostcert.pem'),
-        help='PEM certificate for BROKER authentication (NO VOMS ATTRIBUTES)')
+        default = os.environ.get('BROKER_CERT', '/opt/certs/hostcert.pem'),
+        help = 'PEM certificate for BROKER authentication (NO VOMS ATTRIBUTES)')
     parser.add_argument('--key',
-        default=os.environ.get('BROKER_KEY', '/opt/certs/hostkey.pem'),
-        help='PEM key for BROKER authentication (NO VOMS ATTRIBUTES)')
+        default = os.environ.get('BROKER_KEY', '/opt/certs/hostkey.pem'),
+        help = 'PEM key for BROKER authentication (NO VOMS ATTRIBUTES)')
     parser.add_argument('--host',
-        help='Rucio message broker to connect to in order to listen to the event stream.')
+        help = 'Rucio message broker to connect to in order to listen to the event stream.')
     parser.add_argument('--port',
-        type=int,
-        default=443, # Note that FNAL OKD Rucio STOMP brokers are on 443
-        help='Rucio message broker to connect to in order to listen to the event stream.')
+        type = int,
+        default = DEFAULT_PORT,
+        help = 'Rucio message broker to connect to in order to listen to the event stream.')
     parser.add_argument('--topic',
-        help='Message topic to connect to.')
+        help = 'Message topic to connect to.')
     parser.add_argument('--durable',
-        help='')
+        help = '')
     parser.add_argument('--unsubscribe',
-        help='')
+        help = '')
     # TODO: Change to use --source_rse_expression instead
     parser.add_argument('--start_rse',
-        help='Rucio RSE to upload transfer files to.')
+        help = 'Rucio RSE to upload transfer files to.')
     # TODO: Change to use --dest_rse_expression instead
     parser.add_argument('--end_rses',
-        help='Comma-separated list of RSEs that the generated transfer files will be have rules created for.')
+        help = 'Comma-separated list of RSEs that the generated transfer files will be have rules created for.')
     parser.add_argument('--rucio_account',
         default='root',
-        help='User that Rucio commands will be run as')
+        help = 'User that Rucio commands will be run as')
     parser.add_argument('--rucio_scope',
         default='user.root',
-        help='Rucio scope to use for this test')
+        help = 'Rucio scope to use for this test')
     parser.add_argument('--num_files',
-        default = 1,
-        type=int,
-        help='Number of files that will be generated the rules to transfer.')
+        default = DEFAULT_NUM_FILES,
+        type = int,
+        help = 'Number of files that will be generated the rules to transfer. Default: {DEFAULT_NUM_FILES}')
     parser.add_argument('--file_size',
-        default = 1024,
-        type=int,
-        help='Size of each generated test transfer file')
+        default = DEFAULT_FILE_SIZE,
+        type = int,
+        help = 'Size of each generated test transfer file')
     parser.add_argument('--data_dir',
         default = '/tmp/%s' % str(uuid.uuid1()),
-        help='Where to store the temporary data generated for this test.')
+        help = 'Where to store the temporary data generated for this test.')
     parser.add_argument('--debug',
-        help='Enable debug level logging.')
+        help = 'Enable debug level logging.')
     parser.add_argument('--check_time',
-        default = 120,
-        type=int,
-        help='How often to check through all the transfers to see if they are done. Default: 120s')
-    # TODO: ADD the ability to pass in the transfer activity
+        default=DEFAULT_CHECK_TIME,
+        type = int,
+        help = 'How often to check through all the transfers to see if they are done. Default: 120s')
+    parser.add_argument('--transfer_timeout',
+        default = DEFAULT_TRANSFER_TIMEOUT,
+        type = int,
+        help = f'How long to wait before Rucio uploads to the initial RSE timeout. Default: {DEFAULT_TRANSFER_TIMEOUT}')
+    parser.add_argument('--lifetime',
+        default=DEFAULT_RULE_LIFETIME,
+        type = int,
+        help = f'How long before Rucio locks on the test files expire. Default: {DEFAULT_RULE_LIFETIME}')
+    parser.add_argument('--activity',
+        help = 'The transfer activity to be passed to Rucio.')
     return parser.parse_args()
 
 if __name__ == '__main__':
