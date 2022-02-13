@@ -147,34 +147,30 @@ class RucioListener(stomp.ConnectionListener):
                 logger.debug('Skipping... Not for our files.')
         logger.debug(f'Full list of transfers being tracked:\n\t{self.transfers_by_rse}')
 
-class TransferTestParams:
-    def __init__(self):
-        # TODO
-        pass
 
-class RucioTransferTest:
-    def __init__(self, rucio_account, rucio_scope, data_dir, file_size, start_rse, dst_rses,
-            check_time, transfer_timeout, lifetime):
+class TransferTestParams:
+    def __init__(self, rucio_account, rucio_scope, start_rse, dst_rses, check_time, transfer_timeout, lifetime):
         # Data and Rucio Parameters
-        self.data_dir = data_dir
         self.rucio_account = rucio_account
         self.rucio_scope = rucio_scope
-        self.file_size = file_size
         self.start_rse = start_rse
         self.dst_rses = dst_rses
         self.transfer_timeout = transfer_timeout
         self.lifetime = lifetime
-
-        # Test Internals
+        self.broker_retry_count = 3
         self.check_time = check_time
+
+
+class RucioTransferTest:
+    def __init__(self, test_params):
+        self.test_params = test_params
+        self.rucio_client = RucioClient(account=self.test_params.rucio_account)
+        self.rucio_upload_client = RucioUploadClient(_client=self.rucio_client, logger=logger)
         self.all_files = []
         self.listener_thread = None
+        self.conn = None
         self.is_subscribed = threading.Event()
         self.failed = threading.Event()
-        self.conn = None
-        self.retry_count = 3
-        self.rucio_client = RucioClient(account=self.rucio_account)
-        self.rucio_upload_client = RucioUploadClient(_client=self.rucio_client, logger=logger)
 
     def setup_listener(self, host, port, cert, key, topic, sub_id, vhost):
         logger.info('Creating the listener thread to monitor the Rucio event stream')
@@ -197,7 +193,7 @@ class RucioTransferTest:
             # Process rules
             logger.info(f'The listener will now watch for test transfer datasets...')
             while not self.rucio_listener.shutdown:
-                time.sleep(self.check_time)
+                time.sleep(self.test_params.check_time)
                 self.rucio_listener.shutdown = self.check_if_finished(files_to_track)
 
             # Print information about the transfers
@@ -212,7 +208,7 @@ class RucioTransferTest:
         bad_transfers = []
         good_rses = []
         bad_rses = []
-        for rse in self.dst_rses:
+        for rse in self.test_params.dst_rses:
             transfers = self.rucio_listener.transfers_by_rse[rse]
             for transfer in transfers:
                 if transfer.state == 'done':
@@ -238,15 +234,15 @@ class RucioTransferTest:
                 ssl_version=ssl.PROTOCOL_TLSv1_2
         )
         logger.info(f'Listener thread configured SSL connection to: {host}:{port}. Cert: "{cert}" Key: "{key}"')
-        rucio_listener = RucioListener(conn, self.rucio_scope, topic, sub_id, files_to_track)
+        rucio_listener = RucioListener(conn, self.test_params.rucio_scope, topic, sub_id, files_to_track)
         conn.set_listener('RucioListener', rucio_listener)
         logger.info(f'Listener thread connecting to event stream at: {host}:{port}')
         i = 0
-        while i < self.retry_count:
+        while i < self.test_params.broker_retry_count:
             try:
                 conn.connect(wait=True)
             except stomp.exception.ConnectFailedException as ex:
-                if i == self.retry_count-1:
+                if i == self.test_params.broker_retry_count-1:
                     logger.error('Listener thread failed to connect.')
                     self.failed.set()
                     return
@@ -267,7 +263,7 @@ class RucioTransferTest:
         for filename in files_to_track:
             file_rse_statuses = []
             # See if there is a completed transfer for it at each destination rse 
-            for dst_rse in self.dst_rses:
+            for dst_rse in self.test_params.dst_rses:
                 logger.info(f'Checking transfers for file {filename} at RSE: {dst_rse} ')
                 if len(self.rucio_listener.transfers_by_rse[dst_rse]) == 0: # all([]) is True
                     logger.info(f'No transfers yet at {dst_rse}')
@@ -300,13 +296,13 @@ class RucioTransferTest:
             self.all_files.append(os.path.basename(f)) # Keep track of the filenames, the listener needs to know them
             item = {
                 'path': f,
-                'rse': self.start_rse,
-                'did_scope': self.rucio_scope,
-                'dataset_scope': self.rucio_scope,
+                'rse': self.test_params.start_rse,
+                'did_scope': self.test_params.rucio_scope,
+                'dataset_scope': self.test_params.rucio_scope,
                 #'dataset_name':,
                 'register_after_upload': True, # I really can't think of a good reason to ever turn this off
-                'lifetime': self.lifetime,
-                'transfer_timeout': self.transfer_timeout,
+                'lifetime': self.test_params.lifetime,
+                'transfer_timeout': self.test_params.transfer_timeout,
             }
             items.append(item)
         return items
@@ -316,8 +312,8 @@ class RucioTransferTest:
         # TODO: Refactor to use the Python client properly
 
         dataset_name = str(uuid.uuid1())
-        account_arg = '-a {rucio_account}'.format(rucio_account=self.rucio_account)
-        dataset_did = 'user.{rucio_account}:{dataset_name}'.format(rucio_account=self.rucio_account, dataset_name=dataset_name)
+        account_arg = '-a {rucio_account}'.format(rucio_account=self.test_params.rucio_account)
+        dataset_did = 'user.{rucio_account}:{dataset_name}'.format(rucio_account=self.test_params.rucio_account, dataset_name=dataset_name)
         cmd = 'rucio {account_arg} add-dataset {dataset_did}'\
             .format(account_arg=account_arg, dataset_did=dataset_did)
         logger.info(f'Running command: {cmd}')
@@ -328,7 +324,7 @@ class RucioTransferTest:
     def rucio_attach_dataset(self, dataset_did, didfile_path):
         # TODO: Refactor to use the Python client properly
 
-        account_arg = '-a {rucio_account}'.format(rucio_account=self.rucio_account)
+        account_arg = '-a {rucio_account}'.format(rucio_account=self.test_params.rucio_account)
         didfile_arg = '-f {didfile_path}'.format(didfile_path=didfile_path)
         cmd = 'rucio {account_arg} attach {dataset_did} {didfile_arg}'\
             .format(account_arg=account_arg, dataset_did=dataset_did, didfile_arg=didfile_arg)
@@ -339,7 +335,7 @@ class RucioTransferTest:
     def rucio_add_rule(self, dataset_did, dest_rse, num_copies=1):
         # TODO: Refactor to use the Python client properly
 
-        account_arg = '-a {rucio_account}'.format(rucio_account=self.rucio_account)
+        account_arg = '-a {rucio_account}'.format(rucio_account=self.test_params.rucio_account)
         cmd = 'rucio {account_arg} add-rule {dataset_did} {num_copies} {dest_rse}'\
             .format(account_arg=account_arg, dataset_did=dataset_did, num_copies=num_copies, dest_rse=dest_rse)
         logger.info(f'Running command: {cmd}')
@@ -390,22 +386,21 @@ def main():
         generated_files.append(filepath)
     logger.info(f'Generated {args.num_files} files')
 
-    tester = RucioTransferTest(
+
+    test_params =  TransferTestParams(
         args.rucio_account,
         args.rucio_scope,
-        args.data_dir,
-        args.file_size,
         args.start_rse,
         dest_rses,
         args.check_time,
         args.transfer_timeout,
-        args.lifetime
-    )
+        args.lifetime)
+    tester = RucioTransferTest(test_params)
 
     # Prepare the files by turning them into `items` for rucio.client.uploadclient.upload()
     logger.info(f'Preparing {len(generated_files)} files')
     items = tester.prepare_items(generated_files)
-    logger.info(f'Preparing {len(items)} files for Rucio upload to {tester.start_rse}')
+    logger.info(f'Preparing {len(items)} files for Rucio upload to {tester.test_params.start_rse}')
 
 
     vhost = '/'
