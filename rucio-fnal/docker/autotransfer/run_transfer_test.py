@@ -308,29 +308,30 @@ class RucioTransferTest:
         return items
 
 
-    def rucio_create_dataset(self, didfile_path):
-        # TODO: Refactor to use the Python client properly
-
+    def rucio_create_dataset(self, items):
+        logger.info(f'Creating Rucio dataset')
+        dids = []
+        for item in items:
+            did = { 
+                'scope' : os.path.basename(item['did_scope']),
+                'name' : os.path.basename(item['path'])
+            }
+            dids.append(did)
         dataset_name = str(uuid.uuid1())
-        account_arg = '-a {rucio_account}'.format(rucio_account=self.test_params.rucio_account)
-        dataset_did = 'user.{rucio_account}:{dataset_name}'.format(rucio_account=self.test_params.rucio_account, dataset_name=dataset_name)
-        cmd = 'rucio {account_arg} add-dataset {dataset_did}'\
-            .format(account_arg=account_arg, dataset_did=dataset_did)
-        logger.info(f'Running command: {cmd}')
-        rucio_create_ds_proc = subprocess.run(cmd, shell=True)
-        assert rucio_create_ds_proc.returncode == 0
-        return dataset_did
+        logger.info(f'Gathered {len(dids)} files to attach to dataset {dataset_name}')
 
-    def rucio_attach_dataset(self, dataset_did, didfile_path):
-        # TODO: Refactor to use the Python client properly
+        rc = self.rucio_client.add_dataset(
+                self.test_params.rucio_scope,
+                dataset_name,
+                #statues,
+                #meta,
+                #rules, # TODO: Use to specify replication rules at dataset creation time
+                lifetime=self.test_params.lifetime,
+                files=dids, # replaces didfile_path list of dids to attach to the dataset
+                rse=self.test_params.start_rse
+        )
+        return f'{self.test_params.rucio_scope}:{dataset_name}'
 
-        account_arg = '-a {rucio_account}'.format(rucio_account=self.test_params.rucio_account)
-        didfile_arg = '-f {didfile_path}'.format(didfile_path=didfile_path)
-        cmd = 'rucio {account_arg} attach {dataset_did} {didfile_arg}'\
-            .format(account_arg=account_arg, dataset_did=dataset_did, didfile_arg=didfile_arg)
-        logger.info(f'Running command: {cmd}')
-        rucio_attach_ds_proc = subprocess.run(cmd, shell=True)
-        assert rucio_attach_ds_proc.returncode == 0
 
     def rucio_add_rule(self, dataset_did, dest_rse, num_copies=1):
         # TODO: Refactor to use the Python client properly
@@ -343,6 +344,7 @@ class RucioTransferTest:
         assert rucio_add_rule_proc.returncode == 0
         rule_id = rucio_add_rule_proc.stdout.strip().decode('utf-8')
         return rule_id
+
 
 def start_listener(tester, host, port, cert, key, topic, sub_id, vhost):
     # Start the listener thread
@@ -414,22 +416,9 @@ def main():
     assert rc == 0
     logger.info(f'Uploaded {len(generated_files)} files')
 
-    # Create the DID file for specification of dataset files later
-    logger.info('Creating the didfile')
-    didfile_path = args.data_dir + '/' + 'didfile'
-    with open(didfile_path, 'a') as df:
-        for f in generated_files:
-            did = 'user.{rucio_account}:{filename}\n'.format(rucio_account=args.rucio_account, filename=os.path.basename(f))
-            df.write(did)
-    logger.info('Created the didfile')
-
-    # Create the Rucio dataset for these files
-    dataset_did = tester.rucio_create_dataset(didfile_path)
+    # Create the Rucio dataset and attach the associated files
+    dataset_did = tester.rucio_create_dataset(items)
     logger.info(f'Created Rucio dataset {dataset_did}')
-
-    # Attach the generated files to the dataset via the didfile
-    tester.rucio_attach_dataset(dataset_did, didfile_path)
-    logger.info(f'Attached files in didfile to dataset {dataset_did}')
 
     # Create a rule for the dataset on each of the destination RSEs
     for dest_rse in dest_rses:
