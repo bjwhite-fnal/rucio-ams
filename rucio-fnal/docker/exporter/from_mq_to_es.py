@@ -303,14 +303,13 @@ if __name__ == '__main__':
     logger.info('Getting program arguments:')
     args = parse_arguments()
     logger.info(args)
-
+ 
+    host_info = (args.broker_host, args.broker_port)
     conn = stomp.Connection12(
-        [ (args.broker_host, args.broker_port) ],
-        use_ssl=True,
-        ssl_cert_file=args.ssl_cert,
-        ssl_key_file=args.ssl_key,
+        [ host_info ],
         reconnect_attempts_max=1,
         vhost=args.vhost)
+    conn.set_ssl([host_info], key_file=args.ssl_key, cert_file=args.ssl_cert)
     
     stomp_consumer = STOMPConsumer(
         conn,

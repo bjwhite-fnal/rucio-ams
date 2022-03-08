@@ -81,8 +81,8 @@ $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-routes.sh
 $FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-routes.sh > /dev/null
 
 echo -e "\tCreating ElasticExporter..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-escron.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-escron.sh > /dev/null
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-exporter.sh
+$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-exporter.sh > /dev/null
 
 echo -e "\tStarting the proxy generation cronjob."
 kubectl create job --from=cronjob/rucio-${EXPERIMENT}-renew-fts-proxy ${USER}-manual-proxy-1

@@ -11,7 +11,7 @@ push-all:
 	$(push-webui-cmd)
 	$(push-fts-cron-cmd)
 	$(push-statsd-cmd)
-	$(push-escron-cmd)
+	$(push-exporter-cmd)
 
 build-all:
 	$(build-server-cmd)
@@ -21,7 +21,7 @@ build-all:
 	$(build-webui-cmd)
 	$(build-fts-cron-cmd)
 	$(build-statsd-cmd)
-	$(build-escron-cmd)
+	$(build-exporter-cmd)
 
 build-all-nc:
 	$(build-server-nc-cmd)
@@ -31,7 +31,7 @@ build-all-nc:
 	$(build-webui-nc-cmd)
 	$(build-fts-cron-nc-cmd)
 	$(build-statsd-nc-cmd)
-	$(build-escron-nc-cmd)
+	$(build-exporter-nc-cmd)
 
 # Image build command definitions
 define build-statsd-cmd =
@@ -71,12 +71,12 @@ define build-fts-cron-nc-cmd =
 docker build --no-cache -t rucio-fts-cron fts-cron
 endef
 
-define build-escron-cmd =
-docker build -t rucio-escron escron
+define build-exporter-cmd =
+docker build -t rucio-exporter exporter
 endef
 
-define build-escron-nc-cmd =
-docker build --no-cache -t rucio-escron escron
+define build-exporter-nc-cmd =
+docker build --no-cache -t rucio-exporter exporter
 endef
 
 define build-webui-cmd =
@@ -138,11 +138,11 @@ build-fts-cron:
 build-fts-cron-nc:
 	$(build-fts-cron-nc-cmd)
 
-build-escron:
-	$(build-escron-cmd)
+build-exporter:
+	$(build-exporter-cmd)
 
-build-escron-nc:
-	$(build-escron-nc-cmd)
+build-exporter-nc:
+	$(build-exporter-nc-cmd)
 
 build-webui:
 	$(build-webui-cmd)
@@ -190,9 +190,9 @@ define push-fts-cron-cmd =
 	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-fts-cron:${FNAL_RUCIO_VERSION_TAG}
 endef
 
-define push-escron-cmd =
-	docker tag rucio-escron imageregistry.fnal.gov/rucio-fnal/fnal-rucio-escron:${FNAL_RUCIO_VERSION_TAG}
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-escron:${FNAL_RUCIO_VERSION_TAG}
+define push-exporter-cmd =
+	docker tag rucio-exporter imageregistry.fnal.gov/rucio-fnal/fnal-rucio-exporter:${FNAL_RUCIO_VERSION_TAG}
+	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-exporter:${FNAL_RUCIO_VERSION_TAG}
 endef
 
 define push-webui-cmd =
@@ -232,8 +232,8 @@ push-autotransfer:
 push-fts-cron:
 	$(push-fts-cron-cmd)
 
-push-escron:
-	$(push-escron-cmd)
+push-exporter:
+	$(push-exporter-cmd)
 
 push-webui:
 	$(push-webui-cmd)

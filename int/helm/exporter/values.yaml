@@ -1,12 +1,12 @@
 ---
 serviceAccountName: "useroot"
 
-esCron:
+exporter:
   enabled: "1"
   schedule: "30 * * * *"
 
   image:
-    repository: "imageregistry.fnal.gov/rucio-fnal/fnal-rucio-escron"
+    repository: "imageregistry.fnal.gov/rucio-fnal/fnal-rucio-exporter"
     tag: "latest"
     pullPolicy: "Always"
 
