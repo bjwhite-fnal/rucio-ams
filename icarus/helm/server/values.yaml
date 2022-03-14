@@ -88,11 +88,6 @@ httpd_config:
   max_clients: "10"
   max_requests_per_child: "200"
 
-persistentVolumes:
-  rucio-logs:
-    name: "pv-rucio-icarus-logs"
-    mountPath: /rucio/logs
-
 config: 
   common:
     logdir: /rucio/logs
@@ -112,8 +107,6 @@ config:
 
 optional_config:
   policy_pkg_dir: /opt/rucio/permissions
-  #rucio_enable_logfile: "True"
-  rucio_httpd_log_dir: /rucio/logs
   #rucio_cfg_database_echo: 1
 
 authIngress:

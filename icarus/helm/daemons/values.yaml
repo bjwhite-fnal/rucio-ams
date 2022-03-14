@@ -183,11 +183,6 @@ ftsRenewal:
   #servers: "https://fts-dev.fnal.gov:8446"
   servers: "https://fts3-public.cern.ch:8446"
 
-persistentVolumes:
-  rucio-logs:
-    name: "pv-rucio-icarus-logs"
-    mountPath: /rucio/logs
-
 # Config values used to configure the Rucio daemons
 # These are turned into RUCIO_CFG_<section>_<variable>=value environment variables
 config:
@@ -237,8 +232,5 @@ config:
 
 optional_config:
   policy_pkg_dir: /opt/rucio/permissions
-  #rucio_enable_logfile: "True"
-  #rucio_enable_logs: "True"
-  rucio_daemon_log_dir: "/rucio/logs"
   #rucio_cfg_database_echo: 1
   delegate_fts_proxy: "true"

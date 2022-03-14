@@ -46,14 +46,6 @@ monitor:
 logging:
   log_level: 0
 
-persistentVolumes:
-  rucio-logs:
-    name: "pv-rucio-icarus-logs"
-    mountPath: /rucio/logs
-
-httpd_config:
-  log_dir: "/rucio/logs"
-
 config:
   common:
     logdir: /rucio/logs
@@ -65,4 +57,3 @@ config:
 optional_config:
   experiment: Uses $EXPERIMENT 
   policy_pkg_dir: /opt/rucio/permissions
-  rucio_enable_logfile: "True"
