@@ -228,7 +228,7 @@ class ElasticConn():
     
 
 class STOMPConsumer(stomp.ConnectionListener):
-    def __init__(self, conn, consumer_host, consumer_port, chunk_size, subscription_id, es_username, es_password):
+    def __init__(self, conn, consumer_host, consumer_port, chunk_size, subscription_id, broker_queue, es_username, es_password):
         self.__conn = conn
         self.__chunk_size = chunk_size
         self.__subscription_id = subscription_id
@@ -245,7 +245,7 @@ class STOMPConsumer(stomp.ConnectionListener):
         sleep(60)
         #self.__conn.start()
         self.__conn.connect(wait=True)
-        self.__conn.subscribe(destination=queue, ack='client-individual', id=self.__subscription_id)
+        self.__conn.subscribe(destination=self.broker_queue, ack='client-individual', id=self.__subscription_id)
   
     def on_message(self, headers, message):
         # Send message to StatsD
@@ -317,6 +317,7 @@ if __name__ == '__main__':
         args.consumer_port,
         args.chunk_size,
         args.subscription_id,
+        args.broker_queue,
         args.es_username,
         args.es_password)
 
