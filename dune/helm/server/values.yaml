@@ -101,7 +101,7 @@ config:
 
   # Configure the policy package that is to be used for this deployment.
   policy:
-    package: fermilab
+    package: fermilab.dune
     support: "Brandon White <bjwhite@fnal.gov>"
 
   # Set up request routing to the auth server

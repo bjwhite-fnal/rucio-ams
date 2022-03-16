@@ -1,14 +1,12 @@
 ---
 serviceAccountName: "useroot"
 
+image:
+  repository: "imageregistry.fnal.gov/rucio-fnal/fnal-rucio-exporter"
+  pullPolicy: "Always"
+
 exporter:
   enabled: "1"
-  schedule: "30 * * * *"
-
-  image:
-    repository: "imageregistry.fnal.gov/rucio-fnal/fnal-rucio-exporter"
-    tag: "latest"
-    pullPolicy: "Always"
 
   config:
     env:

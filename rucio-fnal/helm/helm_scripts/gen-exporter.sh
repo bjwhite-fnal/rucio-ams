@@ -9,7 +9,6 @@ elif [ -z "$EXPERIMENT" ]; then
     exit 1
 else
     helm template --name rucio-$EXPERIMENT-exporter $FNAL_RUCIO_DIR/rucio-fnal/helm/helm-fnal/exporter \
-        --set experiment=$EXPERIMENT \
         --set image.tag=$FNAL_RUCIO_VERSION_TAG \
         -f $FNAL_RUCIO_DIR/$EXPERIMENT/helm/exporter/values.yaml > $FNAL_RUCIO_DIR/$EXPERIMENT/exporter.yaml
 fi
