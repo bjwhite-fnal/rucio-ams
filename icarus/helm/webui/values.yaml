@@ -51,7 +51,7 @@ config:
     logdir: /rucio/logs
 
   policy:
-    package: fermilab
+    package: fermilab.generic
     support: "Brandon White <bjwhite@fnal.gov>"
 
 optional_config:

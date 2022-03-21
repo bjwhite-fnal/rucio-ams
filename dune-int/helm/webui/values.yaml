@@ -56,7 +56,7 @@ httpd_config:
 
 config:
   policy:
-    package: fermilab
+    package: fermilab.dune
     support: "Brandon White <bjwhite@fnal.gov>"
 
 optional_config:

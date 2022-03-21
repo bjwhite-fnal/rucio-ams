@@ -80,26 +80,38 @@ docker build --no-cache -t rucio-exporter exporter
 endef
 
 define build-webui-cmd =
+-rm -rf webui/permissions
+cp -r permissions-fnal webui/permissions
 docker build -t rucio-webui --build-arg rucio_version=${FNAL_RUCIO_VERSION} webui
 endef
 
 define build-webui-nc-cmd =
+-rm -rf webui/permissions
+cp -r permissions-fnal webui/permissions
 docker build --no-cache -t rucio-webui --build-arg rucio_version=${FNAL_RUCIO_VERSION} webui
 endef
 
 define build-server-cmd =
+-rm -rf server/permissions
+cp -r permissions-fnal server/permissions
 docker build -t rucio-server --build-arg rucio_version=${FNAL_RUCIO_VERSION} server
 endef
 
 define build-server-nc-cmd =
+-rm -rf server/permissions
+cp -r permissions-fnal server/permissions
 docker build --no-cache -t rucio-server --build-arg rucio_version=${FNAL_RUCIO_VERSION} server	
 endef
 
 define build-daemons-cmd =
+-rm -rf daemons/permissions
+cp -r permissions-fnal daemons/permissions
 docker build -t rucio-daemons --build-arg rucio_version=${FNAL_RUCIO_VERSION} daemons
 endef
 
 define build-daemons-nc-cmd =
+-rm -rf daemons/permissions
+cp -r permissions-fnal daemons/permissions
 docker build --no-cache -t rucio-daemons --build-arg rucio_version=${FNAL_RUCIO_VERSION} daemons
 endef
 

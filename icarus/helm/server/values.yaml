@@ -99,7 +99,7 @@ config:
     enable_metrics: "True"
 
   policy:
-    package: fermilab
+    package: fermilab.generic
     support: "Brandon White <bjwhite@fnal.gov>"
 
   api:

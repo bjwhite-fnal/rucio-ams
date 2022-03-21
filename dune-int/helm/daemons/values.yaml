@@ -247,7 +247,7 @@ config:
     hermes_email_test: "bjwhite@fnal.gov"
 
   policy:
-    package: fermilab
+    package: fermilab.dune
     support: "Brandon White <bjwhite@fnal.gov>"
 
 optional_config:

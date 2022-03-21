@@ -109,7 +109,7 @@ config:
 
   # Configure the policy package that is to be used for this deployment.
   policy:
-    package: fermilab
+    package: fermilab.generic
     support: "Brandon White <bjwhite@fnal.gov>"
 
   api:

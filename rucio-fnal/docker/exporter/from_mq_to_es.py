@@ -11,7 +11,7 @@ from json import loads as jloads
 from time import sleep
 
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 logFormatter = logging.Formatter("%(name)-12s %(asctime)s %(levelname)-8s %(filename)s:%(funcName)s %(message)s")
 logHandler = logging.StreamHandler(sys.stdout)
 logHandler.setFormatter(logFormatter)
@@ -237,8 +237,12 @@ class STOMPConsumer(stomp.ConnectionListener):
         self.__esConn = ElasticConn(consumer_host, consumer_port, es_username, es_password)
   
     def on_error(self, headers, message):
-        pass
-        # Send message to StatsD
+        logger.error(f'ERROR Message: {str(message)}')
+        logger.error(f'ERROR Message Headers: {str(headers)}')
+        from remote_pdb import RemotePdb
+        RemotePdb('0.0.0.0', 4444).set_trace()
+
+        # TODO: Send message to StatsD
   
     def on_disconnected(self):
         logger.info('on disconnected')
