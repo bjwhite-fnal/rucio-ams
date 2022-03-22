@@ -41,7 +41,7 @@ verify_environment () {
     if ! [[ ${EXPERIMENT} == "rubin" ]]; then
         ocproject=$(oc project)
         proj=($ocproject)
-        if ! [[ ${proj[2]} == "\"rucio-${EXPERIMENT}\"" ]]; then 
+        if ! [[ ${proj[2]} == "\"rucio-${EXPERIMENT}\"" ]]; then
             echo -e "\tPlease ensure that the Openshift project is set to rucio-${EXPERIMENT}"
             exit -3
         fi
@@ -52,8 +52,6 @@ verify_environment () {
         if ! [[ ${kubecontext} =~ *rubin* ]]; then
             echo -e "\tPlease ensure that the Kubernetes context is set to rucio-${EXPERIMENT}"
             exit -4
-        else
-            echo "wrong af"
         fi
     fi
 }

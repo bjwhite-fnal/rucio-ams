@@ -7,26 +7,38 @@ verify_project () {
         echo "Please provide a value for the EXPERIMENT environment variable"
         exit -1
     else
-        ocproject=$(oc project)
-        proj=($ocproject)
-        if ! [[ ${proj[2]} == "\"rucio-$EXPERIMENT\"" ]]; then
-            echo "Please ensure that the Openshift project is set to rucio-$EXPERIMENT"
-            exit -3
+        # Important: ensures we have the okd project set to the experiment that we intend,
+        #   so that we don't accidentally do dumb stuff to the wrong experiment's rucio deployment
+        if ! [[ ${EXPERIMENT} == "rubin" ]]; then
+            ocproject=$(oc project)
+            proj=($ocproject)
+            if ! [[ ${proj[2]} == "\"rucio-${EXPERIMENT}\"" ]]; then
+                echo -e "\tPlease ensure that the Openshift project is set to rucio-${EXPERIMENT}"
+                exit -3
+            fi
+        else
+            # TODO: Check that we are connected to the Rubin cluster
+            kubecontext=$(kubectl config current-context)
+            echo ${kubecontext}
+            if ! [[ ${kubecontext} =~ *rubin* ]]; then
+                echo -e "\tPlease ensure that the Kubernetes context is set to rucio-${EXPERIMENT}"
+                exit -4
+            fi
         fi
     fi
 }
 
 echo "**************** Removing Openshift application: rucio-$EXPERIMENT ****************"
 verify_project
-oc delete deployments --all
-oc delete secrets --all
-oc delete route --all
-oc delete services --all 
-oc delete configmaps --all
-oc delete cronjobs --all
-oc delete pods --all --now
-oc delete daemonset --all
-oc delete pvc --all
-oc delete jobs --all
-oc delete serviceaccount rucio-int-rucio-edit
+kubectl delete deployments --all
+kubectl delete secrets --all
+kubectl delete route --all
+kubectl delete services --all
+kubectl delete configmaps --all
+kubectl delete cronjobs --all
+kubectl delete pods --all --now
+kubectl delete daemonset --all
+kubectl delete pvc --all
+kubectl delete jobs --all
+kubectl delete serviceaccount rucio-int-rucio-edit
 echo "**************** Openshift application rucio-$EXPERIMENT removed successfully. ****************" 
