@@ -38,11 +38,23 @@ verify_environment () {
     fi
     # IMPORTANT: Ensures we have the OKD project set to the experiment that we intend,
     #   so that we don't accidentally do dumb stuff to the wrong experiment's Rucio deployment
-    ocproject=$(oc project)
-    proj=($ocproject)
-    if ! [[ ${proj[2]} == "\"rucio-$EXPERIMENT\"" ]]; then 
-        echo -e "\tPlease ensure that the Openshift project is set to rucio-$EXPERIMENT"
-        exit -3
+    if ! [[ ${EXPERIMENT} == "rubin" ]]; then
+        ocproject=$(oc project)
+        proj=($ocproject)
+        if ! [[ ${proj[2]} == "\"rucio-${EXPERIMENT}\"" ]]; then 
+            echo -e "\tPlease ensure that the Openshift project is set to rucio-${EXPERIMENT}"
+            exit -3
+        fi
+    else
+        # TODO: Check that we are connected to the Rubin cluster
+        kubecontext=$(kubectl config current-context)
+        echo ${kubecontext}
+        if ! [[ ${kubecontext} =~ *rubin* ]]; then
+            echo -e "\tPlease ensure that the Kubernetes context is set to rucio-${EXPERIMENT}"
+            exit -4
+        else
+            echo "wrong af"
+        fi
     fi
 }
 
@@ -99,18 +111,18 @@ if [[ -n ${FNAL_RUCIO_EXT_SERVER_IP} || \
         -z ${FNAL_RUCIO_EXT_WEBUI_IP} || \
         -z ${FNAL_RUCIO_EXT_MSG_IP} ]]; then
         echo -e "\tMake sure to set all ofFNAL_RUCIO_EXT_SERVER_IP, FNAL_RUCIO_EXT_AUTH_IP, FNAL_RUCIO_EXT_WEBUI_IP, FNAL_RUCIO_EXT_MSG_IP if you set any of them."
-        exit -3
+        exit -5
     else
         echo -e "\tApplying external IP addresses to the services."
         # Watch out for some tricky string concatenation to get the external ips into the spec string
-        auth_server_service=$(oc get services | grep "server-auth" | awk '{print $1}')
-        server_service=$(oc get services | grep "server" | grep -v "auth" | awk '{print $1}')
-        webui_service=$(oc get services | grep "rucio-ui" | awk '{print $1}')
-        messenger_service=$(oc get services | grep "rucio-messenger" | awk '{print $1}')
-        oc patch svc ${messenger_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_MSG_IP"'"]}}'
-        oc patch svc ${webui_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_WEBUI_IP"'"]}}'
-        oc patch svc ${server_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_SERVER_IP"'"]}}'
-        oc patch svc ${auth_server_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_AUTH_IP"'"]}}'
+        auth_server_service=$(kubectl get services | grep "server-auth" | awk '{print $1}')
+        server_service=$(kubectl get services | grep "server" | grep -v "auth" | awk '{print $1}')
+        webui_service=$(kubectl get services | grep "rucio-ui" | awk '{print $1}')
+        messenger_service=$(kubectl get services | grep "rucio-messenger" | awk '{print $1}')
+        kubectl patch svc ${messenger_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_MSG_IP"'"]}}'
+        kubectl patch svc ${webui_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_WEBUI_IP"'"]}}'
+        kubectl patch svc ${server_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_SERVER_IP"'"]}}'
+        kubectl patch svc ${auth_server_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_AUTH_IP"'"]}}'
         echo -e "\tServer: ${FNAL_RUCIO_EXT_SERVER_IP}"
         echo -e "\tAuth Server: ${FNAL_RUCIO_EXT_AUTH_IP}"
         echo -e "\tMessenger: ${FNAL_RUCIO_EXT_MSG_IP}"
