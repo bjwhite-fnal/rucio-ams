@@ -1,3 +1,3 @@
 #!/bin/sh
 
-oc create -f $FNAL_RUCIO_DIR/$EXPERIMENT/messenger.yaml
+kubectl create -f $FNAL_RUCIO_DIR/$EXPERIMENT/messenger.yaml
