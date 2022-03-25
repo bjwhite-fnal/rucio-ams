@@ -46,7 +46,6 @@ verify_environment () {
             exit -3
         fi
     else
-        # TODO: Check that we are connected to the Rubin cluster
         kubecontext=$(kubectl config current-context)
         echo ${kubecontext}
         if ! [[ ${kubecontext} =~ *rubin* ]]; then
