@@ -3,7 +3,7 @@
 # Use this to deploy Rucio for an experiment.
 # Create and use an Openshift project named rucio-<experiment name>.
 # Make sure you have the proper configurations setup and
-#   the environment is correct with FNAL_RUCIO_DIR set.
+#   the environment is correct with RUCIO_AMS_DIR set.
 
 verify_environment () {
     # Verify that the currently active Openshift project appears to be correct for the value 
@@ -12,10 +12,10 @@ verify_environment () {
     # REQUIRED TO BE PRESENT
     for fnal_cfg_env in \
         EXPERIMENT \
-        FNAL_RUCIO_DIR \
-        FNAL_EXP_RUCIO_CERT \
-        FNAL_EXP_RUCIO_KEY \
-        FNAL_EXP_RUCIO_CA_BUNDLE
+        RUCIO_AMS_DIR \
+        AMS_RUCIO_CERT \
+        AMS_RUCIO_KEY \
+        AMS_RUCIO_CA_BUNDLE
     do
         if [[ -z $fnal_cfg_env ]]; then
             echo -e "\tPlease provide a value for the ${fnal_cfg_env} environment variable"
@@ -24,15 +24,15 @@ verify_environment () {
     done
 
     # If you assign an ExternalIP to any service, verify we do it to them all
-    if [[ -n ${FNAL_RUCIO_EXT_SERVER_IP} || \
-            -n ${FNAL_RUCIO_EXT_AUTH_IP} || \
-            -n ${FNAL_RUCIO_EXT_MSG_IP} || \
-            -n ${FNAL_RUCIO_EXT_WEBUI_IP} ]]; then
-        if [[ -z ${FNAL_RUCIO_EXT_SERVER_IP} || \
-                -z ${FNAL_RUCIO_EXT_AUTH_IP} || \
-                -z ${FNAL_RUCIO_EXT_MSG_IP} || \
-                -z ${FNAL_RUCIO_EXT_WEBUI_IP} ]]; then
-            echo -e "\tPlease ensure that all [FNAL_RUCIO_EXT_SERVER_IP, FNAL_RUCIO_EXT_AUTH_IP, FNAL_RUCIO_EXT_MSG_IP, FNAL_RUCIO_EXT_WEBUI_IP] are set if any of them are set."
+    if [[ -n ${RUCIO_AMS_EXT_SERVER_IP} || \
+            -n ${RUCIO_AMS_EXT_AUTH_IP} || \
+            -n ${RUCIO_AMS_EXT_MSG_IP} || \
+            -n ${RUCIO_AMS_EXT_WEBUI_IP} ]]; then
+        if [[ -z ${RUCIO_AMS_EXT_SERVER_IP} || \
+                -z ${RUCIO_AMS_EXT_AUTH_IP} || \
+                -z ${RUCIO_AMS_EXT_MSG_IP} || \
+                -z ${RUCIO_AMS_EXT_WEBUI_IP} ]]; then
+            echo -e "\tPlease ensure that all [RUCIO_AMS_EXT_SERVER_IP, RUCIO_AMS_EXT_AUTH_IP, RUCIO_AMS_EXT_MSG_IP, RUCIO_AMS_EXT_WEBUI_IP] are set if any of them are set."
             exit -2
         fi
     fi
@@ -59,55 +59,55 @@ echo -e "**************** Initializing Openshift Application: rucio-$EXPERIMENT 
 verify_environment
 
 echo -e "\tCreating application secrets..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create_cert_secrets.sh
+$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/create_cert_secrets.sh
 
 echo -e "\tCreating StatsD service..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-statsd.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-statsd.sh > /dev/null
+$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/gen-statsd.sh
+$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/create-statsd.sh > /dev/null
 
 echo -e "\tCreating cache service..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-cache.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-cache.sh > /dev/null
+$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/gen-cache.sh
+$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/create-cache.sh > /dev/null
 
 echo -e "\tCreating messenger service..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-messenger.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-messenger.sh > /dev/null
+$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/gen-messenger.sh
+$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/create-messenger.sh > /dev/null
 
 echo -e "\tCreating daemons..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-daemons.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-daemons.sh > /dev/null
+$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/gen-daemons.sh
+$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/create-daemons.sh > /dev/null
 
 echo -e "\tCreating servers..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-server.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-server.sh > /dev/null
+$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/gen-server.sh
+$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/create-server.sh > /dev/null
 
 echo -e "\tCreating web UI..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-webui.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-webui.sh > /dev/null
+$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/gen-webui.sh
+$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/create-webui.sh > /dev/null
 
 echo -e "\tCreating networking routes..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-routes.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-routes.sh > /dev/null
+$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/gen-routes.sh
+$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/create-routes.sh > /dev/null
 
 echo -e "\tCreating ElasticExporter..."
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/gen-exporter.sh
-$FNAL_RUCIO_DIR/rucio-fnal/helm/helm_scripts/create-exporter.sh > /dev/null
+$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/gen-exporter.sh
+$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/create-exporter.sh > /dev/null
 
 echo -e "\tStarting the proxy generation cronjob."
 kubectl create job --from=cronjob/rucio-${EXPERIMENT}-renew-fts-proxy ${USER}-manual-proxy-1
 
 # Only bother with this if operating the OKD Services with OKD externalIPs
 # Check if we have any
-if [[ -n ${FNAL_RUCIO_EXT_SERVER_IP} || \
-    -n ${FNAL_RUCIO_EXT_AUTH_IP} || \
-    -n ${FNAL_RUCIO_EXT_WEBUI_IP} || \
-    -n ${FNAL_RUCIO_EXT_MSG_IP} ]]; then
+if [[ -n ${RUCIO_AMS_EXT_SERVER_IP} || \
+    -n ${RUCIO_AMS_EXT_AUTH_IP} || \
+    -n ${RUCIO_AMS_EXT_WEBUI_IP} || \
+    -n ${RUCIO_AMS_EXT_MSG_IP} ]]; then
     # Ensure that we have all
-    if [[ -z ${FNAL_RUCIO_EXT_SERVER_IP} || \
-        -z ${FNAL_RUCIO_EXT_AUTH_IP} || \
-        -z ${FNAL_RUCIO_EXT_WEBUI_IP} || \
-        -z ${FNAL_RUCIO_EXT_MSG_IP} ]]; then
-        echo -e "\tMake sure to set all ofFNAL_RUCIO_EXT_SERVER_IP, FNAL_RUCIO_EXT_AUTH_IP, FNAL_RUCIO_EXT_WEBUI_IP, FNAL_RUCIO_EXT_MSG_IP if you set any of them."
+    if [[ -z ${RUCIO_AMS_EXT_SERVER_IP} || \
+        -z ${RUCIO_AMS_EXT_AUTH_IP} || \
+        -z ${RUCIO_AMS_EXT_WEBUI_IP} || \
+        -z ${RUCIO_AMS_EXT_MSG_IP} ]]; then
+        echo -e "\tMake sure to set all ofRUCIO_AMS_EXT_SERVER_IP, RUCIO_AMS_EXT_AUTH_IP, RUCIO_AMS_EXT_WEBUI_IP, RUCIO_AMS_EXT_MSG_IP if you set any of them."
         exit -5
     else
         echo -e "\tApplying external IP addresses to the services."
@@ -116,14 +116,14 @@ if [[ -n ${FNAL_RUCIO_EXT_SERVER_IP} || \
         server_service=$(kubectl get services | grep "server" | grep -v "auth" | awk '{print $1}')
         webui_service=$(kubectl get services | grep "rucio-ui" | awk '{print $1}')
         messenger_service=$(kubectl get services | grep "rucio-messenger" | awk '{print $1}')
-        kubectl patch svc ${messenger_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_MSG_IP"'"]}}'
-        kubectl patch svc ${webui_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_WEBUI_IP"'"]}}'
-        kubectl patch svc ${server_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_SERVER_IP"'"]}}'
-        kubectl patch svc ${auth_server_service} -p '{"spec":{"externalIPs":["'"$FNAL_RUCIO_EXT_AUTH_IP"'"]}}'
-        echo -e "\tServer: ${FNAL_RUCIO_EXT_SERVER_IP}"
-        echo -e "\tAuth Server: ${FNAL_RUCIO_EXT_AUTH_IP}"
-        echo -e "\tMessenger: ${FNAL_RUCIO_EXT_MSG_IP}"
-        echo -e "\tWebui: ${FNAL_RUCIO_EXT_WEBUI_IP}"
+        kubectl patch svc ${messenger_service} -p '{"spec":{"externalIPs":["'"$RUCIO_AMS_EXT_MSG_IP"'"]}}'
+        kubectl patch svc ${webui_service} -p '{"spec":{"externalIPs":["'"$RUCIO_AMS_EXT_WEBUI_IP"'"]}}'
+        kubectl patch svc ${server_service} -p '{"spec":{"externalIPs":["'"$RUCIO_AMS_EXT_SERVER_IP"'"]}}'
+        kubectl patch svc ${auth_server_service} -p '{"spec":{"externalIPs":["'"$RUCIO_AMS_EXT_AUTH_IP"'"]}}'
+        echo -e "\tServer: ${RUCIO_AMS_EXT_SERVER_IP}"
+        echo -e "\tAuth Server: ${RUCIO_AMS_EXT_AUTH_IP}"
+        echo -e "\tMessenger: ${RUCIO_AMS_EXT_MSG_IP}"
+        echo -e "\tWebui: ${RUCIO_AMS_EXT_WEBUI_IP}"
     fi
 fi
 

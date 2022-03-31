@@ -1,3 +1,3 @@
 #!/bin/sh
 
-kubectl create -f $FNAL_RUCIO_DIR/$EXPERIMENT/statsd.yaml
+kubectl create -f $RUCIO_AMS_DIR/$EXPERIMENT/statsd.yaml

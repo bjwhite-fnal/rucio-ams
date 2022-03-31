@@ -6,39 +6,39 @@
 
 # Server
 kubectl create secret generic rucio-$EXPERIMENT-server-hostcert \
-	--from-file=hostcert.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CERT
+	--from-file=hostcert.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_CERT
 
 kubectl create secret generic rucio-$EXPERIMENT-server-hostkey \
-	--from-file=hostkey.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_KEY
+	--from-file=hostkey.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_KEY
 
 kubectl create secret generic rucio-$EXPERIMENT-server-cafile \
-        --from-file=ca.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CA_BUNDLE
+        --from-file=ca.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_CA_BUNDLE
 
 # Auth Server
 
 kubectl create secret generic rucio-$EXPERIMENT-auth-hostcert \
-	--from-file=hostcert.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CERT
+	--from-file=hostcert.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_CERT
 
 kubectl create secret generic rucio-$EXPERIMENT-auth-hostkey \
-	--from-file=hostkey.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_KEY
+	--from-file=hostkey.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_KEY
 
 kubectl create secret generic rucio-$EXPERIMENT-auth-cafile \
-        --from-file=ca.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CA_BUNDLE
+        --from-file=ca.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_CA_BUNDLE
 
 
 # Daemons
 kubectl create secret generic rucio-$EXPERIMENT-rucio-x509up \
-        --from-file=hostcert.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CERT \
-        --from-file=hostkey.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_KEY \
+        --from-file=hostcert.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_CERT \
+        --from-file=hostkey.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_KEY \
 
 kubectl create secret generic rucio-$EXPERIMENT-fts-cert \
-        --from-file=usercert.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CERT
+        --from-file=usercert.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_CERT
 
 kubectl create secret generic rucio-$EXPERIMENT-fts-key \
-        --from-file=new_userkey.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_KEY
+        --from-file=new_userkey.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_KEY
 
 kubectl create secret generic rucio-$EXPERIMENT-rucio-ca-bundle \
-        --from-file=ca.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CA_BUNDLE
+        --from-file=ca.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_CA_BUNDLE
 
 # Reapers need the whole directory of certificates
 mkdir /tmp/reaper-certs
@@ -50,30 +50,30 @@ rm -r /tmp/reaper-certs
 
 # Hermes
 kubectl create secret generic rucio-$EXPERIMENT-hermes-cert \
-        --from-file=usercert.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CERT
+        --from-file=usercert.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_CERT
 
 kubectl create secret generic rucio-$EXPERIMENT-hermes-key \
-        --from-file=new_userkey.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_KEY
+        --from-file=new_userkey.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_KEY
 
 # WebUI
 kubectl create secret generic rucio-$EXPERIMENT-hostcert \
-	--from-file=hostcert.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CERT
+	--from-file=hostcert.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_CERT
 
 kubectl create secret generic rucio-$EXPERIMENT-hostkey \
-	--from-file=hostkey.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_KEY
+	--from-file=hostkey.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_KEY
 
 kubectl create secret generic rucio-$EXPERIMENT-cafile \
-        --from-file=ca.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CA_BUNDLE
+        --from-file=ca.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_CA_BUNDLE
 
 # Messenger
 kubectl create secret generic ssl-secrets \
-	--from-file=hostcert.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CERT \
-	--from-file=hostkey.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_KEY \
-	--from-file=ca.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CA_BUNDLE 
+	--from-file=hostcert.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_CERT \
+	--from-file=hostkey.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_KEY \
+	--from-file=ca.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_CA_BUNDLE 
 
 # Exporter
 kubectl create secret generic rucio-$EXPERIMENT-exporter-hostcert \
-        --from-file=hostcert.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_CERT
+        --from-file=hostcert.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_CERT
 
 kubectl create secret generic rucio-$EXPERIMENT-exporter-hostkey \
-        --from-file=hostkey.pem=$FNAL_RUCIO_DIR/$EXPERIMENT/certs/$FNAL_EXP_RUCIO_KEY
+        --from-file=hostkey.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_KEY

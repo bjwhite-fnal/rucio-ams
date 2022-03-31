@@ -8,16 +8,16 @@ Use this to deploy Rucio for an experiment. First source an experiments environm
 In particular please make sure that the following are set by the sourcing of the environment file:
 ~~~~
     EXPERIMENT: Name of the experiment that configuration files are being generated for. Used when generating helm deployment configurations.
-    FNAL_RUCIO_DIR: Set to the top level directory of the rucio-fnal repository (i.e. the directory this README resides in). Enables configuration files to be found in the directory structure detailed below.
-    FNAL_EXP_RUCIO_CERT: Certificate for service authentication.
-    FNAL_EXP_RUCIO_KEY: Key for service authentication.
-    FNAL_EXP_RUCIO_CA_BUNDLE: CA certificates for service authentication.
-    FNAL_EXP_RUCIO_CERT_KEY_COMBINED: Certificate and key concatenated. Needed for the Web UI.
-    FNAL_RUCIO_VERSION: Use this when building fnal-rucio-* images to select the desired Rucio version for installation into the image. 
-    FNAL_RUCIO_EXT_SERVER_IP: Specifies the external IPV4 address of the server service deployment
-    FNAL_RUCIO_EXT_AUTH_IP: Specifies the external IPV4 address of the auth server service deployment
-    FNAL_RUCIO_EXT_WEBUI_IP: Specifies the external IPV4 address of the webui service deployment
-    FNAL_RUCIO_EXT_MSG_IP: Specifies the external IPV4 address of the messenger service deployment
+    RUCIO_AMS_DIR: Set to the top level directory of the rucio-fnal repository (i.e. the directory this README resides in). Enables configuration files to be found in the directory structure detailed below.
+    AMS_RUCIO_CERT: Certificate for service authentication.
+    AMS_RUCIO_KEY: Key for service authentication.
+    AMS_RUCIO_CA_BUNDLE: CA certificates for service authentication.
+    AMS_RUCIO_CERT_KEY_COMBINED: Certificate and key concatenated. Needed for the Web UI.
+    RUCIO_AMS_VERSION: Use this when building fnal-rucio-* images to select the desired Rucio version for installation into the image.
+    RUCIO_AMS_EXT_SERVER_IP: Specifies the external IPV4 address of the server service deployment
+    RUCIO_AMS_EXT_AUTH_IP: Specifies the external IPV4 address of the auth server service deployment
+    RUCIO_AMS_EXT_WEBUI_IP: Specifies the external IPV4 address of the webui service deployment
+    RUCIO_AMS_EXT_MSG_IP: Specifies the external IPV4 address of the messenger service deployment
 ~~~~
 
 ## Before Deployment To-Do List
@@ -40,7 +40,7 @@ Source the setup_rucio_env.sh file at the top of the given experiment's configur
 Use deploy-rucio.sh to deploy services onto the OKD cluster after the environment is configured appropriately as described above.
 Use undeploy-rucio.sh to remove everything (Services, Pods, Routes, Persistent Volumes and Claims, etc..).
 
-The Rucio source code may be patched when the images are built by placing patch files into one of two locations: $FNAL_RUCIO_DIR/rucio-fnal/docker/[server,daemon]/patches
+The Rucio source code may be patched when the images are built by placing patch files into one of two locations: $RUCIO_AMS_DIR/rucio-fnal/docker/[server,daemon]/patches
 
 ## EXAMPLE DIRECTORY STRUCTURE FOR AN EXPERIMENT:
 ~~~~

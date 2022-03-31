@@ -3,7 +3,7 @@ export DOCKER_BUILDKIT=1
 
 # If building the standalone Docker version we won't have OKD variables set
 # so we need to play with the version tag string appropriately to get the latest version
-if [[ -z ${FNAL_RUCIO_VERSION} ]]; then
+if [[ -z ${RUCIO_AMS_VERSION} ]]; then
     tag_str="latest"
 else
     tag_str="release-${rucio_version}"
