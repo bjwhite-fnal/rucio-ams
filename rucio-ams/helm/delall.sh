@@ -32,6 +32,7 @@ verify_project
 kubectl delete deployments --all
 kubectl delete secrets --all
 kubectl delete route --all
+kubectl delete ingress --all
 kubectl delete services --all
 kubectl delete configmaps --all
 kubectl delete cronjobs --all

@@ -85,10 +85,6 @@ echo -e "\tCreating web UI..."
 $RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/gen-webui.sh
 $RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/create-webui.sh > /dev/null
 
-echo -e "\tCreating networking routes..."
-$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/gen-routes.sh
-$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/create-routes.sh > /dev/null
-
 echo -e "\tCreating ElasticExporter..."
 $RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/gen-exporter.sh
 $RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/create-exporter.sh > /dev/null

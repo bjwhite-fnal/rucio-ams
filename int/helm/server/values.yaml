@@ -37,16 +37,6 @@ serverType:
   authServer: flask
   traceServer: trace
 
-serverRoute:
-  app: rucio-int-rucio-server
-  host: int-rucio.okd.fnal.gov
-  serviceName: rucio-server
-
-authServerRoute:
-  app: rucio-int-rucio-server-auth
-  host: auth-int-rucio.okd.fnal.gov
-  serviceName: rucio-server-auth
-
 useSSL:
   authServer: 1
   server: 1
@@ -126,11 +116,28 @@ optional_config:
 monitoring:
   enabled: false
 
-# Disable ingresses because we are on OKD. We are utilizing the Route object instead.
-authIngress:
-  enabled: false
 ingress:
-  enabled: false
+  enabled: true
+  path: /
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  hosts:
+    - int-rucio.okd.fnal.gov
+  tls:
+    - secretName: ssl-secrets
+
+authIngress:
+  enabled: true
+  path: /
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  hosts:
+    - auth-int-rucio.okd.fnal.gov
+  tls:
+    - secretName: ssl-secrets
 
 metricsExporterResources: {}
 errorLogsExporterResources: {}

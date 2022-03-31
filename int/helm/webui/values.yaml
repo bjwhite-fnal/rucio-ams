@@ -23,7 +23,13 @@ minReadySeconds: 5
 exposeErrorLogs: 0
 
 ingress:
-  enabled: 0
+  enabled: true
+  path: /
+  annotations:
+  hosts:
+    - webui-int-rucio.okd.fnal.gov
+  tls:
+    - secretName: ssl-secrets
 
 webuiRoute:
   app: rucio-webui
