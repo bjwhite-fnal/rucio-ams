@@ -200,7 +200,6 @@ ftsRenewal:
   enabled: 1
   image:
     repository: imageregistry.fnal.gov/rucio-ams/fnal-rucio-fts-cron
-    tag: latest
     pullPolicy: Always
   vo: "dune"
   voms: "dune:/dune/Role=Production"

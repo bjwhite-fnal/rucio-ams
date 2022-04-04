@@ -11,6 +11,7 @@ else
     helm template --name rucio-$EXPERIMENT $RUCIO_AMS_DIR/rucio-ams/helm/helm-charts/charts/rucio-daemons \
         --set experiment=$EXPERIMENT \
         --set image.tag=$RUCIO_AMS_VERSION_TAG \
+        --set ftsRenewal.image.tag=$RUCIO_AMS_VERSION_TAG \
         -f $RUCIO_AMS_DIR/$EXPERIMENT/helm/daemons/values.yaml \
         -f $RUCIO_AMS_DIR/$EXPERIMENT/helm/secret/config.yaml > $RUCIO_AMS_DIR/$EXPERIMENT/daemons.yaml
 fi
