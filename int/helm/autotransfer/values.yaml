@@ -7,7 +7,7 @@ minReadySeconds: 5
 autoTransfer:
   enabled: 1
   image:
-    repository: imageregistry.fnal.gov/rucio-ams/fnal-rucio-autotransfer
+    repository: imageregistry.fnal.gov/rucio-ams/rucio-ams-autotransfer
     tag: latest
     pullPolicy: Always
   schedule: "55 * * * *"

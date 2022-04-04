@@ -37,7 +37,7 @@ serviceAccountName: useroot
 
 # Daemon Image
 image:
-  repository: imageregistry.fnal.gov/rucio-ams/fnal-rucio-daemons
+  repository: imageregistry.fnal.gov/rucio-ams/rucio-ams-daemons
   tag: latest
   pullPolicy: Always
 
@@ -199,7 +199,7 @@ hermes:
 ftsRenewal:
   enabled: 1
   image:
-    repository: imageregistry.fnal.gov/rucio-ams/fnal-rucio-fts-cron
+    repository: imageregistry.fnal.gov/rucio-ams/rucio-ams-fts-cron
     pullPolicy: Always
   vo: "dune"
   voms: "dune:/dune/Role=Production"
