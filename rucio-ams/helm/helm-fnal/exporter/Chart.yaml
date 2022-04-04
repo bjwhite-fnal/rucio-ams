@@ -1,6 +1,6 @@
 apiVersion: v1
 description: Fermilab Helm chart for a ES exporter CronJob
-home: https://github.com/bjwhite-fnal/rucio-fnal
+home: https://github.com/bjwhite-fnal/rucio-ams
 maintainers:
 - email: bjwhite@fnal.gov 
   name: Brandon White 
@@ -8,4 +8,4 @@ name: rucio-exporter
 version: 1.0
 appVersion:  1.0
 sources:
-    - https://github.com/bjwhite-fnal/rucio-fnal
+    - https://github.com/bjwhite-fnal/rucio-ams

@@ -3,7 +3,7 @@ serviceAccountName: useroot
 statsdCount: 1
 
 image:
-  repository: imageregistry.fnal.gov/rucio-fnal/fnal-rucio-statsd
+  repository: imageregistry.fnal.gov/rucio-ams/fnal-rucio-statsd
   tag: latest
   pullPolicy: Always
 

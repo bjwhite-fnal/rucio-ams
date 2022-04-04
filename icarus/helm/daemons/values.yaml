@@ -37,7 +37,7 @@ serviceAccountName: useroot
 
 # Daemon Image
 image:
-  repository: imageregistry.fnal.gov/rucio-fnal/fnal-rucio-daemons
+  repository: imageregistry.fnal.gov/rucio-ams/fnal-rucio-daemons
   tag: latest
   pullPolicy: Always
 
@@ -175,7 +175,7 @@ hermes:
 ftsRenewal:
   enabled: 1
   image:
-    repository: imageregistry.fnal.gov/rucio-fnal/fnal-rucio-fts-cron
+    repository: imageregistry.fnal.gov/rucio-ams/fnal-rucio-fts-cron
     tag: 1.23.14
     pullPolicy: Always
   vo: "icarus"

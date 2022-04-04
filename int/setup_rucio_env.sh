@@ -25,7 +25,7 @@ fi
 # For AMS_RUCIO_CERT, AMS_RUCIO_KEY, AMS_RUCIO_CA_BUNDLE only the filenames are needed.
 #   The files should be resident in $AMS_RUCIO_DEPLOYMENT_CONF_DIR/certs 
 export EXPERIMENT=int
-export RUCIO_AMS_DIR=/nashome/b/bjwhite/dev/rucio/rucio-fnal
+export RUCIO_AMS_DIR=/nashome/b/bjwhite/dev/rucio/rucio-ams
 export AMS_RUCIO_CERT=int-rucio.okd.fnal.gov-cert.pem
 export AMS_RUCIO_KEY=int-rucio.okd.fnal.gov-key.pem
 export AMS_RUCIO_CA_BUNDLE=ca_bundle.pem

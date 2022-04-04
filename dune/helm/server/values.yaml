@@ -13,7 +13,7 @@ serviceAccountName: useroot
 experiment: Uses $EXPERIMENT
 
 image:
-  repository: imageregistry.fnal.gov/rucio-fnal/fnal-rucio-server
+  repository: imageregistry.fnal.gov/rucio-ams/fnal-rucio-server
   pullPolicy: Always
 
 #serverResources:

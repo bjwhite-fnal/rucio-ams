@@ -59,39 +59,39 @@ echo -e "**************** Initializing Openshift Application: rucio-$EXPERIMENT 
 verify_environment
 
 echo -e "\tCreating application secrets..."
-$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/create_cert_secrets.sh
+$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/create_cert_secrets.sh
 
 echo -e "\tCreating StatsD service..."
-$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/gen-statsd.sh
-$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/create-statsd.sh > /dev/null
+$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/gen-statsd.sh
+$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/create-statsd.sh > /dev/null
 
 echo -e "\tCreating cache service..."
-$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/gen-cache.sh
-$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/create-cache.sh > /dev/null
+$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/gen-cache.sh
+$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/create-cache.sh > /dev/null
 
 echo -e "\tCreating messenger service..."
-$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/gen-messenger.sh
-$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/create-messenger.sh > /dev/null
+$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/gen-messenger.sh
+$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/create-messenger.sh > /dev/null
 
 echo -e "\tCreating daemons..."
-$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/gen-daemons.sh
-$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/create-daemons.sh > /dev/null
+$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/gen-daemons.sh
+$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/create-daemons.sh > /dev/null
 
 echo -e "\tCreating servers..."
-$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/gen-server.sh
-$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/create-server.sh > /dev/null
+$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/gen-server.sh
+$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/create-server.sh > /dev/null
 
 echo -e "\tCreating web UI..."
-$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/gen-webui.sh
-$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/create-webui.sh > /dev/null
+$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/gen-webui.sh
+$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/create-webui.sh > /dev/null
 
 echo -e "\tCreating networking routes..."
-$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/gen-routes.sh
-$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/create-routes.sh > /dev/null
+$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/gen-routes.sh
+$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/create-routes.sh > /dev/null
 
 echo -e "\tCreating ElasticExporter..."
-$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/gen-exporter.sh
-$RUCIO_AMS_DIR/rucio-fnal/helm/helm_scripts/create-exporter.sh > /dev/null
+$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/gen-exporter.sh
+$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/create-exporter.sh > /dev/null
 
 echo -e "\tStarting the proxy generation cronjob."
 kubectl create job --from=cronjob/rucio-${EXPERIMENT}-renew-fts-proxy ${USER}-manual-proxy-1

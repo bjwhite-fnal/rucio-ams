@@ -18,9 +18,9 @@ exporter.yaml
 autotransfer.yaml
 
 # Ignore hard links that make the Fermilab policy package available inside the Docker build contexts.
-rucio-fnal/docker/daemons/permissions/
-rucio-fnal/docker/server/permissions/
-rucio-fnal/docker/webui/permissions/
+rucio-ams/docker/daemons/permissions/
+rucio-ams/docker/server/permissions/
+rucio-ams/docker/webui/permissions/
 
 # Ignore swap files because they are annoying.
 *.swp

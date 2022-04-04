@@ -1,6 +1,6 @@
 apiVersion: v1
 description: Fermilab Helm chart for automatic testing of transfers of n files to m RSEs
-home: https://github.com/bjwhite-fnal/rucio-fnal
+home: https://github.com/bjwhite-fnal/rucio-ams
 maintainers:
 - email: bjwhite@fnal.gov 
   name: Brandon White 

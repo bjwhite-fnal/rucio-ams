@@ -8,8 +8,9 @@ elif [ -z "$EXPERIMENT" ]; then
     echo "Please use EXPERIMENT to specify the name of the experiment you wish to generate config files for."
     exit 1
 else
-    helm template --name rucio-$EXPERIMENT $RUCIO_AMS_DIR/rucio-fnal/helm/helm-fnal/autotransfer \
+    helm template --name rucio-$EXPERIMENT $RUCIO_AMS_DIR/rucio-ams/helm/helm-fnal/routes \
         --set experiment=$EXPERIMENT \
-        --set image.tag=$RUCIO_AMS_VERSION_TAG \
-        -f $RUCIO_AMS_DIR/$EXPERIMENT/helm/autotransfer/values.yaml > $RUCIO_AMS_DIR/$EXPERIMENT/autotransfer.yaml
+        -f $RUCIO_AMS_DIR/$EXPERIMENT/helm/server/values.yaml \
+        -f $RUCIO_AMS_DIR/$EXPERIMENT/helm/messenger/values.yaml \
+        -f $RUCIO_AMS_DIR/$EXPERIMENT/helm/webui/values.yaml > $RUCIO_AMS_DIR/$EXPERIMENT/routes.yaml
 fi

@@ -2,7 +2,7 @@
 serviceAccountName: "useroot"
 
 image:
-  repository: "imageregistry.fnal.gov/rucio-fnal/fnal-rucio-exporter"
+  repository: "imageregistry.fnal.gov/rucio-ams/fnal-rucio-exporter"
   pullPolicy: "Always"
 
 exporter:

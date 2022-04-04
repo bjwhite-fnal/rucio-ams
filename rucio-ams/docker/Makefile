@@ -188,50 +188,50 @@ build-messenger-nc:
 
 # Image push command definitions
 define push-statsd-cmd =
-	docker tag rucio-statsd imageregistry.fnal.gov/rucio-fnal/fnal-rucio-statsd:${RUCIO_AMS_VERSION_TAG}
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-statsd:${RUCIO_AMS_VERSION_TAG}
+	docker tag rucio-statsd imageregistry.fnal.gov/rucio-ams/fnal-rucio-statsd:${RUCIO_AMS_VERSION_TAG}
+	docker push imageregistry.fnal.gov/rucio-ams/fnal-rucio-statsd:${RUCIO_AMS_VERSION_TAG}
 endef
 
 define push-autotransfer-cmd =
-	docker tag rucio-autotransfer imageregistry.fnal.gov/rucio-fnal/fnal-rucio-autotransfer:${RUCIO_AMS_VERSION_TAG}
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-autotransfer:${RUCIO_AMS_VERSION_TAG}
+	docker tag rucio-autotransfer imageregistry.fnal.gov/rucio-ams/fnal-rucio-autotransfer:${RUCIO_AMS_VERSION_TAG}
+	docker push imageregistry.fnal.gov/rucio-ams/fnal-rucio-autotransfer:${RUCIO_AMS_VERSION_TAG}
 endef
 
 define push-fts-cron-cmd =
-	docker tag rucio-fts-cron imageregistry.fnal.gov/rucio-fnal/fnal-rucio-fts-cron:${RUCIO_AMS_VERSION_TAG}
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-fts-cron:${RUCIO_AMS_VERSION_TAG}
+	docker tag rucio-fts-cron imageregistry.fnal.gov/rucio-ams/fnal-rucio-fts-cron:${RUCIO_AMS_VERSION_TAG}
+	docker push imageregistry.fnal.gov/rucio-ams/fnal-rucio-fts-cron:${RUCIO_AMS_VERSION_TAG}
 endef
 
 define push-exporter-cmd =
-	docker tag rucio-exporter imageregistry.fnal.gov/rucio-fnal/fnal-rucio-exporter:${RUCIO_AMS_VERSION_TAG}
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-exporter:${RUCIO_AMS_VERSION_TAG}
+	docker tag rucio-exporter imageregistry.fnal.gov/rucio-ams/fnal-rucio-exporter:${RUCIO_AMS_VERSION_TAG}
+	docker push imageregistry.fnal.gov/rucio-ams/fnal-rucio-exporter:${RUCIO_AMS_VERSION_TAG}
 endef
 
 define push-webui-cmd =
-	docker tag rucio-webui imageregistry.fnal.gov/rucio-fnal/fnal-rucio-webui:${RUCIO_AMS_VERSION_TAG}
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-webui:${RUCIO_AMS_VERSION_TAG}
+	docker tag rucio-webui imageregistry.fnal.gov/rucio-ams/fnal-rucio-webui:${RUCIO_AMS_VERSION_TAG}
+	docker push imageregistry.fnal.gov/rucio-ams/fnal-rucio-webui:${RUCIO_AMS_VERSION_TAG}
 endef
 
 
 define push-server-cmd =
-	docker tag rucio-server imageregistry.fnal.gov/rucio-fnal/fnal-rucio-server:${RUCIO_AMS_VERSION_TAG}
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-server:${RUCIO_AMS_VERSION_TAG}
+	docker tag rucio-server imageregistry.fnal.gov/rucio-ams/fnal-rucio-server:${RUCIO_AMS_VERSION_TAG}
+	docker push imageregistry.fnal.gov/rucio-ams/fnal-rucio-server:${RUCIO_AMS_VERSION_TAG}
 endef
 
 
 define push-daemons-cmd =
-	docker tag rucio-daemons imageregistry.fnal.gov/rucio-fnal/fnal-rucio-daemons:${RUCIO_AMS_VERSION_TAG}
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-daemons:${RUCIO_AMS_VERSION_TAG}
+	docker tag rucio-daemons imageregistry.fnal.gov/rucio-ams/fnal-rucio-daemons:${RUCIO_AMS_VERSION_TAG}
+	docker push imageregistry.fnal.gov/rucio-ams/fnal-rucio-daemons:${RUCIO_AMS_VERSION_TAG}
 endef
 
 define push-cache-cmd =
-	docker tag rucio-cache imageregistry.fnal.gov/rucio-fnal/fnal-rucio-cache:${RUCIO_AMS_VERSION_TAG}
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-cache:${RUCIO_AMS_VERSION_TAG}
+	docker tag rucio-cache imageregistry.fnal.gov/rucio-ams/fnal-rucio-cache:${RUCIO_AMS_VERSION_TAG}
+	docker push imageregistry.fnal.gov/rucio-ams/fnal-rucio-cache:${RUCIO_AMS_VERSION_TAG}
 endef
 
 define push-messenger-cmd =
-	docker tag rucio-messenger imageregistry.fnal.gov/rucio-fnal/fnal-rucio-messenger:${RUCIO_AMS_VERSION_TAG}
-	docker push imageregistry.fnal.gov/rucio-fnal/fnal-rucio-messenger:${RUCIO_AMS_VERSION_TAG}
+	docker tag rucio-messenger imageregistry.fnal.gov/rucio-ams/fnal-rucio-messenger:${RUCIO_AMS_VERSION_TAG}
+	docker push imageregistry.fnal.gov/rucio-ams/fnal-rucio-messenger:${RUCIO_AMS_VERSION_TAG}
 endef
 
 # Image push command declarations

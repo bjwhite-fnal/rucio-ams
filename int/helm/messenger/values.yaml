@@ -12,7 +12,7 @@ service:
   ssl_targetPort: 443
 
 image:
-  repository: imageregistry.fnal.gov/rucio-fnal/fnal-rucio-messenger
+  repository: imageregistry.fnal.gov/rucio-ams/fnal-rucio-messenger
   tag: latest
   pullPolicy: Always
 

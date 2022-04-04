@@ -4,11 +4,11 @@
 ### Brandon White
 bjwhite@fnal.gov
 
-Use this to deploy Rucio for an experiment. First source an experiments environment file and deploy with the experiment generic rucio-fnal framework.
+Use this to deploy Rucio for an experiment. First source an experiments environment file and deploy with the experiment generic rucio-ams framework.
 In particular please make sure that the following are set by the sourcing of the environment file:
 ~~~~
     EXPERIMENT: Name of the experiment that configuration files are being generated for. Used when generating helm deployment configurations.
-    RUCIO_AMS_DIR: Set to the top level directory of the rucio-fnal repository (i.e. the directory this README resides in). Enables configuration files to be found in the directory structure detailed below.
+    RUCIO_AMS_DIR: Set to the top level directory of the rucio-ams repository (i.e. the directory this README resides in). Enables configuration files to be found in the directory structure detailed below.
     AMS_RUCIO_CERT: Certificate for service authentication.
     AMS_RUCIO_KEY: Key for service authentication.
     AMS_RUCIO_CA_BUNDLE: CA certificates for service authentication.
@@ -40,7 +40,7 @@ Source the setup_rucio_env.sh file at the top of the given experiment's configur
 Use deploy-rucio.sh to deploy services onto the OKD cluster after the environment is configured appropriately as described above.
 Use undeploy-rucio.sh to remove everything (Services, Pods, Routes, Persistent Volumes and Claims, etc..).
 
-The Rucio source code may be patched when the images are built by placing patch files into one of two locations: $RUCIO_AMS_DIR/rucio-fnal/docker/[server,daemon]/patches
+The Rucio source code may be patched when the images are built by placing patch files into one of two locations: $RUCIO_AMS_DIR/rucio-ams/docker/[server,daemon]/patches
 
 ## EXAMPLE DIRECTORY STRUCTURE FOR AN EXPERIMENT:
 ~~~~

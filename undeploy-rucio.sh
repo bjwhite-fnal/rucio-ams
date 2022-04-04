@@ -1,1 +1,1 @@
-rucio-fnal/helm/delall.sh
+rucio-ams/helm/delall.sh
