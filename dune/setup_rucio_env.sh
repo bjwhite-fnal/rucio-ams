@@ -7,7 +7,7 @@ export DOCKER_BUILDKIT=1
 #export RUCIO_AMS_VERSION=1.26.8
 export RUCIO_AMS_VERSION=1.26.9
 
-if [ -z ${RUCIO_FNAL_DEV} ]; then
+if [ -z ${RUCIO_AMS_DEV} ]; then
     export RUCIO_AMS_VERSION_TAG=${RUCIO_AMS_VERSION}
 else
     export RUCIO_AMS_VERSION_TAG="latest"
