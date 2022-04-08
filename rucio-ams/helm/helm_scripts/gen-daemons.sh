@@ -8,7 +8,7 @@ elif [ -z "$EXPERIMENT" ]; then
     echo "Please use EXPERIMENT to specify the name of the experiment you wish to generate config files for."
     exit 1
 else
-    helm template --name rucio-$EXPERIMENT $RUCIO_AMS_DIR/rucio-ams/helm/helm-charts/charts/rucio-daemons \
+    helm template --release-name rucio-$EXPERIMENT $RUCIO_AMS_DIR/rucio-ams/helm/helm-charts/charts/rucio-daemons \
         --set experiment=$EXPERIMENT \
         --set image.tag=$RUCIO_AMS_VERSION_TAG \
         --set ftsRenewal.image.tag=$RUCIO_AMS_VERSION_TAG \
