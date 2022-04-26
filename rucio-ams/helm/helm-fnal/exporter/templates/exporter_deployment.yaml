@@ -45,8 +45,8 @@ spec:
               mountPath: /opt/rucio/hostkey.pem
               subPath: hostkey.pem
             - name: cafile 
-              mountPath: /opt/rucio/cafile.pem
-              subPath: cafile.pem
+              mountPath: /opt/rucio/ca.pem
+              subPath: ca.pem
           env:
           - name: RUCIO_BROKER_HOST
             value: {{ .Values.exporter.config.env.rucio_broker_host }}

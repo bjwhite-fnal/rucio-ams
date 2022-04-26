@@ -77,3 +77,6 @@ kubectl create secret generic rucio-$EXPERIMENT-exporter-hostcert \
 
 kubectl create secret generic rucio-$EXPERIMENT-exporter-hostkey \
         --from-file=hostkey.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_KEY
+
+kubectl create secret generic rucio-$EXPERIMENT-exporter-cafile \
+        --from-file=ca.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_CA_BUNDLE
