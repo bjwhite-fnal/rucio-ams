@@ -1,0 +1,63 @@
+{{- if .Values.exporter.enabled -}}
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ template "rucio.name" . }}
+    chart: {{ template "rucio.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ template "rucio.name" . }}
+      release: {{ .Release.Name }}
+  minReadySeconds: {{ .Values.minReadySeconds }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "rucio.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+    {{- if .Values.serviceAccountName }}
+      serviceAccountName: {{ .Values.serviceAccountName }}
+    {{- end }}
+      volumes:
+        - name: hostcert
+          secret:
+              secretName: {{ .Release.Name }}-hostcert
+        - name: hostkey
+          secret:
+              secretName: {{ .Release.Name }}-hostkey
+        - name: cafile 
+          secret:
+              secretName: {{ .Release.Name }}-cafile
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: hostcert
+              mountPath: /opt/rucio/hostcert.pem
+              subPath: hostcert.pem
+            - name: hostkey
+              mountPath: /opt/rucio/hostkey.pem
+              subPath: hostkey.pem
+            - name: cafile 
+              mountPath: /opt/rucio/cafile.pem
+              subPath: cafile.pem
+          env:
+          - name: RUCIO_BROKER_HOST
+            value: {{ .Values.exporter.config.env.rucio_broker_host }}
+          - name: RUCIO_BROKER_PORT
+            value: {{ .Values.exporter.config.env.rucio_broker_port | quote }}
+          - name: RUCIO_BROKER_QUEUE
+            value: {{ .Values.exporter.config.env.rucio_broker_queue }}
+          - name: RUCIO_BROKER_SUBSCRIPTION_ID
+            value: {{ .Values.exporter.config.env.rucio_broker_subscription_id | quote }}
+          - name: CONSUMER_HOST
+            value: {{ .Values.exporter.config.env.consumer_host }}
+          - name: CONSUMER_PORT
+            value: {{ .Values.exporter.config.env.consumer_port | quote }}
+{{ end }}
