@@ -241,8 +241,6 @@ class STOMPConsumer(stomp.ConnectionListener):
     def on_error(self, headers, message):
         logger.error(f'ERROR Message: {str(message)}')
         logger.error(f'ERROR Message Headers: {str(headers)}')
-        from remote_pdb import RemotePdb
-        RemotePdb('0.0.0.0', 4444).set_trace()
 
         # TODO: Send message to StatsD
   
@@ -328,12 +326,18 @@ if __name__ == '__main__':
         args.es_username,
         args.es_password)
 
-    try:
-        conn.set_listener('', stomp_consumer)
-        conn.connect(wait=True)
-        conn.subscribe(destination=args.broker_queue, ack='client-individual', id=args.subscription_id)
-    except Exception as ex:
-        logger.info(f'There was an error while connecting: {str(ex)}')
+    try_limit = 3
+    try_count = 0
+    while try_count < try_limit: # Handle the case where the server you want to connect to isnt' responding yet. Like an init container, except here where I'm not conusing myself in two years.
+        try:
+            conn.set_listener('', stomp_consumer)
+            conn.connect(wait=True)
+            conn.subscribe(destination=args.broker_queue, ack='client-individual', id=args.subscription_id)
+        except Exception as ex:
+            logger.info(f'There was an error while connecting: {str(ex)}')
+            try_count += 1
+        else:
+            break
     while True:
         sleep(3600)
     conn.disconnect()
