@@ -36,6 +36,8 @@ def parse_arguments():
             help='SSL Certificate for Rucio connection')
     parser.add_argument('--ssl-key', default='/opt/rucio/hostkey.pem',
             help='SSL Key for Rucio connection')
+    parser.add_argument('--cafile', default='/opt/rucio/ca.pem',
+            help='SSL Key for Rucio connection')
     parser.add_argument('--chunk-size', type=int, default=1,
             help='Number of STOMP messages to process at once.')
     parser.add_argument('--es_username', default='guest',
@@ -313,7 +315,8 @@ if __name__ == '__main__':
         [ host_info ],
         reconnect_attempts_max=1,
         vhost=args.vhost)
-    conn.set_ssl([host_info], key_file=args.ssl_key, cert_file=args.ssl_cert)
+    conn.set_ssl([host_info], key_file=args.ssl_key, cert_file=args.ssl_cert, ca_certs=args.cafile)
+    #conn.set_ssl([host_info], key_file=args.ssl_key, cert_file=args.ssl_cert)
     
     stomp_consumer = STOMPConsumer(
         conn,
