@@ -10,7 +10,7 @@ ADD ./from_mq_to_es.py /from_mq_to_es.py
 ADD ./start-export.sh /start-export.sh
 
 USER root
-RUN pip3 install stomp.py elasticsearch remote-pdb
+RUN pip3 install stomp.py==6.1.1 elasticsearch remote-pdb
 RUN yum -y update && yum install -y telnet net-tools
 USER user 
 
