@@ -6,7 +6,7 @@ export DOCKER_BUILDKIT=1
 if [[ -z ${RUCIO_AMS_VERSION} ]]; then
     tag_str="latest"
 else
-    tag_str="release-${rucio_version}"
+    tag_str="${RUCIO_AMS_VERSION}"
 fi
 
 echo "Building with tag: ${tag_str}"

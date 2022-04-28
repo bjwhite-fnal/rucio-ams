@@ -224,7 +224,9 @@ class RucioTransferTest:
     def establish_broker_connection(self, host, port, cert, key, topic, sub_id, vhost, files_to_track):
         conn = stomp.Connection12(
             [(host, port)],
-            vhost=vhost
+            reconnect_attempts_max=1,
+            vhost=vhost,
+            heartbeats=(20000,20000)
         )
         logger.info(f'Listener thread created connection object to: {host}:{port}')
         conn.set_ssl(
