@@ -312,7 +312,8 @@ if __name__ == '__main__':
     conn = stomp.Connection12(
         [ host_info ],
         reconnect_attempts_max=1,
-        vhost=args.vhost)
+        vhost=args.vhost,
+        heartbeats=(20000,20000))
     conn.set_ssl([host_info], key_file=args.ssl_key, cert_file=args.ssl_cert, ca_certs=args.cafile)
     #conn.set_ssl([host_info], key_file=args.ssl_key, cert_file=args.ssl_cert)
     
