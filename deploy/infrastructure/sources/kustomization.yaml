@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: flux-system
+resources:
+  - prometheus.yaml
+  - kube-eagle.yaml
+  - rucio.yaml
+  - rucio-git.yaml
+  - cms-kubernetes.yaml
+  - cms-kubernetes-git.yaml

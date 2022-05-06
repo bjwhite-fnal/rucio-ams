@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: instance-prometheus-values
+  namespace: prometheus
+data:
+  values.yaml: |+
+    extraScrapeConfigs: |
+      - job_name: "statsd-exporter"
+        metrics_path: "/metrics"
+        static_configs:
+        - targets: ['statsd-exporter-rucio-statsd-exporter:9102']
+          labels:
+            rucioInstance: 'int'

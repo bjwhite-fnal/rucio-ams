@@ -1,0 +1,7 @@
+probes:
+  check_expired_rules:
+    interval: 1
+
+config:
+  monitor:
+    prometheus_labels: '{"rucioInstance": "int"}'

@@ -1,0 +1,37 @@
+image:
+    tag: release-1.26.9
+
+# This is where configuration options shared between all instances go
+config:
+    accounts:
+        special_accounts: "tier0"
+
+    policy:
+        permission: "fermilab"
+        schema: "generic"
+        lfn2pfn_algorithm_default: "identity"
+        lfn2pfn_module: "cmstfc"
+        support: "https://its.cern.ch/jira/projects/CMSRUCIO/summary"
+    messaging_hermes:
+        brokers: "localhost"
+        voname: "cms"    
+        email_from: "cms-rucio-dev@cern.ch"
+    messaging_cache:
+        brokers: "localhost"
+        voname: "cms"    
+    messaging_fts3:
+        brokers: "localhost"
+        voname: "cms"    
+    tracer_kronos:
+        brokers: "localhost"
+        voname: "cms"    
+    conveyor:
+        ftshosts: "https://cmsfts3.fnal.gov:8446"
+        ftsmonhosts: "https://cmsfts3.fnal.gov:8449"
+        bring_online: "576000"
+    monitor:
+        carbon_server: statsd-exporter-rucio-statsd-exporter.prometheus
+        user_scope: rucio
+
+    database:
+      echo: "0"

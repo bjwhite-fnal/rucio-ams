@@ -1,0 +1,7 @@
+cronjobSettings:
+  daemonName: "daemons"
+  instance: "int"
+
+image:
+  repository: imageregistry.fnal.gov/rucio-ams/rucio_client
+  tag: "latest"

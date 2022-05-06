@@ -1,0 +1,4 @@
+ingress:
+  hosts:
+    - int-rucio-stats-int.fnal.okd.gov
+

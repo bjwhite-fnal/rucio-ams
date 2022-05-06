@@ -1,0 +1,26 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prometheus
+spec:
+  releaseName: prometheus
+  chart:
+    spec:
+      chart: prometheus
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+      version: ">=13.0.0 <15.0.0"
+  interval: 1h0m0s
+  valuesFrom:
+    - kind: ConfigMap
+      name: cms-prometheus-values
+      valuesKey: values.yaml
+    - kind: ConfigMap
+      name: instance-prometheus-values
+      valuesKey: values.yaml
+  install:
+    remediation:
+      retries: 3
+  

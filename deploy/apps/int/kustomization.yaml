@@ -1,0 +1,43 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: rucio
+resources:
+  - ../base
+  - ../base/rucio-daemons
+  - ../base/rucio-server
+  - ../base/rucio-webui
+  - ../base/rucio-probes
+#  - ../base/cms-rucio-traces
+  - ../base/cms-rucio-consistency
+  - ../base/cms-rucio-cron
+#  - ../options/loadtest-daemons
+#  - ../options/loadtest
+#  - ../options/webdav-loadtest
+
+configMapGenerator:
+  - name: instance-rucio-server
+    files:
+      - values.yaml=int-rucio-server.yaml
+  - name: instance-rucio-daemons
+    files:
+      - values.yaml=int-rucio-daemons.yaml
+  - name: instance-rucio-webui
+    files:
+      - values.yaml=int-rucio-webui.yaml
+  - name: instance-rucio-probes
+    files:
+      - values.yaml=int-rucio-probes.yaml
+  - name: instance-rucio-release
+    files:
+      - values.yaml=int-release.yaml
+  - name: instance-consistency
+    files:
+      - values.yaml=int-consistency.yaml
+  - name: instance-consistency-jobs
+    files:
+      - values.yaml=int-consistency-jobs.yaml
+  - name: instance-rucio-cron
+    files:
+      - values.yaml=int-cms-cron.yaml
+configurations:
+  - kustomizeconfig.yaml
