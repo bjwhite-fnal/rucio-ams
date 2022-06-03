@@ -1,0 +1,255 @@
+# Daemon Values
+
+experiment: Uses $EXPERIMENT
+
+# Number of pods to run for each daemon
+reaperCount: 0
+hermesCount: 0 
+
+abacusAccountCount: 0
+abacusCollectionReplicaCount: 0
+abacusRseCount: 0
+
+conveyorTransferSubmitterCount: 0
+conveyorPollerCount: 0
+conveyorFinisherCount: 0
+conveyorStagerCount: 0
+conveyorReceiverCount: 0
+
+judgeCleanerCount: 0 
+judgeEvaluatorCount: 0 
+judgeInjectorCount: 0 
+judgeRepairerCount: 0 
+
+undertakerCount: 0
+transmogrifierCount: 0
+minosCount: 0 
+necromancerCount: 0 
+#kronosCount: 0
+#cacheConsumerCount: 0
+#auditor?
+
+# Service Account
+serviceAccountName: useroot
+
+# Daemon Image
+image:
+  repository: imageregistry.fnal.gov/rucio-ams/rucio-ams-daemons
+  tag: latest
+  pullPolicy: Always
+
+# Pod Upgrade Strategy
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 1
+
+minReadySeconds: 5
+
+# Daemons Specific Configuration Parameters
+abacusAccount:
+  threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "400Mi"
+      cpu: "700m"
+
+abacusRse:
+  threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "400Mi"
+      cpu: "700m"
+
+abacusCollectionReplica:
+  threads: 1
+  resources:
+    limits:
+      memory: "800Mi"
+      cpu: "700m"
+    requests:
+      memory: "800Mi"
+      cpu: "700m"
+
+conveyorTransferSubmitter:
+  threads: 1
+  activities: "'User Subscriptions' 'Recovery'"
+  sleepTime: 10
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "400Mi"
+      cpu: "700m"
+
+conveyorPoller:
+  threads: 1
+  activities: "'User Subscriptions' 'Recovery'"
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "400Mi"
+      cpu: "700m"
+
+conveyorFinisher:
+  threads: 1
+  activities: "'User Subscriptions' 'Recovery'"
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "400Mi"
+      cpu: "700m"
+
+conveyorStager:
+  threads: 1
+  activities: "'User Subscriptions' 'Recovery'"
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "400Mi"
+      cpu: "700m"
+
+conveyorReceiver:
+  threads: 1
+  activities: "'User Subscriptions' 'Recovery'"
+
+judgeCleaner:
+  threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "400Mi"
+      cpu: "700m"
+
+judgeEvaluator:
+  threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "400Mi"
+      cpu: "700m"
+
+judgeInjector:
+  threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "400Mi"
+      cpu: "700m"
+
+judgeRepairer:
+  threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "400Mi"
+      cpu: "700m"
+
+undertaker:
+  threads: 1
+
+reaper:
+  scheme: "gsiftp"
+  threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "400Mi"
+      cpu: "700m"
+
+minos:
+  threads: 1
+
+necromancer:
+  threads: 1
+
+hermes:
+  threads: 2
+  useSSL: "True"
+  bulk: "100"
+  delay: "10"
+
+ftsRenewal:
+  enabled: 1
+  image:
+    repository: imageregistry.fnal.gov/rucio-ams/rucio-ams-fts-cron
+    pullPolicy: Always
+  vo: "rubin"
+  voms: "rubin:/rubin/Role=Production"
+  servers: "https://fts-eval01.slac.stanford.edu:8446"
+
+# Config values used to configure the Rucio daemons
+# These are turned into RUCIO_CFG_<section>_<variable>=value environment variables
+config:
+
+  common:
+    #logdir: /rucio/logs
+
+  conveyor:
+    max_time_in_queue: "User Subscriptions:5"
+    ftshosts: "https://fts-eval01.slac.stanford.edu:8446"
+    cacert: "/opt/certs/ca.pem"
+    usercert: "/opt/proxy/x509up"
+    bring_online: "259200"
+
+  monitor:
+    carbon_server: "rucio-statsd"
+    carbon_port: "8125"
+    user_scope: "rucio_rubin_okd"
+    enable_metrics: "True"
+
+  messaging:
+    cache_port: "11211"
+    cache_destination: "/topic/rucio.events.rubin"
+    cache_brokers: "rucio-cache"
+    cache_voname: "rubin"
+    cache_account: "memcache"
+
+    hermes_username: "guest"
+    hermes_password: "guest"
+    hermes_port: "443"
+    hermes_use_ssl: "True"
+    hermes_ssl_key_file: "/opt/rucio/keys/new_userkey.pem"
+    hermes_ssl_cert_file: "/opt/rucio/certs/usercert.pem"
+    hermes_destination: "/topic/rucio.events.rubin"
+    hermes_brokers: "rucio-messenger"
+    hermes_broker_virtual_host: "/"
+    hermes_voname: "/"
+    hermes_email_from: "Rubin Rucio Support <bjwhite@fnal.gov>"
+    hermes_email_test: "bjwhite@fnal.gov"
+
+  policy:
+    package: rubin 
+    support: "Brandon White <bjwhite@fnal.gov>"
+
+optional_config:
+  policy_pkg_dir: /opt/rucio/permissions
+  #rucio_enable_logfile: "True"
+  #rucio_enable_logs: "True"
+  #rucio_daemon_log_dir: "/rucio/logs"
+  #rucio_cfg_database_echo: 1
+  delegate_fts_proxy: "true"

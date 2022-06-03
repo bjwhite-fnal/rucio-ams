@@ -1,0 +1,137 @@
+# Server Values
+
+
+# Number of pods to run for server (replicaCount) and auth server (authReplicaCount)
+replicaCount: 1 
+authReplicaCount: 1
+traceReplicaCount: 0
+
+# Leave this as useroot (or whatever the ServiceAccount setup by the admins with the ability to run privileged containers).
+serviceAccountName: useroot
+
+experiment: Uses $EXPERIMENT
+
+image:
+  repository: imageregistry.fnal.gov/rucio-ams/rucio-ams-server
+  pullPolicy: Always
+
+#serverResources:
+#  limits:
+#    memory: "8000Mi"
+#    cpu: "700m"
+#  requests:
+#    memory: "4000Mi"
+#    cpu: "200m"
+#
+#authServerResources:
+#  limits:
+#    memory: "600Mi"
+#    cpu: "700m"
+#  requests:
+#    memory: "200Mi"
+#    cpu: "200m"
+
+serverType:
+  server: flask
+  authServer: flask
+  traceServer: trace
+
+serverRoute:
+  app: rucio-rubin-rucio-server
+  host: rucio-eval01.slac.stanford.edu
+  serviceName: rucio-server
+
+authServerRoute:
+  app: rucio-rucio-rucio-server-auth
+  host: rucio-eval01.slac.stanford.edu
+  serviceName: rucio-server-auth
+
+useSSL:
+  authServer: 1
+  server: 1
+
+service:
+  type: ClusterIP
+  port: 443
+  targetPort: 443
+
+authService:
+  type: ClusterIP
+  port: 443
+  targetPort: 443
+  tls:
+    enabled: true
+
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 1
+
+minReadySeconds:
+  server: 5
+  authServer: 5
+
+# Don't worry about this, we have our own logging solution. This is for CERN.
+exposeErrorLogs:
+  server: 0
+  authServer: 0
+
+httpd_config:
+  mpm_mode: "prefork"
+  use_ca_path: "1"
+  start_servers: "1"
+  min_spare_servers: "1"
+  max_spare_servers: "1"
+  server_limit: "10"
+  max_clients: "10"
+  max_requests_per_child: "200"
+
+config: 
+  common:
+    # Sets the location that the daemons will log to.
+    logdir: /rucio/logs
+
+  monitor:
+    carbon_server: "rucio-statsd"
+    carbon_port: "8125"
+    user_scope: "rucio_rubin_okd"
+    enable_metrics: "True"
+
+  # Configure the policy package that is to be used for this deployment.
+  policy:
+    package: rubin 
+    support: "Brandon White <bjwhite@fnal.gov>"
+
+  # Set up request routing to the auth server
+  api:
+    endpoints: auth,accountlimits,accounts,config,credentials,dids,export,heartbeats,identities,import,lifetime_exceptions,locks,meta,ping,redirect,replicas,requests,rses,rules,scopes,subscriptions
+
+# FNAL (and likely OKD) Specific Configuration Stuff
+optional_config:
+  # Set the path (inside the container) where the experiment policy package will be located.
+  policy_pkg_dir: /opt/rucio/permissions
+
+  # Enable logging to files instead of the container STDOUT and set the location that they will go to (Default: /var/log/ if rucio_httpd_log_dir not set)
+  #rucio_enable_logfile: "True"
+  #rucio_enable_logs: "True"
+  #rucio_httpd_log_dir: /rucio/logs
+
+  # Database debugging messages
+  #rucio_cfg_database_echo: 1
+
+authIngress:
+  enabled: false
+
+ingress:
+  enabled: false
+
+monitoring:
+  enabled: false
+
+metricsExporterResources: {}
+errorLogsExporterResources: {}
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
