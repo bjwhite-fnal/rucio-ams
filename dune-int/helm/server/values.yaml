@@ -112,6 +112,8 @@ config:
 optional_config:
   # Set the path (inside the container) where the experiment policy package will be located.
   policy_pkg_dir: /opt/rucio/permissions
+  metacat_server_url: https://metacat.fnal.gov:9443/dune_meta_demo/app
+  metacat_auth_server_url: https://metacat.fnal.gov:8143/auth/dune
 
   # Enable logging to files instead of the container STDOUT and set the location that they will go to (Default: /var/log/ if rucio_httpd_log_dir not set)
   #rucio_enable_logfile: "True"

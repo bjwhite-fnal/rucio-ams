@@ -14,7 +14,7 @@ RUN yum install -y less \
     net-tools \
     telnet
 
-RUN python3 -m pip install remote-pdb
+RUN python3 -m pip install metacat remote-pdb
 
 ADD vomses /etc
 ADD ./start-daemon.sh /
