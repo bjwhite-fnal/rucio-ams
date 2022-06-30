@@ -49,6 +49,9 @@ def has_permission(issuer, action, kwargs):
     :returns: True if account is allowed, otherwise False
     """
     perm = {
+            'add_account': perm_add_account,
+            'del_account': perm_del_account,
+            'update_account': perm_update_account,
             'add_rule': perm_add_rule,
             'add_scope': perm_add_scope,
             'add_rse': perm_add_rse,
@@ -70,6 +73,8 @@ def has_permission(issuer, action, kwargs):
             'update_subscription': perm_update_subscription,
             'reduce_rule': perm_reduce_rule,
             'move_rule': perm_move_rule,
+            'add_account_identity': perm_add_account_identity,
+            'del_account_identity': perm_del_account_identity,
             'add_did': perm_add_did,
             'add_dids': perm_add_dids,
             'attach_dids': perm_attach_dids,
@@ -91,6 +96,7 @@ def has_permission(issuer, action, kwargs):
             'get_local_account_usage': perm_get_local_account_usage,
             'get_global_account_usage': perm_get_global_account_usage,
             'add_distance': perm_add_distance,
+            'del_identity': perm_del_identity,
             'update_distance': perm_update_distance,
             'access_rule_vo': perm_access_rule_vo}
 
@@ -169,6 +175,46 @@ def perm_add_subscription(issuer, kwargs):
     ):
         return True
     return False
+
+
+def perm_add_account_identity(issuer, kwargs):
+    """
+    Checks if an account can add an identity to an account.
+
+    :param issuer: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed, otherwise False
+    """
+
+    return _is_root(issuer) \
+        or issuer == kwargs.get('account') \
+        or has_account_attribute(account=issuer, key='admin')
+
+
+def perm_del_account_identity(issuer, kwargs):
+    """
+    Checks if an account can delete an identity to an account.
+
+    :param issuer: Account identifier which issues the command
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed, otherwise False
+    """
+    return _is_root(issuer) \
+        or issuer.external in kwargs.get('accounts') \
+        or has_account_attribute(account=issuer, key='admin')
+
+
+def perm_del_identity(issuer, kwargs):
+    """
+    Checks if an account can delete an identity.
+
+    :param issuer: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed, otherwise False
+    """
+    return _is_root(issuer) \
+        or issuer.external in kwargs.get('accounts') \
+        or has_account_attribute(account=issuer, key='admin')
 
 
 def perm_add_did(issuer, kwargs):
@@ -561,9 +607,39 @@ def perm_del_rse_attribute(issuer, kwargs):
     :param kwargs: List of arguments for the action.
     :returns: True if account is allowed, otherwise False
     """
-    if _is_root(issuer) or has_account_attribute(account=issuer, key='admin') or has_account_attribute(account=issuer, key='del_rse_attribute'):
-        return True
-    return False
+    return _is_root(issuer) or has_account_attribute(account=issuer, key='admin') or has_account_attribute(account=issuer, key='del_rse_attribute')
+
+def perm_add_account(issuer, kwargs):
+    """
+    Checks if an account can add an account.
+
+    :param issuer: Account identifier which issues the command
+    :param kwargs: List of argumentsf or the action
+    :returns: True if account is allowed, otherwise False
+    """
+    return _is_root(issuer) or has_account_attribute(account=issuer, key='admin')
+
+
+def perm_del_account(issuer, kwargs):
+    """
+    Checks if an account can add an account.
+
+    :param issuer: Account identifier which issues the command
+    :param kwargs: List of argumentsf or the action
+    :returns: True if account is allowed, otherwise False
+    """
+    return _is_root(issuer) or has_account_attribute(account=issuer, key='admin')
+
+
+def perm_update_account(issuer, kwargs):
+    """
+    Checks if an account can update an account.
+
+    :param issuer: Account identifier which issues the command.
+    :param kwargs: List of arguments for the action.
+    :returns: True if account is allowed, otherwise False
+    """
+    return _is_root(issuer) or has_account_attribute(account=issuer, key='admin')
 
 
 def perm_del_rse(issuer, kwargs):
