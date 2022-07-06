@@ -24,3 +24,6 @@ rucio-ams/docker/webui/permissions/
 
 # Ignore swap files because they are annoying.
 *.swp
+
+.vscode
+notes

@@ -105,7 +105,8 @@ config:
     carbon_server: "rucio-statsd"
     carbon_port: "8125"
     user_scope: "rucio_int_okd"
-    enable_metrics: "True"
+# disabled for 1.26.13. Will renable in 1.27.4
+    enable_metrics: "false"
 
   # Configure the policy package that is to be used for this deployment.
   policy:
