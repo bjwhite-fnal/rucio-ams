@@ -3,8 +3,7 @@
 ARG rucio_version 
 FROM rucio/rucio-ui:release-$rucio_version
 
-# This is just debug stuff
-RUN yum install -y patch net-tools vim less
+RUN yum install -y metacat patch net-tools vim less
 
 # These config files do not need to be added currently as they don't differ from
 #   the official image

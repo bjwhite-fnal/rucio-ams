@@ -259,13 +259,15 @@ class STOMPConsumer(stomp.ConnectionListener):
         msg_id = headers['message-id']
   
         if 'resubmitted' in headers:
+            logger.debug(f'Skipping resubmitted message.')
             # Send message to StatsD
             # Ignore resubmitted messages
             return
   
         try:
             report = jloads(message)
-        except Exception:
+        except Exception as ex:
+            logger.error(f'There was an exception while loading the message: {str(ex)}')
             # Corrupt message, ignore
             # Send message to StatsD
             self.__conn.ack(msg_id, self.__subscription_id)
