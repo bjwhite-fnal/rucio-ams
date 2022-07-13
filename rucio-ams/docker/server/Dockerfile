@@ -15,6 +15,7 @@ RUN pip3 install metacat remote-pdb
 RUN mv /etc/httpd/conf.d/zgridsite.conf /etc/httpd/conf.d/zgridsite.conf-hide
 
 # Add FNAL specific files
+ADD rucio.cfg.j2 /tmp
 ADD alembic.ini.j2 /tmp
 ADD gacl /opt/rucio/etc/
 ADD configure_server_log_location.sh /
