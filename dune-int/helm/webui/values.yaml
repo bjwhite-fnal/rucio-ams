@@ -58,6 +58,7 @@ config:
   policy:
     package: fermilab.dune
     support: "Brandon White <bjwhite@fnal.gov>"
+    lfn2pfn_algorithm_default: DUNE
 
 optional_config:
   experiment: Uses $EXPERIMENT 
