@@ -103,6 +103,8 @@ config:
   policy:
     package: fermilab.dune
     support: "Brandon White <bjwhite@fnal.gov>"
+    lfn2pfn_algorithm_default: DUNE
+
 
   # Set up request routing to the auth server
   api:
