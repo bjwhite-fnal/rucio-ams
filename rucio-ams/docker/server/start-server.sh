@@ -46,6 +46,8 @@ else
     echo "Using default logging..."
 fi
 
+/usr/bin/memcached -u memcached -p 11211 -m 128 -c 1024 &
+
 echo "=================== /etc/httpd/conf.d/rucio.conf ========================"
 cat /etc/httpd/conf.d/rucio.conf
 echo ""
