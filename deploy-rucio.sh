@@ -55,6 +55,8 @@ verify_environment () {
     fi
 }
 
+echo $EXPERIMENT
+
 echo -e "**************** Initializing Openshift Application: rucio-$EXPERIMENT ****************"
 verify_environment
 
@@ -107,7 +109,7 @@ if [[ -n ${RUCIO_AMS_EXT_SERVER_IP} || \
         -z ${RUCIO_AMS_EXT_AUTH_IP} || \
         -z ${RUCIO_AMS_EXT_WEBUI_IP} || \
         -z ${RUCIO_AMS_EXT_MSG_IP} ]]; then
-        echo -e "\tMake sure to set all ofRUCIO_AMS_EXT_SERVER_IP, RUCIO_AMS_EXT_AUTH_IP, RUCIO_AMS_EXT_WEBUI_IP, RUCIO_AMS_EXT_MSG_IP if you set any of them."
+        echo -e "\tMake sure to set all of RUCIO_AMS_EXT_SERVER_IP, RUCIO_AMS_EXT_AUTH_IP, RUCIO_AMS_EXT_WEBUI_IP, RUCIO_AMS_EXT_MSG_IP if you set any of them."
         exit -5
     else
         echo -e "\tApplying external IP addresses to the services."
