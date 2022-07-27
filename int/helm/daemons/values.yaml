@@ -182,7 +182,7 @@ ftsRenewal:
 # Config values used to configure the Rucio daemons
 # These are turned into RUCIO_CFG_<section>_<variable>=value environment variables
 config:
-  common:
+#  common:
 
   conveyor:
     max_time_in_queue: "User Subscriptions:5"

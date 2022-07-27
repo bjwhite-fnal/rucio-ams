@@ -20,6 +20,11 @@ strategy:
 
 minReadySeconds: 5
 
+proxy:
+  rucioProxy: "int-rucio.fnal.gov"
+  rucioAuthProxy: "auth-int-rucio.fnal.gov"
+
+
 exposeErrorLogs: 0
 
 ingress:
@@ -27,7 +32,7 @@ ingress:
 
 webuiRoute:
   app: rucio-webui
-  host: webui-int-rucio.okd.fnal.gov
+  host: webui-int-rucio.fnal.gov
   serviceName: rucio-int-rucio-ui
 
 service:
