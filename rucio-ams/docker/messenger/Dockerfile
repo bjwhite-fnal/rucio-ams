@@ -10,7 +10,6 @@ COPY ./configure-rabbitmq.sh /usr/local/bin/
 COPY ./docker-entrypoint.sh /usr/local/bin/
 
 VOLUME /etc/rabbitmq/ssl
-EXPOSE 61614
 EXPOSE 443
 
 ENTRYPOINT ["docker-entrypoint.sh"]

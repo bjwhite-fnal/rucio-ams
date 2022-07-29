@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 # Determine and set the RUCIO_PROXY and RUCIO_AUTH_PROXY variables for the configured experiment
-source /configure_rucio_environment.sh
+# source /configure_rucio_environment.sh
 
 if [ ! -z "$POLICY_PKG_DIR" ]; then
     if [ ! -d "$POLICY_PKG_DIR" ]; then
