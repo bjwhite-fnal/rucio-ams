@@ -87,6 +87,7 @@ httpd_config:
   server_limit: "10"
   max_clients: "10"
   max_requests_per_child: "200"
+  enable_status: "False"
 
 livenessProbe:
   server:
@@ -105,7 +106,7 @@ config:
     carbon_server: "rucio-statsd"
     carbon_port: "8125"
     user_scope: "rucio_int_okd"
-# disabled for 1.26.13. Will renable in 1.27.4
+# TODO: need to renable at some point
     enable_metrics: "false"
 
   # Configure the policy package that is to be used for this deployment.
@@ -126,6 +127,7 @@ optional_config:
 
 monitoring:
   enabled: false
+
 
 # Disable ingresses because we are on OKD. We are utilizing the Route object instead.
 authIngress:
