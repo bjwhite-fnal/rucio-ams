@@ -56,7 +56,7 @@ source $EXPERIMENT/setup_rucio_env.sh
 export RUCIO_AMS_DIR=$PWD
 
 # set user
-export RUCIO_BUILD_USER=$(whoami)
+export RUCIO_BUILD_USER=$USER
 echo Author: $RUCIO_BUILD_USER
 
 # add bin to the PATH
