@@ -39,14 +39,19 @@ fi
 
 j2 /tmp/rucio.conf.j2 | sed '/^\s*$/d' > /etc/httpd/conf.d/rucio.conf
 
+/usr/bin/memcached -u memcached -p 11211 -m 128 -c 1024 &
+
+if [ ! -z "$RUCIO_METRICS_PORT" -a -z "$prometheus_multiproc_dir" ]; then
+    echo "Setting default prometheus_multiproc_dir to /tmp/prometheus"
+    export prometheus_multiproc_dir=/tmp/prometheus
+fi
+
 if [ ! -z "$RUCIO_HTTPD_LOG_DIR" ]; then
     echo "Configuring custom HTTP logging..."
     /configure_server_log_location.sh
 else
     echo "Using default logging..."
 fi
-
-/usr/bin/memcached -u memcached -p 11211 -m 128 -c 1024 &
 
 echo "=================== /etc/httpd/conf.d/rucio.conf ========================"
 cat /etc/httpd/conf.d/rucio.conf

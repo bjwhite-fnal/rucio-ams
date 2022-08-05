@@ -59,6 +59,9 @@ export RUCIO_AMS_DIR=$PWD
 export RUCIO_BUILD_USER=$USER
 echo Author: $RUCIO_BUILD_USER
 
+echo Rucio Version: $RUCIO_AMS_VERSION
+echo Docker Tag: $RUCIO_AMS_VERSION_TAG
+
 # add bin to the PATH
 export PATH=$RUCIO_AMS_DIR/bin:$PATH
 
