@@ -63,4 +63,4 @@ echo "=================== /opt/rucio/etc/alembic.ini ========================"
 cat /opt/rucio/etc/alembic.ini
 echo ""
 
-httpd -D FOREGROUND
+exec httpd -D FOREGROUND

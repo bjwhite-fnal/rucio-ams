@@ -5,7 +5,7 @@ export RUCIO_AMS_DEV=true
 
 # I love parallel builds!
 export DOCKER_BUILDKIT=1
-export RUCIO_AMS_VERSION=1.27.5
+export RUCIO_AMS_VERSION=1.27.12
 
 if [ -z ${RUCIO_AMS_DEV} ]; then
     export RUCIO_AMS_VERSION_TAG=${RUCIO_AMS_VERSION}

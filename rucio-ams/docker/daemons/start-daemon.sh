@@ -56,8 +56,8 @@ echo "starting daemon with: $RUCIO_DAEMON $RUCIO_DAEMON_ARGS"
 echo ""
 
 if [ -z "$RUCIO_ENABLE_LOGS" ]; then
-    eval "/usr/bin/python3 /usr/local/bin/rucio-$RUCIO_DAEMON $RUCIO_DAEMON_ARGS"
+    eval "exec /usr/bin/python3 /usr/local/bin/rucio-$RUCIO_DAEMON $RUCIO_DAEMON_ARGS"
 else
-    eval "/usr/bin/python3 /usr/local/bin/rucio-$RUCIO_DAEMON $RUCIO_DAEMON_ARGS \
+    eval "exec /usr/bin/python3 /usr/local/bin/rucio-$RUCIO_DAEMON $RUCIO_DAEMON_ARGS \
         >> ${RUCIO_DAEMON_LOG_DIR}/${RUCIO_DAEMON}.log 2>> ${RUCIO_DAEMON_LOG_DIR}/${RUCIO_DAEMON}.error.log"
 fi
