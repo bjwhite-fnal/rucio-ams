@@ -227,4 +227,6 @@ config:
 
 optional_config:
   policy_pkg_dir: /opt/rucio/permissions
+  #rucio_enable_logs: "True"
+  #rucio_daemon_log_dir: /var/log/rucio
   #rucio_cfg_database_echo: 1
