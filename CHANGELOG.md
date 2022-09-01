@@ -65,3 +65,8 @@
   * Added `virtual_placements` table
   * Upgraded using `psql <database uri> < 1.27.4.sql`
   * File was created through alembic script in official `rucio/rucio` repository
+
+## 1.27.11 to 1.28.7
+---
+* Ensure that `third_party_copy_read` and `third_party_copy_write` columns are set correctly in `rse_protocols`
+* Ensure that RSE fts urls are correct
