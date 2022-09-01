@@ -177,7 +177,7 @@ ftsRenewal:
   vo: "fermilab"
   #voms: "fermilab:/fermilab/Role=Production"
   voms: "fermilab:/fermilab"
-  servers: "https://fts-dev.fnal.gov:8446"
+  servers: "https://fts3-public.fnal.gov:8446"
 
 # Config values used to configure the Rucio daemons
 # These are turned into RUCIO_CFG_<section>_<variable>=value environment variables
@@ -211,7 +211,7 @@ config:
 
   conveyor:
     max_time_in_queue: "User Subscriptions:5"
-    ftshosts: "https://fts-dev.fnal.gov:8446"
+    ftshosts: "https://fts3-public.fnal.gov:8446"
     cacert: "/opt/certs/ca.pem"
     usercert: "/opt/proxy/x509up"
 
