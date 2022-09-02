@@ -68,5 +68,22 @@
 
 ## 1.27.11 to 1.28.7
 ---
-* Ensure that `third_party_copy_read` and `third_party_copy_write` columns are set correctly in `rse_protocols`
-* Ensure that RSE fts urls are correct
+### Docker Images
+* `webui`
+  * Removed custom `rucio.conf.j2` from image in favor of using existing one
+* `server`
+  * Updated `rucio.conf.j2` to match existing one in the `rucio-server` image
+  * However, `rucio.conf.j2` is also removed from image in favor of using existing one
+* `permissions-fnal`
+  * Added the `session=None` kwarg in the `generic/permission.py` has_permission` function
+* `daemons`
+  * Added `rsync` to image
+
+### Experiment Helm Values
+* Update `ftshosts` for `conveyor` config to new names
+
+### Misc
+* Ensure that RSE fts urls are correct (`rucio-admin rse info`)
+* Setting the `RUCIO_AMS_VERSION_TAG` can now be done in `rucio-env`
+* Upgrade database schema `db/1.28.7.sql`
+  * Ensure that `third_party_copy_read` and `third_party_copy_write` columns are set correctly in `rse_protocols` table in database after upgrade
