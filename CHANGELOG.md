@@ -87,3 +87,12 @@
 * Setting the `RUCIO_AMS_VERSION_TAG` can now be done in `rucio-env`
 * Upgrade database schema `db/1.28.7.sql`
   * Ensure that `third_party_copy_read` and `third_party_copy_write` columns are set correctly in `rse_protocols` table in database after upgrade
+
+
+## 1.28.7 to 1.29.3.post1
+---
+### Changes
+* `daemons/values.yaml`
+  * Changed `delay` to `sleepTime`
+* Upgrade `helm-charts` to `rucio-ui-1.29.1`
+* Upgrade database schema `db/1.29.0.sql`
