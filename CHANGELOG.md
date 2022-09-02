@@ -60,3 +60,8 @@
 * Update `oc` to v4.2.0 for OKD4
 * Author tag is added to docker images in Makefile
   * Easier to filter out in image registry
+* Upgrade database schema `db/1.27.4.sql`
+  * `alembic_version 739064d31565 -> 9a45bc4ea66d`
+  * Added `virtual_placements` table
+  * Upgraded using `psql <database uri> < 1.27.4.sql`
+  * File was created through alembic script in official `rucio/rucio` repository
