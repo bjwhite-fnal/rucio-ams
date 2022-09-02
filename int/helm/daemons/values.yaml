@@ -167,7 +167,7 @@ hermes:
   threads: 2
   useSSL: "True"
   bulk: "100"
-  delay: "10"
+  sleepTime: "10"
 
 ftsRenewal:
   enabled: 1
