@@ -248,6 +248,7 @@ config:
   policy:
     package: fermilab.dune
     support: "Brandon White <bjwhite@fnal.gov>"
+    metacat_base_url: "https://metacat.fnal.gov:9443/dune_meta_demo/app"
 
 optional_config:
   policy_pkg_dir: /opt/rucio/permissions
