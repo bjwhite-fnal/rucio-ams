@@ -97,7 +97,7 @@ config:
     carbon_server: "rucio-statsd"
     carbon_port: "8125"
     user_scope: "rucio_dune_int_okd"
-    enable_metrics: "True"
+    enable_metrics: "False"
 
   # Configure the policy package that is to be used for this deployment.
   policy:
