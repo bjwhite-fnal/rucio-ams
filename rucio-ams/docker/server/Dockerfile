@@ -14,6 +14,7 @@ RUN yum install -y gridsite \
 RUN pip3 install metacat remote-pdb
 
 # Add FNAL specific files
+ADD rucio.cfg.j2 /tmp
 ADD alembic.ini.j2 /tmp
 ADD gacl /opt/rucio/etc/
 ADD configure_server_log_location.sh /

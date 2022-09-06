@@ -150,7 +150,7 @@ undertaker:
   threads: 1
 
 reaper:
-  scheme: "gsiftp"
+  scheme: "srm"
   threads: 1
   resources:
     limits:
