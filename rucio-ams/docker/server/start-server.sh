@@ -25,7 +25,10 @@ if [ -f /opt/rucio/etc/rucio.cfg ]; then
     echo "rucio.cfg already mounted."
 else
     echo "rucio.cfg not found. will generate one."
-    j2 /tmp/rucio.cfg.j2 | sed '/^\s*$/d' > /opt/rucio/etc/rucio.cfg
+    python3 /usr/local/rucio/tools/merge_rucio_configs.py \
+        -s /tmp/rucio.config.default.cfg $RUCIO_OVERRIDE_CONFIGS \
+        --use-env \
+        -d /opt/rucio/etc/rucio.cfg
 fi
 
 if [ ! -z "$RUCIO_PRINT_CFG" ]; then
@@ -35,6 +38,13 @@ if [ ! -z "$RUCIO_PRINT_CFG" ]; then
 fi
 
 j2 /tmp/rucio.conf.j2 | sed '/^\s*$/d' > /etc/httpd/conf.d/rucio.conf
+
+/usr/bin/memcached -u memcached -p 11211 -m 128 -c 1024 &
+
+if [ ! -z "$RUCIO_METRICS_PORT" -a -z "$prometheus_multiproc_dir" ]; then
+    echo "Setting default prometheus_multiproc_dir to /tmp/prometheus"
+    export prometheus_multiproc_dir=/tmp/prometheus
+fi
 
 if [ ! -z "$RUCIO_HTTPD_LOG_DIR" ]; then
     echo "Configuring custom HTTP logging..."
@@ -53,4 +63,4 @@ echo "=================== /opt/rucio/etc/alembic.ini ========================"
 cat /opt/rucio/etc/alembic.ini
 echo ""
 
-httpd -D FOREGROUND
+exec httpd -D FOREGROUND

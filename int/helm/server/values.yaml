@@ -39,12 +39,12 @@ serverType:
 
 serverRoute:
   app: rucio-int-rucio-server
-  host: int-rucio.okd.fnal.gov
+  host: int-rucio.fnal.gov
   serviceName: rucio-server
 
 authServerRoute:
   app: rucio-int-rucio-server-auth
-  host: auth-int-rucio.okd.fnal.gov
+  host: auth-int-rucio.fnal.gov
   serviceName: rucio-server-auth
 
 useSSL:
@@ -87,6 +87,7 @@ httpd_config:
   server_limit: "10"
   max_clients: "10"
   max_requests_per_child: "200"
+  enable_status: "False"
 
 livenessProbe:
   server:
@@ -99,13 +100,14 @@ livenessProbe:
     timeoutSeconds: 30
 
 config: 
-  common:
+#  common:
 
   monitor:
     carbon_server: "rucio-statsd"
     carbon_port: "8125"
     user_scope: "rucio_int_okd"
-    enable_metrics: "True"
+# TODO: need to renable at some point
+    enable_metrics: "false"
 
   # Configure the policy package that is to be used for this deployment.
   policy:
@@ -125,6 +127,7 @@ optional_config:
 
 monitoring:
   enabled: false
+
 
 # Disable ingresses because we are on OKD. We are utilizing the Route object instead.
 authIngress:

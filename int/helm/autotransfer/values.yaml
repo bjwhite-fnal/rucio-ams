@@ -14,7 +14,7 @@ autoTransfer:
 
 optional_config:
   experiment: "int"
-  broker_host: "msg-int-rucio.okd.fnal.gov"
+  broker_host: "msg-int-rucio.fnal.gov"
   broker_port: "443"
   topic: "/topic/rucio.events.int"
   durable: "False"
