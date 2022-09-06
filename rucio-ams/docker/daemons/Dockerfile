@@ -20,6 +20,10 @@ RUN python3 -m pip install metacat remote-pdb
 ADD vomses /etc
 ADD ./start-daemon.sh /
 ADD permissions/ /opt/rucio/permissions/fermilab
+ADD rucio.cfg.j2 /tmp
+
+#TEMP
+#ADD reaper.py /usr/local/lib/python3.6/site-packages/rucio/daemons/reaper/reaper.py
 
 # Patches
 #ADD patches/* /tmp/patches/

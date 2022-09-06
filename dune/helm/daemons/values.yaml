@@ -174,7 +174,7 @@ undertaker:
   threads: 1
 
 reaper:
-  scheme: "gsiftp"
+  #scheme: "gsiftp"
   threads: 1
   resources:
     limits:
