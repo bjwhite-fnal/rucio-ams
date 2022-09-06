@@ -35,100 +35,100 @@ build-all-nc:
 
 # Image build command definitions
 define build-statsd-cmd =
-docker build -t rucio-statsd statsd
+docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-statsd statsd
 endef
 
 define build-autotransfer-cmd =
-docker build -t rucio-autotransfer --build-arg rucio_version=${RUCIO_AMS_VERSION} autotransfer 
+docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-autotransfer --build-arg rucio_version=${RUCIO_AMS_VERSION} autotransfer 
 endef
 
 define build-autotransfer-nc-cmd =
-docker build --no-cache -t rucio-autotransfer --build-arg rucio_version=${RUCIO_AMS_VERSION} autotransfer 
+docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-autotransfer --build-arg rucio_version=${RUCIO_AMS_VERSION} autotransfer 
 endef
 
 define build-logrotate-cmd =
-docker build -t rucio-logrotate logrotate
+docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-logrotate logrotate
 endef
 
 define build-logrotate-nc-cmd =
-docker build --no-cache -t rucio-logrotate logrotate
+docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-logrotate logrotate
 endef
 
 define build-logstash-cmd =
-docker build -t rucio-logstash logstash
+docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-logstash logstash
 >>>>>>> Debugging
 endef
 
 define build-statsd-nc-cmd =
-docker build --no-cache -t rucio-statsd statsd
+docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-statsd statsd
 endef
 
 define build-fts-cron-cmd =
-docker build -t rucio-fts-cron fts-cron
+docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-fts-cron fts-cron
 endef
 
 define build-fts-cron-nc-cmd =
-docker build --no-cache -t rucio-fts-cron fts-cron
+docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-fts-cron fts-cron
 endef
 
 define build-exporter-cmd =
-docker build -t rucio-exporter exporter
+docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-exporter exporter
 endef
 
 define build-exporter-nc-cmd =
-docker build --no-cache -t rucio-exporter exporter
+docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-exporter exporter
 endef
 
 define build-webui-cmd =
 -rm -rf webui/permissions
 cp -r permissions-fnal webui/permissions
-docker build -t rucio-webui --build-arg rucio_version=${RUCIO_AMS_VERSION} webui
+docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-webui --build-arg rucio_version=${RUCIO_AMS_VERSION} webui
 endef
 
 define build-webui-nc-cmd =
 -rm -rf webui/permissions
 cp -r permissions-fnal webui/permissions
-docker build --no-cache -t rucio-webui --build-arg rucio_version=${RUCIO_AMS_VERSION} webui
+docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-webui --build-arg rucio_version=${RUCIO_AMS_VERSION} webui
 endef
 
 define build-server-cmd =
 -rm -rf server/permissions
 cp -r permissions-fnal server/permissions
-docker build -t rucio-server --build-arg rucio_version=${RUCIO_AMS_VERSION} server
+docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-server --build-arg rucio_version=${RUCIO_AMS_VERSION} server
 endef
 
 define build-server-nc-cmd =
 -rm -rf server/permissions
 cp -r permissions-fnal server/permissions
-docker build --no-cache -t rucio-server --build-arg rucio_version=${RUCIO_AMS_VERSION} server	
+docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-server --build-arg rucio_version=${RUCIO_AMS_VERSION} server	
 endef
 
 define build-daemons-cmd =
 -rm -rf daemons/permissions
 cp -r permissions-fnal daemons/permissions
-docker build -t rucio-daemons --build-arg rucio_version=${RUCIO_AMS_VERSION} daemons
+docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-daemons --build-arg rucio_version=${RUCIO_AMS_VERSION} daemons
 endef
 
 define build-daemons-nc-cmd =
 -rm -rf daemons/permissions
 cp -r permissions-fnal daemons/permissions
-docker build --no-cache -t rucio-daemons --build-arg rucio_version=${RUCIO_AMS_VERSION} daemons
+docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-daemons --build-arg rucio_version=${RUCIO_AMS_VERSION} daemons
 endef
 
 define build-cache-cmd =
-docker build -t rucio-cache cache
+docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-cache cache
 endef
 
 define build-cache-nc-cmd =
-docker build --no-cache -t rucio-cache cache
+docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-cache cache
 endef
 
 define build-messenger-cmd =
-docker build -t rucio-messenger messenger
+docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-messenger messenger
 endef
 
 define build-messenger-nc-cmd =
-docker build --no-cache -t rucio-messenger messenger
+docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-messenger messenger
 endef
 
 # Image build command declarations

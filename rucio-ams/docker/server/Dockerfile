@@ -12,7 +12,6 @@ RUN yum install -y gridsite \
     telnet \
     less
 RUN pip3 install metacat remote-pdb
-RUN mv /etc/httpd/conf.d/zgridsite.conf /etc/httpd/conf.d/zgridsite.conf-hide
 
 # Add FNAL specific files
 ADD rucio.cfg.j2 /tmp
@@ -23,7 +22,7 @@ ADD start-server.sh /
 ADD permissions/ /opt/rucio/permissions/fermilab
 
 #tmp
-ADD rucio.conf.j2 /tmp/
+#ADD rucio.conf.j2 /tmp/
 
 VOLUME /etc/grid-security
 

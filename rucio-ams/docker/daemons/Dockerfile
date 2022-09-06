@@ -12,6 +12,7 @@ RUN yum install -y less \
     gfal-all \
     patch \
     net-tools \
+    rsync \
     telnet
 
 RUN python3 -m pip install metacat remote-pdb
