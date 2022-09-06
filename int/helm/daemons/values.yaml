@@ -167,7 +167,7 @@ hermes:
   threads: 2
   useSSL: "True"
   bulk: "100"
-  delay: "10"
+  sleepTime: "10"
 
 ftsRenewal:
   enabled: 1
@@ -177,7 +177,7 @@ ftsRenewal:
   vo: "fermilab"
   #voms: "fermilab:/fermilab/Role=Production"
   voms: "fermilab:/fermilab"
-  servers: "https://fts-dev.fnal.gov:8446"
+  servers: "https://fts3-public.fnal.gov:8446"
 
 # Config values used to configure the Rucio daemons
 # These are turned into RUCIO_CFG_<section>_<variable>=value environment variables
@@ -211,7 +211,7 @@ config:
 
   conveyor:
     max_time_in_queue: "User Subscriptions:5"
-    ftshosts: "https://fts-dev.fnal.gov:8446"
+    ftshosts: "https://fts3-public.fnal.gov:8446"
     cacert: "/opt/certs/ca.pem"
     usercert: "/opt/proxy/x509up"
 
@@ -227,4 +227,6 @@ config:
 
 optional_config:
   policy_pkg_dir: /opt/rucio/permissions
+  #rucio_enable_logs: "True"
+  #rucio_daemon_log_dir: /var/log/rucio
   #rucio_cfg_database_echo: 1

@@ -38,7 +38,7 @@ from rucio.db.sqla.constants import IdentityType
 
 import rucio.core.permission.generic
 
-def has_permission(issuer, action, kwargs):
+def has_permission(issuer, action, kwargs, session=None):
     """
     Checks if an account has the specified permission to
     execute an action with parameters.

@@ -55,6 +55,13 @@ source $EXPERIMENT/setup_rucio_env.sh
 
 export RUCIO_AMS_DIR=$PWD
 
+# set RUCIO_AMS_VERSION_BASE depending on RUCIO_AMS_DEV
+if [ -z ${RUCIO_AMS_DEV} ]; then
+    export RUCIO_AMS_VERSION_TAG=${RUCIO_AMS_VERSION}
+else
+    export RUCIO_AMS_VERSION_TAG=${RUCIO_AMS_VERSION}-"dev"
+fi
+
 # set user
 export RUCIO_BUILD_USER=$USER
 echo Author: $RUCIO_BUILD_USER

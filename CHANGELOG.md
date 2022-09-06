@@ -65,3 +65,34 @@
   * Added `virtual_placements` table
   * Upgraded using `psql <database uri> < 1.27.4.sql`
   * File was created through alembic script in official `rucio/rucio` repository
+
+## 1.27.11 to 1.28.7
+---
+### Docker Images
+* `webui`
+  * Removed custom `rucio.conf.j2` from image in favor of using existing one
+* `server`
+  * Updated `rucio.conf.j2` to match existing one in the `rucio-server` image
+  * However, `rucio.conf.j2` is also removed from image in favor of using existing one
+* `permissions-fnal`
+  * Added the `session=None` kwarg in the `generic/permission.py` has_permission` function
+* `daemons`
+  * Added `rsync` to image
+
+### Experiment Helm Values
+* Update `ftshosts` for `conveyor` config to new names
+
+### Misc
+* Ensure that RSE fts urls are correct (`rucio-admin rse info`)
+* Setting the `RUCIO_AMS_VERSION_TAG` can now be done in `rucio-env`
+* Upgrade database schema `db/1.28.7.sql`
+  * Ensure that `third_party_copy_read` and `third_party_copy_write` columns are set correctly in `rse_protocols` table in database after upgrade
+
+
+## 1.28.7 to 1.29.3.post1
+---
+### Changes
+* `daemons/values.yaml`
+  * Changed `delay` to `sleepTime`
+* Upgrade `helm-charts` to `rucio-ui-1.29.1`
+* Upgrade database schema `db/1.29.0.sql`

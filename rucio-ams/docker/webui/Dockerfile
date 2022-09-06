@@ -8,7 +8,7 @@ RUN yum install -y metacat patch net-tools vim less
 # These config files do not need to be added currently as they don't differ from
 #   the official image
 #ADD ./rucio.cfg.j2 /tmp/
-ADD ./rucio.conf.j2 /tmp/
+#ADD ./rucio.conf.j2 /tmp/
 
 
 ADD permissions/ /opt/rucio/permissions/fermilab
