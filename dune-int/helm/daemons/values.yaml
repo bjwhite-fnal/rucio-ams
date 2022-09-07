@@ -170,6 +170,16 @@ judgeRepairer:
       memory: "400Mi"
       cpu: "200m"
 
+transmogrifier:
+  threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "200m"
+    requests:
+      memory: "400Mi"
+      cpu: "200m"
+
 undertaker:
   threads: 1
 
