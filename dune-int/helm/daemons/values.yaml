@@ -56,30 +56,30 @@ abacusAccount:
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "100m"
     requests:
       memory: "400Mi"
-      cpu: "700m"
+      cpu: "100m"
 
 abacusRse:
   threads: 1
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "100m"
     requests:
       memory: "400Mi"
-      cpu: "700m"
+      cpu: "100m"
 
 abacusCollectionReplica:
   threads: 1
   resources:
     limits:
       memory: "800Mi"
-      cpu: "700m"
+      cpu: "100m"
     requests:
       memory: "800Mi"
-      cpu: "700m"
+      cpu: "100m"
 
 conveyorTransferSubmitter:
   threads: 1
@@ -88,10 +88,10 @@ conveyorTransferSubmitter:
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "200m"
     requests:
       memory: "400Mi"
-      cpu: "700m"
+      cpu: "200m"
 
 conveyorPoller:
   threads: 1
@@ -99,10 +99,10 @@ conveyorPoller:
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "200m"
     requests:
       memory: "400Mi"
-      cpu: "700m"
+      cpu: "200m"
 
 conveyorFinisher:
   threads: 1
@@ -110,10 +110,10 @@ conveyorFinisher:
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "200m"
     requests:
       memory: "400Mi"
-      cpu: "700m"
+      cpu: "200m"
 
 conveyorStager:
   threads: 1
@@ -121,10 +121,10 @@ conveyorStager:
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "200m"
     requests:
       memory: "400Mi"
-      cpu: "700m"
+      cpu: "200m"
 
 conveyorReceiver:
   threads: 1
@@ -135,40 +135,40 @@ judgeCleaner:
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "200m"
     requests:
       memory: "400Mi"
-      cpu: "700m"
+      cpu: "200m"
 
 judgeEvaluator:
   threads: 1
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "200m"
     requests:
       memory: "400Mi"
-      cpu: "700m"
+      cpu: "200m"
 
 judgeInjector:
   threads: 1
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "200m"
     requests:
       memory: "400Mi"
-      cpu: "700m"
+      cpu: "200m"
 
 judgeRepairer:
   threads: 1
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "200m"
     requests:
       memory: "400Mi"
-      cpu: "700m"
+      cpu: "200m"
 
 undertaker:
   threads: 1
@@ -179,10 +179,10 @@ reaper:
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "400m"
     requests:
       memory: "400Mi"
-      cpu: "700m"
+      cpu: "400m"
 
 minos:
   threads: 1
