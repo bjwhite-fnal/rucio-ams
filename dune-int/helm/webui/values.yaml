@@ -21,8 +21,8 @@ strategy:
 minReadySeconds: 5
 
 proxy:
-  rucioProxy: "dune-int-rucio.okd.fnal.gov"
-  rucioAuthProxy: "auth-dune-int-rucio.okd.fnal.gov"
+  rucioProxy: "dune-int-rucio.fnal.gov"
+  rucioAuthProxy: "auth-dune-int-rucio.fnal.gov"
 
 
 exposeErrorLogs: 0
@@ -32,7 +32,7 @@ ingress:
 
 webuiRoute:
   app: rucio-webui
-  host: webui-dune-int-rucio.okd.fnal.gov
+  host: webui-dune-int-rucio.fnal.gov
   serviceName: rucio-dune-int-rucio-ui
 
 service:

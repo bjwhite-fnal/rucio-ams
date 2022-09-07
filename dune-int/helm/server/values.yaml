@@ -39,12 +39,12 @@ serverType:
 
 serverRoute:
   app: rucio-dune-int-rucio-server
-  host: dune-int-rucio.okd.fnal.gov
+  host: dune-int-rucio.fnal.gov
   serviceName: rucio-server
 
 authServerRoute:
   app: rucio-dune-int-rucio-server-auth
-  host: auth-dune-int-rucio.okd.fnal.gov
+  host: auth-dune-int-rucio.fnal.gov
   serviceName: rucio-server-auth
 
 useSSL:
@@ -117,7 +117,7 @@ config:
 
   # Set up request routing to the auth server
   api:
-    endpoints: accountlimits,accounts,config,credentials,dids,export,heartbeats,identities,import,lifetime_exceptions,locks,meta,ping,redirect,replicas,requests,rses,rules,scopes,subscriptions
+    endpoints: auth,accountlimits,accounts,config,credentials,dids,export,heartbeats,identities,import,lifetime_exceptions,locks,meta,ping,redirect,replicas,requests,rses,rules,scopes,subscriptions
     
 
 # FNAL (and likely OKD) Specific Configuration Stuff

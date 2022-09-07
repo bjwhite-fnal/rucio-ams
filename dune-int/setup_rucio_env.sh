@@ -11,6 +11,6 @@ export RUCIO_AMS_VERSION=1.29.3.post1
 export RUCIO_AMS_DIR=/nashome/b/bjwhite/dev/rucio/rucio-ams
 
 # Only the filenames are needed. The files should be resident in $AMS_RUCIO_DEPLOYMENT_CONF_DIR/certs 
-export AMS_RUCIO_CERT=dune-int-rucio.okd.fnal.gov-cert.pem
-export AMS_RUCIO_KEY=dune-int-rucio.okd.fnal.gov-key.pem
+export AMS_RUCIO_CERT=dune-int-rucio.fnal.gov-cert.pem
+export AMS_RUCIO_KEY=dune-int-rucio.fnal.gov-key.pem
 export AMS_RUCIO_CA_BUNDLE=ca_bundle.pem
