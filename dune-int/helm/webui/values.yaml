@@ -20,6 +20,11 @@ strategy:
 
 minReadySeconds: 5
 
+proxy:
+  rucioProxy: "dune-int-rucio.okd.fnal.gov"
+  rucioAuthProxy: "auth-dune-int-rucio.okd.fnal.gov"
+
+
 exposeErrorLogs: 0
 
 ingress:
@@ -40,16 +45,11 @@ service:
 monitor:
   carbon_server: "rucio-statsd"
   carbon_port: "8125"
-  user_scope: "rucio_dune_okd"
+  user_scope: "rucio_dune_int_okd"
   enable_metrics: "True"
 
 logging:
   log_level: 0
-
-#persistentVolumes:
-#  rucio-logs:
-#    name: "pv-rucio-dune-logs"
-#    mountPath: /rucio/logs
 
 httpd_config:
   log_dir: "/rucio/logs"
