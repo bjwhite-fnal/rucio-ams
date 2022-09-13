@@ -173,6 +173,16 @@ judgeRepairer:
 undertaker:
   threads: 1
 
+transmogrifier:
+  threads: 1
+  resources:
+    limits:
+      memory: "2000Mi"
+      cpu: "700m"
+    requests:
+      memory: "1200Mi"
+      cpu: "700m"
+
 reaper:
   #scheme: "gsiftp"
   threads: 1
