@@ -174,10 +174,10 @@ transmogrifier:
   threads: 1
   resources:
     limits:
-      memory: "600Mi"
+      memory: "2000Mi"
       cpu: "200m"
     requests:
-      memory: "400Mi"
+      memory: "800Mi"
       cpu: "200m"
 
 undertaker:
