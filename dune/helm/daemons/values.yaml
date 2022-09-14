@@ -83,7 +83,7 @@ abacusCollectionReplica:
 
 conveyorTransferSubmitter:
   threads: 1
-  activities: "'User Subscriptions' 'Recovery'"
+  activities: "'User Subscriptions' 'Recovery' 'Data Challenge'"
   sleepTime: 10
   resources:
     limits:
@@ -95,7 +95,7 @@ conveyorTransferSubmitter:
 
 conveyorPoller:
   threads: 1
-  activities: "'User Subscriptions' 'Recovery'"
+  activities: "'User Subscriptions' 'Recovery' 'Data Challenge'"
   resources:
     limits:
       memory: "600Mi"
@@ -106,7 +106,7 @@ conveyorPoller:
 
 conveyorFinisher:
   threads: 1
-  activities: "'User Subscriptions' 'Recovery'"
+  activities: "'User Subscriptions' 'Recovery' 'Data Challenge'"
   resources:
     limits:
       memory: "600Mi"
@@ -117,7 +117,7 @@ conveyorFinisher:
 
 conveyorStager:
   threads: 1
-  activities: "'User Subscriptions' 'Recovery'"
+  activities: "'User Subscriptions' 'Recovery' 'Data Challenge'"
   resources:
     limits:
       memory: "600Mi"
@@ -128,7 +128,7 @@ conveyorStager:
 
 conveyorReceiver:
   threads: 1
-  activities: "'User Subscriptions' 'Recovery'"
+  activities: "'User Subscriptions' 'Recovery' 'Data Challenge'"
 
 judgeCleaner:
   threads: 1
