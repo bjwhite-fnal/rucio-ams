@@ -11,7 +11,6 @@ push-all:
 	$(push-webui-cmd)
 	$(push-fts-cron-cmd)
 	$(push-statsd-cmd)
-	$(push-exporter-cmd)
 
 build-all:
 	$(build-server-cmd)
@@ -21,7 +20,6 @@ build-all:
 	$(build-webui-cmd)
 	$(build-fts-cron-cmd)
 	$(build-statsd-cmd)
-	$(build-exporter-cmd)
 
 build-all-nc:
 	$(build-server-nc-cmd)
@@ -31,7 +29,6 @@ build-all-nc:
 	$(build-webui-nc-cmd)
 	$(build-fts-cron-nc-cmd)
 	$(build-statsd-nc-cmd)
-	$(build-exporter-nc-cmd)
 
 # Image build command definitions
 define build-statsd-cmd =
@@ -69,14 +66,6 @@ endef
 
 define build-fts-cron-nc-cmd =
 docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-fts-cron fts-cron
-endef
-
-define build-exporter-cmd =
-docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-exporter exporter
-endef
-
-define build-exporter-nc-cmd =
-docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-exporter exporter
 endef
 
 define build-webui-cmd =
@@ -156,12 +145,6 @@ build-fts-cron:
 build-fts-cron-nc:
 	$(build-fts-cron-nc-cmd)
 
-build-exporter:
-	$(build-exporter-cmd)
-
-build-exporter-nc:
-	$(build-exporter-nc-cmd)
-
 build-webui:
 	$(build-webui-cmd)
 
@@ -208,11 +191,6 @@ define push-fts-cron-cmd =
 	docker push imageregistry.fnal.gov/rucio-ams/rucio-ams-fts-cron:${RUCIO_AMS_VERSION_TAG}
 endef
 
-define push-exporter-cmd =
-	docker tag rucio-exporter imageregistry.fnal.gov/rucio-ams/rucio-ams-exporter:${RUCIO_AMS_VERSION_TAG}
-	docker push imageregistry.fnal.gov/rucio-ams/rucio-ams-exporter:${RUCIO_AMS_VERSION_TAG}
-endef
-
 define push-webui-cmd =
 	docker tag rucio-webui imageregistry.fnal.gov/rucio-ams/rucio-ams-webui:${RUCIO_AMS_VERSION_TAG}
 	docker push imageregistry.fnal.gov/rucio-ams/rucio-ams-webui:${RUCIO_AMS_VERSION_TAG}
@@ -249,9 +227,6 @@ push-autotransfer:
 
 push-fts-cron:
 	$(push-fts-cron-cmd)
-
-push-exporter:
-	$(push-exporter-cmd)
 
 push-webui:
 	$(push-webui-cmd)
