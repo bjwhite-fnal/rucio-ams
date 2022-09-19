@@ -205,6 +205,13 @@ hermes:
   useSSL: "True"
   bulk: "100"
   sleepTime: "10"
+  resources:
+    limits:
+      memory: "800Mi"
+      cpu: "100m"
+    requests:
+      memory: "400Mi"
+      cpu: "100m"
 
 ftsRenewal:
   enabled: 1
