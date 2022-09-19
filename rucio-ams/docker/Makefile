@@ -83,36 +83,42 @@ define build-webui-cmd =
 -rm -rf webui/permissions
 cp -r permissions-fnal webui/permissions
 docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-webui --build-arg rucio_version=${RUCIO_AMS_VERSION} webui
+-rm -rf webui/permissions
 endef
 
 define build-webui-nc-cmd =
 -rm -rf webui/permissions
 cp -r permissions-fnal webui/permissions
 docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-webui --build-arg rucio_version=${RUCIO_AMS_VERSION} webui
+-rm -rf webui/permissions
 endef
 
 define build-server-cmd =
 -rm -rf server/permissions
 cp -r permissions-fnal server/permissions
 docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-server --build-arg rucio_version=${RUCIO_AMS_VERSION} server
+-rm -rf server/permissions
 endef
 
 define build-server-nc-cmd =
 -rm -rf server/permissions
 cp -r permissions-fnal server/permissions
 docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-server --build-arg rucio_version=${RUCIO_AMS_VERSION} server	
+-rm -rf server/permissions
 endef
 
 define build-daemons-cmd =
 -rm -rf daemons/permissions
 cp -r permissions-fnal daemons/permissions
 docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-daemons --build-arg rucio_version=${RUCIO_AMS_VERSION} daemons
+-rm -rf daemons/permissions
 endef
 
 define build-daemons-nc-cmd =
 -rm -rf daemons/permissions
 cp -r permissions-fnal daemons/permissions
 docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-daemons --build-arg rucio_version=${RUCIO_AMS_VERSION} daemons
+-rm -rf daemons/permissions
 endef
 
 define build-cache-cmd =
