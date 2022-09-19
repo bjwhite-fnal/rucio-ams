@@ -91,12 +91,9 @@ echo -e "\tCreating networking routes..."
 $RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/gen-routes.sh
 $RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/create-routes.sh > /dev/null
 
-echo -e "\tCreating ElasticExporter..."
-$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/gen-exporter.sh
-$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/create-exporter.sh > /dev/null
-
-echo -e "\tStarting the proxy generation cronjob."
-kubectl create job --from=cronjob/rucio-${EXPERIMENT}-renew-fts-proxy ${USER}-manual-proxy-1
+# Done by the renew-fts-proxy-on-helm-install Job, when the YAML for those resources are applied, starting in 1.29
+#echo -e "\tStarting the proxy generation cronjob."
+#kubectl create job --from=cronjob/rucio-${EXPERIMENT}-renew-fts-proxy ${USER}-manual-proxy-1
 
 # Only bother with this if operating the OKD Services with OKD externalIPs
 # Check if we have any
