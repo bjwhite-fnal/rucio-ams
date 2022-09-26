@@ -11,6 +11,7 @@ push-all:
 	$(push-webui-cmd)
 	$(push-fts-cron-cmd)
 	$(push-statsd-cmd)
+	$(push-prometheus-cmd)
 
 build-all:
 	$(build-server-cmd)
@@ -20,6 +21,7 @@ build-all:
 	$(build-webui-cmd)
 	$(build-fts-cron-cmd)
 	$(build-statsd-cmd)
+	$(build-prometheus-cmd)
 
 build-all-nc:
 	$(build-server-nc-cmd)
@@ -29,18 +31,15 @@ build-all-nc:
 	$(build-webui-nc-cmd)
 	$(build-fts-cron-nc-cmd)
 	$(build-statsd-nc-cmd)
+	$(build-prometheus-nc-cmd)
 
 # Image build command definitions
+define build-prometheus-cmd =
+docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-prometheus prometheus 
+endef
+
 define build-statsd-cmd =
 docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-statsd statsd
-endef
-
-define build-autotransfer-cmd =
-docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-autotransfer --build-arg rucio_version=${RUCIO_AMS_VERSION} autotransfer 
-endef
-
-define build-autotransfer-nc-cmd =
-docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-autotransfer --build-arg rucio_version=${RUCIO_AMS_VERSION} autotransfer 
 endef
 
 define build-logrotate-cmd =
@@ -54,6 +53,10 @@ endef
 define build-logstash-cmd =
 docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-logstash logstash
 >>>>>>> Debugging
+endef
+
+define build-prometheus-nc-cmd =
+docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-prometheus prometheus
 endef
 
 define build-statsd-nc-cmd =
@@ -127,17 +130,17 @@ docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-messen
 endef
 
 # Image build command declarations
+build-prometheus:
+	$(build-prometheus-cmd)
+
+build-prometheus-nc:
+	$(build-prometheus-nc-cmd)
+
 build-statsd:
 	$(build-statsd-cmd)
 
 build-statsd-nc:
 	$(build-statsd-nc-cmd)
-
-build-autotransfer:
-	$(build-autotransfer-cmd)
-
-build-autotransfer-nc:
-	$(build-autotransfer-nc-cmd)
 
 build-fts-cron:
 	$(build-fts-cron-cmd)
@@ -176,14 +179,14 @@ build-messenger-nc:
 	$(build-messenger-nc-cmd)	
 
 # Image push command definitions
+define push-prometheus-cmd =
+	docker tag rucio-prometheus imageregistry.fnal.gov/rucio-ams/rucio-ams-prometheus:${RUCIO_AMS_VERSION_TAG}
+	docker push imageregistry.fnal.gov/rucio-ams/rucio-ams-prometheus:${RUCIO_AMS_VERSION_TAG}
+endef
+
 define push-statsd-cmd =
 	docker tag rucio-statsd imageregistry.fnal.gov/rucio-ams/rucio-ams-statsd:${RUCIO_AMS_VERSION_TAG}
 	docker push imageregistry.fnal.gov/rucio-ams/rucio-ams-statsd:${RUCIO_AMS_VERSION_TAG}
-endef
-
-define push-autotransfer-cmd =
-	docker tag rucio-autotransfer imageregistry.fnal.gov/rucio-ams/rucio-ams-autotransfer:${RUCIO_AMS_VERSION_TAG}
-	docker push imageregistry.fnal.gov/rucio-ams/rucio-ams-autotransfer:${RUCIO_AMS_VERSION_TAG}
 endef
 
 define push-fts-cron-cmd =
@@ -202,7 +205,6 @@ define push-server-cmd =
 	docker push imageregistry.fnal.gov/rucio-ams/rucio-ams-server:${RUCIO_AMS_VERSION_TAG}
 endef
 
-
 define push-daemons-cmd =
 	docker tag rucio-daemons imageregistry.fnal.gov/rucio-ams/rucio-ams-daemons:${RUCIO_AMS_VERSION_TAG}
 	docker push imageregistry.fnal.gov/rucio-ams/rucio-ams-daemons:${RUCIO_AMS_VERSION_TAG}
@@ -219,11 +221,11 @@ define push-messenger-cmd =
 endef
 
 # Image push command declarations
+push-prometheus:
+	$(push-prometheus-cmd)
+
 push-statsd:
 	$(push-statsd-cmd)
-
-push-autotransfer:
-	$(push-autotransfer-cmd)
 
 push-fts-cron:
 	$(push-fts-cron-cmd)

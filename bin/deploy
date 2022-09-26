@@ -67,6 +67,10 @@ echo -e "\tCreating StatsD service..."
 $RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/gen-statsd.sh
 $RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/create-statsd.sh > /dev/null
 
+echo -e "\tCreating Prometheus server..."
+$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/gen-prometheus.sh
+$RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/create-prometheus.sh > /dev/null
+
 echo -e "\tCreating cache service..."
 $RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/gen-cache.sh
 $RUCIO_AMS_DIR/rucio-ams/helm/helm_scripts/create-cache.sh > /dev/null
