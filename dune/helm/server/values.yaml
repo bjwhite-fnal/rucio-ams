@@ -81,12 +81,12 @@ exposeErrorLogs:
 httpd_config:
   mpm_mode: "prefork"
   use_ca_path: "1"
-  start_servers: "1"
+  start_servers: "8"
   min_spare_servers: "5"
-  max_spare_servers: "10"
-  server_limit: "10"
-  max_clients: "10"
-  max_requests_per_child: "200"
+  max_spare_servers: "20"
+  server_limit: "256"
+  max_clients: "256"
+  max_requests_per_child: "4000"
 
 config: 
   common:
