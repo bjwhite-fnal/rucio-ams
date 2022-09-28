@@ -53,6 +53,16 @@ verify_environment () {
             exit -4
         fi
     fi
+
+    # Verify that we have the Helm charts for the version of Rucio we are trying to deploy
+    chart_version=$(grep "version" $RUCIO_AMS_DIR/rucio-ams/helm/helm-charts/charts/rucio-server/Chart.yaml | awk '{print $2}')
+    chart_major_version=${chart_version::4}
+    selected_major_version=${RUCIO_AMS_VERSION::4}
+    if ! [[ ${chart_major_version} == ${selected_major_version} ]]; then
+        echo -e "\tPlease ensure that the appropriate Helm charts are used for version ${RUCIO_AMS_VERSION}"
+        echo -e "\tCurrent version is ${chart_version}"
+       exit -5
+    fi
 }
 
 echo -e "**************** Initializing Openshift Application: rucio-$EXPERIMENT ****************"
