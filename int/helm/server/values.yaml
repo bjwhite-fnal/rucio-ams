@@ -121,6 +121,7 @@ config:
 optional_config:
   # Set the path (inside the container) where the experiment policy package will be located.
   policy_pkg_dir: /opt/rucio/permissions
+  rucio_metrics_port: 8080
 
   # Database debugging messages
   #rucio_cfg_database_echo: 1

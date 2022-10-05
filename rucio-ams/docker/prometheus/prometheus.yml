@@ -47,24 +47,68 @@ scrape_configs:
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
 
-
-  - job_name: rucio 
+  - job_name: rucio-server
     honor_labels: true
     #enable_http2: false
 
     kubernetes_sd_configs:
       - role: pod 
-        api_server: "https://okddev-mgr.fnal.gov:6443"
+        namespaces:
+          names:
+            - "rucio-int"
+        #api_server: "https://okddev-mgr.fnal.gov:6443"
         #enable_http2: false
         selectors:
         - role: "pod"
           label: "app=rucio-server"
+    relabel_configs:
+      - source_labels: [__address__]
+        action: replace
+        regex: ([^:]+):.*
+        replacement: $1:8080
+        target_label: __address__
+
+  - job_name: rucio-server-auth
+    honor_labels: true
+    #enable_http2: false
+
+    kubernetes_sd_configs:
+      - role: pod
+        namespaces:
+          names:
+            - "rucio-int"
+        #api_server: "https://okddev-mgr.fnal.gov:6443"
+        #enable_http2: false
+        selectors:
         - role: "pod"
           label: "app=rucio-server-auth"
-        - role: "pod"
-          label: "app=rucio-ui"
+    relabel_configs:
+      - source_labels: [__address__]
+        action: replace
+        regex: ([^:]+):.*
+        replacement: $1:8080
+        target_label: __address__
+
+  - job_name: rucio-daemons
+    honor_labels: true
+    #enable_http2: false
+
+    kubernetes_sd_configs:
+      - role: pod
+        namespaces:
+          names:
+            - "rucio-int"
+        #api_server: "https://okddev-mgr.fnal.gov:6443"
+        #enable_http2: false
+        selectors:
         - role: "pod"
           label: "app-group=rucio-daemons"
+    relabel_configs:
+      - source_labels: [__address__]
+        action: replace
+        regex: ([^:]+):.*
+        replacement: $1:8080
+        target_label: __address__
 
 #    tls_config:
 #      min_version: TLS12
