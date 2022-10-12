@@ -13,7 +13,8 @@ global:
   #  - "my/*.rules"
 
 remote_write:
-  - url: "http://lssrv02:9009/api/v1/push"
+#  - url: "http://lssrv02:9009/api/v1/push"
+  - url: "REPLACE_WITH_LANDSCAPE_ENDPOINT"
 #    name: drop_expensive
 #    write_relabel_configs:
 #      - source_labels: [__name__]
@@ -55,7 +56,7 @@ scrape_configs:
       - role: pod 
         namespaces:
           names:
-            - "rucio-int"
+            - "rucio-REPLACE_WITH_EXPERIMENT"
         #api_server: "https://okddev-mgr.fnal.gov:6443"
         #enable_http2: false
         selectors:
@@ -78,7 +79,7 @@ scrape_configs:
       - role: pod
         namespaces:
           names:
-            - "rucio-int"
+            - "rucio-REPLACE_WITH_EXPERIMENT"
         #api_server: "https://okddev-mgr.fnal.gov:6443"
         #enable_http2: false
         selectors:
@@ -101,7 +102,7 @@ scrape_configs:
       - role: pod
         namespaces:
           names:
-            - "rucio-int"
+            - "rucio-REPLACE_WITH_EXPERIMENT"
         #api_server: "https://okddev-mgr.fnal.gov:6443"
         #enable_http2: false
         selectors:

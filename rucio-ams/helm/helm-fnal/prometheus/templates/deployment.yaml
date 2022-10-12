@@ -28,4 +28,9 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: EXPERIMENT
+              value: "{{ .Values.experiment }}"
+            - name: LANDSCAPE_REMOTE_WRITE_ENDPOINT
+              value: "{{ .Values.landscape_remote_write_endpoint }}"
 {{ end }}
