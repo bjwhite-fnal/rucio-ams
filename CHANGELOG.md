@@ -96,3 +96,18 @@
   * Changed `delay` to `sleepTime`
 * Upgrade `helm-charts` to `rucio-ui-1.29.1`
 * Upgrade database schema `db/1.29.0.sql`
+
+## 1.29.5
+---
+### Changes
+
+### Misc
+#### Enabling Metrics for `rucio-server`
+* In `server/values.yaml`
+  * Set `config.monitor.enable_metrics` to `false`
+    * Prevents `prometheus_client` from starting HTTP servers that vie for same port
+  * Set `optional_config.rucio_metrics_port` to `8080`
+    * Sets the `RUCIO_METRICS_PORT` environment variable
+    * Enables the `httpd` `rucio.conf` setting that starts WSGI server for `metrics` endpoint
+  * Set `monitoring.enabled` to `false` 
+    * We cannot do this: `servicemonitors.monitoring.coreos.com is forbidden: User <user> cannot create resource "servicemonitors" in API group "monitoring.coreos.com" in the namespace "monitoring"`
