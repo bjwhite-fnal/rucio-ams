@@ -96,3 +96,7 @@
   * Changed `delay` to `sleepTime`
 * Upgrade `helm-charts` to `rucio-ui-1.29.1`
 * Upgrade database schema `db/1.29.0.sql`
+
+## Miscellaneous
+---
+* Ensure OKD IP Addresses are added to `pg_hba.conf` on the databases.
