@@ -100,3 +100,11 @@
 ## Miscellaneous
 ---
 * Ensure OKD IP Addresses are added to `pg_hba.conf` on the databases.
+To enable metrics on rucio-server in OKD cluster:
+1. Set optional_config.rucio_metrics_port to a value (i.e. 8080)
+  * Cannot be the same as the main server port (i.e. 443)
+2. Do NOT set monitoring.nativeMetricsPort
+  * We do not have permission to create servicemonitors/custom stuff
+3. Do NOT set config.monitoring.enable_metrics
+  * Causes issues with httpd and prometheus’ start_http_server
+  * Prometheus start_http_server is called for every worker, which causes error when all are fighting for same METRICS_PORT
