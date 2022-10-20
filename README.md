@@ -104,8 +104,11 @@ When enabling metrics in `server/values.yaml`. there are a few gotchas to take n
 If this is enabled, the `prometheus_client` in `rucio/core/monitor.py` will try to start the HTTP server using `METRICS_PORT`. This causes issues in the `httpd`. In `rucio.conf`, multiple workers are enabled
 
 ### Setting `optional_config.rucio_metrics_port` to `8080`
-    * Sets the `RUCIO_METRICS_PORT` environment variable
-    * Enables the `httpd` `rucio.conf` setting that starts WSGI server for `metrics` endpoint
+This sets the `RUCIO_METRICS_PORT` environment variable, which then enables `rucio.conf` configuration setting so that `httpd` can start the WSGI server for the `metrics` endpoint
 
 ### Set `monitoring.enabled` to `false` 
-    * We cannot do this: `servicemonitors.monitoring.coreos.com is forbidden: User <user> cannot create resource "servicemonitors" in API group "monitoring.coreos.com" in the namespace "monitoring"`
+This enables a setting in the `rucio-server` Helm chart that would require us to create a resource in the `monitoring` namespace:
+
+```
+servicemonitors.monitoring.coreos.com is forbidden: User <user> cannot create resource "servicemonitors" in API group "monitoring.coreos.com" in the namespace "monitoring"
+```

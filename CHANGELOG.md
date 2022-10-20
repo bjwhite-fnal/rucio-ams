@@ -1,14 +1,12 @@
 # Changelog
 
 ## 1.26.9 to 1.26.13
----
 * Disable `enable_metrics` in `server/values.yaml`
   * Multiprocessing not yet implemented
   * Have not yet figured out to work with `httpd`
 
 
 ## 1.26.13 to 1.27.11
----
 ### Main Changes
 * Prepare values for OKD 4
   * Uses OKD 4 endpoints
@@ -67,7 +65,6 @@
   * File was created through alembic script in official `rucio/rucio` repository
 
 ## 1.27.11 to 1.28.7
----
 ### Docker Images
 * `webui`
   * Removed custom `rucio.conf.j2` from image in favor of using existing one
@@ -90,7 +87,6 @@
 
 
 ## 1.28.7 to 1.29.3.post1
----
 ### Changes
 * `daemons/values.yaml`
   * Changed `delay` to `sleepTime`
@@ -98,7 +94,6 @@
 * Upgrade database schema `db/1.29.0.sql`
 
 ## Miscellaneous
----
 * Ensure OKD IP Addresses are added to `pg_hba.conf` on the databases.
 #### Enabling Metrics for `rucio-server` in OKD Cluster
 * In `server/values.yaml`
