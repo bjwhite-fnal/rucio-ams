@@ -25,6 +25,7 @@ reaperCount: 1
 transmogrifierCount: 1
 minosCount: 1
 necromancerCount: 1
+replicaRecovererCount: 1
 
 # Service Account
 serviceAccountName: useroot
@@ -157,6 +158,15 @@ reaper:
       memory: "200Mi"
       cpu: "700m"
 
+replicaRecoverer:
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
+
 minos:
   threads: 1
 
@@ -230,3 +240,9 @@ optional_config:
   #rucio_enable_logs: "True"
   #rucio_daemon_log_dir: /var/log/rucio
   #rucio_cfg_database_echo: 1
+
+additionalSecrets:
+  suspicious-replica-recoverer-input:
+    secretName: suspicious-replica-recoverer-input
+    mountPath: /opt/rucio/etc/suspicious_replica_recoverer.json
+    subPath: suspicious_replica_recoverer.json
