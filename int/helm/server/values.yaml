@@ -73,10 +73,9 @@ minReadySeconds:
   server: 5
   authServer: 5
 
-# Don't worry about this, we have our own logging solution. This is for CERN.
 exposeErrorLogs:
-  server: 0
-  authServer: 0
+  server: 1
+  authServer: 1
 
 httpd_config:
   mpm_mode: "prefork"
