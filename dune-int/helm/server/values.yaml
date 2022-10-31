@@ -73,10 +73,9 @@ minReadySeconds:
   server: 5
   authServer: 5
 
-# Don't worry about this, we have our own logging solution. This is for CERN.
 exposeErrorLogs:
-  server: 0
-  authServer: 0
+  server: 1
+  authServer: 1
 
 httpd_config:
   mpm_mode: "prefork"
@@ -113,6 +112,7 @@ config:
     package: fermilab.dune
     support: "Brandon White <bjwhite@fnal.gov>"
     lfn2pfn_algorithm_default: DUNE
+    metacat_base_url: "https://metacat.fnal.gov:9443/dune_meta_demo/app"
 
 
   # Set up request routing to the auth server

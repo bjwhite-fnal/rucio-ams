@@ -268,5 +268,7 @@ config:
 
 optional_config:
   policy_pkg_dir: /opt/rucio/permissions
+  metacat_server_url: https://metacat.fnal.gov:9443/dune_meta_demo/app
+  metacat_auth_server_url: https://metacat.fnal.gov:8143/auth/dune
   #rucio_cfg_database_echo: 1
   delegate_fts_proxy: "true"
