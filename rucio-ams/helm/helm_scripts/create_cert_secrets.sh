@@ -70,3 +70,7 @@ kubectl create secret generic ssl-secrets \
 	--from-file=hostcert.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_CERT \
 	--from-file=hostkey.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_KEY \
 	--from-file=ca.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_CA_BUNDLE 
+
+# Replica Recoverer
+kubectl create secret generic rucio-$EXPERIMENT-suspicious-replica-recoverer-input \
+	--from-file=suspicious_replica_recoverer.json=$RUCIO_AMS_DIR/$EXPERIMENT/suspicious_replica_recoverer.json

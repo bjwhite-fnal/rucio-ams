@@ -1,14 +1,12 @@
 # Changelog
 
 ## 1.26.9 to 1.26.13
----
 * Disable `enable_metrics` in `server/values.yaml`
   * Multiprocessing not yet implemented
   * Have not yet figured out to work with `httpd`
 
 
 ## 1.26.13 to 1.27.11
----
 ### Main Changes
 * Prepare values for OKD 4
   * Uses OKD 4 endpoints
@@ -67,7 +65,6 @@
   * File was created through alembic script in official `rucio/rucio` repository
 
 ## 1.27.11 to 1.28.7
----
 ### Docker Images
 * `webui`
   * Removed custom `rucio.conf.j2` from image in favor of using existing one
@@ -90,9 +87,43 @@
 
 
 ## 1.28.7 to 1.29.3.post1
----
 ### Changes
 * `daemons/values.yaml`
   * Changed `delay` to `sleepTime`
 * Upgrade `helm-charts` to `rucio-ui-1.29.1`
 * Upgrade database schema `db/1.29.0.sql`
+
+## 1.29.7.post, helm-charts `rucio-daemons-1.29.7`
+### `replica-recoverer` daemon
+* Set `replicaRecovererCount: 1` in `$EXPERIMENT/helm/daemons/values.yaml`
+* Add `replicaRecoverer` section to `$EXPERIMENT/helm/daemons/values.yaml`
+  * Placed similar values to other daemons to config
+* Include `suspicious_replica_recoverer.json` in the `$RUCIO_AMS/$EXPERIMENT/` directory
+  * This gets added as `rucio-$EXPERIMENT-suspicious-replica-recoverer-input` secret
+* Add the secret by adding this to `$EXPERIMENT/helm/daemons/values.yaml`
+```
+additionalSecrets:
+  suspicious-replica-recoverer-input:
+    secretName: suspicious-replica-recoverer-input
+    mountPath: /opt/rucio/etc/suspicious_replica_recoverer.json
+    subPath: suspicious_replica_recovere.json
+```
+* Set attribute `enable_suspicious_file_recovery` to be `true` on target RSE
+```
+$ rucio-admin rse set-attribute --rse DCACHE_BJWHITE_START --key enable_suspicious_file_recovery --value true
+```
+
+## Miscellaneous
+* Ensure OKD IP Addresses are added to `pg_hba.conf` on the databases.
+#### Enabling Metrics for `rucio-server` in OKD Cluster
+* In `server/values.yaml`
+  * Set `config.monitor.enable_metrics` to `false`
+    * Prevents `prometheus_client` from starting HTTP servers that vie for same port
+    * Causes issues with httpd and prometheus’ start_http_server
+    * Prometheus start_http_server is called for every worker, which causes error when all are fighting for same METRICS_PORT
+  * Set `optional_config.rucio_metrics_port` to `8080`
+    * Cannot be the same as the main server port (i.e. 443)
+    * Sets the `RUCIO_METRICS_PORT` environment variable
+    * Enables the `httpd` `rucio.conf` setting that starts WSGI server for `metrics` endpoint
+  * Set `monitoring.enabled` to `false` 
+    * We cannot do this: `servicemonitors.monitoring.coreos.com is forbidden: User <user> cannot create resource "servicemonitors" in API group "monitoring.coreos.com" in the namespace "monitoring"`

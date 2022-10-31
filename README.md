@@ -95,4 +95,20 @@ policy:
 Do NOT specify the permission and schema options that you might see in the Rucio upstream... This prevents the correct policy from being imported.
 
 ## Note about Reaper certificates
-The Reaper needs a full directory of certificats as opposed to a concatenated PEM. This should be handled by this framework, but it is worth keeping in mind.
+The Reaper needs a full directory of certificates as opposed to a concatenated PEM. This should be handled by this framework, but it is worth keeping in mind.
+
+## Enabling Metrics for `rucio-server`
+When enabling metrics in `server/values.yaml`. there are a few gotchas to take note of.
+
+### Setting `config.monitor.enable_metrics` to `false`
+If this is enabled, the `prometheus_client` in `rucio/core/monitor.py` will try to start the HTTP server using `METRICS_PORT`. This causes issues in the `httpd`. In `rucio.conf`, multiple workers are enabled
+
+### Setting `optional_config.rucio_metrics_port` to `8080`
+This sets the `RUCIO_METRICS_PORT` environment variable, which then enables `rucio.conf` configuration setting so that `httpd` can start the WSGI server for the `metrics` endpoint
+
+### Set `monitoring.enabled` to `false` 
+This enables a setting in the `rucio-server` Helm chart that would require us to create a resource in the `monitoring` namespace:
+
+```
+servicemonitors.monitoring.coreos.com is forbidden: User <user> cannot create resource "servicemonitors" in API group "monitoring.coreos.com" in the namespace "monitoring"
+```

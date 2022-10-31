@@ -41,9 +41,9 @@ j2 /tmp/rucio.conf.j2 | sed '/^\s*$/d' > /etc/httpd/conf.d/rucio.conf
 
 /usr/bin/memcached -u memcached -p 11211 -m 128 -c 1024 &
 
-if [ ! -z "$RUCIO_METRICS_PORT" -a -z "$prometheus_multiproc_dir" ]; then
-    echo "Setting default prometheus_multiproc_dir to /tmp/prometheus"
-    export prometheus_multiproc_dir=/tmp/prometheus
+if [ ! -z "$RUCIO_METRICS_PORT" -a -z "$PROMETHEUS_MULTIPROC_DIR" -a -z "$prometheus_multiproc_dir" ]; then
+    echo "Setting default PROMETHEUS_MULTIPROC_DIR to /tmp/prometheus"
+    export PROMETHEUS_MULTIPROC_DIR=/tmp/prometheus
 fi
 
 if [ ! -z "$RUCIO_HTTPD_LOG_DIR" ]; then
