@@ -112,6 +112,31 @@ additionalSecrets:
 ```
 $ rucio-admin rse set-attribute --rse DCACHE_BJWHITE_START --key enable_suspicious_file_recovery --value true
 ```
+### `automatix` daemon
+* Set `automatixCount: 1` in `$EXPERIMENT/helm/daemons/values.yaml`
+  * This is commented out to prevent it from automatically being added to cluster
+* Add `automatix` section to `$EXPERIMENT/helm/daemons/values.yaml`
+  * Similar values to other daemons
+  * `inputFile`: template metadata for files and defines frequency
+* Add `config.client` section to `$EXPERIMENT/helm/daemons/values.yaml`
+  * Need to create a new account, add permissions, and add identity using `rucio-admin`
+  * Define `client_x509_proxy` location
+* Add `config.automatix` section to `$EXPERIMENT/helm/daemons/values.yaml`
+  * `rses`: The target RSEs
+  * `account`: Account created for automatix
+  * `sleep_time`: Sleep time between uploads
+  * `dataset_lifetime`: Lifetime of uploaded data
+  * `scope`: Scope for dataset
+    * Need to add with `rucio-admin`
+* Add `automatix.json` as a secret: `rucio-$EXPERIMENT-automatix-input`
+* Add `automatix-input` section to `$EXPERIMENT/helm/daemons/values.yaml`
+  * Adds the `automatix.json` from a secret
+```
+automatix-input:
+  secretName: automatix-input
+  mountPath: /opt/rucio/etc/automatix.json
+  subPath: automatix.json
+```
 
 ## Miscellaneous
 * Ensure OKD IP Addresses are added to `pg_hba.conf` on the databases.
