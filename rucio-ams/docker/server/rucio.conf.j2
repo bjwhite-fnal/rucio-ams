@@ -10,6 +10,8 @@ Listen {{ listen_port }}
 Header set X-Rucio-Host "%{HTTP_HOST}e"
 RequestHeader add X-Rucio-RequestId "%{UNIQUE_ID}e"
 Header always set Strict-Transport-Security "max-age=31536000; includeSubdomains;"
+Header set X-Frame-Options "SAMEORIGIN"
+TraceEnable Off
 
 {% if RUCIO_LOG_FORMAT is defined %}
 LogFormat "{{ RUCIO_LOG_FORMAT }}" combinedrucio
