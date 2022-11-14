@@ -27,6 +27,8 @@ minosCount: 1
 necromancerCount: 1
 replicaRecovererCount: 1
 
+#automatixCount: 1
+
 # Service Account
 serviceAccountName: useroot
 
@@ -189,10 +191,37 @@ ftsRenewal:
   voms: "fermilab:/fermilab"
   servers: "https://fts3-public.fnal.gov:8446"
 
+automatix:
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
+  inputFile: "/opt/rucio/etc/automatix.json"
+  sleepTime: "60"
+
 # Config values used to configure the Rucio daemons
 # These are turned into RUCIO_CFG_<section>_<variable>=value environment variables
 config:
 #  common:
+  client:
+    account: "automatix"
+    auth_type: "x509_proxy"
+    rucio_host: "https://int-rucio.fnal.gov"
+    auth_host: "https://auth-int-rucio.fnal.gov"
+    ca_cert: "/etc/grid-security/certificates"
+    request_retries: 3
+    protocol_stat_retries: 6
+    client_x509_proxy: "/opt/proxy/x509up"
+
+  automatix:
+    rses: "DCACHE_BJWHITE_END, DCACHE_BJWHITE_END2"
+    account: "automatix"
+    sleep_time: 60
+    dataset_lifetime: 30
+
   messaging-cache:
     port: "11211"
     #ssl_key_file: ?
@@ -246,3 +275,7 @@ additionalSecrets:
     secretName: suspicious-replica-recoverer-input
     mountPath: /opt/rucio/etc/suspicious_replica_recoverer.json
     subPath: suspicious_replica_recoverer.json
+  automatix-input:
+    secretName: automatix-input
+    mountPath: /opt/rucio/etc/automatix.json
+    subPath: automatix.json

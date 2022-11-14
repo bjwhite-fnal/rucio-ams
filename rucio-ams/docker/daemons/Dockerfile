@@ -21,9 +21,6 @@ ADD vomses /etc
 ADD ./start-daemon.sh /
 ADD permissions/ /opt/rucio/permissions/fermilab
 
-#TEMP
-#ADD reaper.py /usr/local/lib/python3.6/site-packages/rucio/daemons/reaper/reaper.py
-
 # Patches
 #ADD patches/* /tmp/patches/
 #RUN if ls -1 /tmp/patches/ | grep -Eq '\.patch$'; then for p in /tmp/patches/*.patch; do echo "Patching: $p" && patch -p0 -d /usr/lib/python2.7/site-packages/ < $p; done; fi

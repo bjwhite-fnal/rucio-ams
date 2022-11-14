@@ -74,3 +74,7 @@ kubectl create secret generic ssl-secrets \
 # Replica Recoverer
 kubectl create secret generic rucio-$EXPERIMENT-suspicious-replica-recoverer-input \
 	--from-file=suspicious_replica_recoverer.json=$RUCIO_AMS_DIR/$EXPERIMENT/suspicious_replica_recoverer.json
+
+# Automatix
+kubectl create secret generic rucio-$EXPERIMENT-automatix-input \
+	--from-file=automatix.json=$RUCIO_AMS_DIR/$EXPERIMENT/automatix.json
