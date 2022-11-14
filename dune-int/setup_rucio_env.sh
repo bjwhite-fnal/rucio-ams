@@ -8,7 +8,7 @@ export DOCKER_BUILDKIT=1
 #export RUCIO_AMS_VERSION=1.29.3.post1
 #export RUCIO_AMS_VERSION=1.29.4
 #export RUCIO_AMS_VERSION=1.29.5
-export RUCIO_AMS_VERSION=1.29.6
+export RUCIO_AMS_VERSION=1.29.8
 
 # Make sure to set EXPERIMENT, RUCIO_AMS_DIR, AMS_RUCIO_CERT, AMS_RUCIO_KEY, AMS_RUCIO_CA_BUNDLE
 export RUCIO_AMS_DIR=/nashome/b/bjwhite/dev/rucio/rucio-ams
