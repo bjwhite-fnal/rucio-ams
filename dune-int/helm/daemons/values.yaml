@@ -261,6 +261,9 @@ config:
     email_from: "DUNE Rucio <bjwhite@fnal.gov>"
     email_test: "bjwhite@fnal.gov"
 
+  transfers:
+    srm_https_compatability: True
+
   policy:
     package: fermilab.dune
     support: "Brandon White <bjwhite@fnal.gov>"
