@@ -112,3 +112,7 @@ This enables a setting in the `rucio-server` Helm chart that would require us to
 ```
 servicemonitors.monitoring.coreos.com is forbidden: User <user> cannot create resource "servicemonitors" in API group "monitoring.coreos.com" in the namespace "monitoring"
 ```
+
+## Deploying Prometheus
+* The `useroot` account is used in the Prometheus pod to get a list of pods from the cluster
+* This account needs to be able to `get`, `list`, and `watch` the `pod` resource

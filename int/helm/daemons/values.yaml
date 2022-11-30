@@ -27,7 +27,7 @@ minosCount: 1
 necromancerCount: 1
 replicaRecovererCount: 1
 
-#automatixCount: 1
+automatixCount: 1
 
 # Service Account
 serviceAccountName: useroot
@@ -200,7 +200,7 @@ automatix:
       memory: "200Mi"
       cpu: "700m"
   inputFile: "/opt/rucio/etc/automatix.json"
-  sleepTime: "60"
+  sleepTime: "300"
 
 # Config values used to configure the Rucio daemons
 # These are turned into RUCIO_CFG_<section>_<variable>=value environment variables
@@ -219,8 +219,10 @@ config:
   automatix:
     rses: "DCACHE_BJWHITE_END, DCACHE_BJWHITE_END2"
     account: "automatix"
-    sleep_time: 60
+    sleep_time: 300
+    set_metadata: "False"
     dataset_lifetime: 30
+    scope: "automatix"
 
   messaging-cache:
     port: "11211"
