@@ -3,7 +3,8 @@
 ARG rucio_version 
 FROM rucio/rucio-ui:release-$rucio_version
 
-RUN yum install -y metacat patch net-tools vim less
+RUN yum install -y patch net-tools vim less
+RUN pip3 install metacat
 
 ADD permissions/ /opt/rucio/permissions/fermilab
 ADD ./docker-entrypoint.sh / 
