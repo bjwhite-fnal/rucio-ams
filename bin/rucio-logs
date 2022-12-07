@@ -16,5 +16,5 @@ if [[ $APP == 'all' ]]; then
 	oc logs -l release=rucio-$EXPERIMENT -f --max-log-requests 20 --prefix=true
 
 else
-	oc logs -l app=$APP -f --max-log-requests 20 --prefix=true
+	oc logs -l app-group=$APP -f --max-log-requests 20 --prefix=true
 fi
