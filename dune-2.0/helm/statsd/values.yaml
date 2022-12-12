@@ -1,0 +1,12 @@
+---
+serviceAccountName: useroot
+statsdCount: 1
+
+image:
+  repository: imageregistry.fnal.gov/rucio-ams/rucio-ams-statsd
+  tag: latest
+  pullPolicy: Always
+
+service:
+  port: 8125 
+  targetPort: 8125 
