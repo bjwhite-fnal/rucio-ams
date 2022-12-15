@@ -23,6 +23,12 @@ deactivate () {
         unset -f deactivate
     fi
 
+    if [ -n "${_OLD_PATH:-}" ] ; then
+        PATH="${_OLD_PATH:-}"
+        export PATH
+        unset _OLD_PATH
+    fi
+
 }
 
 set_ps1 () {
@@ -70,6 +76,8 @@ echo Rucio Version: $RUCIO_AMS_VERSION
 echo Docker Tag: $RUCIO_AMS_VERSION_TAG
 
 # add bin to the PATH
+_OLD_PATH="${PATH:-}"
+export _OLD_PATH
 export PATH=$RUCIO_AMS_DIR/bin:$PATH
 
 set_ps1
