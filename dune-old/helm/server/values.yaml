@@ -16,21 +16,21 @@ image:
   repository: imageregistry.fnal.gov/rucio-ams/rucio-ams-server
   pullPolicy: Always
 
-serverResources:
-  limits:
-    memory: "600Mi"
-    cpu: "700m"
-  requests:
-    memory: "200Mi"
-    cpu: "200m"
-
-authServerResources:
-  limits:
-    memory: "600Mi"
-    cpu: "700m"
-  requests:
-    memory: "200Mi"
-    cpu: "200m"
+#serverResources:
+#  limits:
+#    memory: "8000Mi"
+#    cpu: "700m"
+#  requests:
+#    memory: "4000Mi"
+#    cpu: "200m"
+#
+#authServerResources:
+#  limits:
+#    memory: "600Mi"
+#    cpu: "700m"
+#  requests:
+#    memory: "200Mi"
+#    cpu: "200m"
 
 serverType:
   server: flask
@@ -39,12 +39,12 @@ serverType:
 
 serverRoute:
   app: rucio-dune-rucio-server
-  host: dune-rucio.fnal.gov
+  host: dune-rucio.okd.fnal.gov
   serviceName: rucio-server
 
 authServerRoute:
   app: rucio-dune-rucio-server-auth
-  host: auth-dune-rucio.fnal.gov
+  host: auth-dune-rucio.okd.fnal.gov
   serviceName: rucio-server-auth
 
 useSSL:
@@ -73,9 +73,10 @@ minReadySeconds:
   server: 5
   authServer: 5
 
+# Don't worry about this, we have our own logging solution. This is for CERN.
 exposeErrorLogs:
-  server: 1
-  authServer: 1
+  server: 0
+  authServer: 0
 
 httpd_config:
   mpm_mode: "prefork"
@@ -86,50 +87,44 @@ httpd_config:
   server_limit: "256"
   max_clients: "256"
   max_requests_per_child: "4000"
-  enable_status: "False"
-
-livenessProbe:
-  server:
-    initialDelaySeconds: 10
-    periodSeconds: 60
-    timeoutSeconds: 30
-  authServer:
-    initialDelaySeconds: 10
-    periodSeconds: 60
-    timeoutSeconds: 30
 
 config: 
-#  common:
+  common:
+    # Sets the location that the daemons will log to.
+    logdir: /rucio/logs
 
   monitor:
     carbon_server: "rucio-statsd"
     carbon_port: "8125"
     user_scope: "rucio_dune_okd"
-    enable_metrics: "False"
+    enable_metrics: "True"
 
   # Configure the policy package that is to be used for this deployment.
   policy:
-    package: fermilab.dune
+    package: fermilab.generic
     support: "Brandon White <bjwhite@fnal.gov>"
-    lfn2pfn_algorithm_default: DUNE
-    metacat_base_url: "https://metacat.fnal.gov:9443/dune_meta_demo/app"
-
 
   # Set up request routing to the auth server
   api:
     endpoints: auth,accountlimits,accounts,config,credentials,dids,export,heartbeats,identities,import,lifetime_exceptions,locks,meta,ping,redirect,replicas,requests,rses,rules,scopes,subscriptions
-    
 
 # FNAL (and likely OKD) Specific Configuration Stuff
 optional_config:
   # Set the path (inside the container) where the experiment policy package will be located.
   policy_pkg_dir: /opt/rucio/permissions
-  metacat_server_url: https://metacat.fnal.gov:9443/dune_meta_demo/app
-  metacat_auth_server_url: https://metacat.fnal.gov:8143/auth/dune
-  rucio_metrics_port: 8080
+
+  # Enable logging to files instead of the container STDOUT and set the location that they will go to (Default: /var/log/ if rucio_httpd_log_dir not set)
+  #rucio_enable_logfile: "True"
+  #rucio_enable_logs: "True"
+  #rucio_httpd_log_dir: /rucio/logs
 
   # Database debugging messages
   #rucio_cfg_database_echo: 1
+
+#persistentVolumes:
+#  rucio-logs:
+#    name: "pv-rucio-dune-logs"
+#    mountPath: /rucio/logs
 
 authIngress:
   enabled: false
