@@ -41,6 +41,7 @@ In particular please make sure that the following are set by the sourcing of the
 Source the setup_rucio_env.sh file at the top of the target experiment's configuration tree to configure the environment.
 Use deploy-rucio.sh to deploy services onto the OKD cluster after the environment is configured appropriately as described above.
 Use undeploy-rucio.sh to remove everything (Services, Pods, Routes, Persistent Volumes and Claims, etc..).
+Use update_cert_secrets.sh to re-apply certificate secrets. Remember to `kubectl rollout restart deployment` to restart all deployments so that new pods will use the updated secrets.
 
 The Rucio source code may be patched when the images are built by placing patch files into one of two locations: $RUCIO_AMS_DIR/rucio-ams/docker/[server,daemon]/patches
 
