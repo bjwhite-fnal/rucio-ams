@@ -206,10 +206,10 @@ hermes:
   sleepTime: "10"
   resources:
     limits:
-      memory: "800Mi"
+      memory: "1600Mi"
       cpu: "100m"
     requests:
-      memory: "400Mi"
+      memory: "800Mi"
       cpu: "100m"
 
 ftsRenewal:
