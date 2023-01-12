@@ -5,18 +5,13 @@
 serviceAccountName: useroot
 experiment: Uses $EXPERIMENT 
 
-messengerServerCount: 1
+cacheServerCount: 1
 
 service:
-  ssl_port: 443
-  ssl_targetPort: 443
+  port: 11211
+  targetPort: 11211
 
 image:
-  repository: imageregistry.fnal.gov/rucio-ams/rucio-ams-messenger
+  repository: imageregistry.fnal.gov/rucio-ams/rucio-ams-cache
   tag: latest
   pullPolicy: Always
-
-messengerRoute:
-  app: rucio-messenger
-  host: msg-dune-rucio.fnal.gov
-  serviceName: messenger
