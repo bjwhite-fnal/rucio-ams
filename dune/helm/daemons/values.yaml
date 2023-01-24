@@ -10,7 +10,7 @@ reaperCount: 1
 hermesCount: 1 
 
 abacusAccountCount: 1
-abacusCollectionReplicaCount: 0
+abacusCollectionReplicaCount: 1
 abacusRseCount: 1
 
 conveyorTransferSubmitterCount: 1
