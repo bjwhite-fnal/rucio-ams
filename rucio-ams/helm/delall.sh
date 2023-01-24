@@ -39,5 +39,5 @@ kubectl delete pods --all --now
 kubectl delete daemonset --all
 kubectl delete pvc --all
 kubectl delete jobs --all
-kubectl delete serviceaccount rucio-int-rucio-edit
+kubectl delete serviceaccount rucio-${EXPERIMENT}-rucio-edit
 echo "**************** Openshift application rucio-$EXPERIMENT removed successfully. ****************" 
