@@ -18,5 +18,5 @@ image:
 
 messengerRoute:
   app: rucio-messenger
-  host: msg-icarus-rucio.fnal.gov
+  host: msg-icarus-rucio.okd.fnal.gov
   serviceName: messenger

@@ -33,18 +33,18 @@ authServerResources:
     cpu: "200m"
 
 serverType:
-  server: flask
-  authServer: flask
-  traceServer: trace
+    server: flask
+    authServer: flask
+    traceserver: trace
 
 serverRoute:
   app: rucio-icarus-rucio-server
-  host: icarus-rucio.fnal.gov
+  host: icarus-rucio.okd.fnal.gov
   serviceName: rucio-server
 
 authServerRoute:
   app: rucio-icarus-rucio-server-auth
-  host: auth-icarus-rucio.fnal.gov
+  host: auth-icarus-rucio.okd.fnal.gov
   serviceName: rucio-server-auth
 
 useSSL:
@@ -73,57 +73,40 @@ minReadySeconds:
   server: 5
   authServer: 5
 
+# Don't worry about this, we have our own logging solution. This is for CERN.
 exposeErrorLogs:
-  server: 1
-  authServer: 1
+  server: 0
+  authServer: 0
 
 httpd_config:
   mpm_mode: "prefork"
   use_ca_path: "1"
-  start_servers: "8"
-  min_spare_servers: "5"
-  max_spare_servers: "20"
-  server_limit: "256"
-  max_clients: "256"
-  max_requests_per_child: "4000"
-  enable_status: "False"
-
-livenessProbe:
-  server:
-    initialDelaySeconds: 10
-    periodSeconds: 60
-    timeoutSeconds: 30
-  authServer:
-    initialDelaySeconds: 10
-    periodSeconds: 60
-    timeoutSeconds: 30
+  start_servers: "1"
+  min_spare_servers: "1"
+  max_spare_servers: "1"
+  server_limit: "10"
+  max_clients: "10"
+  max_requests_per_child: "200"
 
 config: 
-#  common:
+  common:
+    logdir: /rucio/logs
 
   monitor:
     carbon_server: "rucio-statsd"
     carbon_port: "8125"
     user_scope: "rucio_icarus_okd"
-    enable_metrics: "False"
+    enable_metrics: "True"
 
-  # Configure the policy package that is to be used for this deployment.
   policy:
     package: fermilab.generic
     support: "Brandon White <bjwhite@fnal.gov>"
 
-  # Set up request routing to the auth server
   api:
     endpoints: auth,accountlimits,accounts,config,credentials,dids,export,heartbeats,identities,import,lifetime_exceptions,locks,meta,ping,redirect,replicas,requests,rses,rules,scopes,subscriptions
-    
 
-# FNAL (and likely OKD) Specific Configuration Stuff
 optional_config:
-  # Set the path (inside the container) where the experiment policy package will be located.
   policy_pkg_dir: /opt/rucio/permissions
-  rucio_metrics_port: 8080
-
-  # Database debugging messages
   #rucio_cfg_database_echo: 1
 
 authIngress:

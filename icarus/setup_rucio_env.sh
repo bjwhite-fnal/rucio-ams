@@ -1,23 +1,16 @@
-# Environtment set up file for the icarus environment
-
+# Environtment set up file for the DUNE environment
 export DOCKER_BUILDKIT=1
-#export RUCIO_AMS_VERSION=1.23.14
-#export RUCIO_AMS_VERSION=1.26.5
-#export RUCIO_AMS_VERSION=1.26.7
-#export RUCIO_AMS_VERSION=1.26.8
-export RUCIO_AMS_VERSION=1.26.9
-
-if [ -z ${RUCIO_AMS_DEV} ]; then
-    export RUCIO_AMS_VERSION_TAG=${RUCIO_AMS_VERSION}
-else
-    export RUCIO_AMS_VERSION_TAG="latest"
-fi
+export RUCIO_AMS_VERSION=1.29.10
 
 # Make sure to set EXPERIMENT, RUCIO_AMS_DIR, AMS_RUCIO_CERT, AMS_RUCIO_KEY, AMS_RUCIO_CA_BUNDLE
-export EXPERIMENT=icarus
 export RUCIO_AMS_DIR=/nashome/b/bjwhite/dev/rucio/rucio-ams
 
 # Only the filenames are needed. The files should be resident in $AMS_RUCIO_DEPLOYMENT_CONF_DIR/certs 
-export AMS_RUCIO_CERT=icarus-rucio.okd.fnal.gov-cert.pem
-export AMS_RUCIO_KEY=icarus-rucio.okd.fnal.gov-key.pem
+export AMS_RUCIO_CERT=icarus-rucio.fnal.gov-cert.pem
+export AMS_RUCIO_KEY=icarus-rucio.fnal.gov-key.pem
 export AMS_RUCIO_CA_BUNDLE=ca_bundle.pem
+
+export RUCIO_AMS_EXT_SERVER_IP=131.225.218.171
+export RUCIO_AMS_EXT_AUTH_IP=131.225.218.170
+export RUCIO_AMS_EXT_MSG_IP=131.225.218.168
+export RUCIO_AMS_EXT_WEBUI_IP=131.225.218.169

@@ -20,11 +20,6 @@ strategy:
 
 minReadySeconds: 5
 
-proxy:
-  rucioProxy: "icarus-rucio.fnal.gov"
-  rucioAuthProxy: "auth-icarus-rucio.fnal.gov"
-
-
 exposeErrorLogs: 0
 
 ingress:
@@ -32,7 +27,7 @@ ingress:
 
 webuiRoute:
   app: rucio-webui
-  host: webui-icarus-rucio.fnal.gov
+  host: webui-icarus-rucio.okd.fnal.gov
   serviceName: rucio-icarus-rucio-ui
 
 service:
@@ -51,10 +46,10 @@ monitor:
 logging:
   log_level: 0
 
-httpd_config:
-  log_dir: "/rucio/logs"
-
 config:
+  common:
+    logdir: /rucio/logs
+
   policy:
     package: fermilab.generic
     support: "Brandon White <bjwhite@fnal.gov>"

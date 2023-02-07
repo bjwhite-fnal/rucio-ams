@@ -7,7 +7,7 @@ experiment: Uses $EXPERIMENT
 
 # Number of pods to run for each daemon
 reaperCount: 1
-hermesCount: 1
+hermesCount: 1 
 
 abacusAccountCount: 1
 abacusCollectionReplicaCount: 1
@@ -19,18 +19,18 @@ conveyorFinisherCount: 1
 conveyorStagerCount: 1
 conveyorReceiverCount: 0
 
-judgeCleanerCount: 1
-judgeEvaluatorCount: 1
-judgeInjectorCount: 1
-judgeRepairerCount: 1
+judgeCleanerCount: 1 
+judgeEvaluatorCount: 1 
+judgeInjectorCount: 1 
+judgeRepairerCount: 1 
 
 undertakerCount: 1
 transmogrifierCount: 1
-minosCount: 1
-necromancerCount: 1
+minosCount: 1 
+necromancerCount: 1 
 #kronosCount: 0
-##cacheConsumerCount: 0
-##auditor?
+#cacheConsumerCount: 0
+#auditor?
 
 # Service Account
 serviceAccountName: useroot
@@ -53,112 +53,145 @@ minReadySeconds: 5
 # Daemons Specific Configuration Parameters
 abacusAccount:
   threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "100m"
+    requests:
+      memory: "400Mi"
+      cpu: "100m"
 
 abacusRse:
   threads: 1
+  resources:
+    limits:
+      memory: "600Mi"
+      cpu: "100m"
+    requests:
+      memory: "400Mi"
+      cpu: "100m"
+
+abacusCollectionReplica:
+  threads: 1
+  resources:
+    limits:
+      memory: "800Mi"
+      cpu: "100m"
+    requests:
+      memory: "800Mi"
+      cpu: "100m"
 
 conveyorTransferSubmitter:
   threads: 1
-  activities: "'User Subscriptions' 'Recovery'"
+  activities: "'User Subscriptions' 'Recovery' 'Data Challenge'"
   sleepTime: 10
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "200m"
     requests:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "400Mi"
+      cpu: "200m"
 
 conveyorPoller:
   threads: 1
-  activities: "'User Subscriptions' 'Recovery'"
+  activities: "'User Subscriptions' 'Recovery' 'Data Challenge'"
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "200m"
     requests:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "400Mi"
+      cpu: "200m"
 
 conveyorFinisher:
   threads: 1
-  activities: "'User Subscriptions' 'Recovery'"
+  activities: "'User Subscriptions' 'Recovery' 'Data Challenge'"
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "200m"
     requests:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "400Mi"
+      cpu: "200m"
 
 conveyorStager:
   threads: 1
-  activities: "'User Subscriptions' 'Recovery'"
+  activities: "'User Subscriptions' 'Recovery' 'Data Challenge'"
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "200m"
     requests:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "400Mi"
+      cpu: "200m"
 
 conveyorReceiver:
   threads: 1
-  activities: "'User Subscriptions' 'Recovery'"
+  activities: "'User Subscriptions' 'Recovery' 'Data Challenge'"
 
 judgeCleaner:
   threads: 1
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "200m"
     requests:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "400Mi"
+      cpu: "200m"
 
 judgeEvaluator:
   threads: 1
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "200m"
     requests:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "400Mi"
+      cpu: "200m"
 
 judgeInjector:
   threads: 1
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "200m"
     requests:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "400Mi"
+      cpu: "200m"
 
 judgeRepairer:
   threads: 1
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "200m"
     requests:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "400Mi"
+      cpu: "200m"
+
+transmogrifier:
+  threads: 1
+  resources:
+    limits:
+      memory: "2000Mi"
+      cpu: "200m"
+    requests:
+      memory: "800Mi"
+      cpu: "200m"
 
 undertaker:
   threads: 1
 
 reaper:
-  scheme: "srm"
   threads: 1
   resources:
     limits:
       memory: "600Mi"
-      cpu: "700m"
+      cpu: "400m"
     requests:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "400Mi"
+      cpu: "400m"
 
 minos:
   threads: 1
@@ -170,7 +203,14 @@ hermes:
   threads: 2
   useSSL: "True"
   bulk: "100"
-  delay: "10"
+  sleepTime: "10"
+  resources:
+    limits:
+      memory: "800Mi"
+      cpu: "100m"
+    requests:
+      memory: "400Mi"
+      cpu: "100m"
 
 ftsRenewal:
   enabled: 1
@@ -179,51 +219,48 @@ ftsRenewal:
     pullPolicy: Always
   vo: "icarus"
   voms: "fermilab:/fermilab/icarus/Role=Production"
-  #servers: "https://fts-dev.fnal.gov:8446"
-  servers: "https://fts3-public.cern.ch:8446"
+  servers: "https://fts3-public.cern.ch:8446,https://fts3-public.fnal.gov:8446"
 
 # Config values used to configure the Rucio daemons
 # These are turned into RUCIO_CFG_<section>_<variable>=value environment variables
 config:
-
-  common:
-    logdir: /rucio/logs
-
+  #common:
   conveyor:
     max_time_in_queue: "User Subscriptions:5"
-    #ftshosts: "https://fts-dev.fnal.gov:8446"
-    ftshosts: "https://fts3-public.cern.ch:8446"
+    ftshosts: "https://fts3-public.cern.ch:8446,https://fts3-public.fnal.gov:8446"
     cacert: "/opt/certs/ca.pem"
     usercert: "/opt/proxy/x509up"
+    bring_online: "259200"
+
+  transfers:
+    srm_https_compatibility: True
 
   monitor:
-    # Not sure if this will work here due to the secrets stuff in the RUCIO_CFG_ env var generation
     carbon_server: "rucio-statsd"
     carbon_port: "8125"
-    user_scope: "rucio.icarus_okd"
+    user_scope: "rucio_icarus_okd"
     enable_metrics: "True"
 
-  messaging:
-    cache_port: "11211"
-    #cache_ssl_key_file: ?
-    #cache_ssl_cert_file: ?
-    cache_destination: "/topic/rucio.events.icarus"
-    cache_brokers: "rucio-cache"
-    cache_voname: "icarus"
-    cache_account: "memcache"
+  messaging-cache:
+    port: "11211"
+    destination: "/topic/rucio.events.icarus"
+    brokers: "rucio-cache"
+    voname: "icarus"
+    account: "memcache"
 
-    hermes_username: "guest"
-    hermes_password: "guest"
-    hermes_port: "443"
-    hermes_use_ssl: "True"
-    hermes_ssl_key_file: "/opt/rucio/keys/new_userkey.pem"
-    hermes_ssl_cert_file: "/opt/rucio/certs/usercert.pem"
-    hermes_destination: "/topic/rucio.events.icarus"
-    hermes_brokers: "rucio-messenger"
-    hermes_broker_virtual_host: "/"
-    hermes_voname: "/"
-    hermes_email_from: "DUNE Rucio <bjwhite@fnal.gov>"
-    hermes_email_test: "bjwhite@fnal.gov"
+  messaging-hermes:
+    brokers: "rucio-messenger"
+    port: "443"
+    username: "guest"
+    password: "guest"
+    use_ssl: "True"
+    ssl_key_file: "/opt/rucio/keys/new_userkey.pem"
+    ssl_cert_file: "/opt/rucio/certs/usercert.pem"
+    destination: "/topic/rucio.events.icarus"
+    broker_virtual_host: "/"
+    voname: "/"
+    email_from: "ICARUS Rucio <bjwhite@fnal.gov>"
+    email_test: "bjwhite@fnal.gov"
 
   policy:
     package: fermilab.generic
