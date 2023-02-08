@@ -13,7 +13,6 @@ global:
   #  - "my/*.rules"
 
 remote_write:
-#  - url: "http://lssrv02:9009/api/v1/push"
   - url: "REPLACE_WITH_LANDSCAPE_ENDPOINT"
 #    name: drop_expensive
 #    write_relabel_configs:
