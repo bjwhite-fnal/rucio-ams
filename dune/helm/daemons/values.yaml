@@ -75,10 +75,10 @@ abacusCollectionReplica:
   threads: 1
   resources:
     limits:
-      memory: "800Mi"
+      memory: "2000Mi"
       cpu: "100m"
     requests:
-      memory: "800Mi"
+      memory: "1600Mi"
       cpu: "100m"
 
 conveyorTransferSubmitter:
