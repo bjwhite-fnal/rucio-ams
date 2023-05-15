@@ -99,13 +99,18 @@ livenessProbe:
     timeoutSeconds: 30
 
 config: 
-#  common:
+  # common:
 
   monitor:
     carbon_server: "rucio-statsd"
     carbon_port: "8125"
     user_scope: "rucio_hypot_okd"
     enable_metrics: "False"
+
+  # Configure the policy package that is to be used for this deployment.
+  policy:
+    package: fermilab.generic
+    support: "Brandon White <bjwhite@fnal.gov>"
 
   # Set up request routing to the auth server
   api:

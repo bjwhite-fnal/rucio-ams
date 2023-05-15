@@ -29,6 +29,7 @@ deactivate () {
         unset _OLD_PATH
     fi
 
+    unset RUCIO_AMS_DEV
 }
 
 set_ps1 () {
