@@ -5,7 +5,7 @@ export RUCIO_AMS_DEV=true
 
 # I love parallel builds!
 export DOCKER_BUILDKIT=1
-export RUCIO_AMS_VERSION=1.29.11
+export RUCIO_AMS_VERSION=1.29.12
 
 # Make sure to set EXPERIMENT, RUCIO_AMS_DIR, AMS_RUCIO_CERT, AMS_RUCIO_KEY, AMS_RUCIO_CA_BUNDLE
 # Optionally set RUCIO_AMS_EXT_SERVER_IP, RUCIO_AMS_EXT_AUTH_IP, RUCIO_AMS_EXT_WEBUI_IP, RUCIO_AMS_EXT_MSG_IP
@@ -15,6 +15,10 @@ export RUCIO_AMS_VERSION=1.29.11
 export AMS_RUCIO_CERT=int-rucio.fnal.gov-cert.pem
 export AMS_RUCIO_KEY=int-rucio.fnal.gov-key.pem
 export AMS_RUCIO_CA_BUNDLE=ca_bundle.pem
+
+# configuration for the optional automatix and suspicious replica recoverer daemons
+export RUCIO_AMS_AUTOMATIX_CONF=automatix.json
+export RUCIO_AMS_SUSPICIOUS_REPLICA_CONF=suspicious_replica_recoverer.json
 
 # External IPs
 export RUCIO_AMS_EXT_SERVER_IP=131.225.218.160
