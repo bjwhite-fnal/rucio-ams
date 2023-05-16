@@ -18,19 +18,19 @@ image:
 
 serverResources:
   limits:
+    memory: "600Mi"
+    cpu: "700m"
+  requests:
     memory: "200Mi"
     cpu: "200m"
-  requests:
-    memory: "100Mi"
-    cpu: "100m"
 
 authServerResources:
   limits:
+    memory: "600Mi"
+    cpu: "700m"
+  requests:
     memory: "200Mi"
     cpu: "200m"
-  requests:
-    memory: "100Mi"
-    cpu: "100m"
 
 serverType:
   server: flask
