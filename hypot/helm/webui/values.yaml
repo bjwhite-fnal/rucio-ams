@@ -54,7 +54,9 @@ logging:
 httpd_config:
   log_dir: "/rucio/logs"
 
-#config:
+config:
+  core:
+    use_temp_tables: "True"
 
 optional_config:
   experiment: Uses $EXPERIMENT 
