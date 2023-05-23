@@ -71,10 +71,14 @@ kubectl create secret generic ssl-secrets \
 	--from-file=hostkey.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_KEY \
 	--from-file=ca.pem=$RUCIO_AMS_DIR/$EXPERIMENT/certs/$AMS_RUCIO_CA_BUNDLE 
 
-# Replica Recoverer
-kubectl create secret generic rucio-$EXPERIMENT-suspicious-replica-recoverer-input \
-	--from-file=suspicious_replica_recoverer.json=$RUCIO_AMS_DIR/$EXPERIMENT/suspicious_replica_recoverer.json
+# Suspicious Replica Recoverer
+if grep -q "suspicious-replica-recoverer-input" "$RUCIO_AMS_DIR/$EXPERIMENT/helm/daemons/values.yaml"; then
+        kubectl create secret generic rucio-$EXPERIMENT-suspicious-replica-recoverer-input \
+                --from-file=suspicious_replica_recoverer.json=$RUCIO_AMS_DIR/$EXPERIMENT/$RUCIO_AMS_SUSPICIOUS_REPLICA_CONF
+fi
 
 # Automatix
-kubectl create secret generic rucio-$EXPERIMENT-automatix-input \
-	--from-file=automatix.json=$RUCIO_AMS_DIR/$EXPERIMENT/automatix.json
+if grep -q "automatix-input" "$RUCIO_AMS_DIR/$EXPERIMENT/helm/daemons/values.yaml"; then
+        kubectl create secret generic rucio-$EXPERIMENT-automatix-input \
+                --from-file=automatix.json=$RUCIO_AMS_DIR/$EXPERIMENT/$RUCIO_AMS_AUTOMATIX_CONF
+fi

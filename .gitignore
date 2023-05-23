@@ -1,6 +1,6 @@
 # Ignore the secrets and certificates directories entirely.
-secret/
-certs/
+secret
+certs
 ca_bundle.pem
 
 # Ignore all the various YAML files that are created for the deployment.
