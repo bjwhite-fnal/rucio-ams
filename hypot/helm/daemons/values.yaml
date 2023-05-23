@@ -55,30 +55,30 @@ abacusAccount:
   threads: 1
   resources:
     limits:
-      memory: "600Mi"
-      cpu: "100m"
+      memory: "200Mi"
+      cpu: "200m"
     requests:
-      memory: "400Mi"
+      memory: "100Mi"
       cpu: "100m"
 
 abacusRse:
   threads: 1
   resources:
     limits:
-      memory: "600Mi"
-      cpu: "100m"
+      memory: "200Mi"
+      cpu: "200m"
     requests:
-      memory: "400Mi"
+      memory: "100Mi"
       cpu: "100m"
 
 abacusCollectionReplica:
   threads: 1
   resources:
     limits:
-      memory: "2000Mi"
-      cpu: "100m"
+      memory: "200Mi"
+      cpu: "200m"
     requests:
-      memory: "1600Mi"
+      memory: "100Mi"
       cpu: "100m"
 
 conveyorTransferSubmitter:
@@ -87,44 +87,44 @@ conveyorTransferSubmitter:
   sleepTime: 10
   resources:
     limits:
-      memory: "600Mi"
+      memory: "200Mi"
       cpu: "200m"
     requests:
-      memory: "400Mi"
-      cpu: "200m"
+      memory: "100Mi"
+      cpu: "100m"
 
 conveyorPoller:
   threads: 1
   activities: "'User Subscriptions' 'Recovery' 'Data Challenge'"
   resources:
     limits:
-      memory: "600Mi"
+      memory: "200Mi"
       cpu: "200m"
     requests:
-      memory: "400Mi"
-      cpu: "200m"
+      memory: "100Mi"
+      cpu: "100m"
 
 conveyorFinisher:
   threads: 1
   activities: "'User Subscriptions' 'Recovery' 'Data Challenge'"
   resources:
     limits:
-      memory: "600Mi"
+      memory: "200Mi"
       cpu: "200m"
     requests:
-      memory: "400Mi"
-      cpu: "200m"
+      memory: "100Mi"
+      cpu: "100m"
 
 conveyorStager:
   threads: 1
   activities: "'User Subscriptions' 'Recovery' 'Data Challenge'"
   resources:
     limits:
-      memory: "600Mi"
+      memory: "200Mi"
       cpu: "200m"
     requests:
-      memory: "400Mi"
-      cpu: "200m"
+      memory: "100Mi"
+      cpu: "100m"
 
 conveyorReceiver:
   threads: 1
@@ -134,51 +134,51 @@ judgeCleaner:
   threads: 1
   resources:
     limits:
-      memory: "600Mi"
+      memory: "200Mi"
       cpu: "200m"
     requests:
-      memory: "400Mi"
-      cpu: "200m"
+      memory: "100Mi"
+      cpu: "100m"
 
 judgeEvaluator:
   threads: 1
   resources:
     limits:
-      memory: "600Mi"
+      memory: "200Mi"
       cpu: "200m"
     requests:
-      memory: "400Mi"
-      cpu: "200m"
+      memory: "100Mi"
+      cpu: "100m"
 
 judgeInjector:
   threads: 1
   resources:
     limits:
-      memory: "600Mi"
+      memory: "200Mi"
       cpu: "200m"
     requests:
-      memory: "400Mi"
-      cpu: "200m"
+      memory: "100Mi"
+      cpu: "100m"
 
 judgeRepairer:
   threads: 1
   resources:
     limits:
-      memory: "600Mi"
+      memory: "200Mi"
       cpu: "200m"
     requests:
-      memory: "400Mi"
-      cpu: "200m"
+      memory: "100Mi"
+      cpu: "100m"
 
 transmogrifier:
   threads: 1
   resources:
     limits:
-      memory: "2000Mi"
+      memory: "200Mi"
       cpu: "200m"
     requests:
-      memory: "800Mi"
-      cpu: "200m"
+      memory: "100Mi"
+      cpu: "100m"
 
 undertaker:
   threads: 1
@@ -187,11 +187,11 @@ reaper:
   threads: 1
   resources:
     limits:
-      memory: "600Mi"
-      cpu: "400m"
+      memory: "200Mi"
+      cpu: "200m"
     requests:
-      memory: "400Mi"
-      cpu: "400m"
+      memory: "100Mi"
+      cpu: "100m"
 
 minos:
   threads: 1
@@ -206,10 +206,10 @@ hermes:
   sleepTime: "10"
   resources:
     limits:
-      memory: "1600Mi"
-      cpu: "100m"
+      memory: "200Mi"
+      cpu: "200m"
     requests:
-      memory: "800Mi"
+      memory: "100Mi"
       cpu: "100m"
 
 ftsRenewal:
@@ -217,20 +217,17 @@ ftsRenewal:
   image:
     repository: imageregistry.fnal.gov/rucio-ams/rucio-ams-fts-cron
     pullPolicy: Always
-  vo: "dune"
-  voms: "dune:/dune/Role=Production"
-  servers: "https://fts3-public.cern.ch:8446,https://fts3-public.fnal.gov:8446"
+  vo: "hypot"
+  voms: "fermilab:/fermilab/hypot/Role=Production"
+  servers: "https://fts3-public.fnal.gov:8446"
 
 # Config values used to configure the Rucio daemons
 # These are turned into RUCIO_CFG_<section>_<variable>=value environment variables
 config:
   #common:
-  core:
-    use_temp_tables: "True"
-
   conveyor:
     max_time_in_queue: "User Subscriptions:5"
-    ftshosts: "https://fts3-public.cern.ch:8446,https://fts3-public.fnal.gov:8446"
+    ftshosts: "https://fts3-public.fnal.gov:8446"
     cacert: "/opt/certs/ca.pem"
     usercert: "/opt/proxy/x509up"
     bring_online: "259200"
@@ -241,14 +238,14 @@ config:
   monitor:
     carbon_server: "rucio-statsd"
     carbon_port: "8125"
-    user_scope: "rucio_dune_okd"
+    user_scope: "rucio_hypot_okd"
     enable_metrics: "True"
 
   messaging-cache:
     port: "11211"
-    destination: "/topic/rucio.events.dune"
+    destination: "/topic/rucio.events.hypot"
     brokers: "rucio-cache"
-    voname: "dune"
+    voname: "hypot"
     account: "memcache"
 
   messaging-hermes:
@@ -259,20 +256,13 @@ config:
     use_ssl: "True"
     ssl_key_file: "/opt/rucio/keys/new_userkey.pem"
     ssl_cert_file: "/opt/rucio/certs/usercert.pem"
-    destination: "/topic/rucio.events.dune"
+    destination: "/topic/rucio.events.hypot"
     broker_virtual_host: "/"
     voname: "/"
-    email_from: "DUNE Rucio <bjwhite@fnal.gov>"
+    email_from: "HYPOT Rucio <bjwhite@fnal.gov>"
     email_test: "bjwhite@fnal.gov"
-
-  policy:
-    package: fermilab.dune
-    support: "Brandon White <bjwhite@fnal.gov>"
-    metacat_base_url: "https://metacat.fnal.gov:9443/dune_meta_demo/app"
 
 optional_config:
   policy_pkg_dir: /opt/rucio/permissions
-  metacat_server_url: https://metacat.fnal.gov:9443/dune_meta_demo/app
-  metacat_auth_server_url: https://metacat.fnal.gov:8143/auth/dune
   #rucio_cfg_database_echo: 1
   delegate_fts_proxy: "true"

@@ -1,4 +1,4 @@
-# Environtment set up file for the DUNE environment
+# Environtment set up file for the ICARUS environment
 export DOCKER_BUILDKIT=1
 export RUCIO_AMS_VERSION=1.29.12
 
