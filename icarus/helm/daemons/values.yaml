@@ -225,6 +225,9 @@ ftsRenewal:
 # These are turned into RUCIO_CFG_<section>_<variable>=value environment variables
 config:
   #common:
+  core:
+    use_temp_tables: "True"
+
   conveyor:
     max_time_in_queue: "User Subscriptions:5"
     ftshosts: "https://fts3-public.cern.ch:8446,https://fts3-public.fnal.gov:8446"
