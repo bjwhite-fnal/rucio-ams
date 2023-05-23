@@ -55,6 +55,9 @@ httpd_config:
   log_dir: "/rucio/logs"
 
 config:
+  core:
+    use_temp_tables: "True"
+
   bootstrap:
     x509_identity: "/DC=org/DC=cilogon/C=US/O=Fermi National Accelerator Laboratory/OU=People/CN=Brandon White/CN=UID:bjwhite"
     x509_email: "bjwhite@fnal.gov"
