@@ -207,6 +207,9 @@ automatix:
 # These are turned into RUCIO_CFG_<section>_<variable>=value environment variables
 config:
 #  common:
+  core:
+        use_temp_tables: "True"
+
   client:
     account: "automatix"
     auth_type: "x509_proxy"
