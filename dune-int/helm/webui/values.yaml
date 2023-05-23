@@ -55,6 +55,9 @@ httpd_config:
   log_dir: "/rucio/logs"
 
 config:
+  core:
+    use_temp_tables: "True"
+
   policy:
     package: fermilab.dune
     support: "Brandon White <bjwhite@fnal.gov>"
