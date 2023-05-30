@@ -56,7 +56,7 @@ httpd_config:
 
 config:
   core:
-        use_temp_tables: "True"
+    use_temp_tables: "True"
 
   policy:
     package: fermilab.dune
