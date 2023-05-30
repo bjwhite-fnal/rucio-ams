@@ -224,7 +224,7 @@ config:
     rses: "DCACHE_BJWHITE_END, DCACHE_BJWHITE_END2"
     account: "automatix"
     sleep_time: 300
-    set_metadata: "False"
+    set_metadata: "True"
     dataset_lifetime: 30
     scope: "automatix"
 
