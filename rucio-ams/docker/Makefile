@@ -113,6 +113,20 @@ docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-daemon
 -rm -rf daemons/permissions
 endef
 
+define build-init-cmd =
+-rm -rf init/permissions
+cp -r permissions-fnal init/permissions
+docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-init --build-arg rucio_version=${RUCIO_AMS_VERSION} init
+-rm -rf init/permissions
+endef
+
+define build-init-nc-cmd =
+-rm -rf init/permissions
+cp -r permissions-fnal init/permissions
+docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-init --build-arg rucio_version=${RUCIO_AMS_VERSION} init
+-rm -rf init/permissions
+endef
+
 define build-cache-cmd =
 docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-cache cache
 endef
@@ -177,6 +191,12 @@ build-messenger:
 	
 build-messenger-nc:
 	$(build-messenger-nc-cmd)	
+
+build-init:
+	$(build-init-cmd)
+	
+build-init-nc:
+	$(build-init-nc-cmd)	
 
 # Image push command definitions
 define push-prometheus-cmd =
