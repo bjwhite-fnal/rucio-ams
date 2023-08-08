@@ -11,7 +11,7 @@ push-all:
 	$(push-webui-cmd)
 	$(push-fts-cron-cmd)
 	$(push-statsd-cmd)
-	$(push-prometheus-cmd)
+	$(push-ferrycron-cmd)
 
 build-all:
 	$(build-server-cmd)
@@ -22,6 +22,7 @@ build-all:
 	$(build-fts-cron-cmd)
 	$(build-statsd-cmd)
 	$(build-prometheus-cmd)
+	$(build-ferrycron-cmd)
 
 build-all-nc:
 	$(build-server-nc-cmd)
@@ -32,8 +33,17 @@ build-all-nc:
 	$(build-fts-cron-nc-cmd)
 	$(build-statsd-nc-cmd)
 	$(build-prometheus-nc-cmd)
+	$(build-ferrycron-nc-cmd)
 
 # Image build command definitions
+define build-ferrycron-cmd =
+podman build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-ferrycron ferrycron
+endef
+
+define build-ferrycron-nc-cmd =
+podman build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-ferrycron ferrycron
+endef
+
 define build-prometheus-cmd =
 podman build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-prometheus prometheus 
 endef
@@ -52,7 +62,6 @@ endef
 
 define build-logstash-cmd =
 podman build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-logstash logstash
->>>>>>> Debugging
 endef
 
 define build-prometheus-nc-cmd =
@@ -144,6 +153,12 @@ podman build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-messen
 endef
 
 # Image build command declarations
+build-ferrycron:
+	$(build-ferrycron-cmd)
+
+build-ferrycron-nc:
+	$(build-ferrycron-nc-cmd)
+
 build-prometheus:
 	$(build-prometheus-cmd)
 
@@ -199,6 +214,11 @@ build-init-nc:
 	$(build-init-nc-cmd)	
 
 # Image push command definitions
+define push-ferrycron-cmd =
+	podman tag rucio-ferrycron imageregistry.fnal.gov/rucio-ams/rucio-ams-ferrycron:${RUCIO_AMS_VERSION_TAG}
+	podman push imageregistry.fnal.gov/rucio-ams/rucio-ams-ferrycron:${RUCIO_AMS_VERSION_TAG}
+endef
+
 define push-prometheus-cmd =
 	podman tag rucio-prometheus imageregistry.fnal.gov/rucio-ams/rucio-ams-prometheus:${RUCIO_AMS_VERSION_TAG}
 	podman push imageregistry.fnal.gov/rucio-ams/rucio-ams-prometheus:${RUCIO_AMS_VERSION_TAG}

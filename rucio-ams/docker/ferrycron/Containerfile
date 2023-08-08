@@ -1,0 +1,7 @@
+FROM docker.io/library/golang:1.20
+WORKDIR godir/
+COPY ./go.mod ./
+COPY ./ferry-sync-cron.go ./
+RUN go mod download
+RUN CGO_ENABLED=0 GOOS=linux go build -o /ferry-sync-cron.exe 
+ENTRYPOINT ["/ferry-sync-cron.exe"]
