@@ -58,6 +58,12 @@ config:
   core:
     use_temp_tables: "True"
 
+  # Configure the policy package that is to be used for this deployment.
+  policy:
+    package: fermilab.generic
+    support: "Brandon White <bjwhite@fnal.gov>"
+    lfn2pfn_algorithm_default: MU2E
+
 optional_config:
   experiment: Uses $EXPERIMENT 
   policy_pkg_dir: /opt/rucio/permissions

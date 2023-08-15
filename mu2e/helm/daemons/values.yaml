@@ -265,6 +265,11 @@ config:
     email_from: "MU2E Rucio <bjwhite@fnal.gov>"
     email_test: "bjwhite@fnal.gov"
 
+  policy:
+    package: fermilab.generic
+    support: "Brandon White <bjwhite@fnal.gov>"
+    lfn2pfn_algorithm_default: MU2E
+
 optional_config:
   policy_pkg_dir: /opt/rucio/permissions
   #rucio_cfg_database_echo: 1

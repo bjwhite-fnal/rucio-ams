@@ -113,6 +113,7 @@ config:
   policy:
     package: fermilab.generic
     support: "Brandon White <bjwhite@fnal.gov>"
+    lfn2pfn_algorithm_default: MU2E
 
   # Set up request routing to the auth server
   api:
