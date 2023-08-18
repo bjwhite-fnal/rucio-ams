@@ -266,7 +266,7 @@ config:
     email_test: "bjwhite@fnal.gov"
 
   policy:
-    package: fermilab.generic
+    package: fermilab.mu2e
     support: "Brandon White <bjwhite@fnal.gov>"
     lfn2pfn_algorithm_default: MU2E
 

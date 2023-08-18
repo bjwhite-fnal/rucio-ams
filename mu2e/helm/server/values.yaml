@@ -111,7 +111,7 @@ config:
 
   # Configure the policy package that is to be used for this deployment.
   policy:
-    package: fermilab.generic
+    package: fermilab.mu2e
     support: "Brandon White <bjwhite@fnal.gov>"
     lfn2pfn_algorithm_default: MU2E
 
