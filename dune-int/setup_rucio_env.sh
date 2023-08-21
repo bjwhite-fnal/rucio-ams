@@ -11,8 +11,7 @@ export DOCKER_BUILDKIT=1
 #export RUCIO_AMS_VERSION=1.29.8
 export RUCIO_AMS_VERSION=1.29.12
 
-# Make sure to set EXPERIMENT, RUCIO_AMS_DIR, AMS_RUCIO_CERT, AMS_RUCIO_KEY, AMS_RUCIO_CA_BUNDLE
-export RUCIO_AMS_DIR=/nashome/b/bjwhite/dev/rucio/rucio-ams
+# Make sure to set EXPERIMENT, AMS_RUCIO_CERT, AMS_RUCIO_KEY, AMS_RUCIO_CA_BUNDLE
 
 # Only the filenames are needed. The files should be resident in $AMS_RUCIO_DEPLOYMENT_CONF_DIR/certs 
 export AMS_RUCIO_CERT=dune-int-rucio.fnal.gov-cert.pem
