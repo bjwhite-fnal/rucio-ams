@@ -1,4 +1,4 @@
-module rucio-ams/ferry-sync-cron
+module github.com/bjwhite-fnal/ferrycron
 
 go 1.20
 

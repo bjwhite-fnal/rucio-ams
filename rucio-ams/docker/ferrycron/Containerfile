@@ -2,6 +2,7 @@ FROM docker.io/library/golang:1.20 AS devbuild
 WORKDIR godir/
 COPY ./go.mod ./
 COPY ./ferry-sync-cron.go ./
+COPY ./ferry-client.go ./
 RUN go mod tidy
 RUN CGO_ENABLED=0 GOOS=linux go build -o /ferry-sync-cron.exe
 WORKDIR /

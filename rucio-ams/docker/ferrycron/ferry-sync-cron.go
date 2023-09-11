@@ -34,6 +34,7 @@ func run_program(ctx context.Context) int {
 
 	// Get the users and DNs associated with the given Virtual Organization
 	if ferryinfo_rc, ferry_vo_user_info := get_ferry_vo_user_info(ctx); ferryinfo_rc != 0 {
+		utils.withTLSAuth()
 		return ferryinfo_rc
 	} else {
 		log.WithFields(log.Fields{
@@ -77,6 +78,9 @@ func get_args() (int, map[string]string) {
 }
 
 func get_ferry_vo_user_info(ctx context.Context) (int, string) {
+	// HTTP Call to Ferry
+	// Stuff
+	// More stuff
 	var ferry_vo_user_info = "some big long list of user information"
 	return 0, ferry_vo_user_info
 }
