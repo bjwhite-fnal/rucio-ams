@@ -392,7 +392,8 @@ config:
     ## config.trace.password: password for the topic (if necessary)
     # password: ""
 
-  # policy:
+  policy:
+    package: fermilab.generic
     ## config.permission.policy: (default "generic")
     # permission: "generic"
     ## config.permission.schema: (default "generic")
@@ -408,6 +409,9 @@ config:
   # webui:
     ## config.webui.usercert:  (default "/opt/rucio/etc/usercert_with_key.pem")
     # usercert: "/opt/rucio/etc/usercert_with_key.pem"
+
+optional_config:
+  policy_pkg_dir: /opt/rucio/permissions
 
 serverResources:
   limits:
