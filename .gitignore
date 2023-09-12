@@ -1,5 +1,6 @@
 # Ignore the secrets and certificates directories entirely.
 secret
+.secrets
 certs
 ca_bundle.pem
 
