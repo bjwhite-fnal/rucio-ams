@@ -1,0 +1,203 @@
+---
+# Source: rucio-server/templates/secrets.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fnal-rucio-server.config.common
+  labels:
+    app: rucio-server
+    chart: "rucio-server"
+    release: "fnal"
+    heritage: "Helm"
+type: Opaque
+data:
+  common.json: "ewogICJtb25pdG9yIjogbnVsbAp9"
+---
+# Source: rucio-server/templates/secrets.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fnal-rucio-server.cfg
+  labels:
+    app: rucio-server
+    chart: "rucio-server-32.0.0"
+    release: "fnal"
+    heritage: "Helm"
+type: Opaque
+data:
+---
+# Source: rucio-server/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: fnal-rucio-server
+  labels:
+    app: rucio-server
+    chart: rucio-server-32.0.0
+    release: fnal
+    heritage: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 443
+      targetPort: 443
+      protocol: TCP
+      name: https-rucio-server
+  selector:
+    app: rucio-server
+    release: fnal
+---
+# Source: rucio-server/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fnal-rucio-server
+  labels:
+    app: rucio-server
+    chart: rucio-server-32.0.0
+    release: fnal
+    heritage: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rucio-server
+      release: fnal
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: rucio-server
+        release: fnal
+      annotations:
+        checksum/config: 33c3d28183e8ad447354541772fabb4b1c15e76d
+    spec:
+      volumes:
+      - name: config
+        secret:
+          secretName: fnal-rucio-server.config.common
+      - name: httpdlog
+        emptyDir: {}
+      - name: hostcert
+        secret:
+          secretName: fnal-server-hostcert
+      - name: hostkey
+        secret:
+          secretName: fnal-server-hostkey
+      - name: cafile
+        secret:
+          secretName: fnal-server-cafile
+      containers:
+        - name: httpd-error-log
+          image: busybox
+          args: [/bin/sh, -c, 'tail -n+1 -F /var/log/httpd/error_log']
+          volumeMounts:
+          - name: httpdlog
+            mountPath: /var/log/httpd
+          resources:
+            limits:
+              cpu: 30m
+              memory: 50Mi
+            requests:
+              cpu: 20m
+              memory: 20Mi
+        - name: rucio-server
+          image: "rucio/rucio-server:release-32.2.0"
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 700m
+              memory: 600Mi
+            requests:
+              cpu: 200m
+              memory: 200Mi
+          volumeMounts:
+          - name: config
+            mountPath: /opt/rucio/etc/conf.d/10_common.json
+            subPath: common.json
+          - name: httpdlog
+            mountPath: /var/log/httpd
+          - name: hostcert
+            mountPath: /etc/grid-security/hostcert.pem
+            subPath: hostcert.pem
+          - name: hostkey
+            mountPath: /etc/grid-security/hostkey.pem
+            subPath: hostkey.pem
+          - name: cafile
+            mountPath: /etc/grid-security/ca.pem
+            subPath: ca.pem
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+            - name: https
+              containerPort: 443
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /ping
+              scheme: HTTPS
+              port: 443
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /ping
+              scheme: HTTPS
+              port: 443
+            initialDelaySeconds: 10
+            periodSeconds: 20
+            timeoutSeconds: 5
+          env:
+            - name: RUCIO_ENABLE_SSL
+              value: "True"
+            - name: OPENSSL_ALLOW_PROXY_CERTS
+              value: "1"
+            - name: RUCIO_SERVER_TYPE
+              value: "api"
+            - name: RUCIO_OVERRIDE_CONFIGS
+              value: "/opt/rucio/etc/conf.d/"
+            - name: RUCIO_LOG_FORMAT
+              value: '[%{%Y-%m-%d %H:%M:%S}t]\t%v\t%h\t%{X-Forwarded-For}i\t%{X-Rucio-RequestId}i\t%>s\t%I\t%B\t%D\t\"%r\"\t\"%{X-Rucio-Auth-Token}i\"\t\"%{User-Agent}i\"\t%{X-Rucio-Script}i'
+            - name: RUCIO_WSGI_DAEMON_PROCESSES
+              value: "4"
+            - name: RUCIO_WSGI_DAEMON_THREADS
+              value: "4"
+      affinity:
+---
+# Source: rucio-server/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fnal-rucio-server
+  labels:
+    app: rucio-server
+    chart: rucio-server-32.0.0
+    release: fnal
+    heritage: Helm
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  tls:
+    - hosts:
+        - int-rucio.fnal.gov
+      secretName: rucio-server.tls-secret
+  rules:
+    - host: 'int-rucio.fnal.gov'
+      http:
+        paths:
+          - path: /
+            backend:
+              service:
+                name: fnal-rucio-server
+                port:
+                  number: 443
+            pathType: Prefix

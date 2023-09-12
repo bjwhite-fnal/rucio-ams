@@ -1,0 +1,85 @@
+
+namespace: rucio
+
+resources:
+- helm-rucio-server.yaml
+#- helm-rucio-daemons.yaml
+#- helm-rucio-ui.yaml
+#
+#patchesStrategicMerge:
+#- rucio-env-patch.yaml
+#- grid-certificates-patch.yaml
+#
+#secretGenerator:
+## rucio
+#- name: fnal-db-conn-str
+#  files:
+#  - db-conn-str.txt=etc/.secrets/db-conn-str.txt
+#- name: fnal-server-hostcert
+#  files:
+#  - hostcert.pem=etc/.secrets/hostcert.pem
+#- name: fnal-server-hostkey
+#  files:
+#  - hostkey.pem=etc/.secrets/hostkey.pem
+#- name: fnal-server-cafile
+#  files:
+#  - ca.pem=etc/.secrets/ca.pem
+#- name: fnal-auth-hostcert
+#  files:
+#  - hostcert.pem=etc/.secrets/hostcert.pem
+#- name: fnal-auth-hostkey
+#  files:
+#  - hostkey.pem=etc/.secrets/hostkey.pem
+#- name: fnal-auth-cafile
+#  files:
+#  - ca.pem=etc/.secrets/ca.pem
+#- name: fnal-rucio-x509up
+#  files:
+#  - hostcert.pem=etc/.secrets/hostcert.pem
+#  - hostkey.pem=etc/.secrets/hostkey.pem
+#  options:
+#    disableNameSuffixHash: true
+#- name: fnal-rucio-ca-bundle
+#  files:
+#  - ca.pem=etc/.secrets/ca.pem
+#  options:
+#    disableNameSuffixHash: true
+#- name: fnal-rucio-ca-bundle-reaper
+#  files:
+#  - ca.pem=etc/.secrets/ca.pem
+#  options:
+#    disableNameSuffixHash: true
+## ingress
+#- name: rucio-server.tls-secret
+#  files:
+#  - cert=etc/.secrets/hostcert.pem
+#  - key=etc/.secrets/hostkey.pem
+## webui
+#- name: fnal-hostcert
+#  files:
+#  - hostcert.pem=etc/.secrets/hostcert.pem
+#- name: fnal-hostkey
+#  files:
+#  - hostkey.pem=etc/.secrets/hostkey.pem
+#- name: fnal-cafile
+#  files:
+#  - ca.pem=etc/.secrets/ca.pem
+## fts3
+#- name: fnal-fts-cert
+#  files:
+#  - usercert.pem=etc/.secrets/hostcert.pem
+#- name: fnal-fts-key
+#  files:
+#  - new_userkey.pem=etc/.secrets/hostkey.pem
+## lsst customization
+#- name: fnal-lsst-schema-file
+#  files:
+#  - lsst.py=etc/lsst.py
+#  options:
+#    disableNameSuffixHash: true
+## automatix input
+#- name: fnal-rucio-automatix-input-file
+#  files:
+#  - automatix.json=etc/.secrets/automatix.json
+#  options:
+#    disableNameSuffixHash: true
