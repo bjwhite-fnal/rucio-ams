@@ -9,6 +9,8 @@ replicaCount: 1
 authReplicaCount: 1
 traceReplicaCount: 0
 
+serviceAccountName: useroot
+
 useDeprecatedImplicitSecrets: true
 
 # When set, run extra busybox containers in the relevant pods to also expose the error logs

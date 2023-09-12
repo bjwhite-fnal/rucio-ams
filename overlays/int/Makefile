@@ -16,7 +16,8 @@ rucio-daemons: helm
 rucio-ui: helm
 	helm template fnal rucio/rucio-ui --version=${UI_CHART_VERSION} --values=rucio/values-rucio-ui.yaml > rucio/helm-rucio-ui.yaml
 
-rucio: rucio-server rucio-daemons rucio-ui
+#rucio: rucio-server rucio-daemons rucio-ui
+rucio: rucio-server
 
 package-reaper-certs:
 	rm -rf etc/.secrets/grid-certificates
@@ -47,4 +48,5 @@ dump: get-secrets rucio run-dump clean-secrets
 run-apply:  
 	kubectl apply -k .
 
-apply: get-secrets rucio run-apply clean-secrets
+#apply: get-secrets rucio run-apply clean-secrets
+apply: get-secrets rucio run-apply

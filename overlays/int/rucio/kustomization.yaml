@@ -1,6 +1,4 @@
 
-namespace: rucio
-
 resources:
 - helm-rucio-server.yaml
 #- helm-rucio-daemons.yaml
@@ -10,29 +8,20 @@ resources:
 #- rucio-env-patch.yaml
 #- grid-certificates-patch.yaml
 #
-#secretGenerator:
+secretGenerator:
 ## rucio
 #- name: fnal-db-conn-str
 #  files:
 #  - db-conn-str.txt=etc/.secrets/db-conn-str.txt
-#- name: fnal-server-hostcert
-#  files:
-#  - hostcert.pem=etc/.secrets/hostcert.pem
-#- name: fnal-server-hostkey
-#  files:
-#  - hostkey.pem=etc/.secrets/hostkey.pem
-#- name: fnal-server-cafile
-#  files:
-#  - ca.pem=etc/.secrets/ca.pem
-#- name: fnal-auth-hostcert
-#  files:
-#  - hostcert.pem=etc/.secrets/hostcert.pem
-#- name: fnal-auth-hostkey
-#  files:
-#  - hostkey.pem=etc/.secrets/hostkey.pem
-#- name: fnal-auth-cafile
-#  files:
-#  - ca.pem=etc/.secrets/ca.pem
+- name: fnal-server-hostcert
+  files:
+  - hostcert.pem=etc/.secrets/hostcert.pem
+- name: fnal-server-hostkey
+  files:
+  - hostkey.pem=etc/.secrets/hostkey.pem
+- name: fnal-server-cafile
+  files:
+  - ca.pem=etc/.secrets/ca.pem
 #- name: fnal-rucio-x509up
 #  files:
 #  - hostcert.pem=etc/.secrets/hostcert.pem

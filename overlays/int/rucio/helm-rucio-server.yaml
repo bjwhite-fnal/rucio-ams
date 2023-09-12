@@ -11,7 +11,7 @@ metadata:
     heritage: "Helm"
 type: Opaque
 data:
-  common.json: "ewogICJtb25pdG9yIjogbnVsbAp9"
+  common.json: "ewogICJtb25pdG9yIjogbnVsbCwKICAicG9saWN5IjogewogICAgInBhY2thZ2UiOiAiZmVybWlsYWIuZ2VuZXJpYyIKICB9Cn0="
 ---
 # Source: rucio-server/templates/secrets.yaml
 apiVersion: v1
@@ -75,8 +75,9 @@ spec:
         app: rucio-server
         release: fnal
       annotations:
-        checksum/config: 33c3d28183e8ad447354541772fabb4b1c15e76d
+        checksum/config: 9520fc68e632bf911128acfbe67cfba21a39092e
     spec:
+      serviceAccountName: useroot
       volumes:
       - name: config
         secret:
@@ -155,6 +156,8 @@ spec:
             periodSeconds: 20
             timeoutSeconds: 5
           env:
+            - name: POLICY_PKG_DIR
+              value: "/opt/rucio/permissions"
             - name: RUCIO_ENABLE_SSL
               value: "True"
             - name: OPENSSL_ALLOW_PROXY_CERTS
