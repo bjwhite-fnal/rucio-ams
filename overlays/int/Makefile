@@ -19,16 +19,6 @@ rucio-ui: helm
 #rucio: rucio-server rucio-daemons rucio-ui
 rucio: rucio-server rucio-daemons
 
-#package-reaper-certs:
-#	rm -rf etc/.secrets/grid-certificates
-#	mkdir -p etc/.secrets/grid-certificates
-#	cp /etc/grid-security/certificates/*.0 etc/.secrets/grid-certificates/
-#	cp /etc/grid-security/certificates/*.signing_policy etc/.secrets/grid-certificates/
-#	cd etc/.secrets && tar cfz grid-certificates.tar.gz grid-certificates/
-#
-#store-reaper-certs: package-reaper-certs
-#	base64 --wrap=0 etc/.secrets/grid-certificates.tar.gz | vault kv patch secret/rucio/${EXPERIMENT}-rucio/rucio grid-certificates.tar.gz=-
-
 #get-secrets:
 	#mkdir -p rucio/etc/.secrets
 	#vault kv get --field=${EXPERIMENT}-server-hostkey secret/rucio/${EXPERIMENT}-rucio/rucio  > rucio/etc/.secrets/hostkey.pem

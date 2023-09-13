@@ -7,8 +7,8 @@ resources:
 #
 patchesStrategicMerge:
 - patch-service.yaml
+- grid-certificates-patch.yaml
 #- rucio-env-patch.yaml
-#- grid-certificates-patch.yaml
 #
 secretGenerator:
 # Database Connection String
