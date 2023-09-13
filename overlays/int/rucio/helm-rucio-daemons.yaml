@@ -993,6 +993,13 @@ spec:
           secret:
             secretName: fnal-rucio-daemons.config.hermes
 
+        - name: usercert
+          secret:
+            secretName: fnal-hermes-cert
+        - name: userkey
+          secret:
+            secretName: fnal-hermes-key
+
         - name: policy-package
           secret:
             secretName: fnal-policy-package
@@ -1001,6 +1008,11 @@ spec:
           image: "rucio/rucio-daemons:release-32.3.0"
           imagePullPolicy: Always
           volumeMounts:
+
+            - name: usercert
+              mountPath: /opt/rucio/certs/
+            - name: userkey
+              mountPath: /opt/rucio/keys/
 
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -1020,7 +1032,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "hermes"
             - name: RUCIO_DAEMON_ARGS
-              value: " --threads 1  --bulk 100"
+              value: " --threads 1  --bulk 1000"
             - name: PYTHONPATH
               value: /opt/rucio/permissions
             - name: RUCIO_CFG_DATABASE_DEFAULT

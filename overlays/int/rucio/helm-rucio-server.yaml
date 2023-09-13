@@ -25,6 +25,7 @@ metadata:
     heritage: "Helm"
 type: Opaque
 data:
+  grid_site_enabled: "VHJ1ZQ=="
 ---
 # Source: rucio-server/templates/service.yaml
 apiVersion: v1
@@ -162,6 +163,11 @@ spec:
             periodSeconds: 20
             timeoutSeconds: 5
           env:
+            - name: RUCIO_HTTPD_GRID_SITE_ENABLED
+              valueFrom:
+                secretKeyRef:
+                  name: fnal-rucio-server.cfg
+                  key: grid_site_enabled
             - name: RUCIO_ENABLE_SSL
               value: "True"
             - name: OPENSSL_ALLOW_PROXY_CERTS
