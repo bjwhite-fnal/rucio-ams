@@ -2,6 +2,7 @@
 resources:
 - helm-rucio-server.yaml
 - helm-rucio-daemons.yaml
+- cache.yaml
 #- helm-rucio-ui.yaml
 #
 patchesStrategicMerge:
@@ -45,11 +46,32 @@ secretGenerator:
   - ca.pem=etc/.secrets/ca.pem
   options:
     disableNameSuffixHash: true
-#- name: fnal-rucio-ca-bundle-reaper
-#  files:
-#  - ca.pem=etc/.secrets/ca.pem
-#  options:
-#    disableNameSuffixHash: true
+- name: fnal-rucio-ca-bundle-reaper
+  # Reaper ca bundle
+  files:
+  - ca.pem=etc/.secrets/ca.pem
+  options:
+    disableNameSuffixHash: true
+# fts3
+- name: fnal-fts-cert
+  files:
+  - usercert.pem=etc/.secrets/hostcert.pem
+- name: fnal-fts-key
+  files:
+  - new_userkey.pem=etc/.secrets/hostkey.pem
+
+# Memcache
+- name: ssl-secrets
+  files:
+  - hostcert.pem=etc/.secrets/hostcert.pem
+  - hostkey.pem=etc/.secrets/hostkey.pem
+  - ca.pem=etc/.secrets/ca.pem
+
+# VOMS Server File (used for getting VOMS proxies in the ftsRenewal Job)
+- name: fnal-vomses
+  files:
+  - vomses=etc/vomses
+
 ## ingress
 #- name: rucio-server.tls-secret
 #  files:
@@ -65,13 +87,6 @@ secretGenerator:
 #- name: fnal-cafile
 #  files:
 #  - ca.pem=etc/.secrets/ca.pem
-## fts3
-#- name: fnal-fts-cert
-#  files:
-#  - usercert.pem=etc/.secrets/hostcert.pem
-#- name: fnal-fts-key
-#  files:
-#  - new_userkey.pem=etc/.secrets/hostkey.pem
 ## lsst customization
 #- name: fnal-lsst-schema-file
 #  files:
