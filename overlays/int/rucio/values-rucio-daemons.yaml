@@ -6,7 +6,7 @@
 abacusAccountCount: 1
 abacusCollectionReplicaCount: 1
 abacusRseCount: 1
-automatixCount: 0
+automatixCount: 1
 cacheConsumerCount: 0
 conveyorTransferSubmitterCount: 1
 conveyorPollerCount: 1
@@ -150,6 +150,7 @@ automatix:
   threads: 1
   sleepTime: 30
   podAnnotations: {}
+  inputFile: "/opt/rucio/etc/automatix.json"
   resources:
     limits:
       memory: "200Mi"
@@ -168,6 +169,11 @@ automatix:
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
+      - secretName: automatix-json
+        mountPath: /opt/rucio/etc/automatix.json
+        subPath: automatix.json
+      - secretName: rucio-x509up
+        mountPath: /opt/proxy
 
 cacheConsumer:
   threads: 1
@@ -763,6 +769,23 @@ config:
   # accounts:
     # special_accounts: "panda, tier0"
 
+  automatix:
+    rses: "DCACHE_BJWHITE_END, DCACHE_BJWHITE_END2"
+    account: "automatix"
+    set_metadata: "True"
+    dataset_lifetime: 30
+    scope: "automatix"
+
+  client:
+    rucio_host: "https://int-rucio.fnal.gov"
+    auth_host: "https://int-rucio.fnal.gov"
+    account: "automatix"
+    auth_type: "x509_proxy"
+    ca_cert: "/opt/certs"
+    request_retries: 3
+    protocol_stat_retries: 6
+    client_x509_proxy: "/opt/proxy/x509up"
+  
   # common:
     ## config.common.logdir: the default directoy to write logs to (default: "/var/log/rucio")
     # logdir: "/var/log/rucio"

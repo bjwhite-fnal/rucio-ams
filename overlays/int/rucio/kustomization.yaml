@@ -62,7 +62,11 @@ secretGenerator:
   - hostkey.pem=etc/.secrets/hostkey.pem
   options:
     disableNameSuffixHash: true
-# fts3
+- name: fnal-automatix-json
+  files:
+  - automatix.json=etc/automatix.json
+  options:
+    disableNameSuffixHash: true
 - name: fnal-fts-cert
   files:
   - usercert.pem=etc/.secrets/hostcert.pem
@@ -104,8 +108,3 @@ secretGenerator:
 #  options:
 #    disableNameSuffixHash: true
 ## automatix input
-#- name: fnal-rucio-automatix-input-file
-#  files:
-#  - automatix.json=etc/.secrets/automatix.json
-#  options:
-#    disableNameSuffixHash: true
