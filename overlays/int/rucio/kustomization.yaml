@@ -52,6 +52,16 @@ secretGenerator:
   - ca.pem=etc/.secrets/ca.pem
   options:
     disableNameSuffixHash: true
+- name: fnal-hermes-cert
+  files:
+  - hostcert.pem=etc/.secrets/hostcert.pem
+  options:
+    disableNameSuffixHash: true
+- name: fnal-hermes-key
+  files:
+  - hostkey.pem=etc/.secrets/hostkey.pem
+  options:
+    disableNameSuffixHash: true
 # fts3
 - name: fnal-fts-cert
   files:
