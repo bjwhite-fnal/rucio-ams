@@ -11,7 +11,7 @@ metadata:
     heritage: "Helm"
 type: Opaque
 data:
-  common.json: "ewogICJtb25pdG9yIjogbnVsbCwKICAicG9saWN5IjogewogICAgInBhY2thZ2UiOiAiZmVybWlsYWIuZ2VuZXJpYyIKICB9Cn0="
+  common.json: "ewogICJwb2xpY3kiOiB7CiAgICAicGFja2FnZSI6ICJmZXJtaWxhYiIKICB9Cn0="
 ---
 # Source: rucio-server/templates/secrets.yaml
 apiVersion: v1
@@ -42,7 +42,7 @@ spec:
     - port: 443
       targetPort: 443
       protocol: TCP
-      name: https-rucio-server
+      name: https
   selector:
     app: rucio-server
     release: fnal
@@ -75,7 +75,7 @@ spec:
         app: rucio-server
         release: fnal
       annotations:
-        checksum/config: 9520fc68e632bf911128acfbe67cfba21a39092e
+        checksum/config: 1b4f8494255aa4ec2cabfde710251e3145a8fde7
     spec:
       serviceAccountName: useroot
       volumes:
@@ -84,6 +84,9 @@ spec:
           secretName: fnal-rucio-server.config.common
       - name: httpdlog
         emptyDir: {}
+      - name: policy-package
+        secret:
+          secretName: fnal-policy-package
       - name: hostcert
         secret:
           secretName: fnal-server-hostcert
@@ -108,7 +111,7 @@ spec:
               cpu: 20m
               memory: 20Mi
         - name: rucio-server
-          image: "rucio/rucio-server:release-32.2.0"
+          image: "rucio/rucio-server:release-32.3.0"
           imagePullPolicy: Always
           resources:
             limits:
@@ -123,6 +126,9 @@ spec:
             subPath: common.json
           - name: httpdlog
             mountPath: /var/log/httpd
+          - name: policy-package
+            mountPath: /opt/rucio/permissions/fermilab
+            subPath: 
           - name: hostcert
             mountPath: /etc/grid-security/hostcert.pem
             subPath: hostcert.pem
@@ -156,8 +162,6 @@ spec:
             periodSeconds: 20
             timeoutSeconds: 5
           env:
-            - name: POLICY_PKG_DIR
-              value: "/opt/rucio/permissions"
             - name: RUCIO_ENABLE_SSL
               value: "True"
             - name: OPENSSL_ALLOW_PROXY_CERTS
@@ -172,35 +176,13 @@ spec:
               value: "4"
             - name: RUCIO_WSGI_DAEMON_THREADS
               value: "4"
+            - name: PYTHONPATH
+              value: /opt/rucio/permissions
+            - name: RUCIO_CFG_DATABASE_DEFAULT
+              valueFrom:
+                secretKeyRef:
+                  key: db-connstr.txt
+                  name: fnal-db-connstr
+            - name: RUCIO_HTTPD_LEGACY_DN
+              value: "True"
       affinity:
----
-# Source: rucio-server/templates/ingress.yaml
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: fnal-rucio-server
-  labels:
-    app: rucio-server
-    chart: rucio-server-32.0.0
-    release: fnal
-    heritage: Helm
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-spec:
-  tls:
-    - hosts:
-        - int-rucio.fnal.gov
-      secretName: rucio-server.tls-secret
-  rules:
-    - host: 'int-rucio.fnal.gov'
-      http:
-        paths:
-          - path: /
-            backend:
-              service:
-                name: fnal-rucio-server
-                port:
-                  number: 443
-            pathType: Prefix

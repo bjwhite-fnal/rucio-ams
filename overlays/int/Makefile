@@ -17,19 +17,19 @@ rucio-ui: helm
 	helm template fnal rucio/rucio-ui --version=${UI_CHART_VERSION} --values=rucio/values-rucio-ui.yaml > rucio/helm-rucio-ui.yaml
 
 #rucio: rucio-server rucio-daemons rucio-ui
-rucio: rucio-server
+rucio: rucio-server rucio-daemons
 
-package-reaper-certs:
-	rm -rf etc/.secrets/grid-certificates
-	mkdir -p etc/.secrets/grid-certificates
-	cp /etc/grid-security/certificates/*.0 etc/.secrets/grid-certificates/
-	cp /etc/grid-security/certificates/*.signing_policy etc/.secrets/grid-certificates/
-	cd etc/.secrets && tar cfz grid-certificates.tar.gz grid-certificates/
+#package-reaper-certs:
+#	rm -rf etc/.secrets/grid-certificates
+#	mkdir -p etc/.secrets/grid-certificates
+#	cp /etc/grid-security/certificates/*.0 etc/.secrets/grid-certificates/
+#	cp /etc/grid-security/certificates/*.signing_policy etc/.secrets/grid-certificates/
+#	cd etc/.secrets && tar cfz grid-certificates.tar.gz grid-certificates/
+#
+#store-reaper-certs: package-reaper-certs
+#	base64 --wrap=0 etc/.secrets/grid-certificates.tar.gz | vault kv patch secret/rucio/${EXPERIMENT}-rucio/rucio grid-certificates.tar.gz=-
 
-store-reaper-certs: package-reaper-certs
-	base64 --wrap=0 etc/.secrets/grid-certificates.tar.gz | vault kv patch secret/rucio/${EXPERIMENT}-rucio/rucio grid-certificates.tar.gz=-
-
-get-secrets:
+#get-secrets:
 	#mkdir -p rucio/etc/.secrets
 	#vault kv get --field=${EXPERIMENT}-server-hostkey secret/rucio/${EXPERIMENT}-rucio/rucio  > rucio/etc/.secrets/hostkey.pem
 	#vault kv get --field=${EXPERIMENT}-server-hostcert secret/rucio/${EXPERIMENT}-rucio/rucio  > rucio/etc/.secrets/hostcert.pem
@@ -37,8 +37,8 @@ get-secrets:
 	#vault kv get --field=${EXPERIMENT}-db-conn-str secret/rucio/${EXPERIMENT}-rucio/rucio  > rucio/etc/.secrets/db-conn-str.txt
 	#curl https://raw.githubusercontent.com/rucio/rucio/master/etc/automatix.json > rucio/etc/.secrets/automatix.json
 
-clean-secrets:
-	rm -rf rucio/etc/.secrets
+#clean-secrets:
+#	rm -rf rucio/etc/.secrets
 
 run-dump: 
 	kubectl kustomize .
@@ -49,4 +49,4 @@ run-apply:
 	kubectl apply -k .
 
 #apply: get-secrets rucio run-apply clean-secrets
-apply: get-secrets rucio run-apply
+apply: rucio run-apply

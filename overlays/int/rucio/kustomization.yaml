@@ -1,18 +1,21 @@
 
 resources:
 - helm-rucio-server.yaml
-#- helm-rucio-daemons.yaml
+- helm-rucio-daemons.yaml
 #- helm-rucio-ui.yaml
 #
-#patchesStrategicMerge:
+patchesStrategicMerge:
+- patch-service.yaml
 #- rucio-env-patch.yaml
 #- grid-certificates-patch.yaml
 #
 secretGenerator:
-## rucio
-#- name: fnal-db-conn-str
-#  files:
-#  - db-conn-str.txt=etc/.secrets/db-conn-str.txt
+# Database Connection String
+- name: fnal-db-connstr
+  files:
+  - db-connstr.txt=etc/.secrets/db-connstr
+
+# Server Secrets
 - name: fnal-server-hostcert
   files:
   - hostcert.pem=etc/.secrets/hostcert.pem
@@ -22,17 +25,26 @@ secretGenerator:
 - name: fnal-server-cafile
   files:
   - ca.pem=etc/.secrets/ca.pem
-#- name: fnal-rucio-x509up
-#  files:
-#  - hostcert.pem=etc/.secrets/hostcert.pem
-#  - hostkey.pem=etc/.secrets/hostkey.pem
-#  options:
-#    disableNameSuffixHash: true
-#- name: fnal-rucio-ca-bundle
-#  files:
-#  - ca.pem=etc/.secrets/ca.pem
-#  options:
-#    disableNameSuffixHash: true
+
+# The desired policy package implementation files
+- name: fnal-policy-package
+  files:
+  - __init__.py=etc/policy-package/__init__.py
+  - permission.py=etc/policy-package/permission.py
+  - schema.py=etc/policy-package/schema.py
+
+# Used by daemons
+- name: fnal-rucio-x509up
+  files:
+  - hostcert.pem=etc/.secrets/hostcert.pem
+  - hostkey.pem=etc/.secrets/hostkey.pem
+  options:
+    disableNameSuffixHash: true
+- name: fnal-rucio-ca-bundle
+  files:
+  - ca.pem=etc/.secrets/ca.pem
+  options:
+    disableNameSuffixHash: true
 #- name: fnal-rucio-ca-bundle-reaper
 #  files:
 #  - ca.pem=etc/.secrets/ca.pem

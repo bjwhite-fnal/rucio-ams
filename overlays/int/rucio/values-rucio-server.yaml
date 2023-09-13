@@ -5,10 +5,6 @@
 ## replicaCount gives the number of server pods to run
 replicaCount: 1
 
-## authReplicaCount gives the number of authentication server pods to run
-authReplicaCount: 1
-traceReplicaCount: 0
-
 serviceAccountName: useroot
 
 useDeprecatedImplicitSecrets: true
@@ -29,7 +25,7 @@ useSSL: true
 
 image:
   repository: rucio/rucio-server
-  tag: release-32.2.0
+  tag: release-32.3.0
   pullPolicy: Always
 
 service:
@@ -37,7 +33,7 @@ service:
   port: 443
   targetPort: 443
   protocol: TCP
-  name: https-rucio-server
+  name: https
   annotations: {}
     # loadbalancer.openstack.org/network-id: "<id>"
     # service.beta.kubernetes.io/openstack-internal-load-balancer: "true"
@@ -47,16 +43,16 @@ service:
   externalTrafficPolicy: null
   allocateLoadBalancerNodePorts: true
 
-authService:
-  type: ClusterIP
-  port: 443
-  targetPort: 443
-  protocol: TCP
-  name: https-rucio-server-auth
-  annotations: {}
-  loadBalancerIP: null
-  loadBalancerClass: null
-  allocateLoadBalancerNodePorts: true
+#authService:
+#  type: ClusterIP
+#  port: 443
+#  targetPort: 443
+#  protocol: TCP
+#  name: https-rucio-server-auth
+#  annotations: {}
+#  loadBalancerIP: null
+#  loadBalancerClass: null
+#  allocateLoadBalancerNodePorts: true
 
 #traceService:
 #  type: ClusterIP
@@ -208,7 +204,9 @@ automaticRestart:
       cpu: 100m
       memory: 128Mi
 
-secretMounts: []
+secretMounts:
+    - secretName: policy-package
+      mountPath: /opt/rucio/permissions/fermilab
   # - volumeName: gcssecret
   #   secretName: gcssecret
   #   mountPath: /opt/rucio/etc/gcs_rucio.json
@@ -221,7 +219,16 @@ hostPathMounts: []
   #   readOnly: true
   #   type: DirectoryOrCreate
 
-additionalEnvs: []
+additionalEnvs:
+  - name: PYTHONPATH
+    value: /opt/rucio/permissions
+  - name: RUCIO_CFG_DATABASE_DEFAULT
+    valueFrom:
+      secretKeyRef:
+        name: fnal-db-connstr 
+        key: db-connstr.txt
+  - name: RUCIO_HTTPD_LEGACY_DN
+    value: "True"
   # - name: NODE_IP
   #   valueFrom:
   #     fieldRef:
@@ -251,7 +258,7 @@ httpd_config:
   # mpm_mode: "worker"
 
 ingress:
-  enabled: true
+  enabled: false
   # ingressClassName: traefik
   annotations:
     kubernetes.io/ingress.class: nginx
@@ -371,7 +378,7 @@ config:
     ## config.database.powuseraccount: password for user used to check the DB
     # powuserpassword: ""
 
-  monitor:
+  #monitor:
     ## config.monitor.carbon_server: address of carbon server used for graphite monitoring (default: "localhost")
     # carbon_server: "localhost"
     ## config.monitor.carbon_port: port of carbon server used for graphite monitoring (default: "8125")
@@ -395,7 +402,7 @@ config:
     # password: ""
 
   policy:
-    package: fermilab.generic
+    package: fermilab
     ## config.permission.policy: (default "generic")
     # permission: "generic"
     ## config.permission.schema: (default "generic")
@@ -412,8 +419,8 @@ config:
     ## config.webui.usercert:  (default "/opt/rucio/etc/usercert_with_key.pem")
     # usercert: "/opt/rucio/etc/usercert_with_key.pem"
 
-optional_config:
-  policy_pkg_dir: /opt/rucio/permissions
+#optional_config:
+#  policy_pkg_dir: /opt/rucio/permissions
 
 serverResources:
   limits:
