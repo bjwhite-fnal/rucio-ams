@@ -5,7 +5,7 @@
 #### Brandon White
 bjwhite@fnal.gov
 
-Once you have access to your Kubernetes cluster, you can deploy Rucio for a given overlay (found in overlays/[dev,prod,int,dune,etc...]) using the Makefile found in that overlay/xyz directory.
+Once you have access to your Kubernetes cluster, you can deploy Rucio for a given overlay (found in overlays/[dev,prod,int,dune,etc...]) using the Makefile found in that overlays/<experiment> directory.
 
     make apply
 
