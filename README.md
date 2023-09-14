@@ -15,9 +15,11 @@ This framework uses `kustomize` to allow modification of Helm template outputs f
 
 Before deploying Rucio, the secrets and credentials needed for the application will need to be pushed to Vault. Vault-resident secrets will be downloaded when `make apply` is run and then loaded into the cluster via `SecretGenerator` definitions in the `kustomization.yaml` files.
 
-The hostcert.pem, hostkey.pem, ca.pem, and db-connstr files should be placed in `<rucio-ams>/overlays/<experiment>/rucio/etc/.secrets/`
+The `hostcert.pem`, `hostkey.pem`, `ca.pem`, and `db-connstr` files should be placed in `<rucio-ams>/overlays/<experiment>/rucio/etc/.secrets/`
+This directory is setup in `.gitignore` to not be commited for obvious reasons.
+These secrets should optimally be downloaded from Vault at deployment time for centrailized distribution, rather than being stored locally.
 
-For selection of a policy package, simply add __init.py__, permission.py, and schema.py to
+For selection of a policy package, simply add `__init.py__`, `permission.py`, and `schema.py` to
 `<rucio-ams>/overlays/<experiment>/etc/policy-package`. No other configuration is required, as the files are
 mounted as a secret. All policy packages will be referred to in the containers/config files as "fermilab",
 regardless of the experiment-specific policy package implementation files mounted.
