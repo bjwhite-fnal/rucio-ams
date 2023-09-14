@@ -379,8 +379,8 @@ config:
     ## config.database.powuseraccount: password for user used to check the DB
     # powuserpassword: ""
 
-  monitor:
-    enable_metrics: "True"
+  #monitor:
+    #enable_metrics: "True"
     ## config.monitor.carbon_server: address of carbon server used for graphite monitoring (default: "localhost")
     # carbon_server: "localhost"
     ## config.monitor.carbon_port: port of carbon server used for graphite monitoring (default: "8125")
