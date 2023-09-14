@@ -16,7 +16,8 @@ conveyorStagerCount: 1
 conveyorThrottlerCount: 0
 conveyorPreparerCount: 0
 darkReaperCount: 0
-hermesCount: 1
+hermesCount: 0
+hermesLegacyCount: 0
 judgeCleanerCount: 1
 judgeEvaluatorCount: 1
 judgeInjectorCount: 1
@@ -389,6 +390,31 @@ hermes:
   podAnnotations: {}
   bulk: 1000
   useSSL: "True"
+  resources:
+    limits:
+      memory: "200Mi"
+      cpu: "700m"
+    requests:
+      memory: "200Mi"
+      cpu: "700m"
+  additionalEnvs:
+    - name: PYTHONPATH
+      value: /opt/rucio/permissions
+    - name: RUCIO_CFG_DATABASE_DEFAULT
+      valueFrom:
+        secretKeyRef:
+          name: fnal-db-connstr 
+          key: db-connstr.txt
+  secretMounts:
+      - secretName: policy-package
+        mountPath: /opt/rucio/permissions/fermilab
+
+hermesLegacy:
+  threads: 1
+  podAnnotations: {}
+  bulk: 100
+  sleepTime: 10
+  brokerTimeout: 3
   resources:
     limits:
       memory: "200Mi"
@@ -818,11 +844,12 @@ config:
 
   # monitor:
     ## config.monitor.carbon_server: address of carbon server used for graphite monitoring (default: "localhost")
-    # carbon_server: "localhost"
+    #carbon_server: "rucio-statsd"
     ## config.monitor.carbon_port: port of carbon server used for graphite monitoring (default: "8125")
-    # carbon_server: "8125"
+    #carbon_port: "8125"
     ## config.monitor.user_scope: scope used on the graphite server (default: "default_docker")
-    # user_scope: "default_docker"
+    #user_scope: "rucio_int_okd"
+    enable_metrics: "True"
 
   policy:
     package: fermilab

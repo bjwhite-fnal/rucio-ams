@@ -3,6 +3,8 @@ resources:
 - helm-rucio-server.yaml
 - helm-rucio-daemons.yaml
 - cache.yaml
+- prometheus.yaml
+#- statsd.yaml
 #- helm-rucio-ui.yaml
 #
 patchesStrategicMerge:
