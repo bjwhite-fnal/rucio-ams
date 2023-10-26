@@ -1,0 +1,54 @@
+---
+# Source: rucio-routes/templates/messenger_route.yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: rucio-messenger-route
+  labels:
+    app: rucio-messenger 
+    chart: rucio-routes-0.2.0
+    release: rucio-int
+    heritage: Helm
+spec:
+  host: msg-int-rucio.fnal.gov 
+  to:
+    kind: Service
+    name: fnal-rucio-messenger
+  tls:
+    termination: passthrough
+---
+# Source: rucio-routes/templates/service_route.yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: rucio-server-route
+  labels:
+    app: rucio-server 
+    chart: rucio-routes-0.2.0
+    release: rucio-int
+    heritage: Helm
+spec:
+  host: int-rucio.fnal.gov 
+  to:
+    kind: Service
+    name: fnal-rucio-server
+  tls:
+    termination: passthrough
+---
+# Source: rucio-routes/templates/webui_route.yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: rucio-ui-route
+  labels:
+    app: rucio-ui 
+    chart: rucio-routes-0.2.0
+    release: rucio-int
+    heritage: Helm
+spec:
+  host: webui-int-rucio.fnal.gov 
+  to:
+    kind: Service
+    name: fnal-rucio-ui
+  tls:
+    termination: passthrough

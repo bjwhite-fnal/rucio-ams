@@ -76,33 +76,10 @@ minReadySeconds: 5
   #authServer: 5
   #traceServer: 5
 
-readinessProbe:
-  server:
-    initialDelaySeconds: 5
-    periodSeconds: 10
-    timeoutSeconds: 5
-  authServer:
-    initialDelaySeconds: 5
-    periodSeconds: 10
-    timeoutSeconds: 5
-  traceServer:
-    initialDelaySeconds: 5
-    periodSeconds: 10
-    timeoutSeconds: 5
-
 livenessProbe:
-  server:
-    initialDelaySeconds: 10
-    periodSeconds: 20
-    timeoutSeconds: 5
-  authServer:
-    initialDelaySeconds: 10
-    periodSeconds: 20
-    timeoutSeconds: 5
-  traceServer:
-    initialDelaySeconds: 10
-    periodSeconds: 20
-    timeoutSeconds: 5
+  initialDelaySeconds: 10
+  periodSeconds: 20
+  timeoutSeconds: 5
 
 serverType: api
 
@@ -205,8 +182,8 @@ automaticRestart:
       memory: 128Mi
 
 secretMounts:
-    - secretName: policy-package
-      mountPath: /opt/rucio/permissions/fermilab
+  - secretName: policy-package
+    mountPath: /opt/rucio/permissions/fermilab
   # - volumeName: gcssecret
   #   secretName: gcssecret
   #   mountPath: /opt/rucio/etc/gcs_rucio.json
@@ -431,22 +408,6 @@ serverResources:
   requests:
     memory: "200Mi"
     cpu: "200m"
-
-authServerResources:
-  limits:
-    memory: "600Mi"
-    cpu: "700m"
-  requests:
-    memory: "200Mi"
-    cpu: "200m"
-
-traceServerResources: {}
-  # limits:
-  #  cpu: 100m
-  #  memory: 128Mi
-  # requests:
-  #  cpu: 100m
-  #  memory: 128Mi
 
 nodeSelector: {}
 

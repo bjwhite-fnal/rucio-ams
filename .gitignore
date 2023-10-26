@@ -19,6 +19,8 @@ exporter.yaml
 autotransfer.yaml
 prometheus.yaml
 
+!overlays/*/**
+
 # Ignore hard links that make the Fermilab policy package available inside the Docker build contexts.
 rucio-ams/docker/permissions-fnal/mu2e/
 rucio-ams/docker/permissions-fnal/dune/
