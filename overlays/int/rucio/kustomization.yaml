@@ -2,15 +2,17 @@
 resources:
 - helm-rucio-server.yaml
 - helm-rucio-daemons.yaml
+- helm-rucio-ui.yaml
 - cache.yaml
 - prometheus.yaml
 - messenger.yaml
+- routes.yaml
 #- statsd.yaml
-#- helm-rucio-ui.yaml
 #
 patchesStrategicMerge:
 - patch-service.yaml
 - grid-certificates-patch.yaml
+- patch-webui.yaml
 #- rucio-env-patch.yaml
 
 secretGenerator:
@@ -89,26 +91,30 @@ secretGenerator:
   files:
   - vomses=etc/vomses
 
-# RabbitMQ Configuration File
+# RabbitMQ Configuration Files
 - name: fnal-rabbitmq-conf
   files:
   - rabbitmq.conf=etc/rabbitmq.conf
+- name: fnal-rabbitmq-enabled-plugins
+  files:
+  - enabled_plugins=etc/enabled_plugins
 
 ## ingress
 #- name: rucio-server.tls-secret
 #  files:
 #  - cert=etc/.secrets/hostcert.pem
 #  - key=etc/.secrets/hostkey.pem
-## webui
-#- name: fnal-hostcert
-#  files:
-#  - hostcert.pem=etc/.secrets/hostcert.pem
-#- name: fnal-hostkey
-#  files:
-#  - hostkey.pem=etc/.secrets/hostkey.pem
-#- name: fnal-cafile
-#  files:
-#  - ca.pem=etc/.secrets/ca.pem
+#
+# webui
+- name: fnal-hostcert
+  files:
+  - hostcert.pem=etc/.secrets/hostcert.pem
+- name: fnal-hostkey
+  files:
+  - hostkey.pem=etc/.secrets/hostkey.pem
+- name: fnal-cafile
+  files:
+  - ca.pem=etc/.secrets/ca.pem
 ## lsst customization
 #- name: fnal-lsst-schema-file
 #  files:
@@ -116,3 +122,8 @@ secretGenerator:
 #  options:
 #    disableNameSuffixHash: true
 ## automatix input
+#
+# hermes patch file
+- name: fnal-hermes-patch-20231027
+  files:
+  - hermes.py=etc/hermes_patch_20231027.py

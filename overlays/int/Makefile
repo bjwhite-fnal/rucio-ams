@@ -1,6 +1,6 @@
 EXPERIMENT=int
 SERVER_CHART_VERSION := 32.0.0
-DAEMON_CHART_VERSION := 32.0.0
+DAEMON_CHART_VERSION := 32.0.2
 UI_CHART_VERSION := 32.0.0
 
 helm:
@@ -14,18 +14,17 @@ rucio-daemons: helm
 	helm template fnal rucio/rucio-daemons --version=${DAEMON_CHART_VERSION} --values=rucio/values-rucio-daemons.yaml > rucio/helm-rucio-daemons.yaml
 
 rucio-ui: helm
-	helm template fnal rucio/rucio-ui --version=${UI_CHART_VERSION} --values=rucio/values-rucio-ui.yaml > rucio/helm-rucio-ui.yaml
+	helm template fnal rucio/rucio-ui --version=${UI_CHART_VERSION} --values=rucio/values-rucio-ui.yaml --debug > rucio/helm-rucio-ui.yaml
 
-#rucio: rucio-server rucio-daemons rucio-ui
-rucio: rucio-server rucio-daemons
+rucio: rucio-server rucio-daemons rucio-ui
 
-#get-secrets:
-	#mkdir -p rucio/etc/.secrets
-	#vault kv get --field=${EXPERIMENT}-server-hostkey secret/rucio/${EXPERIMENT}-rucio/rucio  > rucio/etc/.secrets/hostkey.pem
-	#vault kv get --field=${EXPERIMENT}-server-hostcert secret/rucio/${EXPERIMENT}-rucio/rucio  > rucio/etc/.secrets/hostcert.pem
-	#vault kv get --field=${EXPERIMENT}-server-cafile secret/rucio/${EXPERIMENT}-rucio/rucio  > rucio/etc/.secrets/ca.pem
-	#vault kv get --field=${EXPERIMENT}-db-conn-str secret/rucio/${EXPERIMENT}-rucio/rucio  > rucio/etc/.secrets/db-conn-str.txt
-	#curl https://raw.githubusercontent.com/rucio/rucio/master/etc/automatix.json > rucio/etc/.secrets/automatix.json
+# get-secrets:
+# 	mkdir -p rucio/etc/.secrets
+# 	vault kv get --field=${EXPERIMENT}-server-hostkey secret/rucio/${EXPERIMENT}-rucio/rucio  > rucio/etc/.secrets/hostkey.pem
+# 	vault kv get --field=${EXPERIMENT}-server-hostcert secret/rucio/${EXPERIMENT}-rucio/rucio  > rucio/etc/.secrets/hostcert.pem
+# 	vault kv get --field=${EXPERIMENT}-server-cafile secret/rucio/${EXPERIMENT}-rucio/rucio  > rucio/etc/.secrets/ca.pem
+# 	vault kv get --field=${EXPERIMENT}-db-conn-str secret/rucio/${EXPERIMENT}-rucio/rucio  > rucio/etc/.secrets/db-conn-str.txt
+# 	curl https://raw.githubusercontent.com/rucio/rucio/master/etc/automatix.json > rucio/etc/.secrets/automatix.json
 
 #clean-secrets:
 #	rm -rf rucio/etc/.secrets

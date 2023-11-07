@@ -1,0 +1,183 @@
+---
+# Source: rucio-ui/templates/deployment.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fnal-rucio-ui.config.yaml
+  labels:
+    app: rucio-ui
+    chart: rucio-ui-32.0.0
+    release: "fnal"
+    heritage: "Helm"
+type: Opaque
+data:
+  common.json: "ewogICJib290c3RyYXAiOiB7CiAgICAieDUwOV9lbWFpbCI6ICJiandoaXRlQGZuYWwuZ292IiwKICAgICJ4NTA5X2lkZW50aXR5IjogIi9EQz1vcmcvREM9Y2lsb2dvbi9DPVVTL089RmVybWkgTmF0aW9uYWwgQWNjZWxlcmF0b3IgTGFib3JhdG9yeS9PVT1QZW9wbGUvQ049QnJhbmRvbiBXaGl0ZS9DTj1VSUQ6Ymp3aGl0ZSIKICB9LAogICJjb3JlIjogewogICAgInVzZV90ZW1wX3RhYmxlcyI6ICJUcnVlIgogIH0sCiAgImRhdGFiYXNlIjoge30sCiAgInBvbGljeSI6IHsKICAgICJwYWNrYWdlIjogImZlcm1pbGFiIgogIH0sCiAgIndlYnVpIjogewogICAgInVzZXJjZXJ0IjogIi9vcHQvcnVjaW8vZXRjL3VzZXJjZXJ0X3dpdGhfa2V5LnBlbSIKICB9Cn0="
+---
+# Source: rucio-ui/templates/secrets.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fnal-rucio-ui.cfg
+  labels:
+    app: rucio-ui
+    chart: "rucio-ui-32.0.0"
+    release: "fnal"
+    heritage: "Helm"
+type: Opaque
+data:
+  legacy_dn: "VHJ1ZQ=="
+  log_dir: "L3J1Y2lvL2xvZ3M="
+---
+# Source: rucio-ui/templates/config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fnal-rucio-ui-aliases
+  labels:
+    app: fnal-rucio-ui
+    chart: "rucio-ui-32.0.0"
+    release: "fnal"
+    heritage: "Helm"
+data:
+  aliases.conf: |+
+    Alias /media        /opt/rucio/.venv/lib/python2.7/site-packages/rucio/web/ui/media
+    Alias /static       /opt/rucio/.venv/lib/python2.7/site-packages/rucio/web/ui/static
+    WSGIScriptAlias /   /opt/rucio/.venv/lib/python2.7/site-packages/rucio/web/ui/main.py
+---
+# Source: rucio-ui/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: fnal-rucio-ui
+  labels:
+    app: rucio-ui
+    chart: rucio-ui-32.0.0
+    release: fnal
+    heritage: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 443
+      targetPort: 443
+      protocol: TCP
+      name: https
+  selector:
+    app: rucio-ui
+    release: fnal
+---
+# Source: rucio-ui/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fnal-rucio-ui
+  labels:
+    app: rucio-ui
+    chart: rucio-ui-32.0.0
+    release: fnal
+    heritage: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rucio-ui
+      release: fnal
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: rucio-ui
+        release: fnal
+      annotations:
+        checksum/config: 22b7f9823f65d3edf293dc13d890c7aa89fff50c
+    spec:
+      serviceAccountName: useroot
+      volumes:
+      - name: config
+        secret:
+          secretName: fnal-rucio-ui.config.yaml
+      - name: aliases
+        configMap:
+          name: fnal-rucio-ui-aliases
+      - name: httpdlog
+        emptyDir: {}
+      - name: hostcert
+        secret:
+          secretName: fnal-hostcert
+      - name: hostkey
+        secret:
+          secretName: fnal-hostkey
+      - name: cafile
+        secret:
+          secretName: fnal-cafile
+      - name: policy-package
+        secret:
+          secretName: fnal-policy-package
+      containers:
+        - name: rucio-ui
+          image: "rucio/rucio-ui:release-32.3.1"
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+            - name: https
+              containerPort: 443
+              protocol: TCP
+          volumeMounts:
+            - name: config
+              mountPath: /opt/rucio/etc/conf.d/10_common.json
+              subPath: common.json
+            - name: httpdlog
+              mountPath: /var/log/httpd
+            - name: aliases
+              mountPath: /opt/rucio/etc/aliases.conf
+              subPath: aliases.conf
+            - name: hostcert
+              mountPath: /etc/grid-security/hostcert.pem
+              subPath: hostcert.pem
+            - name: hostkey
+              mountPath: /etc/grid-security/hostkey.pem
+              subPath: hostkey.pem
+            - name: cafile
+              mountPath: /etc/grid-security/ca.pem
+              subPath: ca.pem
+            - name: policy-package
+              mountPath: /opt/rucio/permissions/fermilab
+              subPath: 
+          env:
+            - name: RUCIO_HTTPD_LEGACY_DN
+              valueFrom:
+                secretKeyRef:
+                  name: fnal-rucio-ui.cfg
+                  key: legacy_dn
+            - name: RUCIO_HTTPD_LOG_DIR
+              valueFrom:
+                secretKeyRef:
+                  name: fnal-rucio-ui.cfg
+                  key: log_dir
+            - name: EXPERIMENT
+              value: "Uses $EXPERIMENT"
+            - name: PYTHONPATH
+              value: "/opt/rucio/permissions"
+            - name: RUCIO_ENABLE_LOGFILE
+              value: "True"
+
+            - name: RUCIO_PROXY
+              value: int-rucio.fnal.gov
+            - name: RUCIO_AUTH_PROXY
+              value: int-rucio.fnal.gov
+            - name: RUCIO_DEFINE_ALIASES
+              value: "True"
+            - name: RUCIO_OVERRIDE_CONFIGS
+              value: "/opt/rucio/etc/conf.d/"
+            - name: RUCIO_LOG_FORMAT
+              value: '[%{%Y-%m-%d %H:%M:%S}t]\t%v\t%h\t%{X-Forwarded-For}i\t%{X-Rucio-RequestId}i\t%>s\t%I\t%B\t%D\t\"%r\"\t\"%{X-Rucio-Auth-Token}i\"\t\"%{User-Agent}i\"\t%{X-Rucio-Script}i'
+            - name: RUCIO_ENABLE_SSL
+              value: "True"
+          resources:
+            {}
