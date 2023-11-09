@@ -408,9 +408,9 @@ hermes:
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
-      - secretName: hermes-patch-20231027
-        mountPath: /usr/local/lib/python3.9/site-packages/rucio/daemons/hermes/hermes.py
-        subPath: hermes.py
+      - secretName: hotfix-6358-hermes-patch
+        mountPath: /patch/hotfix_6358_hermes.patch
+        subPath: hotfix_6358_hermes.patch
 
 hermesLegacy:
   threads: 1
@@ -804,6 +804,9 @@ config:
     set_metadata: "True"
     dataset_lifetime: 30
     scope: "automatix"
+
+  cache:
+    url: "rucio-cache:11211"
 
   client:
     rucio_host: "https://int-rucio.fnal.gov"

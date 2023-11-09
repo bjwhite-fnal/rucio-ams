@@ -124,6 +124,6 @@ secretGenerator:
 ## automatix input
 #
 # hermes patch file
-- name: fnal-hermes-patch-20231027
+- name: fnal-hotfix-6358-hermes-patch
   files:
-  - hermes.py=etc/hermes_patch_20231027.py
+  - hotfix_6358_hermes.patch=etc/hotfix_6358_hermes.patch
