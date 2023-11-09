@@ -269,7 +269,7 @@ metadata:
     heritage: "Helm"
 type: Opaque
 data:
-  common.json: "ewogICJhdXRvbWF0aXgiOiB7CiAgICAiYWNjb3VudCI6ICJhdXRvbWF0aXgiLAogICAgImRhdGFzZXRfbGlmZXRpbWUiOiAzMCwKICAgICJyc2VzIjogIkRDQUNIRV9CSldISVRFX0VORCwgRENBQ0hFX0JKV0hJVEVfRU5EMiIsCiAgICAic2NvcGUiOiAiYXV0b21hdGl4IiwKICAgICJzZXRfbWV0YWRhdGEiOiAiVHJ1ZSIKICB9LAogICJjbGllbnQiOiB7CiAgICAiYWNjb3VudCI6ICJhdXRvbWF0aXgiLAogICAgImF1dGhfaG9zdCI6ICJodHRwczovL2ludC1ydWNpby5mbmFsLmdvdiIsCiAgICAiYXV0aF90eXBlIjogIng1MDlfcHJveHkiLAogICAgImNhX2NlcnQiOiAiL29wdC9jZXJ0cyIsCiAgICAiY2xpZW50X3g1MDlfcHJveHkiOiAiL29wdC9wcm94eS94NTA5dXAiLAogICAgImVuYWJsZV9tZXRyaWNzIjogIlRydWUiLAogICAgInByb3RvY29sX3N0YXRfcmV0cmllcyI6IDYsCiAgICAicmVxdWVzdF9yZXRyaWVzIjogMywKICAgICJydWNpb19ob3N0IjogImh0dHBzOi8vaW50LXJ1Y2lvLmZuYWwuZ292IgogIH0sCiAgImNvbnZleW9yIjogewogICAgImNhY2VydCI6ICIvb3B0L2NlcnRzL2NhLnBlbSIsCiAgICAiZnRzaG9zdHMiOiAiaHR0cHM6Ly9mdHMzLXB1YmxpYy5mbmFsLmdvdjo4NDQ2IiwKICAgICJ1c2VyY2VydCI6ICIvb3B0L3Byb3h5L3g1MDl1cCIKICB9LAogICJoZXJtZXMiOiB7CiAgICAic2VydmljZXNfbGlzdCI6ICJhY3RpdmVtcSIKICB9LAogICJtZXNzYWdpbmctY2FjaGUiOiB7CiAgICAiYWNjb3VudCI6ICJtZW1jYWNoZSIsCiAgICAiYnJva2VycyI6ICJydWNpby1jYWNoZSIsCiAgICAiZGVzdGluYXRpb24iOiAiL3RvcGljL3J1Y2lvLmV2ZW50cy5pbnQiLAogICAgInBvcnQiOiAiNjExMjMiLAogICAgInZvbmFtZSI6ICJmZXJtaWxhYiIKICB9LAogICJtZXNzYWdpbmctaGVybWVzIjogewogICAgImJyb2tlcl92aXJ0dWFsX2hvc3QiOiAiLyIsCiAgICAiYnJva2VycyI6ICJmbmFsLXJ1Y2lvLW1lc3NlbmdlciIsCiAgICAiZGVzdGluYXRpb24iOiAiL3RvcGljL3J1Y2lvLmV2ZW50cy5pbnQiLAogICAgImVtYWlsX2Zyb20iOiAiUnVjaW8gXHUwMDNjYXRsYXMtYWRjLWRkbS1zdXBwb3J0QGNlcm4uY2giLAogICAgImVtYWlsX3Rlc3QiOiAiIiwKICAgICJub25zc2xfcG9ydCI6ICI2MTYxMyIsCiAgICAicGFzc3dvcmQiOiAiZ3Vlc3QiLAogICAgInBvcnQiOiAiNjE2MTMiLAogICAgInNzbF9jZXJ0X2ZpbGUiOiAiL29wdC9ydWNpby9jZXJ0cy9ob3N0Y2VydC5wZW0iLAogICAgInNzbF9rZXlfZmlsZSI6ICIvb3B0L3J1Y2lvL2tleXMvaG9zdGtleS5wZW0iLAogICAgInVzZV9zc2wiOiAiRmFsc2UiLAogICAgInVzZXJuYW1lIjogImd1ZXN0IiwKICAgICJ2b25hbWUiOiAiaW50IgogIH0sCiAgInBvbGljeSI6IHsKICAgICJwYWNrYWdlIjogImZlcm1pbGFiIgogIH0KfQ=="
+  common.json: "ewogICJhdXRvbWF0aXgiOiB7CiAgICAiYWNjb3VudCI6ICJhdXRvbWF0aXgiLAogICAgImRhdGFzZXRfbGlmZXRpbWUiOiAzMCwKICAgICJyc2VzIjogIkRDQUNIRV9CSldISVRFX0VORCwgRENBQ0hFX0JKV0hJVEVfRU5EMiIsCiAgICAic2NvcGUiOiAiYXV0b21hdGl4IiwKICAgICJzZXRfbWV0YWRhdGEiOiAiVHJ1ZSIKICB9LAogICJjYWNoZSI6IHsKICAgICJ1cmwiOiAicnVjaW8tY2FjaGU6MTEyMTEiCiAgfSwKICAiY2xpZW50IjogewogICAgImFjY291bnQiOiAiYXV0b21hdGl4IiwKICAgICJhdXRoX2hvc3QiOiAiaHR0cHM6Ly9pbnQtcnVjaW8uZm5hbC5nb3YiLAogICAgImF1dGhfdHlwZSI6ICJ4NTA5X3Byb3h5IiwKICAgICJjYV9jZXJ0IjogIi9vcHQvY2VydHMiLAogICAgImNsaWVudF94NTA5X3Byb3h5IjogIi9vcHQvcHJveHkveDUwOXVwIiwKICAgICJlbmFibGVfbWV0cmljcyI6ICJUcnVlIiwKICAgICJwcm90b2NvbF9zdGF0X3JldHJpZXMiOiA2LAogICAgInJlcXVlc3RfcmV0cmllcyI6IDMsCiAgICAicnVjaW9faG9zdCI6ICJodHRwczovL2ludC1ydWNpby5mbmFsLmdvdiIKICB9LAogICJjb252ZXlvciI6IHsKICAgICJjYWNlcnQiOiAiL29wdC9jZXJ0cy9jYS5wZW0iLAogICAgImZ0c2hvc3RzIjogImh0dHBzOi8vZnRzMy1wdWJsaWMuZm5hbC5nb3Y6ODQ0NiIsCiAgICAidXNlcmNlcnQiOiAiL29wdC9wcm94eS94NTA5dXAiCiAgfSwKICAiaGVybWVzIjogewogICAgInNlcnZpY2VzX2xpc3QiOiAiYWN0aXZlbXEiCiAgfSwKICAibWVzc2FnaW5nLWNhY2hlIjogewogICAgImFjY291bnQiOiAibWVtY2FjaGUiLAogICAgImJyb2tlcnMiOiAicnVjaW8tY2FjaGUiLAogICAgImRlc3RpbmF0aW9uIjogIi90b3BpYy9ydWNpby5ldmVudHMuaW50IiwKICAgICJwb3J0IjogIjYxMTIzIiwKICAgICJ2b25hbWUiOiAiZmVybWlsYWIiCiAgfSwKICAibWVzc2FnaW5nLWhlcm1lcyI6IHsKICAgICJicm9rZXJfdmlydHVhbF9ob3N0IjogIi8iLAogICAgImJyb2tlcnMiOiAiZm5hbC1ydWNpby1tZXNzZW5nZXIiLAogICAgImRlc3RpbmF0aW9uIjogIi90b3BpYy9ydWNpby5ldmVudHMuaW50IiwKICAgICJlbWFpbF9mcm9tIjogIlJ1Y2lvIFx1MDAzY2F0bGFzLWFkYy1kZG0tc3VwcG9ydEBjZXJuLmNoIiwKICAgICJlbWFpbF90ZXN0IjogIiIsCiAgICAibm9uc3NsX3BvcnQiOiAiNjE2MTMiLAogICAgInBhc3N3b3JkIjogImd1ZXN0IiwKICAgICJwb3J0IjogIjYxNjEzIiwKICAgICJzc2xfY2VydF9maWxlIjogIi9vcHQvcnVjaW8vY2VydHMvaG9zdGNlcnQucGVtIiwKICAgICJzc2xfa2V5X2ZpbGUiOiAiL29wdC9ydWNpby9rZXlzL2hvc3RrZXkucGVtIiwKICAgICJ1c2Vfc3NsIjogIkZhbHNlIiwKICAgICJ1c2VybmFtZSI6ICJndWVzdCIsCiAgICAidm9uYW1lIjogImludCIKICB9LAogICJwb2xpY3kiOiB7CiAgICAicGFja2FnZSI6ICJmZXJtaWxhYiIKICB9Cn0="
 ---
 # Source: rucio-daemons/templates/transmogrifier.yaml
 apiVersion: v1
@@ -624,7 +624,7 @@ spec:
         release: fnal
         rucio-daemon: automatix
       annotations:
-        checksum/config: 87f3b010e9674e7242352d044f441a499b9a8f94
+        checksum/config: 1add21947211d9409036781bc1e108f0f9368c0b
     spec:
       serviceAccountName: useroot
       volumes:
@@ -735,7 +735,7 @@ spec:
         release: fnal
         rucio-daemon: conveyor-finisher
       annotations:
-        checksum/config: 87f3b010e9674e7242352d044f441a499b9a8f94
+        checksum/config: 1add21947211d9409036781bc1e108f0f9368c0b
     spec:
       serviceAccountName: useroot
       volumes:
@@ -828,7 +828,7 @@ spec:
         release: fnal
         rucio-daemon: conveyor-poller
       annotations:
-        checksum/config: 87f3b010e9674e7242352d044f441a499b9a8f94
+        checksum/config: 1add21947211d9409036781bc1e108f0f9368c0b
     spec:
       serviceAccountName: useroot
       volumes:
@@ -921,7 +921,7 @@ spec:
         release: fnal
         rucio-daemon: conveyor-stager
       annotations:
-        checksum/config: 87f3b010e9674e7242352d044f441a499b9a8f94
+        checksum/config: 1add21947211d9409036781bc1e108f0f9368c0b
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1014,7 +1014,7 @@ spec:
         release: fnal
         rucio-daemon: conveyor-submitter
       annotations:
-        checksum/config: 87f3b010e9674e7242352d044f441a499b9a8f94
+        checksum/config: 1add21947211d9409036781bc1e108f0f9368c0b
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1107,7 +1107,7 @@ spec:
         release: fnal
         rucio-daemon: hermes
       annotations:
-        checksum/config: 87f3b010e9674e7242352d044f441a499b9a8f94
+        checksum/config: 1add21947211d9409036781bc1e108f0f9368c0b
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1128,9 +1128,9 @@ spec:
         - name: policy-package
           secret:
             secretName: fnal-policy-package
-        - name: hermes-patch-20231027
+        - name: hotfix-6358-hermes-patch
           secret:
-            secretName: fnal-hermes-patch-20231027
+            secretName: fnal-hotfix-6358-hermes-patch
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-32.4.0"
@@ -1150,9 +1150,9 @@ spec:
               subPath: component.json
             - name: policy-package
               mountPath: /opt/rucio/permissions/fermilab
-            - name: hermes-patch-20231027
-              mountPath: /usr/local/lib/python3.9/site-packages/rucio/daemons/hermes/hermes.py
-              subPath: "hermes.py"
+            - name: hotfix-6358-hermes-patch
+              mountPath: /patch/hotfix_6358_hermes.patch
+              subPath: "hotfix_6358_hermes.patch"
           ports:
             - name: metrics
               containerPort: 8080
@@ -1210,7 +1210,7 @@ spec:
         release: fnal
         rucio-daemon: judge-cleaner
       annotations:
-        checksum/config: 87f3b010e9674e7242352d044f441a499b9a8f94
+        checksum/config: 1add21947211d9409036781bc1e108f0f9368c0b
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1303,7 +1303,7 @@ spec:
         release: fnal
         rucio-daemon: judge-evaluator
       annotations:
-        checksum/config: 87f3b010e9674e7242352d044f441a499b9a8f94
+        checksum/config: 1add21947211d9409036781bc1e108f0f9368c0b
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1396,7 +1396,7 @@ spec:
         release: fnal
         rucio-daemon: judge-injector
       annotations:
-        checksum/config: 87f3b010e9674e7242352d044f441a499b9a8f94
+        checksum/config: 1add21947211d9409036781bc1e108f0f9368c0b
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1489,7 +1489,7 @@ spec:
         release: fnal
         rucio-daemon: judge-repairer
       annotations:
-        checksum/config: 87f3b010e9674e7242352d044f441a499b9a8f94
+        checksum/config: 1add21947211d9409036781bc1e108f0f9368c0b
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1582,7 +1582,7 @@ spec:
         release: fnal
         rucio-daemon: minos
       annotations:
-        checksum/config: 87f3b010e9674e7242352d044f441a499b9a8f94
+        checksum/config: 1add21947211d9409036781bc1e108f0f9368c0b
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1675,7 +1675,7 @@ spec:
         release: fnal
         rucio-daemon: minos-temporary-expiration
       annotations:
-        checksum/config: 87f3b010e9674e7242352d044f441a499b9a8f94
+        checksum/config: 1add21947211d9409036781bc1e108f0f9368c0b
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1768,7 +1768,7 @@ spec:
         release: fnal
         rucio-daemon: necromancer
       annotations:
-        checksum/config: 87f3b010e9674e7242352d044f441a499b9a8f94
+        checksum/config: 1add21947211d9409036781bc1e108f0f9368c0b
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1861,7 +1861,7 @@ spec:
         release: fnal
         rucio-daemon: reaper
       annotations:
-        checksum/config: 87f3b010e9674e7242352d044f441a499b9a8f94
+        checksum/config: 1add21947211d9409036781bc1e108f0f9368c0b
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1960,7 +1960,7 @@ spec:
         release: fnal
         rucio-daemon: replica-recoverer
       annotations:
-        checksum/config: 87f3b010e9674e7242352d044f441a499b9a8f94
+        checksum/config: 1add21947211d9409036781bc1e108f0f9368c0b
     spec:
       serviceAccountName: useroot
       volumes:
@@ -2053,7 +2053,7 @@ spec:
         release: fnal
         rucio-daemon: transmogrifier
       annotations:
-        checksum/config: 87f3b010e9674e7242352d044f441a499b9a8f94
+        checksum/config: 1add21947211d9409036781bc1e108f0f9368c0b
     spec:
       serviceAccountName: useroot
       volumes:
@@ -2146,7 +2146,7 @@ spec:
         release: fnal
         rucio-daemon: undertaker
       annotations:
-        checksum/config: 87f3b010e9674e7242352d044f441a499b9a8f94
+        checksum/config: 1add21947211d9409036781bc1e108f0f9368c0b
     spec:
       serviceAccountName: useroot
       volumes:
