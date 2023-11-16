@@ -14,7 +14,7 @@ rucio-daemons: helm
 	helm template fnal rucio/rucio-daemons --version=${DAEMON_CHART_VERSION} --values=rucio/values-rucio-daemons.yaml > rucio/helm-rucio-daemons.yaml
 
 rucio-ui: helm
-	helm template fnal rucio/rucio-ui --version=${UI_CHART_VERSION} --values=rucio/values-rucio-ui.yaml --debug > rucio/helm-rucio-ui.yaml
+	helm template fnal rucio/rucio-ui --version=${UI_CHART_VERSION} --values=rucio/values-rucio-ui.yaml > rucio/helm-rucio-ui.yaml
 
 rucio: rucio-server rucio-daemons rucio-ui
 
