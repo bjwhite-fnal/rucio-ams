@@ -56,6 +56,10 @@ service:
   port: 443
   targetPort: 443
 
+wsgi:
+  daemonProcesses: "8"
+  daemonThreads: "8"
+
 authService:
   type: ClusterIP
   port: 443
