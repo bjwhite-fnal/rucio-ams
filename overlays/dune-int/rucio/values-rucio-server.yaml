@@ -381,7 +381,9 @@ config:
     # password: ""
 
   policy:
-    package: fermilab
+    package: fermilab.dune
+    lfn2pfn_algorithm_default: DUNE
+    metacat_base_url: "https://metacat.fnal.gov:9443/dune_meta_prod/app"
     ## config.permission.policy: (default "generic")
     # permission: "generic"
     ## config.permission.schema: (default "generic")

@@ -385,6 +385,8 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
+            - name: POLICY_PKG_DIR
+              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -478,6 +480,8 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
+            - name: POLICY_PKG_DIR
+              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -571,6 +575,8 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
+            - name: POLICY_PKG_DIR
+              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -664,6 +670,8 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
+            - name: POLICY_PKG_DIR
+              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -757,6 +765,8 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
+            - name: POLICY_PKG_DIR
+              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -850,6 +860,8 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
+            - name: POLICY_PKG_DIR
+              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -943,6 +955,8 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
+            - name: POLICY_PKG_DIR
+              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1046,6 +1060,8 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
+            - name: POLICY_PKG_DIR
+              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1139,6 +1155,8 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
+            - name: POLICY_PKG_DIR
+              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1232,6 +1250,8 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
+            - name: POLICY_PKG_DIR
+              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1325,6 +1345,8 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
+            - name: POLICY_PKG_DIR
+              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1418,6 +1440,8 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
+            - name: POLICY_PKG_DIR
+              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1511,6 +1535,8 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
+            - name: POLICY_PKG_DIR
+              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1604,6 +1630,8 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
+            - name: POLICY_PKG_DIR
+              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1697,6 +1725,8 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
+            - name: POLICY_PKG_DIR
+              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1796,6 +1826,8 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
+            - name: POLICY_PKG_DIR
+              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1889,6 +1921,8 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
+            - name: POLICY_PKG_DIR
+              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1982,6 +2016,8 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
+            - name: POLICY_PKG_DIR
+              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -2070,6 +2106,8 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
+            - name: POLICY_PKG_DIR
+              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m

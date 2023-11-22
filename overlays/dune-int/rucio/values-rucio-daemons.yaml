@@ -98,6 +98,8 @@ abacusAccount:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -120,6 +122,8 @@ abacusCollectionReplica:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -143,6 +147,8 @@ abacusRse:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -167,6 +173,8 @@ automatix:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -194,6 +202,8 @@ cacheConsumer:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -219,6 +229,8 @@ conveyorTransferSubmitter:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -244,6 +256,8 @@ conveyorStager:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -266,6 +280,8 @@ conveyorPoller:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -288,6 +304,8 @@ conveyorFinisher:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -310,6 +328,8 @@ conveyorReceiver:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -332,6 +352,8 @@ conveyorThrottler:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -354,6 +376,8 @@ conveyorPreparer:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -381,6 +405,8 @@ darkReaper:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -405,6 +431,8 @@ hermes:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -433,6 +461,8 @@ hermesLegacy:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -455,6 +485,8 @@ judgeCleaner:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -477,6 +509,8 @@ judgeEvaluator:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -499,6 +533,8 @@ judgeInjector:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -521,6 +557,8 @@ judgeRepairer:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -543,6 +581,8 @@ oauthManager:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -565,6 +605,8 @@ undertaker:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -590,6 +632,8 @@ reaper:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -612,6 +656,8 @@ replicaRecoverer:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -634,6 +680,8 @@ transmogrifier:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -656,6 +704,8 @@ tracerKronos:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -678,6 +728,8 @@ minos:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -700,6 +752,8 @@ minosTemporaryExpiration:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
@@ -721,6 +775,8 @@ necromancer:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
+    - name: POLICY_PKG_DIR
+      value: /opt/rucio/permissions
   secretMounts:
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab
