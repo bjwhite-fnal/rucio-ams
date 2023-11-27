@@ -4,7 +4,7 @@
 
 ## judgeCleanerCount gives the number of judge-cleaner pods to run
 abacusAccountCount: 1
-abacusCollectionReplicaCount: 1
+abacusCollectionReplicaCount: 0
 abacusRseCount: 1
 automatixCount: 0
 cacheConsumerCount: 0
@@ -211,7 +211,7 @@ cacheConsumer:
 conveyorTransferSubmitter:
   threads: 1
   podAnnotations: {}
-  activities: "'User Subscriptions' 'Recovery'"
+  activities: "'Integration'"
   sleepTime: 10
   archiveTimeout: ""
   resources:
@@ -496,11 +496,11 @@ judgeEvaluator:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "1800Mi"
+      cpu: "1200m"
     requests:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "900Mi"
+      cpu: "1000m"
   additionalEnvs:
     - name: PYTHONPATH
       value: /opt/rucio/permissions

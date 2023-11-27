@@ -23,20 +23,6 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: fnal-rucio-daemons.config.abacus-collection-replica
-  labels:
-    app: rucio-daemons-abacus-collection-replica
-    chart: "rucio-daemons-32.0.2"
-    release: "fnal"
-    heritage: "Helm"
-type: Opaque
-data:
-  component.json: "e30="
----
-# Source: rucio-daemons/templates/abacus.yaml
-apiVersion: v1
-kind: Secret
-metadata:
   name: fnal-rucio-daemons.config.abacus-rse
   labels:
     app: rucio-daemons-abacus-rse
@@ -376,101 +362,6 @@ spec:
               value: "/opt/rucio/etc/conf.d/"
             - name: RUCIO_DAEMON
               value: "abacus-account"
-            - name: RUCIO_DAEMON_ARGS
-              value: "--threads 1"
-            - name: PYTHONPATH
-              value: /opt/rucio/permissions
-            - name: RUCIO_CFG_DATABASE_DEFAULT
-              valueFrom:
-                secretKeyRef:
-                  key: db-connstr.txt
-                  name: fnal-db-connstr
-            - name: POLICY_PKG_DIR
-              value: /opt/rucio/permissions
-          resources:
-            limits:
-              cpu: 700m
-              memory: 200Mi
-            requests:
-              cpu: 700m
-              memory: 200Mi
----
-# Source: rucio-daemons/templates/abacus.yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: fnal-abacus-collection-replica
-  labels:
-    app: rucio-daemons-abacus-collection-replica
-    app-group: rucio-daemons
-    chart: rucio-daemons-32.0.2
-    release: fnal
-    heritage: Helm
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: rucio-daemons-abacus-collection-replica
-      release: fnal
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-  minReadySeconds: 5
-  template:
-    metadata:
-      labels:
-        app: rucio-daemons-abacus-collection-replica
-        app-group: rucio-daemons
-        release: fnal
-        rucio-daemon: abacus-collection-replica
-      annotations:
-        checksum/config: c851de1bab5e5695ac6678a1103432408e3d8a4e
-    spec:
-      serviceAccountName: useroot
-      volumes:
-      - name: config-common
-        secret:
-          secretName: fnal-rucio-daemons.config.common
-      - name: config-component
-        secret:
-          secretName: fnal-rucio-daemons.config.abacus-collection-replica
-      - name: proxy-volume
-        secret:
-          secretName: fnal-rucio-x509up
-      - name: ca-volume
-        secret:
-          secretName: fnal-rucio-ca-bundle
-      - name: policy-package
-        secret:
-          secretName: fnal-policy-package
-      containers:
-        - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-32.5.1"
-          imagePullPolicy: Always
-          volumeMounts:
-            - name: proxy-volume
-              mountPath: /opt/proxy
-            - name: ca-volume
-              mountPath: /opt/certs
-            - name: config-common
-              mountPath: /opt/rucio/etc/conf.d/10_common.json
-              subPath: common.json
-            - name: config-component
-              mountPath: /opt/rucio/etc/conf.d/20_component.json
-              subPath: component.json
-            - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
-          ports:
-            - name: metrics
-              containerPort: 8080
-              protocol: TCP
-          env:
-            - name: RUCIO_OVERRIDE_CONFIGS
-              value: "/opt/rucio/etc/conf.d/"
-            - name: RUCIO_DAEMON
-              value: "abacus-collection-replica"
             - name: RUCIO_DAEMON_ARGS
               value: "--threads 1"
             - name: PYTHONPATH
@@ -947,7 +838,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "conveyor-submitter"
             - name: RUCIO_DAEMON_ARGS
-              value: " --total-threads 1 --sleep-time 10 --activities 'User Subscriptions' 'Recovery'"
+              value: " --total-threads 1 --sleep-time 10 --activities 'Integration'"
             - name: PYTHONPATH
               value: /opt/rucio/permissions
             - name: RUCIO_CFG_DATABASE_DEFAULT
@@ -1254,11 +1145,11 @@ spec:
               value: /opt/rucio/permissions
           resources:
             limits:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 1200m
+              memory: 1800Mi
             requests:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 1000m
+              memory: 900Mi
 ---
 # Source: rucio-daemons/templates/judge.yaml
 apiVersion: apps/v1
