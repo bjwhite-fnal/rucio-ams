@@ -914,7 +914,7 @@ config:
     enable_metrics: "True"
 
   policy:
-    package: fermilab
+    package: fermilab.dune
     ## config.permission.policy: (default "generic")
     # permission: "generic"
     ## config.permission.schema: (default "generic")
