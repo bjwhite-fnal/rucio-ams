@@ -35,6 +35,8 @@ secretGenerator:
   - __init__.py=etc/policy-package/__init__.py
   - permission.py=etc/policy-package/permission.py
   - schema.py=etc/policy-package/schema.py
+  - lfn2pfn.py=etc/policy-package/lfn2pfn.py
+  - path_gen.py=etc/policy-package/path_gen.py
 
 # Used by daemons
 - name: fnal-rucio-ca-bundle
