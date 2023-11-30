@@ -108,7 +108,12 @@ resources: {}
   #  memory: 128Mi
 secretMounts:
   - secretName: policy-package
-    mountPath: /opt/rucio/permissions/fermilab
+    mountPath: /opt/rucio/permissions/fermilab/dune
+  # Custom to install metacat? Needed for webui?
+  #- secretName: docker-entrypoint-webui
+  #  mountPath: /docker-entrypoint.sh
+  #  subPath: docker-entrypoint.sh
+  #  defaultMode: 0750
 
 nodeSelector: {}
 

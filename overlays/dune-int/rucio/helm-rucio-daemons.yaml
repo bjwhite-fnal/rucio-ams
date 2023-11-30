@@ -336,6 +336,10 @@ spec:
       - name: policy-package
         secret:
           secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-32.5.1"
@@ -352,7 +356,10 @@ spec:
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
             - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
           ports:
             - name: metrics
               containerPort: 8080
@@ -431,6 +438,10 @@ spec:
       - name: policy-package
         secret:
           secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-32.5.1"
@@ -447,7 +458,10 @@ spec:
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
             - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
           ports:
             - name: metrics
               containerPort: 8080
@@ -526,6 +540,10 @@ spec:
       - name: policy-package
         secret:
           secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-32.5.1"
@@ -542,7 +560,10 @@ spec:
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
             - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
           ports:
             - name: metrics
               containerPort: 8080
@@ -621,6 +642,10 @@ spec:
       - name: policy-package
         secret:
           secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-32.5.1"
@@ -637,7 +662,10 @@ spec:
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
             - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
           ports:
             - name: metrics
               containerPort: 8080
@@ -716,6 +744,10 @@ spec:
       - name: policy-package
         secret:
           secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-32.5.1"
@@ -732,7 +764,10 @@ spec:
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
             - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
           ports:
             - name: metrics
               containerPort: 8080
@@ -811,6 +846,10 @@ spec:
       - name: policy-package
         secret:
           secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-32.5.1"
@@ -827,7 +866,10 @@ spec:
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
             - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
           ports:
             - name: metrics
               containerPort: 8080
@@ -905,9 +947,6 @@ spec:
           secret:
             secretName: fnal-hermes-key
 
-        - name: policy-package
-          secret:
-            secretName: fnal-policy-package
         - name: hotfix-6358-hermes-patch
           secret:
             secretName: fnal-hotfix-6358-hermes-patch
@@ -928,8 +967,6 @@ spec:
             - name: config-component
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
-            - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
             - name: hotfix-6358-hermes-patch
               mountPath: /patch/hotfix_6358_hermes.patch
               subPath: "hotfix_6358_hermes.patch"
@@ -1011,6 +1048,10 @@ spec:
       - name: policy-package
         secret:
           secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-32.5.1"
@@ -1027,7 +1068,10 @@ spec:
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
             - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
           ports:
             - name: metrics
               containerPort: 8080
@@ -1106,6 +1150,10 @@ spec:
       - name: policy-package
         secret:
           secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-32.5.1"
@@ -1122,7 +1170,10 @@ spec:
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
             - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
           ports:
             - name: metrics
               containerPort: 8080
@@ -1201,6 +1252,10 @@ spec:
       - name: policy-package
         secret:
           secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-32.5.1"
@@ -1217,7 +1272,10 @@ spec:
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
             - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
           ports:
             - name: metrics
               containerPort: 8080
@@ -1296,6 +1354,10 @@ spec:
       - name: policy-package
         secret:
           secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-32.5.1"
@@ -1312,7 +1374,10 @@ spec:
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
             - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
           ports:
             - name: metrics
               containerPort: 8080
@@ -1391,6 +1456,10 @@ spec:
       - name: policy-package
         secret:
           secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-32.5.1"
@@ -1407,7 +1476,10 @@ spec:
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
             - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
           ports:
             - name: metrics
               containerPort: 8080
@@ -1486,6 +1558,10 @@ spec:
       - name: policy-package
         secret:
           secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-32.5.1"
@@ -1502,7 +1578,10 @@ spec:
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
             - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
           ports:
             - name: metrics
               containerPort: 8080
@@ -1581,6 +1660,10 @@ spec:
       - name: policy-package
         secret:
           secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-32.5.1"
@@ -1597,7 +1680,10 @@ spec:
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
             - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
           ports:
             - name: metrics
               containerPort: 8080
@@ -1676,6 +1762,10 @@ spec:
       - name: policy-package
         secret:
           secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-32.5.1"
@@ -1692,7 +1782,10 @@ spec:
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
             - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
           ports:
             - name: metrics
               containerPort: 8080
@@ -1777,6 +1870,10 @@ spec:
       - name: policy-package
         secret:
           secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-32.5.1"
@@ -1793,7 +1890,10 @@ spec:
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
             - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
           ports:
             - name: metrics
               containerPort: 8080
@@ -1872,6 +1972,10 @@ spec:
       - name: policy-package
         secret:
           secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-32.5.1"
@@ -1888,7 +1992,10 @@ spec:
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
             - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
           ports:
             - name: metrics
               containerPort: 8080
@@ -1964,6 +2071,10 @@ spec:
       - name: policy-package
         secret:
           secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-32.5.1"
@@ -1978,7 +2089,10 @@ spec:
             - name: proxy-volume
               mountPath: /opt/proxy
             - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
           ports:
             - name: metrics
               containerPort: 8080

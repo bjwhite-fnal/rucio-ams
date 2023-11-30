@@ -88,6 +88,10 @@ spec:
       - name: policy-package
         secret:
           secretName: fnal-policy-package
+      - name: docker-entrypoint-server
+        secret:
+          secretName: fnal-docker-entrypoint-server
+          defaultMode: 488
       - name: hostcert
         secret:
           secretName: fnal-server-hostcert
@@ -128,8 +132,11 @@ spec:
           - name: httpdlog
             mountPath: /var/log/httpd
           - name: policy-package
-            mountPath: /opt/rucio/permissions/fermilab
+            mountPath: /opt/rucio/permissions/fermilab/dune
             subPath: 
+          - name: docker-entrypoint-server
+            mountPath: /docker-entrypoint.sh
+            subPath: docker-entrypoint.sh
           - name: hostcert
             mountPath: /etc/grid-security/hostcert.pem
             subPath: hostcert.pem
@@ -191,4 +198,8 @@ spec:
                   name: fnal-db-connstr
             - name: RUCIO_HTTPD_LEGACY_DN
               value: "True"
+            - name: METACAT_SERVER_URL
+              value: https://metacat.fnal.gov:9443/dune_meta_prod/app
+            - name: METACAT_AUTH_SERVER_URL
+              value: https://metacat.fnal.gov:8143/auth/dune
       affinity:

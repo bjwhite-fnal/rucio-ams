@@ -100,9 +100,7 @@ abacusAccount:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 abacusCollectionReplica:
   threads: 1
@@ -124,9 +122,7 @@ abacusCollectionReplica:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 abacusRse:
   fillHistoryTable: 0
@@ -149,9 +145,7 @@ abacusRse:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 automatix:
   threads: 1
@@ -176,10 +170,7 @@ automatix:
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
   secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
-      - secretName: automatix-json
-        mountPath: /opt/rucio/etc/automatix.json
+      - mountPath: /opt/rucio/etc/automatix.json
         subPath: automatix.json
       - secretName: rucio-x509up
         mountPath: /opt/proxy
@@ -204,9 +195,7 @@ cacheConsumer:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 conveyorTransferSubmitter:
   threads: 1
@@ -231,9 +220,7 @@ conveyorTransferSubmitter:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 conveyorStager:
   threads: 1
@@ -258,9 +245,7 @@ conveyorStager:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 conveyorPoller:
   threads: 1
@@ -282,9 +267,7 @@ conveyorPoller:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 conveyorFinisher:
   threads: 1
@@ -306,9 +289,7 @@ conveyorFinisher:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 conveyorReceiver:
   threads: 1
@@ -330,9 +311,7 @@ conveyorReceiver:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 conveyorThrottler:
   threads: 1
@@ -354,9 +333,7 @@ conveyorThrottler:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 conveyorPreparer:
   threads: 1
@@ -378,9 +355,7 @@ conveyorPreparer:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 darkReaper:
   workers: 1
@@ -407,9 +382,7 @@ darkReaper:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 hermes:
   threads: 1
@@ -434,8 +407,6 @@ hermes:
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
   secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
       - secretName: hotfix-6358-hermes-patch
         mountPath: /patch/hotfix_6358_hermes.patch
         subPath: hotfix_6358_hermes.patch
@@ -463,9 +434,7 @@ hermesLegacy:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 judgeCleaner:
   threads: 1
@@ -487,9 +456,7 @@ judgeCleaner:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 judgeEvaluator:
   threads: 1
@@ -511,9 +478,7 @@ judgeEvaluator:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 judgeInjector:
   threads: 1
@@ -535,9 +500,7 @@ judgeInjector:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 judgeRepairer:
   threads: 1
@@ -559,9 +522,7 @@ judgeRepairer:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 oauthManager:
   threads: 1
@@ -583,9 +544,7 @@ oauthManager:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 undertaker:
   threads: 1
@@ -607,9 +566,7 @@ undertaker:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 reaper:
   greedy: 0
@@ -634,9 +591,7 @@ reaper:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 replicaRecoverer:
   threads: 1
@@ -658,9 +613,7 @@ replicaRecoverer:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 transmogrifier:
   threads: 1
@@ -682,9 +635,7 @@ transmogrifier:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 tracerKronos:
   threads: 1
@@ -706,9 +657,7 @@ tracerKronos:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 minos:
   threads: 1
@@ -730,9 +679,7 @@ minos:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 minosTemporaryExpiration:
   threads: 1
@@ -754,9 +701,7 @@ minosTemporaryExpiration:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 necromancer:
   podAnnotations: {}
@@ -777,9 +722,7 @@ necromancer:
           key: db-connstr.txt
     - name: POLICY_PKG_DIR
       value: /opt/rucio/permissions
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 ftsRenewal:
   enabled: 1
@@ -843,7 +786,13 @@ automaticRestart:
       cpu: 100m
       memory: 128Mi
 
-secretMounts: []
+secretMounts:
+  - secretName: policy-package
+    mountPath: /opt/rucio/permissions/fermilab/dune
+  - secretName: docker-entrypoint-daemons
+    mountPath: /start-daemon.sh
+    subPath: start-daemon.sh
+    defaultMode: 0750
   # - volumeName: gcssecret
   #   secretName: gcssecret
   #   mountPath: /opt/rucio/etc/gcs_rucio.json
