@@ -947,6 +947,9 @@ spec:
           secret:
             secretName: fnal-hermes-key
 
+        - name: policy-package
+          secret:
+            secretName: fnal-policy-package
         - name: hotfix-6358-hermes-patch
           secret:
             secretName: fnal-hotfix-6358-hermes-patch
@@ -967,6 +970,8 @@ spec:
             - name: config-component
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
+            - name: policy-package
+              mountPath: /opt/rucio/permissions/fermilab/dune
             - name: hotfix-6358-hermes-patch
               mountPath: /patch/hotfix_6358_hermes.patch
               subPath: "hotfix_6358_hermes.patch"

@@ -98,8 +98,6 @@ abacusAccount:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 abacusCollectionReplica:
@@ -120,8 +118,6 @@ abacusCollectionReplica:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 abacusRse:
@@ -143,8 +139,6 @@ abacusRse:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 automatix:
@@ -167,8 +161,6 @@ automatix:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts:
       - mountPath: /opt/rucio/etc/automatix.json
         subPath: automatix.json
@@ -193,8 +185,6 @@ cacheConsumer:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 conveyorTransferSubmitter:
@@ -218,8 +208,6 @@ conveyorTransferSubmitter:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 conveyorStager:
@@ -243,8 +231,6 @@ conveyorStager:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 conveyorPoller:
@@ -265,8 +251,6 @@ conveyorPoller:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 conveyorFinisher:
@@ -287,8 +271,6 @@ conveyorFinisher:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 conveyorReceiver:
@@ -309,8 +291,6 @@ conveyorReceiver:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 conveyorThrottler:
@@ -331,8 +311,6 @@ conveyorThrottler:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 conveyorPreparer:
@@ -353,8 +331,6 @@ conveyorPreparer:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 darkReaper:
@@ -380,8 +356,6 @@ darkReaper:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 hermes:
@@ -404,9 +378,10 @@ hermes:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts:
+      #If you use this block for a per-daemon config, it doesn't get the secrets from the main block (i.e. pp)
+      - secretName: policy-package
+        mountPath: /opt/rucio/permissions/fermilab/dune
       - secretName: hotfix-6358-hermes-patch
         mountPath: /patch/hotfix_6358_hermes.patch
         subPath: hotfix_6358_hermes.patch
@@ -432,8 +407,6 @@ hermesLegacy:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 judgeCleaner:
@@ -454,8 +427,6 @@ judgeCleaner:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 judgeEvaluator:
@@ -476,8 +447,6 @@ judgeEvaluator:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 judgeInjector:
@@ -498,8 +467,6 @@ judgeInjector:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 judgeRepairer:
@@ -520,8 +487,6 @@ judgeRepairer:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 oauthManager:
@@ -542,8 +507,6 @@ oauthManager:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 undertaker:
@@ -564,8 +527,6 @@ undertaker:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 reaper:
@@ -589,8 +550,6 @@ reaper:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 replicaRecoverer:
@@ -611,8 +570,6 @@ replicaRecoverer:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 transmogrifier:
@@ -633,8 +590,6 @@ transmogrifier:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 tracerKronos:
@@ -655,8 +610,6 @@ tracerKronos:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 minos:
@@ -677,8 +630,6 @@ minos:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 minosTemporaryExpiration:
@@ -699,8 +650,6 @@ minosTemporaryExpiration:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 necromancer:
@@ -720,8 +669,6 @@ necromancer:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-    - name: POLICY_PKG_DIR
-      value: /opt/rucio/permissions
   secretMounts: []
 
 ftsRenewal:
