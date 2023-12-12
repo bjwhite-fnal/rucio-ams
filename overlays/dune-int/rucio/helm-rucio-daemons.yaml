@@ -241,7 +241,7 @@ metadata:
     heritage: "Helm"
 type: Opaque
 data:
-  common.json: "ewogICJhdXRvbWF0aXgiOiB7CiAgICAiYWNjb3VudCI6ICJhdXRvbWF0aXgiLAogICAgImRhdGFzZXRfbGlmZXRpbWUiOiAzMCwKICAgICJyc2VzIjogIkRDQUNIRV9CSldISVRFX0VORCwgRENBQ0hFX0JKV0hJVEVfRU5EMiIsCiAgICAic2NvcGUiOiAiYXV0b21hdGl4IiwKICAgICJzZXRfbWV0YWRhdGEiOiAiVHJ1ZSIKICB9LAogICJjYWNoZSI6IHsKICAgICJ1cmwiOiAicnVjaW8tY2FjaGU6MTEyMTEiCiAgfSwKICAiY2xpZW50IjogewogICAgImFjY291bnQiOiAiYXV0b21hdGl4IiwKICAgICJhdXRoX2hvc3QiOiAiaHR0cHM6Ly9kdW5lLWludC1ydWNpby5mbmFsLmdvdiIsCiAgICAiYXV0aF90eXBlIjogIng1MDlfcHJveHkiLAogICAgImNhX2NlcnQiOiAiL29wdC9jZXJ0cyIsCiAgICAiY2xpZW50X3g1MDlfcHJveHkiOiAiL29wdC9wcm94eS94NTA5dXAiLAogICAgImVuYWJsZV9tZXRyaWNzIjogIlRydWUiLAogICAgInByb3RvY29sX3N0YXRfcmV0cmllcyI6IDYsCiAgICAicmVxdWVzdF9yZXRyaWVzIjogMywKICAgICJydWNpb19ob3N0IjogImh0dHBzOi8vZHVuZS1pbnQtcnVjaW8uZm5hbC5nb3YiCiAgfSwKICAiY29udmV5b3IiOiB7CiAgICAiY2FjZXJ0IjogIi9vcHQvY2VydHMvY2EucGVtIiwKICAgICJmdHNob3N0cyI6ICJodHRwczovL2Z0czMtcHVibGljLmZuYWwuZ292Ojg0NDYiLAogICAgInVzZXJjZXJ0IjogIi9vcHQvcHJveHkveDUwOXVwIgogIH0sCiAgImhlcm1lcyI6IHsKICAgICJzZXJ2aWNlc19saXN0IjogImFjdGl2ZW1xIgogIH0sCiAgIm1lc3NhZ2luZy1jYWNoZSI6IHsKICAgICJhY2NvdW50IjogIm1lbWNhY2hlIiwKICAgICJicm9rZXJzIjogInJ1Y2lvLWNhY2hlIiwKICAgICJkZXN0aW5hdGlvbiI6ICIvdG9waWMvcnVjaW8uZXZlbnRzLmR1bmVfaW50IiwKICAgICJwb3J0IjogIjYxMTIzIiwKICAgICJ2b25hbWUiOiAiZHVuZS1pbnQiCiAgfSwKICAibWVzc2FnaW5nLWhlcm1lcyI6IHsKICAgICJicm9rZXJfdmlydHVhbF9ob3N0IjogIi8iLAogICAgImJyb2tlcnMiOiAiZm5hbC1ydWNpby1tZXNzZW5nZXIiLAogICAgImRlc3RpbmF0aW9uIjogIi90b3BpYy9ydWNpby5ldmVudHMuZHVuZV9pbnQiLAogICAgIm5vbnNzbF9wb3J0IjogIjYxNjEzIiwKICAgICJwYXNzd29yZCI6ICJndWVzdCIsCiAgICAicG9ydCI6ICI2MTYxMyIsCiAgICAic3NsX2NlcnRfZmlsZSI6ICIvb3B0L3J1Y2lvL2NlcnRzL2hvc3RjZXJ0LnBlbSIsCiAgICAic3NsX2tleV9maWxlIjogIi9vcHQvcnVjaW8va2V5cy9ob3N0a2V5LnBlbSIsCiAgICAidXNlX3NzbCI6ICJGYWxzZSIsCiAgICAidXNlcm5hbWUiOiAiZ3Vlc3QiLAogICAgInZvbmFtZSI6ICJkdW5lLWludCIKICB9LAogICJwb2xpY3kiOiB7CiAgICAicGFja2FnZSI6ICJmZXJtaWxhYi5kdW5lIgogIH0KfQ=="
+  common.json: "ewogICJhdXRvbWF0aXgiOiB7CiAgICAiYWNjb3VudCI6ICJhdXRvbWF0aXgiLAogICAgImRhdGFzZXRfbGlmZXRpbWUiOiAzMCwKICAgICJyc2VzIjogIkRDQUNIRV9CSldISVRFX0VORCwgRENBQ0hFX0JKV0hJVEVfRU5EMiIsCiAgICAic2NvcGUiOiAiYXV0b21hdGl4IiwKICAgICJzZXRfbWV0YWRhdGEiOiAiVHJ1ZSIKICB9LAogICJjYWNoZSI6IHsKICAgICJ1cmwiOiAicnVjaW8tY2FjaGU6MTEyMTEiCiAgfSwKICAiY2xpZW50IjogewogICAgImFjY291bnQiOiAiYXV0b21hdGl4IiwKICAgICJhdXRoX2hvc3QiOiAiaHR0cHM6Ly9kdW5lLWludC1ydWNpby5mbmFsLmdvdiIsCiAgICAiYXV0aF90eXBlIjogIng1MDlfcHJveHkiLAogICAgImNhX2NlcnQiOiAiL29wdC9jZXJ0cyIsCiAgICAiY2xpZW50X3g1MDlfcHJveHkiOiAiL29wdC9wcm94eS94NTA5dXAiLAogICAgImVuYWJsZV9tZXRyaWNzIjogIlRydWUiLAogICAgInByb3RvY29sX3N0YXRfcmV0cmllcyI6IDYsCiAgICAicmVxdWVzdF9yZXRyaWVzIjogMywKICAgICJydWNpb19ob3N0IjogImh0dHBzOi8vZHVuZS1pbnQtcnVjaW8uZm5hbC5nb3YiCiAgfSwKICAiY29udmV5b3IiOiB7CiAgICAiY2FjZXJ0IjogIi9vcHQvY2VydHMvY2EucGVtIiwKICAgICJmdHNob3N0cyI6ICJodHRwczovL2Z0czMtcHVibGljLmNlcm4uY2g6ODQ0NixodHRwczovL2Z0czMtcHVibGljLmZuYWwuZ292Ojg0NDYiLAogICAgInVzZXJjZXJ0IjogIi9vcHQvcHJveHkveDUwOXVwIgogIH0sCiAgImhlcm1lcyI6IHsKICAgICJzZXJ2aWNlc19saXN0IjogImFjdGl2ZW1xIgogIH0sCiAgIm1lc3NhZ2luZy1jYWNoZSI6IHsKICAgICJhY2NvdW50IjogIm1lbWNhY2hlIiwKICAgICJicm9rZXJzIjogInJ1Y2lvLWNhY2hlIiwKICAgICJkZXN0aW5hdGlvbiI6ICIvdG9waWMvcnVjaW8uZXZlbnRzLmR1bmVfaW50IiwKICAgICJwb3J0IjogIjYxMTIzIiwKICAgICJ2b25hbWUiOiAiZHVuZS1pbnQiCiAgfSwKICAibWVzc2FnaW5nLWhlcm1lcyI6IHsKICAgICJicm9rZXJfdmlydHVhbF9ob3N0IjogIi8iLAogICAgImJyb2tlcnMiOiAiZm5hbC1ydWNpby1tZXNzZW5nZXIiLAogICAgImRlc3RpbmF0aW9uIjogIi90b3BpYy9ydWNpby5ldmVudHMuZHVuZV9pbnQiLAogICAgIm5vbnNzbF9wb3J0IjogIjYxNjEzIiwKICAgICJwYXNzd29yZCI6ICJndWVzdCIsCiAgICAicG9ydCI6ICI2MTYxMyIsCiAgICAic3NsX2NlcnRfZmlsZSI6ICIvb3B0L3J1Y2lvL2NlcnRzL2hvc3RjZXJ0LnBlbSIsCiAgICAic3NsX2tleV9maWxlIjogIi9vcHQvcnVjaW8va2V5cy9ob3N0a2V5LnBlbSIsCiAgICAidXNlX3NzbCI6ICJGYWxzZSIsCiAgICAidXNlcm5hbWUiOiAiZ3Vlc3QiLAogICAgInZvbmFtZSI6ICJkdW5lLWludCIKICB9LAogICJwb2xpY3kiOiB7CiAgICAicGFja2FnZSI6ICJmZXJtaWxhYi5kdW5lIgogIH0KfQ=="
 ---
 # Source: rucio-daemons/templates/transmogrifier.yaml
 apiVersion: v1
@@ -378,8 +378,6 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
-            - name: POLICY_PKG_DIR
-              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -480,8 +478,6 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
-            - name: POLICY_PKG_DIR
-              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -521,7 +517,7 @@ spec:
         release: fnal
         rucio-daemon: conveyor-finisher
       annotations:
-        checksum/config: 917c5a44c15422372827e83ae522c2fdecbf64ab
+        checksum/config: 6303698274060196cc44bf0f568bf71c42767dc9
     spec:
       serviceAccountName: useroot
       volumes:
@@ -582,8 +578,6 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
-            - name: POLICY_PKG_DIR
-              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -623,7 +617,7 @@ spec:
         release: fnal
         rucio-daemon: conveyor-poller
       annotations:
-        checksum/config: 917c5a44c15422372827e83ae522c2fdecbf64ab
+        checksum/config: 6303698274060196cc44bf0f568bf71c42767dc9
     spec:
       serviceAccountName: useroot
       volumes:
@@ -684,8 +678,6 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
-            - name: POLICY_PKG_DIR
-              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -725,7 +717,7 @@ spec:
         release: fnal
         rucio-daemon: conveyor-stager
       annotations:
-        checksum/config: 917c5a44c15422372827e83ae522c2fdecbf64ab
+        checksum/config: 6303698274060196cc44bf0f568bf71c42767dc9
     spec:
       serviceAccountName: useroot
       volumes:
@@ -786,8 +778,6 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
-            - name: POLICY_PKG_DIR
-              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -827,7 +817,7 @@ spec:
         release: fnal
         rucio-daemon: conveyor-submitter
       annotations:
-        checksum/config: 917c5a44c15422372827e83ae522c2fdecbf64ab
+        checksum/config: 6303698274060196cc44bf0f568bf71c42767dc9
     spec:
       serviceAccountName: useroot
       volumes:
@@ -880,7 +870,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "conveyor-submitter"
             - name: RUCIO_DAEMON_ARGS
-              value: " --total-threads 1 --sleep-time 10 --activities 'Integration'"
+              value: " --total-threads 1 --sleep-time 10 --activities 'Debug'"
             - name: PYTHONPATH
               value: /opt/rucio/permissions
             - name: RUCIO_CFG_DATABASE_DEFAULT
@@ -888,8 +878,6 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
-            - name: POLICY_PKG_DIR
-              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -929,7 +917,7 @@ spec:
         release: fnal
         rucio-daemon: hermes
       annotations:
-        checksum/config: 917c5a44c15422372827e83ae522c2fdecbf64ab
+        checksum/config: 6303698274060196cc44bf0f568bf71c42767dc9
     spec:
       serviceAccountName: useroot
       volumes:
@@ -993,8 +981,6 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
-            - name: POLICY_PKG_DIR
-              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1034,7 +1020,7 @@ spec:
         release: fnal
         rucio-daemon: judge-cleaner
       annotations:
-        checksum/config: 917c5a44c15422372827e83ae522c2fdecbf64ab
+        checksum/config: 6303698274060196cc44bf0f568bf71c42767dc9
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1095,8 +1081,6 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
-            - name: POLICY_PKG_DIR
-              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1136,7 +1120,7 @@ spec:
         release: fnal
         rucio-daemon: judge-evaluator
       annotations:
-        checksum/config: 917c5a44c15422372827e83ae522c2fdecbf64ab
+        checksum/config: 6303698274060196cc44bf0f568bf71c42767dc9
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1197,8 +1181,6 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
-            - name: POLICY_PKG_DIR
-              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 1200m
@@ -1238,7 +1220,7 @@ spec:
         release: fnal
         rucio-daemon: judge-injector
       annotations:
-        checksum/config: 917c5a44c15422372827e83ae522c2fdecbf64ab
+        checksum/config: 6303698274060196cc44bf0f568bf71c42767dc9
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1299,8 +1281,6 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
-            - name: POLICY_PKG_DIR
-              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1340,7 +1320,7 @@ spec:
         release: fnal
         rucio-daemon: judge-repairer
       annotations:
-        checksum/config: 917c5a44c15422372827e83ae522c2fdecbf64ab
+        checksum/config: 6303698274060196cc44bf0f568bf71c42767dc9
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1401,8 +1381,6 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
-            - name: POLICY_PKG_DIR
-              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1442,7 +1420,7 @@ spec:
         release: fnal
         rucio-daemon: minos
       annotations:
-        checksum/config: 917c5a44c15422372827e83ae522c2fdecbf64ab
+        checksum/config: 6303698274060196cc44bf0f568bf71c42767dc9
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1503,8 +1481,6 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
-            - name: POLICY_PKG_DIR
-              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1544,7 +1520,7 @@ spec:
         release: fnal
         rucio-daemon: minos-temporary-expiration
       annotations:
-        checksum/config: 917c5a44c15422372827e83ae522c2fdecbf64ab
+        checksum/config: 6303698274060196cc44bf0f568bf71c42767dc9
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1605,8 +1581,6 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
-            - name: POLICY_PKG_DIR
-              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1646,7 +1620,7 @@ spec:
         release: fnal
         rucio-daemon: necromancer
       annotations:
-        checksum/config: 917c5a44c15422372827e83ae522c2fdecbf64ab
+        checksum/config: 6303698274060196cc44bf0f568bf71c42767dc9
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1707,8 +1681,6 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
-            - name: POLICY_PKG_DIR
-              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1748,7 +1720,7 @@ spec:
         release: fnal
         rucio-daemon: reaper
       annotations:
-        checksum/config: 917c5a44c15422372827e83ae522c2fdecbf64ab
+        checksum/config: 6303698274060196cc44bf0f568bf71c42767dc9
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1815,8 +1787,6 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
-            - name: POLICY_PKG_DIR
-              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1856,7 +1826,7 @@ spec:
         release: fnal
         rucio-daemon: replica-recoverer
       annotations:
-        checksum/config: 917c5a44c15422372827e83ae522c2fdecbf64ab
+        checksum/config: 6303698274060196cc44bf0f568bf71c42767dc9
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1917,8 +1887,6 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
-            - name: POLICY_PKG_DIR
-              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -1958,7 +1926,7 @@ spec:
         release: fnal
         rucio-daemon: transmogrifier
       annotations:
-        checksum/config: 917c5a44c15422372827e83ae522c2fdecbf64ab
+        checksum/config: 6303698274060196cc44bf0f568bf71c42767dc9
     spec:
       serviceAccountName: useroot
       volumes:
@@ -2019,8 +1987,6 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
-            - name: POLICY_PKG_DIR
-              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -2060,7 +2026,7 @@ spec:
         release: fnal
         rucio-daemon: undertaker
       annotations:
-        checksum/config: 917c5a44c15422372827e83ae522c2fdecbf64ab
+        checksum/config: 6303698274060196cc44bf0f568bf71c42767dc9
     spec:
       serviceAccountName: useroot
       volumes:
@@ -2116,8 +2082,6 @@ spec:
                 secretKeyRef:
                   key: db-connstr.txt
                   name: fnal-db-connstr
-            - name: POLICY_PKG_DIR
-              value: /opt/rucio/permissions
           resources:
             limits:
               cpu: 700m
@@ -2186,7 +2150,7 @@ spec:
                 - name: RUCIO_FTS_VOMS_0
                   value: dune:/dune/Role=Production
                 - name: RUCIO_FTS_SERVERS
-                  value: "https://fts3-public.fnal.gov:8446"
+                  value: "https://fts3-public.cern.ch:8446,https://fts3-public.fnal.gov:8446"
                 - name: RUCIO_FTS_SECRETS
                   value: "fnal-rucio-x509up"
                 - name: USERCERT_NAME
@@ -2256,7 +2220,7 @@ spec:
             - name: RUCIO_FTS_VOMS_0
               value: dune:/dune/Role=Production
             - name: RUCIO_FTS_SERVERS
-              value: "https://fts3-public.fnal.gov:8446"
+              value: "https://fts3-public.cern.ch:8446,https://fts3-public.fnal.gov:8446"
             - name: RUCIO_FTS_SECRETS
               value: "fnal-rucio-x509up"
             - name: USERCERT_NAME

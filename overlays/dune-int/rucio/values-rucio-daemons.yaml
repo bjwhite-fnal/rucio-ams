@@ -190,7 +190,7 @@ cacheConsumer:
 conveyorTransferSubmitter:
   threads: 1
   podAnnotations: {}
-  activities: "'Integration'"
+  activities: "'Debug'"
   sleepTime: 10
   archiveTimeout: ""
   resources:
@@ -678,7 +678,7 @@ ftsRenewal:
     repository: rucio/fts-cron
     tag: latest
     pullPolicy: Always
-  servers: "https://fts3-public.fnal.gov:8446"
+  servers: "https://fts3-public.cern.ch:8446,https://fts3-public.fnal.gov:8446"
   script: 'default'  # one of: 'default', 'atlas', 'dteam', 'multi_vo', 'tutorial', 'escape'. The associated scripts can be found here: https://github.com/rucio/containers/tree/master/fts-cron
   vos:
     - vo: "dune"
@@ -831,7 +831,7 @@ config:
   conveyor:
     # scheme: "srm,gsiftp,root,http,https"
     # transfertool: "fts3"
-    ftshosts: "https://fts3-public.fnal.gov:8446"
+    ftshosts: "https://fts3-public.cern.ch:8446,https://fts3-public.fnal.gov:8446"
     cacert: "/opt/certs/ca.pem"
     usercert: "/opt/proxy/x509up"
     # cache_time: ""
