@@ -119,7 +119,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-ui
-          image: "rucio/rucio-ui:release-32.5.1"
+          image: "rucio/rucio-ui:release-33.0.0"
           imagePullPolicy: Always
           ports:
             - name: http

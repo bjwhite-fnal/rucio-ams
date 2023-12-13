@@ -116,7 +116,7 @@ spec:
               cpu: 20m
               memory: 20Mi
         - name: rucio-server
-          image: "rucio/rucio-server:release-32.5.1"
+          image: "rucio/rucio-server:release-33.0.0"
           imagePullPolicy: Always
           resources:
             limits:
