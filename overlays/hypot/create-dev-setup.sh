@@ -44,6 +44,12 @@ rucio-admin -a root account add ${user}
 rucio-admin -a root identity add --account ${user} --type X509 --email 'ivm@fnal.gov' --id '/DC=org/DC=cilogon/C=US/O=Fermi National Accelerator Laboratory/OU=People/CN=Igor Mandrichenko/CN=UID:ivm'
 rucio-admin -a root account add-attribute --key admin --value True ${user}
 
+# Lucas Trestka
+user=ltrestka
+rucio-admin -a root account add ${user}
+rucio-admin -a root identity add --account ${user} --type X509 --email 'ltrestka@fnal.gov' --id '/DC=org/DC=cilogon/C=US/O=Fermi National Accelerator Laboratory/OU=People/CN=Lucas Trestka/CN=UID:ltrestka'
+rucio-admin -a root account add-attribute --key admin --value True ${user}
+
 # Automatix
 user=automatix
 rucio-admin -a root account add ${user}
