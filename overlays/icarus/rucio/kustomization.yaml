@@ -6,7 +6,6 @@ resources:
 - cache.yaml
 - prometheus.yaml
 - messenger.yaml
-- routes.yaml
 #- statsd.yaml
 #
 patchesStrategicMerge:
