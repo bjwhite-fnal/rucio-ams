@@ -74,4 +74,4 @@ spec:
               subPath: enabled_plugins
           env:
             - name: EXPERIMENT
-              value: "int"
+              value: "dune-int"
