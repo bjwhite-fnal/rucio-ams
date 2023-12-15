@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fnal-rucio-ui
+spec:
+  template:
+    spec:
+      containers:
+        - name: rucio-ui
+          env:
+            - name: RUCIO_CFG_DATABASE_DEFAULT
+              valueFrom:
+                secretKeyRef:
+                  key: db-connstr.txt
+                  name: fnal-db-connstr

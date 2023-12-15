@@ -1,0 +1,122 @@
+# Default values for rucio.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+serviceAccountName: useroot
+
+rucio_ca_path: /etc/grid-security/certificates
+webui_certkeycombined_path: /etc/grid-security/hostcertkeycombined.pem
+
+## replicaCount gives the number of server pods to run
+replicaCount: 1
+
+# When set, run extra busybox containers in the relevant pods to also expose the error logs
+exposeErrorLogs: 0
+
+service:
+  # type: NodePort
+  # # Run the webui server on port 443 instead of 80 and accept X509 certificates and proxies
+  # useSSL: true
+  # port: 443
+  # targetPort: https
+  # portName: https
+  type: ClusterIP
+  port: 443
+  targetPort: 443
+  tls:
+    enabled: true
+
+image:
+  repository: rucio/rucio-ui
+  tag: release-33.0.0
+  pullPolicy: Always
+
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 1
+
+minReadySeconds: 5
+
+proxy:
+  rucioProxy: "dune-rucio.fnal.gov"
+  # rucioProxyScheme: "https"
+  rucioAuthProxy: "dune-rucio.fnal.gov"
+  # rucioAuthProxyScheme: "https"
+
+ingress:
+  enabled: 0
+
+webuiRoute:
+  app: rucio-webui
+  host: webui-dune-rucio.fnal.gov
+  serviceName: rucio-dune-rucio-ui
+
+additionalSecrets: {}
+# - volumeName: gcssecret
+#   secretName: gcssecret
+#   mountPath: /opt/rucio/etc/gcs_rucio.json
+#   subPath: gcs_rucio.json
+
+## values used to configure apache
+httpd_config:
+  legacy_dn: "True"
+  log_dir: "/rucio/logs"
+  # mpm_mode: "event"
+  # start_servers: "1"
+  # min_spare_threads: "1"
+  # max_spare_threads: "20"
+  # threads_per_child: "5"
+  # max_clients: "20"
+  # max_requests_per_child: "8192"
+
+## values used to configure Rucio
+config:
+  bootstrap:
+    x509_identity: "/DC=org/DC=cilogon/C=US/O=Fermi National Accelerator Laboratory/OU=People/CN=Brandon White/CN=UID:bjwhite"
+    x509_email: "bjwhite@fnal.gov"
+
+  policy:
+    package: fermilab.dune
+    lfn2pfn_algorithm_default: DUNE
+    metacat_base_url: "https://metacat.fnal.gov:9443/dune_meta_prod/app"
+
+  # common:
+    ## config.common.logdir: the default directoy to write logs to (default: "/var/log/rucio")
+    # logdir: "/var/log/rucio"
+    ## config.common.logdir: the max loglevel (default: "DEBUG")
+    # loglevel: "DEBUG"
+    ## config.common.mailtemplatedir: directory containing the mail templates (default: "/opt/rucio/etc/mail_templates")
+    # mailtemplatedir: "/opt/rucio/etc/mail_templates"
+
+  ## Only necessary for webui deployments
+  webui:
+    # config.webui.usercert:  (default "/opt/rucio/etc/usercert_with_key.pem")
+    usercert: "/opt/rucio/etc/usercert_with_key.pem"
+
+optional_config:
+  pythonpath: /opt/rucio/permissions
+  #POLICY_PKG_DIR: /opt/rucio/permissions
+
+resources: {}
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+secretMounts:
+  - secretName: policy-package
+    mountPath: /opt/rucio/permissions/fermilab/dune
+  # Custom to install metacat? Needed for webui?
+  #- secretName: docker-entrypoint-webui
+  #  mountPath: /docker-entrypoint.sh
+  #  subPath: docker-entrypoint.sh
+  #  defaultMode: 0750
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
