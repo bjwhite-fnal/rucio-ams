@@ -3,24 +3,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rucio-dune-int-prometheus
+  name: rucio-dune-prometheus
   labels:
     app: rucio-prometheus
     chart: rucio-prometheus-1
-    release: rucio-dune-int-prometheus
+    release: rucio-dune-prometheus
     heritage: Helm
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: rucio-prometheus
-      release: rucio-dune-int-prometheus
+      release: rucio-dune-prometheus
   minReadySeconds: 
   template:
     metadata:
       labels:
         app: rucio-prometheus
-        release: rucio-dune-int-prometheus
+        release: rucio-dune-prometheus
     spec:
       serviceAccountName: useroot
       containers:
@@ -29,6 +29,6 @@ spec:
           imagePullPolicy: Always
           env:
             - name: EXPERIMENT
-              value: "dune-int"
+              value: "dune"
             - name: LANDSCAPE_REMOTE_WRITE_ENDPOINT
               value: "http://lsdataitb.fnal.gov:9009/api/v1/push"

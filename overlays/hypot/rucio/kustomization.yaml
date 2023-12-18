@@ -11,7 +11,7 @@ resources:
 patchesStrategicMerge:
 - patch-service.yaml
 - grid-certificates-patch.yaml
-- patch-webui.yaml
+#- patch-webui.yaml
 #- rucio-env-patch.yaml
 
 secretGenerator:

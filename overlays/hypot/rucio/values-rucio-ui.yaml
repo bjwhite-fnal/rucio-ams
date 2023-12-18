@@ -8,7 +8,7 @@ rucio_ca_path: /etc/grid-security/certificates
 webui_certkeycombined_path: /etc/grid-security/hostcertkeycombined.pem
 
 ## replicaCount gives the number of server pods to run
-replicaCount: 1
+replicaCount: 0
 
 # When set, run extra busybox containers in the relevant pods to also expose the error logs
 exposeErrorLogs: 0
