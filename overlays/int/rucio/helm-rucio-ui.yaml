@@ -44,27 +44,6 @@ data:
     Alias /static       /opt/rucio/.venv/lib/python2.7/site-packages/rucio/web/ui/static
     WSGIScriptAlias /   /opt/rucio/.venv/lib/python2.7/site-packages/rucio/web/ui/main.py
 ---
-# Source: rucio-ui/templates/service.yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: fnal-rucio-ui
-  labels:
-    app: rucio-ui
-    chart: rucio-ui-32.0.0
-    release: fnal
-    heritage: Helm
-spec:
-  type: ClusterIP
-  ports:
-    - port: 443
-      targetPort: 443
-      protocol: TCP
-      name: https
-  selector:
-    app: rucio-ui
-    release: fnal
----
 # Source: rucio-ui/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -76,7 +55,7 @@ metadata:
     release: fnal
     heritage: Helm
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: rucio-ui

@@ -11,7 +11,7 @@ metadata:
     heritage: "Helm"
 type: Opaque
 data:
-  common.json: "ewogICJib290c3RyYXAiOiB7CiAgICAieDUwOV9lbWFpbCI6ICJiandoaXRlQGZuYWwuZ292IiwKICAgICJ4NTA5X2lkZW50aXR5IjogIi9EQz1vcmcvREM9Y2lsb2dvbi9DPVVTL089RmVybWkgTmF0aW9uYWwgQWNjZWxlcmF0b3IgTGFib3JhdG9yeS9PVT1QZW9wbGUvQ049QnJhbmRvbiBXaGl0ZS9DTj1VSUQ6Ymp3aGl0ZSIKICB9LAogICJjb3JlIjogewogICAgInVzZV90ZW1wX3RhYmxlcyI6ICJUcnVlIgogIH0sCiAgImRhdGFiYXNlIjoge30sCiAgInBvbGljeSI6IHsKICAgICJwYWNrYWdlIjogImZlcm1pbGFiIgogIH0sCiAgIndlYnVpIjogewogICAgInVzZXJjZXJ0IjogIi9vcHQvcnVjaW8vZXRjL3VzZXJjZXJ0X3dpdGhfa2V5LnBlbSIKICB9Cn0="
+  common.json: "ewogICJib290c3RyYXAiOiB7CiAgICAieDUwOV9lbWFpbCI6ICJiandoaXRlQGZuYWwuZ292IiwKICAgICJ4NTA5X2lkZW50aXR5IjogIi9EQz1vcmcvREM9Y2lsb2dvbi9DPVVTL089RmVybWkgTmF0aW9uYWwgQWNjZWxlcmF0b3IgTGFib3JhdG9yeS9PVT1QZW9wbGUvQ049QnJhbmRvbiBXaGl0ZS9DTj1VSUQ6Ymp3aGl0ZSIKICB9LAogICJkYXRhYmFzZSI6IHt9LAogICJwb2xpY3kiOiB7CiAgICAibGZuMnBmbl9hbGdvcml0aG1fZGVmYXVsdCI6ICJEVU5FIiwKICAgICJtZXRhY2F0X2Jhc2VfdXJsIjogImh0dHBzOi8vbWV0YWNhdC5mbmFsLmdvdjo5NDQzL2R1bmVfbWV0YV9wcm9kL2FwcCIsCiAgICAicGFja2FnZSI6ICJmZXJtaWxhYi5kdW5lIgogIH0sCiAgIndlYnVpIjogewogICAgInVzZXJjZXJ0IjogIi9vcHQvcnVjaW8vZXRjL3VzZXJjZXJ0X3dpdGhfa2V5LnBlbSIKICB9Cn0="
 ---
 # Source: rucio-ui/templates/secrets.yaml
 apiVersion: v1
@@ -72,7 +72,7 @@ spec:
         app: rucio-ui
         release: fnal
       annotations:
-        checksum/config: 22b7f9823f65d3edf293dc13d890c7aa89fff50c
+        checksum/config: 97b1de55de6e88afb0c73c387d39acba521a07f7
     spec:
       serviceAccountName: useroot
       volumes:
@@ -126,7 +126,7 @@ spec:
               mountPath: /etc/grid-security/ca.pem
               subPath: ca.pem
             - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab
+              mountPath: /opt/rucio/permissions/fermilab/dune
               subPath: 
           env:
             - name: RUCIO_HTTPD_LEGACY_DN
@@ -139,17 +139,13 @@ spec:
                 secretKeyRef:
                   name: fnal-rucio-ui.cfg
                   key: log_dir
-            - name: EXPERIMENT
-              value: "Uses $EXPERIMENT"
             - name: PYTHONPATH
               value: "/opt/rucio/permissions"
-            - name: RUCIO_ENABLE_LOGFILE
-              value: "True"
 
             - name: RUCIO_PROXY
-              value: hypot-rucio.fnal.gov
+              value: dune-rucio.fnal.gov
             - name: RUCIO_AUTH_PROXY
-              value: hypot-rucio.fnal.gov
+              value: dune-rucio.fnal.gov
             - name: RUCIO_DEFINE_ALIASES
               value: "True"
             - name: RUCIO_OVERRIDE_CONFIGS

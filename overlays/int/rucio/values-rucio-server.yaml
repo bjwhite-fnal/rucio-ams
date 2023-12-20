@@ -184,6 +184,9 @@ automaticRestart:
 secretMounts:
   - secretName: policy-package
     mountPath: /opt/rucio/permissions/fermilab
+  - secretName: httpd-custom-config
+    mountPath: /etc/httpd/conf.d/fnal-custom-config.conf
+    subPath: fnal-custom-config.conf
   # - volumeName: gcssecret
   #   secretName: gcssecret
   #   mountPath: /opt/rucio/etc/gcs_rucio.json

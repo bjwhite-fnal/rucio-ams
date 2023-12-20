@@ -88,6 +88,9 @@ spec:
       - name: policy-package
         secret:
           secretName: fnal-policy-package
+      - name: httpd-custom-config
+        secret:
+          secretName: fnal-httpd-custom-config
       - name: hostcert
         secret:
           secretName: fnal-server-hostcert
@@ -130,6 +133,9 @@ spec:
           - name: policy-package
             mountPath: /opt/rucio/permissions/fermilab
             subPath: 
+          - name: httpd-custom-config
+            mountPath: /etc/httpd/conf.d/fnal-custom-config.conf
+            subPath: fnal-custom-config.conf
           - name: hostcert
             mountPath: /etc/grid-security/hostcert.pem
             subPath: hostcert.pem
