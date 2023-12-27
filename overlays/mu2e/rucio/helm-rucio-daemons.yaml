@@ -262,11 +262,11 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: fnal-rucio-edit
-  namespace: rucio-icarus
+  namespace: rucio-mu2e
 subjects:
 - kind: ServiceAccount
   name: fnal-rucio-edit
-  namespace: rucio-icarus
+  namespace: rucio-mu2e
 roleRef:
   kind: ClusterRole
   name: edit
