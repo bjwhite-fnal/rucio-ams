@@ -7,6 +7,7 @@ resources:
 - prometheus.yaml
 - messenger.yaml
 - routes.yaml
+- ferry-users.yaml
 
 patchesStrategicMerge:
 - grid-certificates-patch.yaml

@@ -1,0 +1,50 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: fnal-sync-ferry-users
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: useroot
+          initContainers:
+          - name: grid-certs
+            image: docker.io/bjwhitefnal/grid-security-files:32
+            command: ["/bin/bash", "-c", "chmod 755 /out/ && cp -rv --preserve=links /grid-certificates/* /out/"]
+            volumeMounts:
+            - name: ca-volume
+              mountPath: /out/
+          volumes:
+          - name: ca-volume
+            emptyDir:
+              sizeLimit: 250Mi
+          - name: usercert
+            secret:
+              secretName: fnal-fts-cert
+          - name: userkey
+            secret:
+              secretName:  fnal-fts-key
+          containers:
+            - name: sync-ferry-users
+              image: "imageregistry.fnal.gov/rucio-ams/rucio-ferry-sync:32.2.0"
+              imagePullPolicy: Always
+              resources:
+                limits:
+                  cpu: 500m
+                  memory: 256Mi
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+              volumeMounts:
+                - name: usercert
+                  mountPath: /opt/rucio/certs/
+                - name: userkey
+                  mountPath: /opt/rucio/keys/
+              env:
+                - name: FERRY_VO
+                  value: "dune"
+                - name: FERRY_URL
+                  value: "https://ferry.fnal.gov:8446"
+          restartPolicy: OnFailure
