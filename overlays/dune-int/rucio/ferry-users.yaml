@@ -25,7 +25,10 @@ spec:
               secretName: fnal-fts-cert
           - name: userkey
             secret:
-              secretName:  fnal-fts-key
+              secretName: fnal-fts-key
+          - name: rucio-config
+            secret:
+              secretName: fnal-ferry-rucio-config
           containers:
             - name: sync-ferry-users
               image: "imageregistry.fnal.gov/rucio-ams/rucio-ferry-sync:32.2.0"
@@ -42,9 +45,13 @@ spec:
                   mountPath: /opt/rucio/certs/
                 - name: userkey
                   mountPath: /opt/rucio/keys/
+                - name: rucio-config
+                  mountPath: /opt/rucio/etc
               env:
+                - name: RUCIO_URL
+                  value: ""
                 - name: FERRY_VO
                   value: "dune"
                 - name: FERRY_URL
-                  value: "https://ferry.fnal.gov:8446"
+                  value: "https://ferry.fnal.gov:8445"
           restartPolicy: OnFailure
