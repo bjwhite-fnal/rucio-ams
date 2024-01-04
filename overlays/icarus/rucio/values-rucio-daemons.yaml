@@ -36,7 +36,7 @@ serviceAccountName: useroot
 
 image:
   repository: rucio/rucio-daemons
-  tag: release-33.0.0
+  tag: release-33.2.0
   pullPolicy: Always
 
 strategy:
@@ -856,6 +856,9 @@ config:
     ## config.monitor.user_scope: scope used on the graphite server (default: "default_docker")
     #user_scope: "rucio_icarus_okd"
     enable_metrics: "True"
+
+  transfers:
+    multihop_rse_expression: ""
 
   policy:
     package: fermilab
