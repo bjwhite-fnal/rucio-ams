@@ -144,10 +144,10 @@ judgeEvaluator:
   threads: 1
   resources:
     limits:
-      memory: "600Mi"
+      memory: "2600Mi"
       cpu: "200m"
     requests:
-      memory: "400Mi"
+      memory: "2000Mi"
       cpu: "200m"
 
 judgeInjector:
