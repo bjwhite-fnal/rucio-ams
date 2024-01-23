@@ -190,7 +190,7 @@ cacheConsumer:
 conveyorTransferSubmitter:
   threads: 1
   podAnnotations: {}
-  activities: "'Debug'"
+  activities: "'User Subscriptions' 'Recovery' 'Data Challenge'"
   sleepTime: 10
   archiveTimeout: ""
   resources:

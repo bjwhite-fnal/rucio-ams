@@ -227,7 +227,7 @@ metadata:
     heritage: "Helm"
 type: Opaque
 data:
-  common.json: "ewogICJhdXRvbWF0aXgiOiB7CiAgICAiYWNjb3VudCI6ICJhdXRvbWF0aXgiLAogICAgImRhdGFzZXRfbGlmZXRpbWUiOiAzMCwKICAgICJyc2VzIjogIkRDQUNIRV9CSldISVRFX0VORCwgRENBQ0hFX0JKV0hJVEVfRU5EMiIsCiAgICAic2NvcGUiOiAiYXV0b21hdGl4IiwKICAgICJzZXRfbWV0YWRhdGEiOiAiVHJ1ZSIKICB9LAogICJjYWNoZSI6IHsKICAgICJ1cmwiOiAicnVjaW8tY2FjaGU6MTEyMTEiCiAgfSwKICAiY2xpZW50IjogewogICAgImFjY291bnQiOiAiYXV0b21hdGl4IiwKICAgICJhdXRoX2hvc3QiOiAiaHR0cHM6Ly9tdTJlLXJ1Y2lvLmZuYWwuZ292IiwKICAgICJhdXRoX3R5cGUiOiAieDUwOV9wcm94eSIsCiAgICAiY2FfY2VydCI6ICIvb3B0L2NlcnRzIiwKICAgICJjbGllbnRfeDUwOV9wcm94eSI6ICIvb3B0L3Byb3h5L3g1MDl1cCIsCiAgICAiZW5hYmxlX21ldHJpY3MiOiAiVHJ1ZSIsCiAgICAicHJvdG9jb2xfc3RhdF9yZXRyaWVzIjogNiwKICAgICJyZXF1ZXN0X3JldHJpZXMiOiAzLAogICAgInJ1Y2lvX2hvc3QiOiAiaHR0cHM6Ly9tdTJlLXJ1Y2lvLmZuYWwuZ292IgogIH0sCiAgImNvbnZleW9yIjogewogICAgImNhY2VydCI6ICIvb3B0L2NlcnRzL2NhLnBlbSIsCiAgICAiZnRzaG9zdHMiOiAiaHR0cHM6Ly9mdHMzLXB1YmxpYy5jZXJuLmNoOjg0NDYsaHR0cHM6Ly9mdHMzLXB1YmxpYy5mbmFsLmdvdjo4NDQ2IiwKICAgICJ1c2VyY2VydCI6ICIvb3B0L3Byb3h5L3g1MDl1cCIKICB9LAogICJoZXJtZXMiOiB7CiAgICAic2VydmljZXNfbGlzdCI6ICJhY3RpdmVtcSIKICB9LAogICJtZXNzYWdpbmctY2FjaGUiOiB7CiAgICAiYWNjb3VudCI6ICJtZW1jYWNoZSIsCiAgICAiYnJva2VycyI6ICJydWNpby1jYWNoZSIsCiAgICAiZGVzdGluYXRpb24iOiAiL3RvcGljL3J1Y2lvLmV2ZW50cy5tdTJlIiwKICAgICJwb3J0IjogIjYxMTIzIiwKICAgICJ2b25hbWUiOiAibXUyZSIKICB9LAogICJtZXNzYWdpbmctaGVybWVzIjogewogICAgImJyb2tlcl92aXJ0dWFsX2hvc3QiOiAiLyIsCiAgICAiYnJva2VycyI6ICJmbmFsLXJ1Y2lvLW1lc3NlbmdlciIsCiAgICAiZGVzdGluYXRpb24iOiAiL3RvcGljL3J1Y2lvLmV2ZW50cy5tdTJlIiwKICAgICJub25zc2xfcG9ydCI6ICI2MTYxMyIsCiAgICAicGFzc3dvcmQiOiAiZ3Vlc3QiLAogICAgInBvcnQiOiAiNjE2MTMiLAogICAgInNzbF9jZXJ0X2ZpbGUiOiAiL29wdC9ydWNpby9jZXJ0cy9ob3N0Y2VydC5wZW0iLAogICAgInNzbF9rZXlfZmlsZSI6ICIvb3B0L3J1Y2lvL2tleXMvaG9zdGtleS5wZW0iLAogICAgInVzZV9zc2wiOiAiRmFsc2UiLAogICAgInVzZXJuYW1lIjogImd1ZXN0IiwKICAgICJ2b25hbWUiOiAibXUyZSIKICB9LAogICJwb2xpY3kiOiB7CiAgICAibGZuMnBmbl9hbGdvcml0aG1fZGVmYXVsdCI6ICJNVTJFIiwKICAgICJwYWNrYWdlIjogImZlcm1pbGFiLm11MmUiCiAgfQp9"
+  common.json: "ewogICJhdXRvbWF0aXgiOiB7CiAgICAiYWNjb3VudCI6ICJhdXRvbWF0aXgiLAogICAgImRhdGFzZXRfbGlmZXRpbWUiOiAzMCwKICAgICJyc2VzIjogIkRDQUNIRV9CSldISVRFX0VORCwgRENBQ0hFX0JKV0hJVEVfRU5EMiIsCiAgICAic2NvcGUiOiAiYXV0b21hdGl4IiwKICAgICJzZXRfbWV0YWRhdGEiOiAiVHJ1ZSIKICB9LAogICJjYWNoZSI6IHsKICAgICJ1cmwiOiAicnVjaW8tY2FjaGU6MTEyMTEiCiAgfSwKICAiY2xpZW50IjogewogICAgImFjY291bnQiOiAiYXV0b21hdGl4IiwKICAgICJhdXRoX2hvc3QiOiAiaHR0cHM6Ly9tdTJlLXJ1Y2lvLmZuYWwuZ292IiwKICAgICJhdXRoX3R5cGUiOiAieDUwOV9wcm94eSIsCiAgICAiY2FfY2VydCI6ICIvb3B0L2NlcnRzIiwKICAgICJjbGllbnRfeDUwOV9wcm94eSI6ICIvb3B0L3Byb3h5L3g1MDl1cCIsCiAgICAiZW5hYmxlX21ldHJpY3MiOiAiVHJ1ZSIsCiAgICAicHJvdG9jb2xfc3RhdF9yZXRyaWVzIjogNiwKICAgICJyZXF1ZXN0X3JldHJpZXMiOiAzLAogICAgInJ1Y2lvX2hvc3QiOiAiaHR0cHM6Ly9tdTJlLXJ1Y2lvLmZuYWwuZ292IgogIH0sCiAgImNvbnZleW9yIjogewogICAgImNhY2VydCI6ICIvb3B0L2NlcnRzL2NhLnBlbSIsCiAgICAiZnRzaG9zdHMiOiAiaHR0cHM6Ly9mdHMzLXB1YmxpYy5jZXJuLmNoOjg0NDYsaHR0cHM6Ly9mdHMzLXB1YmxpYy5mbmFsLmdvdjo4NDQ2IiwKICAgICJ1c2VyY2VydCI6ICIvb3B0L3Byb3h5L3g1MDl1cCIKICB9LAogICJoZXJtZXMiOiB7CiAgICAic2VydmljZXNfbGlzdCI6ICJhY3RpdmVtcSIKICB9LAogICJtZXNzYWdpbmctY2FjaGUiOiB7CiAgICAiYWNjb3VudCI6ICJtZW1jYWNoZSIsCiAgICAiYnJva2VycyI6ICJydWNpby1jYWNoZSIsCiAgICAiZGVzdGluYXRpb24iOiAiL3RvcGljL3J1Y2lvLmV2ZW50cy5tdTJlIiwKICAgICJwb3J0IjogIjYxMTIzIiwKICAgICJ2b25hbWUiOiAibXUyZSIKICB9LAogICJtZXNzYWdpbmctaGVybWVzIjogewogICAgImJyb2tlcl92aXJ0dWFsX2hvc3QiOiAiLyIsCiAgICAiYnJva2VycyI6ICJmbmFsLXJ1Y2lvLW1lc3NlbmdlciIsCiAgICAiZGVzdGluYXRpb24iOiAiL3RvcGljL3J1Y2lvLmV2ZW50cy5tdTJlIiwKICAgICJub25zc2xfcG9ydCI6ICI2MTYxMyIsCiAgICAicGFzc3dvcmQiOiAiZ3Vlc3QiLAogICAgInBvcnQiOiAiNjE2MTMiLAogICAgInNzbF9jZXJ0X2ZpbGUiOiAiL29wdC9ydWNpby9jZXJ0cy9ob3N0Y2VydC5wZW0iLAogICAgInNzbF9rZXlfZmlsZSI6ICIvb3B0L3J1Y2lvL2tleXMvaG9zdGtleS5wZW0iLAogICAgInVzZV9zc2wiOiAiRmFsc2UiLAogICAgInVzZXJuYW1lIjogImd1ZXN0IiwKICAgICJ2b25hbWUiOiAibXUyZSIKICB9LAogICJwb2xpY3kiOiB7CiAgICAibGZuMnBmbl9hbGdvcml0aG1fZGVmYXVsdCI6ICJNVTJFIiwKICAgICJwYWNrYWdlIjogImZlcm1pbGFiLm11MmUiCiAgfSwKICAidHJhbnNmZXJzIjogewogICAgIm11bHRpaG9wX3JzZV9leHByZXNzaW9uIjogIiIKICB9Cn0="
 ---
 # Source: rucio-daemons/templates/transmogrifier.yaml
 apiVersion: v1
@@ -324,7 +324,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.0.0"
+          image: "rucio/rucio-daemons:release-33.2.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -417,7 +417,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.0.0"
+          image: "rucio/rucio-daemons:release-33.2.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -489,7 +489,7 @@ spec:
         release: fnal
         rucio-daemon: conveyor-finisher
       annotations:
-        checksum/config: e99d9b8a3dae9f244345ab2aedf79fd00d6f7799
+        checksum/config: dd9cb34c0bd21fe5d0cc43fbf6a7bfd92ea99bb5
     spec:
       serviceAccountName: useroot
       volumes:
@@ -510,7 +510,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.0.0"
+          image: "rucio/rucio-daemons:release-33.2.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -582,7 +582,7 @@ spec:
         release: fnal
         rucio-daemon: conveyor-poller
       annotations:
-        checksum/config: e99d9b8a3dae9f244345ab2aedf79fd00d6f7799
+        checksum/config: dd9cb34c0bd21fe5d0cc43fbf6a7bfd92ea99bb5
     spec:
       serviceAccountName: useroot
       volumes:
@@ -603,7 +603,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.0.0"
+          image: "rucio/rucio-daemons:release-33.2.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -675,7 +675,7 @@ spec:
         release: fnal
         rucio-daemon: conveyor-stager
       annotations:
-        checksum/config: e99d9b8a3dae9f244345ab2aedf79fd00d6f7799
+        checksum/config: dd9cb34c0bd21fe5d0cc43fbf6a7bfd92ea99bb5
     spec:
       serviceAccountName: useroot
       volumes:
@@ -696,7 +696,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.0.0"
+          image: "rucio/rucio-daemons:release-33.2.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -768,7 +768,7 @@ spec:
         release: fnal
         rucio-daemon: conveyor-submitter
       annotations:
-        checksum/config: e99d9b8a3dae9f244345ab2aedf79fd00d6f7799
+        checksum/config: dd9cb34c0bd21fe5d0cc43fbf6a7bfd92ea99bb5
     spec:
       serviceAccountName: useroot
       volumes:
@@ -789,7 +789,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.0.0"
+          image: "rucio/rucio-daemons:release-33.2.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -861,7 +861,7 @@ spec:
         release: fnal
         rucio-daemon: hermes
       annotations:
-        checksum/config: e99d9b8a3dae9f244345ab2aedf79fd00d6f7799
+        checksum/config: dd9cb34c0bd21fe5d0cc43fbf6a7bfd92ea99bb5
     spec:
       serviceAccountName: useroot
       volumes:
@@ -887,7 +887,7 @@ spec:
             secretName: fnal-hotfix-6358-hermes-patch
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.0.0"
+          image: "rucio/rucio-daemons:release-33.2.0"
           imagePullPolicy: Always
           volumeMounts:
 
@@ -964,7 +964,7 @@ spec:
         release: fnal
         rucio-daemon: judge-cleaner
       annotations:
-        checksum/config: e99d9b8a3dae9f244345ab2aedf79fd00d6f7799
+        checksum/config: dd9cb34c0bd21fe5d0cc43fbf6a7bfd92ea99bb5
     spec:
       serviceAccountName: useroot
       volumes:
@@ -985,7 +985,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.0.0"
+          image: "rucio/rucio-daemons:release-33.2.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1057,7 +1057,7 @@ spec:
         release: fnal
         rucio-daemon: judge-evaluator
       annotations:
-        checksum/config: e99d9b8a3dae9f244345ab2aedf79fd00d6f7799
+        checksum/config: dd9cb34c0bd21fe5d0cc43fbf6a7bfd92ea99bb5
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1078,7 +1078,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.0.0"
+          image: "rucio/rucio-daemons:release-33.2.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1150,7 +1150,7 @@ spec:
         release: fnal
         rucio-daemon: judge-injector
       annotations:
-        checksum/config: e99d9b8a3dae9f244345ab2aedf79fd00d6f7799
+        checksum/config: dd9cb34c0bd21fe5d0cc43fbf6a7bfd92ea99bb5
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1171,7 +1171,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.0.0"
+          image: "rucio/rucio-daemons:release-33.2.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1243,7 +1243,7 @@ spec:
         release: fnal
         rucio-daemon: judge-repairer
       annotations:
-        checksum/config: e99d9b8a3dae9f244345ab2aedf79fd00d6f7799
+        checksum/config: dd9cb34c0bd21fe5d0cc43fbf6a7bfd92ea99bb5
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1264,7 +1264,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.0.0"
+          image: "rucio/rucio-daemons:release-33.2.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1336,7 +1336,7 @@ spec:
         release: fnal
         rucio-daemon: minos
       annotations:
-        checksum/config: e99d9b8a3dae9f244345ab2aedf79fd00d6f7799
+        checksum/config: dd9cb34c0bd21fe5d0cc43fbf6a7bfd92ea99bb5
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1357,7 +1357,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.0.0"
+          image: "rucio/rucio-daemons:release-33.2.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1429,7 +1429,7 @@ spec:
         release: fnal
         rucio-daemon: minos-temporary-expiration
       annotations:
-        checksum/config: e99d9b8a3dae9f244345ab2aedf79fd00d6f7799
+        checksum/config: dd9cb34c0bd21fe5d0cc43fbf6a7bfd92ea99bb5
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1450,7 +1450,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.0.0"
+          image: "rucio/rucio-daemons:release-33.2.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1522,7 +1522,7 @@ spec:
         release: fnal
         rucio-daemon: necromancer
       annotations:
-        checksum/config: e99d9b8a3dae9f244345ab2aedf79fd00d6f7799
+        checksum/config: dd9cb34c0bd21fe5d0cc43fbf6a7bfd92ea99bb5
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1543,7 +1543,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.0.0"
+          image: "rucio/rucio-daemons:release-33.2.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1615,7 +1615,7 @@ spec:
         release: fnal
         rucio-daemon: replica-recoverer
       annotations:
-        checksum/config: e99d9b8a3dae9f244345ab2aedf79fd00d6f7799
+        checksum/config: dd9cb34c0bd21fe5d0cc43fbf6a7bfd92ea99bb5
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1636,7 +1636,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.0.0"
+          image: "rucio/rucio-daemons:release-33.2.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1708,7 +1708,7 @@ spec:
         release: fnal
         rucio-daemon: transmogrifier
       annotations:
-        checksum/config: e99d9b8a3dae9f244345ab2aedf79fd00d6f7799
+        checksum/config: dd9cb34c0bd21fe5d0cc43fbf6a7bfd92ea99bb5
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1729,7 +1729,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.0.0"
+          image: "rucio/rucio-daemons:release-33.2.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1801,7 +1801,7 @@ spec:
         release: fnal
         rucio-daemon: undertaker
       annotations:
-        checksum/config: e99d9b8a3dae9f244345ab2aedf79fd00d6f7799
+        checksum/config: dd9cb34c0bd21fe5d0cc43fbf6a7bfd92ea99bb5
     spec:
       serviceAccountName: useroot
       volumes:
@@ -1819,7 +1819,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.0.0"
+          image: "rucio/rucio-daemons:release-33.2.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: config-common
