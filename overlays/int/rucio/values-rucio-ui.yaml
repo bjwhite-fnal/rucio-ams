@@ -28,7 +28,7 @@ service:
 
 image:
   repository: rucio/rucio-ui
-  tag: release-33.2.0
+  tag: release-33.4.0
   pullPolicy: Always
 
 strategy:
