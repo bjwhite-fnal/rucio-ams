@@ -1,7 +1,3 @@
-[submodule "rucio-ams/helm/helm-charts"]
-	path = rucio-ams/helm/helm-charts
-	url = https://github.com/rucio/helm-charts
-
 [submodule "rucio-ams/docker/permissions/fnal/dune"]
-	path = rucio-ams/docker/permissions-fnal/dune
+	path = images/permissions-fnal/dune
 	url = https://github.com/jamesp-epcc/DUNERucioPolicy 
