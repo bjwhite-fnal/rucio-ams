@@ -434,7 +434,7 @@ judgeEvaluator:
   podAnnotations: {}
   resources:
     limits:
-      memory: "1800Mi"
+      memory: "2800Mi"
       cpu: "1200m"
     requests:
       memory: "900Mi"
@@ -474,10 +474,10 @@ judgeRepairer:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "1800Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "1200Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
