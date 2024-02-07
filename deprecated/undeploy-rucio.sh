@@ -1,1 +1,0 @@
-rucio-ams/helm/delall.sh

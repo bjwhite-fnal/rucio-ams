@@ -1,8 +1,0 @@
----
-serviceAccountName: useroot
-prometheusCount: 1
-
-image:
-  repository: imageregistry.fnal.gov/rucio-ams/rucio-ams-prometheus
-  tag: latest
-  pullPolicy: Always
