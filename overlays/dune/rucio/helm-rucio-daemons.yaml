@@ -328,7 +328,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.4.0"
+          image: "rucio/rucio-daemons:release-33.4.0.post1"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -428,7 +428,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.4.0"
+          image: "rucio/rucio-daemons:release-33.4.0.post1"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -528,7 +528,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.4.0"
+          image: "rucio/rucio-daemons:release-33.4.0.post1"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -628,7 +628,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.4.0"
+          image: "rucio/rucio-daemons:release-33.4.0.post1"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -728,7 +728,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.4.0"
+          image: "rucio/rucio-daemons:release-33.4.0.post1"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -828,7 +828,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.4.0"
+          image: "rucio/rucio-daemons:release-33.4.0.post1"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -929,7 +929,7 @@ spec:
             secretName: fnal-hotfix-6358-hermes-patch
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.4.0"
+          image: "rucio/rucio-daemons:release-33.4.0.post1"
           imagePullPolicy: Always
           volumeMounts:
 
@@ -1031,7 +1031,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.4.0"
+          image: "rucio/rucio-daemons:release-33.4.0.post1"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1131,7 +1131,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.4.0"
+          image: "rucio/rucio-daemons:release-33.4.0.post1"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1231,7 +1231,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.4.0"
+          image: "rucio/rucio-daemons:release-33.4.0.post1"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1331,7 +1331,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.4.0"
+          image: "rucio/rucio-daemons:release-33.4.0.post1"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1431,7 +1431,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.4.0"
+          image: "rucio/rucio-daemons:release-33.4.0.post1"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1531,7 +1531,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.4.0"
+          image: "rucio/rucio-daemons:release-33.4.0.post1"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1631,7 +1631,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.4.0"
+          image: "rucio/rucio-daemons:release-33.4.0.post1"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1731,7 +1731,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.4.0"
+          image: "rucio/rucio-daemons:release-33.4.0.post1"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1831,7 +1831,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.4.0"
+          image: "rucio/rucio-daemons:release-33.4.0.post1"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1928,7 +1928,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-33.4.0"
+          image: "rucio/rucio-daemons:release-33.4.0.post1"
           imagePullPolicy: Always
           volumeMounts:
             - name: config-common
