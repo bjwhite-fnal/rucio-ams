@@ -119,15 +119,15 @@ spec:
               cpu: 20m
               memory: 20Mi
         - name: rucio-server
-          image: "rucio/rucio-server:release-33.4.0.post1"
+          image: "rucio/rucio-server:release-33.5.0"
           imagePullPolicy: Always
           resources:
             limits:
-              cpu: 700m
-              memory: 600Mi
+              cpu: 1000m
+              memory: 2000Mi
             requests:
-              cpu: 200m
-              memory: 200Mi
+              cpu: 700m
+              memory: 2000Mi
           volumeMounts:
           - name: config
             mountPath: /opt/rucio/etc/conf.d/10_common.json

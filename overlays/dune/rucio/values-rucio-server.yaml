@@ -25,7 +25,7 @@ useSSL: true
 
 image:
   repository: rucio/rucio-server
-  tag: release-33.4.0.post1
+  tag: release-33.5.0
   pullPolicy: Always
 
 service:
@@ -415,11 +415,11 @@ config:
 
 serverResources:
   limits:
-    memory: "600Mi"
-    cpu: "700m"
+    memory: "2000Mi"
+    cpu: "1000m"
   requests:
-    memory: "200Mi"
-    cpu: "200m"
+    memory: "2000Mi"
+    cpu: "700m"
 
 nodeSelector: {}
 
