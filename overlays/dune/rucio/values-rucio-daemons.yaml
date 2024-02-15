@@ -24,7 +24,7 @@ judgeInjectorCount: 1
 judgeRepairerCount: 1
 oauthManagerCount: 0
 undertakerCount: 1
-reaperCount: 0
+reaperCount: 1
 replicaRecovererCount: 1
 transmogrifierCount: 1
 tracerKronosCount: 0
@@ -814,6 +814,7 @@ config:
 
   policy:
     package: fermilab.dune
+    metacat_base_url: "https://metacat.fnal.gov:9443/dune_meta_prod/app"
     ## config.permission.policy: (default "generic")
     # permission: "generic"
     ## config.permission.schema: (default "generic")
