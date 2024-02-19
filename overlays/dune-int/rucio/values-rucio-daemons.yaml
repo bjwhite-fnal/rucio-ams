@@ -811,6 +811,7 @@ config:
 
   transfers:
     multihop_rse_expression: ""
+    srm_https_compatibility: True
 
   policy:
     package: fermilab.dune
@@ -833,7 +834,7 @@ config:
     # set_metadata: ""
 
   conveyor:
-    # scheme: "srm,gsiftp,root,http,https"
+    scheme: "srm,gsiftp,root,http,https,davs"
     # transfertool: "fts3"
     ftshosts: "https://fts3-public.cern.ch:8446,https://fts3-public.fnal.gov:8446"
     cacert: "/opt/certs/ca.pem"
