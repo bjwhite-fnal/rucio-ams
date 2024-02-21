@@ -59,7 +59,7 @@ metadata:
     release: fnal
     heritage: Helm
 spec:
-  replicas: 12
+  replicas: 11
   selector:
     matchLabels:
       app: rucio-server
