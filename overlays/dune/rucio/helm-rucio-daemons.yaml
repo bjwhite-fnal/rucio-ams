@@ -580,11 +580,11 @@ spec:
                   name: fnal-db-connstr
           resources:
             limits:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 1100m
+              memory: 500Mi
             requests:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 1000m
+              memory: 500Mi
 ---
 # Source: rucio-daemons/templates/conveyor.yaml
 apiVersion: apps/v1
@@ -880,11 +880,11 @@ spec:
                   name: fnal-db-connstr
           resources:
             limits:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 1200m
+              memory: 1000Mi
             requests:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 1000m
+              memory: 900Mi
 ---
 # Source: rucio-daemons/templates/hermes.yaml
 apiVersion: apps/v1
@@ -983,11 +983,11 @@ spec:
                   name: fnal-db-connstr
           resources:
             limits:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 400m
+              memory: 5000Mi
             requests:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 200m
+              memory: 900Mi
 ---
 # Source: rucio-daemons/templates/judge.yaml
 apiVersion: apps/v1
@@ -1083,11 +1083,11 @@ spec:
                   name: fnal-db-connstr
           resources:
             limits:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 1000m
+              memory: 500Mi
             requests:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 400m
+              memory: 500Mi
 ---
 # Source: rucio-daemons/templates/judge.yaml
 apiVersion: apps/v1
@@ -1284,9 +1284,9 @@ spec:
           resources:
             limits:
               cpu: 700m
-              memory: 200Mi
+              memory: 900Mi
             requests:
-              cpu: 700m
+              cpu: 200m
               memory: 200Mi
 ---
 # Source: rucio-daemons/templates/judge.yaml
@@ -1386,7 +1386,7 @@ spec:
               cpu: 700m
               memory: 1800Mi
             requests:
-              cpu: 700m
+              cpu: 200m
               memory: 1200Mi
 ---
 # Source: rucio-daemons/templates/minos.yaml
@@ -1483,11 +1483,11 @@ spec:
                   name: fnal-db-connstr
           resources:
             limits:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 1200m
+              memory: 400Mi
             requests:
-              cpu: 100m
-              memory: 100Mi
+              cpu: 1000m
+              memory: 400Mi
 ---
 # Source: rucio-daemons/templates/minos.yaml
 apiVersion: apps/v1
@@ -1773,7 +1773,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "reaper"
             - name: RUCIO_DAEMON_ARGS
-              value: ' --threads 4'
+              value: ' --threads 8'
             - name: GLOBUS_THREAD_MODEL
               value: "pthread"
             - name: RUCIO_HOME
@@ -1789,11 +1789,11 @@ spec:
                   name: fnal-db-connstr
           resources:
             limits:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 1700m
+              memory: 2000Mi
             requests:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 1000m
+              memory: 2000Mi
 ---
 # Source: rucio-daemons/templates/replica-recoverer.yaml
 apiVersion: apps/v1
@@ -1990,10 +1990,10 @@ spec:
           resources:
             limits:
               cpu: 700m
-              memory: 200Mi
+              memory: 400Mi
             requests:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 200m
+              memory: 400Mi
 ---
 # Source: rucio-daemons/templates/undertaker.yaml
 apiVersion: apps/v1
@@ -2084,11 +2084,11 @@ spec:
                   name: fnal-db-connstr
           resources:
             limits:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 800m
+              memory: 500Mi
             requests:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 400m
+              memory: 500Mi
 ---
 # Source: rucio-daemons/templates/renew-fts-cronjob.yaml
 apiVersion: batch/v1
