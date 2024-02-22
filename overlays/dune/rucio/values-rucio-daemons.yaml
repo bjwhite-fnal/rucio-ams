@@ -188,7 +188,7 @@ cacheConsumer:
   secretMounts: []
 
 conveyorTransferSubmitter:
-  threads: 1
+  threads: 8
   podAnnotations: {}
   activities: "'User Subscriptions' 'Recovery' 'Data Challenge'"
   sleepTime: 10
@@ -234,7 +234,7 @@ conveyorStager:
   secretMounts: []
 
 conveyorPoller:
-  threads: 1
+  threads: 8
   podAnnotations: {}
   resources:
     limits:
@@ -254,7 +254,7 @@ conveyorPoller:
   secretMounts: []
 
 conveyorFinisher:
-  threads: 1
+  threads: 8
   podAnnotations: {}
   resources:
     limits:
@@ -359,7 +359,7 @@ darkReaper:
   secretMounts: []
 
 hermes:
-  threads: 1
+  threads: 3
   podAnnotations: {}
   bulk: 1000
   useSSL: "True"
@@ -410,7 +410,7 @@ hermesLegacy:
   secretMounts: []
 
 judgeCleaner:
-  threads: 1
+  threads: 4
   podAnnotations: {}
   resources:
     limits:
@@ -430,7 +430,7 @@ judgeCleaner:
   secretMounts: []
 
 judgeEvaluator:
-  threads: 1
+  threads: 12
   podAnnotations: {}
   resources:
     limits:
@@ -450,7 +450,7 @@ judgeEvaluator:
   secretMounts: []
 
 judgeInjector:
-  threads: 1
+  threads: 5
   podAnnotations: {}
   resources:
     limits:
@@ -470,7 +470,7 @@ judgeInjector:
   secretMounts: []
 
 judgeRepairer:
-  threads: 1
+  threads: 12
   podAnnotations: {}
   resources:
     limits:
@@ -510,7 +510,7 @@ oauthManager:
   secretMounts: []
 
 undertaker:
-  threads: 1
+  threads: 6
   podAnnotations: {}
   resources:
     limits:

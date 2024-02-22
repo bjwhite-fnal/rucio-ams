@@ -570,7 +570,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "conveyor-finisher"
             - name: RUCIO_DAEMON_ARGS
-              value: " --total-threads 1"
+              value: " --total-threads 8"
             - name: PYTHONPATH
               value: /opt/rucio/permissions
             - name: RUCIO_CFG_DATABASE_DEFAULT
@@ -670,7 +670,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "conveyor-poller"
             - name: RUCIO_DAEMON_ARGS
-              value: " --total-threads 1 "
+              value: " --total-threads 8 "
             - name: PYTHONPATH
               value: /opt/rucio/permissions
             - name: RUCIO_CFG_DATABASE_DEFAULT
@@ -870,7 +870,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "conveyor-submitter"
             - name: RUCIO_DAEMON_ARGS
-              value: " --total-threads 1 --sleep-time 10 --activities 'User Subscriptions' 'Recovery' 'Data Challenge'"
+              value: " --total-threads 8 --sleep-time 10 --activities 'User Subscriptions' 'Recovery' 'Data Challenge'"
             - name: PYTHONPATH
               value: /opt/rucio/permissions
             - name: RUCIO_CFG_DATABASE_DEFAULT
@@ -973,7 +973,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "hermes"
             - name: RUCIO_DAEMON_ARGS
-              value: " --threads 1  --bulk 1000"
+              value: " --threads 3  --bulk 1000"
             - name: PYTHONPATH
               value: /opt/rucio/permissions
             - name: RUCIO_CFG_DATABASE_DEFAULT
@@ -1073,7 +1073,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "judge-cleaner"
             - name: RUCIO_DAEMON_ARGS
-              value: "--threads 1"
+              value: "--threads 4"
             - name: PYTHONPATH
               value: /opt/rucio/permissions
             - name: RUCIO_CFG_DATABASE_DEFAULT
@@ -1173,7 +1173,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "judge-evaluator"
             - name: RUCIO_DAEMON_ARGS
-              value: "--threads 1"
+              value: "--threads 12"
             - name: PYTHONPATH
               value: /opt/rucio/permissions
             - name: RUCIO_CFG_DATABASE_DEFAULT
@@ -1273,7 +1273,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "judge-injector"
             - name: RUCIO_DAEMON_ARGS
-              value: "--threads 1"
+              value: "--threads 5"
             - name: PYTHONPATH
               value: /opt/rucio/permissions
             - name: RUCIO_CFG_DATABASE_DEFAULT
@@ -1373,7 +1373,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "judge-repairer"
             - name: RUCIO_DAEMON_ARGS
-              value: "--threads 1"
+              value: "--threads 12"
             - name: PYTHONPATH
               value: /opt/rucio/permissions
             - name: RUCIO_CFG_DATABASE_DEFAULT
@@ -2074,7 +2074,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "undertaker"
             - name: RUCIO_DAEMON_ARGS
-              value: " --total-workers 1"
+              value: " --total-workers 6"
             - name: PYTHONPATH
               value: /opt/rucio/permissions
             - name: RUCIO_CFG_DATABASE_DEFAULT

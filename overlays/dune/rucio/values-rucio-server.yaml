@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 ## replicaCount gives the number of server pods to run
-replicaCount: 10
+replicaCount: 12
 
 serviceAccountName: useroot
 
