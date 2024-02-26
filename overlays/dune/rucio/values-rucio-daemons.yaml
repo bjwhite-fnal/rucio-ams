@@ -53,32 +53,15 @@ podAnnotations: {}
 minReadySeconds: 5
 
 monitoring:
-  enabled: false
-  serviceMonitorEnabled: true
-  exporterPort: 8080
-  targetPort: 8080
-  interval: 30s
-  telemetryPath: /metrics
-  namespace: monitoring
+  enabled: true
+  serviceMonitorEnabled: false
+  #exporterPort: 8080
+  #targetPort: 8080
+  #interval: 30s
+  #telemetryPath: /metrics
+  #namespace: monitoring
   labels:
     release: prometheus-operator
-  serviceMonitor:
-    ## Metric relabel configs to apply to samples before ingestion.
-    ##
-    metricRelabelings: []
-    # - action: keep
-    #   regex: 'kube_(daemonset|deployment|pod|namespace|node|statefulset).+'
-    #   sourceLabels: [__name__]
-
-    #   relabel configs to apply to samples before ingestion.
-    ##
-    relabelings: []
-    # - sourceLabels: [__meta_kubernetes_pod_node_name]
-    #   separator: ;
-    #   regex: ^(.*)$
-    #   targetLabel: nodename
-    #   replacement: $1
-    #   action: replace
 
 abacusAccount:
   threads: 1
@@ -800,14 +783,14 @@ config:
     ## config.database.powuseraccount: password for user used to check the DB
     # powuserpassword: ""
 
-  # monitor:
+  monitor:
     ## config.monitor.carbon_server: address of carbon server used for graphite monitoring (default: "localhost")
     #carbon_server: "rucio-statsd"
     ## config.monitor.carbon_port: port of carbon server used for graphite monitoring (default: "8125")
     #carbon_port: "8125"
     ## config.monitor.user_scope: scope used on the graphite server (default: "default_docker")
     #user_scope: "rucio_dune_okd"
-    enable_metrics: "True"
+    enable_metrics: True
 
   transfers:
     multihop_rse_expression: ""

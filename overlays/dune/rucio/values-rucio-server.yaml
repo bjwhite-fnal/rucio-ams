@@ -92,31 +92,15 @@ logFormat: '[%{%Y-%m-%d %H:%M:%S}t]\t%v\t%h\t%{X-Forwarded-For}i\t%{X-Rucio-Requ
 
 monitoring:
   enabled: false
-  exporterPort: 8080
-  targetPort: 8080
-  nativeMetricsPort: 8081
-  interval: 30s
-  telemetryPath: /metrics
-  namespace: monitoring
-  labels:
-    release: prometheus-operator
-  serviceMonitor:
-    ## Metric relabel configs to apply to samples before ingestion.
-    ##
-    metricRelabelings: []
-    # - action: keep
-    #   regex: 'kube_(daemonset|deployment|pod|namespace|node|statefulset).+'
-    #   sourceLabels: [__name__]
-
-    #   relabel configs to apply to samples before ingestion.
-    ##
-    relabelings: []
-    # - sourceLabels: [__meta_kubernetes_pod_node_name]
-    #   separator: ;
-    #   regex: ^(.*)$
-    #   targetLabel: nodename
-    #   replacement: $1
-    #   action: replace
+  #serviceMonitorEnabled: false
+  #exporterPort: 8080
+  #targetPort: 8080
+  #nativeMetricsPort: 8081
+  #interval: 30s
+  #telemetryPath: /metrics
+  #namespace: monitoring
+  #labels:
+  #  release: prometheus-operator
 
 metricsExporterResources:
   limits:
