@@ -24,7 +24,7 @@ judgeInjectorCount: 1
 judgeRepairerCount: 1
 oauthManagerCount: 0
 undertakerCount: 1
-reaperCount: 0
+reaperCount: 0 # Leave off for Mu2e. They don't want to delete anything.
 replicaRecovererCount: 1
 transmogrifierCount: 1
 tracerKronosCount: 0
