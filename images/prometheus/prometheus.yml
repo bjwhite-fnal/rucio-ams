@@ -14,11 +14,10 @@ global:
 
 remote_write:
   - url: "REPLACE_WITH_LANDSCAPE_ENDPOINT"
+    write_relabel_configs:
+      - target_label: "rucio_deployment"
+        replacement: rucio-REPLACE_WITH_EXPERIMENT
 #    name: drop_expensive
-#    write_relabel_configs:
-#      - source_labels: [__name__]
-#        regex: expensive.*
-#        action: drop
 #    oauth2:
 #      client_id: "123"
 #      client_secret: "456"
