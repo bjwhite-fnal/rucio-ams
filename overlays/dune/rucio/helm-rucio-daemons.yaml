@@ -702,10 +702,10 @@ spec:
           resources:
             limits:
               cpu: 700m
-              memory: 200Mi
+              memory: 1500Mi
             requests:
               cpu: 700m
-              memory: 200Mi
+              memory: 1000Mi
 ---
 # Source: rucio-daemons/templates/conveyor.yaml
 apiVersion: apps/v1
