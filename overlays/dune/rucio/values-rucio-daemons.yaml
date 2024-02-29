@@ -242,7 +242,7 @@ conveyorFinisher:
   resources:
     limits:
       memory: "500Mi"
-      cpu: "1100m"
+      cpu: "2000m"
     requests:
       memory: "500Mi"
       cpu: "1000m"
