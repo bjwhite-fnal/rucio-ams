@@ -36,7 +36,7 @@ serviceAccountName: useroot
 
 image:
   repository: rucio/rucio-daemons
-  tag: release-33.5.0
+  tag: release-33.6.1
   pullPolicy: Always
 
 strategy:
@@ -517,6 +517,7 @@ reaper:
   scheme: ""
   threads: 8
   includeRses: ""
+  excludeRses: "MANCHESTER"
   podAnnotations: {}
   resources:
     limits:
