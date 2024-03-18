@@ -517,7 +517,7 @@ reaper:
   scheme: ""
   threads: 8
   includeRses: ""
-  excludeRses: "MANCHESTER"
+  excludeRses: ""
   podAnnotations: {}
   resources:
     limits:

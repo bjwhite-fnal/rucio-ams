@@ -1794,7 +1794,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "reaper"
             - name: RUCIO_DAEMON_ARGS
-              value: ' --threads 8 --exclude-rses="MANCHESTER"'
+              value: ' --threads 8'
             - name: GLOBUS_THREAD_MODEL
               value: "pthread"
             - name: RUCIO_HOME
