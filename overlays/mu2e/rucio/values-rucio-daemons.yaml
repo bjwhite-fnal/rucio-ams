@@ -36,7 +36,7 @@ serviceAccountName: useroot
 
 image:
   repository: rucio/rucio-daemons
-  tag: release-33.6.1
+  tag: release-34.0.0
   pullPolicy: Always
 
 strategy:
