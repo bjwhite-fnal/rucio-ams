@@ -2,4 +2,4 @@
 #
 # Brandon White <bjwhite@fnal.gov>, 2020
 
-SUPPORTED_VERSION = ["32", "33"]
+SUPPORTED_VERSION = ["32", "33", "34"]
