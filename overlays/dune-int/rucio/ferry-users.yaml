@@ -17,22 +17,20 @@ spec:
             - name: ca-volume
               mountPath: /out/
           volumes:
-          - name: ca-volume
-            emptyDir:
-              sizeLimit: 250Mi
-          - name: usercert
-            secret:
-              secretName: fnal-fts-cert
-          - name: userkey
-            secret:
-              secretName: fnal-fts-key
           - name: rucio-config
             secret:
               secretName: fnal-ferry-rucio-config
+          - name: proxy-volume
+            secret:
+              secretName: fnal-rucio-x509up
           containers:
             - name: sync-ferry-users
-              image: "imageregistry.fnal.gov/rucio-ams/rucio-ferry-sync:32.2.0"
+              image: "imageregistry.fnal.gov/rucio-ams/rucio-client:34.1.0.fnal"
               imagePullPolicy: Always
+              command:
+              - /bin/bash
+              - python3
+              - /scripts/sync_ferry_users.py
               resources:
                 limits:
                   cpu: 500m
@@ -41,12 +39,10 @@ spec:
                   cpu: 100m
                   memory: 128Mi
               volumeMounts:
-                - name: usercert
-                  mountPath: /opt/rucio/certs/
-                - name: userkey
-                  mountPath: /opt/rucio/keys/
                 - name: rucio-config
                   mountPath: /opt/rucio/etc
+                - name: proxy-volume
+                  mountPath: /opt/proxy
               env:
                 - name: RUCIO_URL
                   value: ""

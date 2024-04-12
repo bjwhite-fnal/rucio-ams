@@ -239,7 +239,6 @@ define push-webui-cmd =
 	podman push imageregistry.fnal.gov/rucio-ams/rucio-ams-webui:${RUCIO_AMS_VERSION_TAG}
 endef
 
-
 define push-server-cmd =
 	podman tag rucio-server imageregistry.fnal.gov/rucio-ams/rucio-ams-server:${RUCIO_AMS_VERSION_TAG}
 	podman push imageregistry.fnal.gov/rucio-ams/rucio-ams-server:${RUCIO_AMS_VERSION_TAG}
@@ -248,6 +247,11 @@ endef
 define push-daemons-cmd =
 	podman tag rucio-daemons imageregistry.fnal.gov/rucio-ams/rucio-ams-daemons:${RUCIO_AMS_VERSION_TAG}
 	podman push imageregistry.fnal.gov/rucio-ams/rucio-ams-daemons:${RUCIO_AMS_VERSION_TAG}
+endef
+
+define push-client-cmd =
+	docker tag rucio-client imageregistry.fnal.gov/rucio-ams/rucio-client:${RUCIO_AMS_VERSION_TAG}.fnal
+	docker push imageregistry.fnal.gov/rucio-ams/rucio-client:${RUCIO_AMS_VERSION_TAG}.fnal
 endef
 
 define push-cache-cmd =
@@ -284,3 +288,6 @@ push-cache:
 
 push-messenger:
 	$(push-messenger-cmd)
+
+push-client:
+	$(push-client-cmd)
