@@ -127,6 +127,20 @@ podman build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-init -
 -rm -rf init/permissions
 endef
 
+define build-client-cmd =
+-rm -rf init/permissions
+cp -r permissions-fnal init/permissions
+docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-client --build-arg rucio_version=${RUCIO_AMS_VERSION} client
+-rm -rf init/permissions
+endef
+
+define build-client-nc-cmd =
+-rm -rf init/permissions
+cp -r permissions-fnal init/permissions
+docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-client --build-arg rucio_version=${RUCIO_AMS_VERSION} client
+-rm -rf init/permissions
+endef
+
 define build-cache-cmd =
 podman build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-cache cache
 endef
@@ -196,6 +210,12 @@ build-init:
 	$(build-init-cmd)
 	
 build-init-nc:
+	$(build-init-nc-cmd)	
+
+build-client:
+	$(build-client-cmd)
+	
+build-client-nc:
 	$(build-init-nc-cmd)	
 
 # Image push command definitions
