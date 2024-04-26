@@ -1,5 +1,5 @@
 
-# Use this to control building and pushing of Docker images in a significantly less ugly fashion.
+# Use this to control building and pushing of container images in a significantly less ugly fashion.
 #
 
 # Top level Makefile commands (also can build individual images with `make build-<server|daemons|webui|etc...>`)
@@ -130,14 +130,14 @@ endef
 define build-client-cmd =
 -rm -rf init/permissions
 cp -r permissions-fnal init/permissions
-docker build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-client --build-arg rucio_version=${RUCIO_AMS_VERSION} client
+podman build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-client --build-arg rucio_version=${RUCIO_AMS_VERSION} client
 -rm -rf init/permissions
 endef
 
 define build-client-nc-cmd =
 -rm -rf init/permissions
 cp -r permissions-fnal init/permissions
-docker build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-client --build-arg rucio_version=${RUCIO_AMS_VERSION} client
+podman build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-client --build-arg rucio_version=${RUCIO_AMS_VERSION} client
 -rm -rf init/permissions
 endef
 
@@ -250,8 +250,8 @@ define push-daemons-cmd =
 endef
 
 define push-client-cmd =
-	docker tag rucio-client imageregistry.fnal.gov/rucio-ams/rucio-client:${RUCIO_AMS_VERSION_TAG}.fnal
-	docker push imageregistry.fnal.gov/rucio-ams/rucio-client:${RUCIO_AMS_VERSION_TAG}.fnal
+	podman tag rucio-client imageregistry.fnal.gov/rucio-ams/rucio-client:${RUCIO_AMS_VERSION_TAG}.fnal
+	podman push imageregistry.fnal.gov/rucio-ams/rucio-client:${RUCIO_AMS_VERSION_TAG}.fnal
 endef
 
 define push-cache-cmd =
