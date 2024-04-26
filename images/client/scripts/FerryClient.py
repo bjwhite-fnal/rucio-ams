@@ -1,3 +1,8 @@
+"""
+FerryClient
+
+Module to connect to FERRY
+"""
 import logging
 import os
 
@@ -9,12 +14,12 @@ class FerryClient:
     """
     Client to access FERRY
     """
-
     def __init__(self, logger=None):
         self.logger = logger or logging.getLogger()
         self.server = os.getenv("FERRY_URL", "https://ferry.fnal.gov:8445")
-        self.capath = os.getenv("CA_PATH", "/etc/grid-security/certificates")
-        self.cert = os.getenv("CLIENT_X509_PROXY", "/tmp/x509up_u0")
+        self.capath = os.getenv("CA_PATH" "/etc/grid-security/certificates")
+        self.cert = os.getenv("X509_USER_CERT", "/opt/rucio/certs/usercert.pem")
+        self.key = os.getenv("X509_USER_KEY", "/opt/rucio/keys/userkey.pem")
 
     def get(self, url: str, params: dict = None) -> dict:
         """
@@ -25,7 +30,7 @@ class FerryClient:
         try:
             r = requests.get(url,
                 params=params,
-                cert=self.cert,
+                cert=(self.cert, self.key),
                 verify=self.capath)
         except HTTPError as e:
             self.logger.error(e)
@@ -59,7 +64,7 @@ class FerryClient:
         url = f"{self.server}/getUserCertificateDNs"
         params = {"unitname": unitname, "username": username}
         r = self.get(url, params)
-        return r
+        return r[0]['certificates']
 
     def getUserLdapInfo(self, username: str) -> dict:
         """

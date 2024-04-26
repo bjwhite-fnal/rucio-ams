@@ -7,6 +7,7 @@ RUN dnf upgrade -y && \
     rm -rf /var/cache/dnf
 
 RUN dnf install -y epel-release.noarch && \
+    dnf install -y https://repo.opensciencegrid.org/osg/3.6/osg-3.6-el9-release-latest.rpm && \
     dnf clean all && \
     rm -rf /var/cache/dnf
 
@@ -14,7 +15,7 @@ RUN dnf config-manager --set-enabled crb
 
 RUN dnf install -y python3 python3-pip python3-devel \
     openssl-devel vim git \
-    gfal2-all python3-gfal2 && \
+    gfal2-all python3-gfal2 osg-wn-client && \
     dnf clean all && \
     rm -rf /var/cache/dnf
 
