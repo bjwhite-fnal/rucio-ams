@@ -136,7 +136,7 @@ def add_user(user: User):
     logger.info(f"Adding identities for {username}")
     for d in user.identities:
         try:
-            client.add_identity(username, d, "X509", user.email)
+            client.add_identity(username, d['dn'], "X509", user.email)
         except Duplicate as e:
             logger.info(e)
             continue
