@@ -1,5 +1,5 @@
 
-# Use this to control building and pushing of Docker images in a significantly less ugly fashion.
+# Use this to control building and pushing of container images in a significantly less ugly fashion.
 #
 
 # Top level Makefile commands (also can build individual images with `make build-<server|daemons|webui|etc...>`)
@@ -127,6 +127,20 @@ podman build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-init -
 -rm -rf init/permissions
 endef
 
+define build-client-cmd =
+-rm -rf init/permissions
+cp -r permissions-fnal init/permissions
+podman build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-client --build-arg rucio_version=${RUCIO_AMS_VERSION} client
+-rm -rf init/permissions
+endef
+
+define build-client-nc-cmd =
+-rm -rf init/permissions
+cp -r permissions-fnal init/permissions
+podman build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-client --build-arg rucio_version=${RUCIO_AMS_VERSION} client
+-rm -rf init/permissions
+endef
+
 define build-cache-cmd =
 podman build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-cache cache
 endef
@@ -198,6 +212,12 @@ build-init:
 build-init-nc:
 	$(build-init-nc-cmd)	
 
+build-client:
+	$(build-client-cmd)
+	
+build-client-nc:
+	$(build-init-nc-cmd)	
+
 # Image push command definitions
 define push-prometheus-cmd =
 	podman tag rucio-prometheus imageregistry.fnal.gov/rucio-ams/rucio-ams-prometheus:${RUCIO_AMS_VERSION_TAG}
@@ -219,7 +239,6 @@ define push-webui-cmd =
 	podman push imageregistry.fnal.gov/rucio-ams/rucio-ams-webui:${RUCIO_AMS_VERSION_TAG}
 endef
 
-
 define push-server-cmd =
 	podman tag rucio-server imageregistry.fnal.gov/rucio-ams/rucio-ams-server:${RUCIO_AMS_VERSION_TAG}
 	podman push imageregistry.fnal.gov/rucio-ams/rucio-ams-server:${RUCIO_AMS_VERSION_TAG}
@@ -228,6 +247,11 @@ endef
 define push-daemons-cmd =
 	podman tag rucio-daemons imageregistry.fnal.gov/rucio-ams/rucio-ams-daemons:${RUCIO_AMS_VERSION_TAG}
 	podman push imageregistry.fnal.gov/rucio-ams/rucio-ams-daemons:${RUCIO_AMS_VERSION_TAG}
+endef
+
+define push-client-cmd =
+	podman tag rucio-client imageregistry.fnal.gov/rucio-ams/rucio-client:${RUCIO_AMS_VERSION_TAG}.fnal
+	podman push imageregistry.fnal.gov/rucio-ams/rucio-client:${RUCIO_AMS_VERSION_TAG}.fnal
 endef
 
 define push-cache-cmd =
@@ -264,3 +288,6 @@ push-cache:
 
 push-messenger:
 	$(push-messenger-cmd)
+
+push-client:
+	$(push-client-cmd)

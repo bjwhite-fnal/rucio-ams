@@ -1,0 +1,5 @@
+*
+!scripts/
+!certificates/
+!requirements.txt
+*/__pycache__
