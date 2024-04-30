@@ -66,6 +66,17 @@ class FerryClient:
         r = self.get(url, params)
         return r[0]['certificates']
 
+    def getAllUsersCertificateDNs(self, unitname: str = None) -> dict:
+        """
+        Fetches all user's DNs
+        """
+        url = f"{self.server}/getAllUsersCertificateDNs"
+        params = {}
+        if unitname:
+            params['unitname'] = unitname
+        r = self.get(url, params)
+        return r
+
     def getUserLdapInfo(self, username: str) -> dict:
         """
         Fetches user's LDAP information

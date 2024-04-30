@@ -57,8 +57,10 @@ def sync_ferry_users(commit=False, delete_accounts=False, vo='int'):
     unitname = os.getenv("FERRY_VO", vo)
     filtered_users = os.getenv("FILTER_USERS", None)
 
+    # get all members and all DNs for an affiliation
     try:
         members = ferry.getAffiliationMembers(unitname)[0]
+        all_dns = ferry.getAllUsersCertificateDNs(unitname)
     except Exception as e:
         logger.error(f"Could not get users in affiliation {unitname}")
         logger.error(e)
@@ -96,9 +98,9 @@ def sync_ferry_users(commit=False, delete_accounts=False, vo='int'):
             logger.info(f"Account {username} not found. Will create an account.")
             create = True
 
-        # fetch identities
-        logger.info(f"Fetching identities for {username}")
-        dn = ferry.getUserCertificateDNs(unitname, username)
+        # get identities
+        user_dns = list(filter(lambda x: x['username'] == username, all_dns))
+        dn = user_dns[0]['certificates']
 
         users_to_add.append(User(name=username, email=email, identities=dn, create=create))
     
