@@ -12,7 +12,7 @@ import logging
 import os
 import sys
 
-from rucio.client import Client
+from rucio.client import Client as RucioClient
 from rucio.common.exception import AccountNotFound, Duplicate
 
 from FerryClient import FerryClient
@@ -23,10 +23,6 @@ logger.setLevel(logging.DEBUG)
 ch = logging.StreamHandler(stream=sys.stdout)
 ch.setLevel(logging.INFO)
 logger.addHandler(ch)
-
-# setup clients
-ferry = FerryClient(logger=logger)
-client = Client()
 
 # analysis account attributes
 ANALYSIS_ATTRIBUTES = [
@@ -50,10 +46,18 @@ class User:
     create: bool = False
 
 
-def sync_ferry_users(commit=False, delete_accounts=False, vo='int'):
+def sync_ferry_users(commit=False,
+                     delete_accounts=False,
+                     scopes=False,
+                     analysis=False,
+                     vo='int'):
     """
     Fetches users from FERRY and adds them to Rucio with analysis attributes
     """
+    # setup clients
+    ferry = FerryClient(logger=logger)
+    client = RucioClient()
+
     unitname = os.getenv("FERRY_VO", vo)
     filtered_users = os.getenv("FILTER_USERS", None)
 
@@ -107,14 +111,14 @@ def sync_ferry_users(commit=False, delete_accounts=False, vo='int'):
     # Add or update users to Rucio
     if commit:
         for user in users_to_add:
-            add_user(user)
+            add_user(client, user, scopes, analysis)
 
     # delete rucio accounts not in FERRY members or if their status has changed
     if delete_accounts:
-        delete_users(members, commit)
+        delete_users(client, members, commit)
 
 
-def add_user(user: User):
+def add_user(client: RucioClient, user: User, scopes=False, analysis=False):
     """
     Add users to Rucio
     """
@@ -126,32 +130,33 @@ def add_user(user: User):
         client.add_account(username, 'USER', user.email)
 
     # create a scope
-    logger.info(f"Adding scope for user: {username}")
-    try:
-        client.add_scope(username, f'user.{username}')
-    except Duplicate:
-        logger.info(f"Scope for user {username} already exists")
+    if scopes:
+        logger.info(f"Adding scope for user: {username}")
+        try:
+            client.add_scope(username, f'user.{username}')
+        except Duplicate:
+            logger.info(f"Scope for user {username} already exists")
 
     # add user identities
     logger.info(f"Adding identities for {username}")
     for d in user.identities:
         try:
             client.add_identity(username, d['dn'], "X509", user.email)
-        except Duplicate as e:
-            logger.info(e)
+        except Duplicate:
             continue
 
-    # add attributes
-    logger.info(f"Adding analysis attributes")
-    for a in ANALYSIS_ATTRIBUTES:
-        try:
-            client.add_account_attribute(username, a, "1")
-        except Duplicate as e:
-            logger.error(e)
-            continue
+    # add attributes, default False
+    if analysis:
+        logger.info(f"Adding analysis attributes")
+        for a in ANALYSIS_ATTRIBUTES:
+            try:
+                client.add_account_attribute(username, a, "1")
+            except Duplicate as e:
+                logger.error(e)
+                continue
 
 
-def delete_users(members, commit=False):
+def delete_users(client: RucioClient, members, commit=False):
     """
     Checks and delete/disable users from Rucio
     """
@@ -176,13 +181,26 @@ def main():
         description='Sync FERRY Users',
         epilog='Syncs FERRY Users of a VO with Rucio')
     parser.add_argument('--commit',
+                        help='commit users to Rucio',
                         action='store_true')
     parser.add_argument('--delete_accounts',
+                        help='allow deleting/disabling of accounts. --commit is required',
+                        action='store_true')
+    parser.add_argument('--add_scopes',
+                        help='add user scope',
+                        dest='scopes',
+                        action='store_true')
+    parser.add_argument('--add_analysis_attributes',
+                        help=f'add the following analysis account attributes: {ANALYSIS_ATTRIBUTES}',
+                        dest='analysis',
                         action='store_true')
 
     args = parser.parse_args()
 
-    sync_ferry_users(commit=args.commit, delete_accounts=args.delete_accounts)
+    sync_ferry_users(commit=args.commit,
+                    delete_accounts=args.delete_accounts,
+                    scopes=args.scopes,
+                    analysis=args.analysis)
 
 
 if __name__ == "__main__":
