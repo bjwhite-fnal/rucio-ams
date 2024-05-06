@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from datetime import datetime
+import os
 
 metacat_base = None
 
@@ -13,7 +14,7 @@ def lfn2pfn_DUNE(scope, name, rse, rse_attrs, protocol_attrs):
     from metacat.webapi import MetaCatClient
 
     # current URL: https://metacat.fnal.gov:9443/dune_meta_demo/app
-    metacat_url = config.config_get('policy', 'metacat_base_url') or os.environ.get("METACAT_SERVER_URL")
+    metacat_url = config.config_get('policy', 'metacat_base_url', raise_exception=False) or os.environ.get("METACAT_SERVER_URL")
     if metacat_url is None:
         raise ValueError("MetaCat client URL is not configured")
 
