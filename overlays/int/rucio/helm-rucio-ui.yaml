@@ -6,7 +6,7 @@ metadata:
   name: fnal-rucio-ui.config.yaml
   labels:
     app: rucio-ui
-    chart: rucio-ui-32.0.0
+    chart: rucio-ui-34.0.3
     release: "fnal"
     heritage: "Helm"
 type: Opaque
@@ -20,13 +20,14 @@ metadata:
   name: fnal-rucio-ui.cfg
   labels:
     app: rucio-ui
-    chart: "rucio-ui-32.0.0"
+    chart: "rucio-ui-34.0.3"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
 data:
   legacy_dn: "VHJ1ZQ=="
   log_dir: "L3J1Y2lvL2xvZ3M="
+  rucio_hostname: "bXktcnVjaW8tdWkuZXhhbXBsZS5jb20="
 ---
 # Source: rucio-ui/templates/config.yaml
 apiVersion: v1
@@ -35,7 +36,7 @@ metadata:
   name: fnal-rucio-ui-aliases
   labels:
     app: fnal-rucio-ui
-    chart: "rucio-ui-32.0.0"
+    chart: "rucio-ui-34.0.3"
     release: "fnal"
     heritage: "Helm"
 data:
@@ -51,7 +52,7 @@ metadata:
   name: fnal-rucio-ui
   labels:
     app: rucio-ui
-    chart: rucio-ui-32.0.0
+    chart: rucio-ui-34.0.3
     release: fnal
     heritage: Helm
 spec:
@@ -84,28 +85,16 @@ spec:
           name: fnal-rucio-ui-aliases
       - name: httpdlog
         emptyDir: {}
-      - name: hostcert
-        secret:
-          secretName: fnal-hostcert
-      - name: hostkey
-        secret:
-          secretName: fnal-hostkey
-      - name: cafile
-        secret:
-          secretName: fnal-cafile
       - name: policy-package
         secret:
           secretName: fnal-policy-package
       containers:
         - name: rucio-ui
-          image: "rucio/rucio-ui:release-34.0.0"
+          image: "rucio/rucio-ui:release-34.3.0"
           imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 80
-              protocol: TCP
-            - name: https
-              containerPort: 443
               protocol: TCP
           volumeMounts:
             - name: config
@@ -116,15 +105,6 @@ spec:
             - name: aliases
               mountPath: /opt/rucio/etc/aliases.conf
               subPath: aliases.conf
-            - name: hostcert
-              mountPath: /etc/grid-security/hostcert.pem
-              subPath: hostcert.pem
-            - name: hostkey
-              mountPath: /etc/grid-security/hostkey.pem
-              subPath: hostkey.pem
-            - name: cafile
-              mountPath: /etc/grid-security/ca.pem
-              subPath: ca.pem
             - name: policy-package
               mountPath: /opt/rucio/permissions/fermilab
               subPath: 
@@ -139,6 +119,11 @@ spec:
                 secretKeyRef:
                   name: fnal-rucio-ui.cfg
                   key: log_dir
+            - name: RUCIO_HTTPD_RUCIO_HOSTNAME
+              valueFrom:
+                secretKeyRef:
+                  name: fnal-rucio-ui.cfg
+                  key: rucio_hostname
             - name: EXPERIMENT
               value: "Uses $EXPERIMENT"
             - name: PYTHONPATH
@@ -150,13 +135,17 @@ spec:
               value: int-rucio.fnal.gov
             - name: RUCIO_AUTH_PROXY
               value: int-rucio.fnal.gov
-            - name: RUCIO_DEFINE_ALIASES
-              value: "True"
+            - name: RUCIO_PROXY_SCHEME
+              value: https
+            - name: RUCIO_AUTH_PROXY_SCHEME
+              value: https
+            - name: RUCIO_HOSTNAME
+              value: my-rucio-ui.example.com
             - name: RUCIO_OVERRIDE_CONFIGS
               value: "/opt/rucio/etc/conf.d/"
             - name: RUCIO_LOG_FORMAT
               value: '[%{%Y-%m-%d %H:%M:%S}t]\t%v\t%h\t%{X-Forwarded-For}i\t%{X-Rucio-RequestId}i\t%>s\t%I\t%B\t%D\t\"%r\"\t\"%{X-Rucio-Auth-Token}i\"\t\"%{User-Agent}i\"\t%{X-Rucio-Script}i'
             - name: RUCIO_ENABLE_SSL
-              value: "True"
+              value: "False"
           resources:
             {}
