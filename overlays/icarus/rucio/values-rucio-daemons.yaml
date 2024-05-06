@@ -710,7 +710,7 @@ ftsRenewal:
     repository: rucio/fts-cron
     tag: latest
     pullPolicy: Always
-  servers: "https://fts3-public.fnal.gov:8446"
+  servers: "https://fts3-public.cern.ch:8446"
   script: 'default'  # one of: 'default', 'atlas', 'dteam', 'multi_vo', 'tutorial', 'escape'. The associated scripts can be found here: https://github.com/rucio/containers/tree/master/fts-cron
   vos:
     - vo: "icarus"
@@ -837,6 +837,7 @@ config:
 
   transfers:
     multihop_rse_expression: ""
+    srm_https_compatibility: True
 
   policy:
     package: fermilab
@@ -860,7 +861,7 @@ config:
   conveyor:
     scheme: "davs,https,http,srm,gsiftp,root"
     # transfertool: "fts3"
-    ftshosts: "https://fts3-public.fnal.gov:8446"
+    ftshosts: "https://fts3-public.cern.ch:8446"
     cacert: "/opt/certs/ca.pem"
     usercert: "/opt/proxy/x509up"
     # cache_time: ""
