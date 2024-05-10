@@ -122,10 +122,6 @@ secretGenerator:
 #    disableNameSuffixHash: true
 ## automatix input
 #
-# hermes patch file
-- name: fnal-hotfix-6358-hermes-patch
-  files:
-  - hotfix_6358_hermes.patch=etc/hotfix_6358_hermes.patch
 
 # Custom HTTPD config options for Fermilab
 - name: fnal-httpd-custom-config
