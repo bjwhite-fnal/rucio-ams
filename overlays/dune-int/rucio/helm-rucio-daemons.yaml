@@ -5,210 +5,210 @@ kind: ServiceAccount
 metadata:
   name: fnal-rucio-edit
 ---
-# Source: rucio-daemons/templates/abacus.yaml
+# Source: rucio-daemons/templates/abacus-deployment.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: fnal-rucio-daemons.config.abacus-account
   labels:
     app: rucio-daemons-abacus-account
-    chart: "rucio-daemons-32.0.2"
+    chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
 data:
   component.json: "e30="
 ---
-# Source: rucio-daemons/templates/abacus.yaml
+# Source: rucio-daemons/templates/abacus-deployment.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: fnal-rucio-daemons.config.abacus-rse
   labels:
     app: rucio-daemons-abacus-rse
-    chart: "rucio-daemons-32.0.2"
+    chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
 data:
   component.json: "e30="
 ---
-# Source: rucio-daemons/templates/conveyor.yaml
+# Source: rucio-daemons/templates/conveyor-deployment.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: fnal-rucio-daemons.config.conveyor-finisher
   labels:
     app: rucio-daemons-conveyor-finisher
-    chart: "rucio-daemons-32.0.2"
+    chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
 data:
   component.json: "e30="
 ---
-# Source: rucio-daemons/templates/conveyor.yaml
+# Source: rucio-daemons/templates/conveyor-deployment.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: fnal-rucio-daemons.config.conveyor-poller
   labels:
     app: rucio-daemons-conveyor-poller
-    chart: "rucio-daemons-32.0.2"
+    chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
 data:
   component.json: "e30="
 ---
-# Source: rucio-daemons/templates/conveyor.yaml
+# Source: rucio-daemons/templates/conveyor-deployment.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: fnal-rucio-daemons.config.conveyor-stager
   labels:
     app: rucio-daemons-conveyor-stager
-    chart: "rucio-daemons-32.0.2"
+    chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
 data:
   component.json: "e30="
 ---
-# Source: rucio-daemons/templates/conveyor.yaml
+# Source: rucio-daemons/templates/conveyor-deployment.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: fnal-rucio-daemons.config.conveyor-submitter
   labels:
     app: rucio-daemons-conveyor-submitter
-    chart: "rucio-daemons-32.0.2"
+    chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
 data:
   component.json: "e30="
 ---
-# Source: rucio-daemons/templates/hermes.yaml
+# Source: rucio-daemons/templates/hermes-deployment.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: fnal-rucio-daemons.config.hermes
   labels:
     app: rucio-daemons-hermes
-    chart: "rucio-daemons-32.0.2"
+    chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
 data:
   component.json: "e30="
 ---
-# Source: rucio-daemons/templates/judge.yaml
+# Source: rucio-daemons/templates/judge-deployment.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: fnal-rucio-daemons.config.judge-cleaner
   labels:
     app: rucio-daemons-judge-cleaner
-    chart: "rucio-daemons-32.0.2"
+    chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
 data:
   component.json: "e30="
 ---
-# Source: rucio-daemons/templates/judge.yaml
+# Source: rucio-daemons/templates/judge-deployment.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: fnal-rucio-daemons.config.judge-evaluator
   labels:
     app: rucio-daemons-judge-evaluator
-    chart: "rucio-daemons-32.0.2"
+    chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
 data:
   component.json: "e30="
 ---
-# Source: rucio-daemons/templates/judge.yaml
+# Source: rucio-daemons/templates/judge-deployment.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: fnal-rucio-daemons.config.judge-injector
   labels:
     app: rucio-daemons-judge-injector
-    chart: "rucio-daemons-32.0.2"
+    chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
 data:
   component.json: "e30="
 ---
-# Source: rucio-daemons/templates/judge.yaml
+# Source: rucio-daemons/templates/judge-deployment.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: fnal-rucio-daemons.config.judge-repairer
   labels:
     app: rucio-daemons-judge-repairer
-    chart: "rucio-daemons-32.0.2"
+    chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
 data:
   component.json: "e30="
 ---
-# Source: rucio-daemons/templates/minos.yaml
+# Source: rucio-daemons/templates/minos-deployment.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: fnal-rucio-daemons.config.minos
   labels:
     app: rucio-daemons-minos
-    chart: "rucio-daemons-32.0.2"
+    chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
 data:
   component.json: "e30="
 ---
-# Source: rucio-daemons/templates/minos.yaml
+# Source: rucio-daemons/templates/minos-deployment.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: fnal-rucio-daemons.config.minos-temporary-expiration
   labels:
     app: rucio-daemons-minos-temporary-expiration
-    chart: "rucio-daemons-32.0.2"
+    chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
 data:
   component.json: "e30="
 ---
-# Source: rucio-daemons/templates/necromancer.yaml
+# Source: rucio-daemons/templates/necromancer-deployment.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: fnal-rucio-daemons.config.necromancer
   labels:
     app: rucio-daemons-necromancer
-    chart: "rucio-daemons-32.0.2"
+    chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
 data:
   component.json: "e30="
 ---
-# Source: rucio-daemons/templates/replica-recoverer.yaml
+# Source: rucio-daemons/templates/replica-recoverer-deployment.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: fnal-rucio-daemons.config.replica-recoverer
   labels:
     app: rucio-daemons-replica-recoverer
-    chart: "rucio-daemons-32.0.2"
+    chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
@@ -222,35 +222,35 @@ metadata:
   name: fnal-rucio-daemons.config.common
   labels:
     app: rucio-daemons
-    chart: "rucio-daemons-32.0.2"
+    chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
 data:
   common.json: "ewogICJhdXRvbWF0aXgiOiB7CiAgICAiYWNjb3VudCI6ICJhdXRvbWF0aXgiLAogICAgImRhdGFzZXRfbGlmZXRpbWUiOiAzMCwKICAgICJyc2VzIjogIkRDQUNIRV9CSldISVRFX0VORCwgRENBQ0hFX0JKV0hJVEVfRU5EMiIsCiAgICAic2NvcGUiOiAiYXV0b21hdGl4IiwKICAgICJzZXRfbWV0YWRhdGEiOiAiVHJ1ZSIKICB9LAogICJjYWNoZSI6IHsKICAgICJ1cmwiOiAicnVjaW8tY2FjaGU6MTEyMTEiCiAgfSwKICAiY2xpZW50IjogewogICAgImFjY291bnQiOiAiYXV0b21hdGl4IiwKICAgICJhdXRoX2hvc3QiOiAiaHR0cHM6Ly9kdW5lLWludC1ydWNpby5mbmFsLmdvdiIsCiAgICAiYXV0aF90eXBlIjogIng1MDlfcHJveHkiLAogICAgImNhX2NlcnQiOiAiL29wdC9jZXJ0cyIsCiAgICAiY2xpZW50X3g1MDlfcHJveHkiOiAiL29wdC9wcm94eS94NTA5dXAiLAogICAgInByb3RvY29sX3N0YXRfcmV0cmllcyI6IDYsCiAgICAicmVxdWVzdF9yZXRyaWVzIjogMywKICAgICJydWNpb19ob3N0IjogImh0dHBzOi8vZHVuZS1pbnQtcnVjaW8uZm5hbC5nb3YiCiAgfSwKICAiY29udmV5b3IiOiB7CiAgICAiY2FjZXJ0IjogIi9vcHQvY2VydHMvY2EucGVtIiwKICAgICJmdHNob3N0cyI6ICJodHRwczovL2Z0czMtcHVibGljLmNlcm4uY2g6ODQ0NixodHRwczovL2Z0czMtcHVibGljLmZuYWwuZ292Ojg0NDYiLAogICAgInNjaGVtZSI6ICJzcm0sZ3NpZnRwLHJvb3QsaHR0cCxodHRwcyxkYXZzIiwKICAgICJ1c2VyY2VydCI6ICIvb3B0L3Byb3h5L3g1MDl1cCIKICB9LAogICJoZXJtZXMiOiB7CiAgICAic2VydmljZXNfbGlzdCI6ICJhY3RpdmVtcSIKICB9LAogICJtZXNzYWdpbmctY2FjaGUiOiB7CiAgICAiYWNjb3VudCI6ICJtZW1jYWNoZSIsCiAgICAiYnJva2VycyI6ICJydWNpby1jYWNoZSIsCiAgICAiZGVzdGluYXRpb24iOiAiL3RvcGljL3J1Y2lvLmV2ZW50cy5kdW5lX2ludCIsCiAgICAicG9ydCI6ICI2MTEyMyIsCiAgICAidm9uYW1lIjogImR1bmUtaW50IgogIH0sCiAgIm1lc3NhZ2luZy1oZXJtZXMiOiB7CiAgICAiYnJva2VyX3ZpcnR1YWxfaG9zdCI6ICIvIiwKICAgICJicm9rZXJzIjogImZuYWwtcnVjaW8tbWVzc2VuZ2VyIiwKICAgICJkZXN0aW5hdGlvbiI6ICIvdG9waWMvcnVjaW8uZXZlbnRzLmR1bmVfaW50IiwKICAgICJub25zc2xfcG9ydCI6ICI2MTYxMyIsCiAgICAicGFzc3dvcmQiOiAiZ3Vlc3QiLAogICAgInBvcnQiOiAiNjE2MTMiLAogICAgInNzbF9jZXJ0X2ZpbGUiOiAiL29wdC9ydWNpby9jZXJ0cy9ob3N0Y2VydC5wZW0iLAogICAgInNzbF9rZXlfZmlsZSI6ICIvb3B0L3J1Y2lvL2tleXMvaG9zdGtleS5wZW0iLAogICAgInVzZV9zc2wiOiAiRmFsc2UiLAogICAgInVzZXJuYW1lIjogImd1ZXN0IiwKICAgICJ2b25hbWUiOiAiZHVuZS1pbnQiCiAgfSwKICAibW9uaXRvciI6IHsKICAgICJlbmFibGVfbWV0cmljcyI6IHRydWUKICB9LAogICJwb2xpY3kiOiB7CiAgICAibWV0YWNhdF9iYXNlX3VybCI6ICJodHRwczovL21ldGFjYXQuZm5hbC5nb3Y6OTQ0My9kdW5lX21ldGFfcHJvZC9hcHAiLAogICAgInBhY2thZ2UiOiAiZmVybWlsYWIuZHVuZSIKICB9LAogICJ0cmFuc2ZlcnMiOiB7CiAgICAibXVsdGlob3BfcnNlX2V4cHJlc3Npb24iOiAiIiwKICAgICJzcm1faHR0cHNfY29tcGF0aWJpbGl0eSI6IHRydWUKICB9Cn0="
 ---
-# Source: rucio-daemons/templates/transmogrifier.yaml
+# Source: rucio-daemons/templates/transmogrifier-deployment.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: fnal-rucio-daemons.config.transmogrifier
   labels:
     app: rucio-daemons-transmogrifier
-    chart: "rucio-daemons-32.0.2"
+    chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
 data:
   component.json: "e30="
 ---
-# Source: rucio-daemons/templates/undertaker.yaml
+# Source: rucio-daemons/templates/undertaker-deployment.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: fnal-rucio-daemons.config.undertaker
   labels:
     app: rucio-daemons-undertaker
-    chart: "rucio-daemons-32.0.2"
+    chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
@@ -279,7 +279,7 @@ metadata:
   name: fnal-rucio-daemons
   labels:
     app-group: rucio-daemons
-    chart: rucio-daemons-32.0.2
+    chart: rucio-daemons-34.0.3
     release: fnal
     heritage: Helm
 spec:
@@ -293,7 +293,7 @@ spec:
     app-group: rucio-daemons
     release: fnal
 ---
-# Source: rucio-daemons/templates/abacus.yaml
+# Source: rucio-daemons/templates/abacus-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -301,7 +301,7 @@ metadata:
   labels:
     app: rucio-daemons-abacus-account
     app-group: rucio-daemons
-    chart: rucio-daemons-32.0.2
+    chart: rucio-daemons-34.0.3
     release: fnal
     heritage: Helm
 spec:
@@ -349,7 +349,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-34.0.0"
+          image: "rucio/rucio-daemons:release-34.3.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -393,7 +393,7 @@ spec:
               cpu: 700m
               memory: 200Mi
 ---
-# Source: rucio-daemons/templates/abacus.yaml
+# Source: rucio-daemons/templates/abacus-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -401,7 +401,7 @@ metadata:
   labels:
     app: rucio-daemons-abacus-rse
     app-group: rucio-daemons
-    chart: rucio-daemons-32.0.2
+    chart: rucio-daemons-34.0.3
     release: fnal
     heritage: Helm
 spec:
@@ -449,7 +449,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-34.0.0"
+          image: "rucio/rucio-daemons:release-34.3.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -493,7 +493,7 @@ spec:
               cpu: 700m
               memory: 200Mi
 ---
-# Source: rucio-daemons/templates/conveyor.yaml
+# Source: rucio-daemons/templates/conveyor-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -501,7 +501,7 @@ metadata:
   labels:
     app: rucio-daemons-conveyor-finisher
     app-group: rucio-daemons
-    chart: rucio-daemons-32.0.2
+    chart: rucio-daemons-34.0.3
     release: fnal
     heritage: Helm
 spec:
@@ -549,7 +549,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-34.0.0"
+          image: "rucio/rucio-daemons:release-34.3.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -593,7 +593,7 @@ spec:
               cpu: 700m
               memory: 200Mi
 ---
-# Source: rucio-daemons/templates/conveyor.yaml
+# Source: rucio-daemons/templates/conveyor-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -601,7 +601,7 @@ metadata:
   labels:
     app: rucio-daemons-conveyor-poller
     app-group: rucio-daemons
-    chart: rucio-daemons-32.0.2
+    chart: rucio-daemons-34.0.3
     release: fnal
     heritage: Helm
 spec:
@@ -649,7 +649,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-34.0.0"
+          image: "rucio/rucio-daemons:release-34.3.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -693,7 +693,7 @@ spec:
               cpu: 700m
               memory: 200Mi
 ---
-# Source: rucio-daemons/templates/conveyor.yaml
+# Source: rucio-daemons/templates/conveyor-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -701,7 +701,7 @@ metadata:
   labels:
     app: rucio-daemons-conveyor-stager
     app-group: rucio-daemons
-    chart: rucio-daemons-32.0.2
+    chart: rucio-daemons-34.0.3
     release: fnal
     heritage: Helm
 spec:
@@ -749,7 +749,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-34.0.0"
+          image: "rucio/rucio-daemons:release-34.3.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -793,7 +793,7 @@ spec:
               cpu: 700m
               memory: 200Mi
 ---
-# Source: rucio-daemons/templates/conveyor.yaml
+# Source: rucio-daemons/templates/conveyor-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -801,7 +801,7 @@ metadata:
   labels:
     app: rucio-daemons-conveyor-submitter
     app-group: rucio-daemons
-    chart: rucio-daemons-32.0.2
+    chart: rucio-daemons-34.0.3
     release: fnal
     heritage: Helm
 spec:
@@ -849,7 +849,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-34.0.0"
+          image: "rucio/rucio-daemons:release-34.3.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -893,7 +893,7 @@ spec:
               cpu: 700m
               memory: 200Mi
 ---
-# Source: rucio-daemons/templates/hermes.yaml
+# Source: rucio-daemons/templates/hermes-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -901,7 +901,7 @@ metadata:
   labels:
     app: rucio-daemons-hermes
     app-group: rucio-daemons
-    chart: rucio-daemons-32.0.2
+    chart: rucio-daemons-34.0.3
     release: fnal
     heritage: Helm
 spec:
@@ -945,12 +945,9 @@ spec:
         - name: policy-package
           secret:
             secretName: fnal-policy-package
-        - name: hotfix-6358-hermes-patch
-          secret:
-            secretName: fnal-hotfix-6358-hermes-patch
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-34.0.0"
+          image: "rucio/rucio-daemons:release-34.3.0"
           imagePullPolicy: Always
           volumeMounts:
 
@@ -967,9 +964,6 @@ spec:
               subPath: component.json
             - name: policy-package
               mountPath: /opt/rucio/permissions/fermilab/dune
-            - name: hotfix-6358-hermes-patch
-              mountPath: /patch/hotfix_6358_hermes.patch
-              subPath: "hotfix_6358_hermes.patch"
           ports:
             - name: metrics
               containerPort: 8080
@@ -996,7 +990,7 @@ spec:
               cpu: 700m
               memory: 200Mi
 ---
-# Source: rucio-daemons/templates/judge.yaml
+# Source: rucio-daemons/templates/judge-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -1004,7 +998,7 @@ metadata:
   labels:
     app: rucio-daemons-judge-cleaner
     app-group: rucio-daemons
-    chart: rucio-daemons-32.0.2
+    chart: rucio-daemons-34.0.3
     release: fnal
     heritage: Helm
 spec:
@@ -1052,7 +1046,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-34.0.0"
+          image: "rucio/rucio-daemons:release-34.3.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1096,7 +1090,7 @@ spec:
               cpu: 700m
               memory: 200Mi
 ---
-# Source: rucio-daemons/templates/judge.yaml
+# Source: rucio-daemons/templates/judge-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -1104,7 +1098,7 @@ metadata:
   labels:
     app: rucio-daemons-judge-evaluator
     app-group: rucio-daemons
-    chart: rucio-daemons-32.0.2
+    chart: rucio-daemons-34.0.3
     release: fnal
     heritage: Helm
 spec:
@@ -1152,7 +1146,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-34.0.0"
+          image: "rucio/rucio-daemons:release-34.3.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1196,7 +1190,7 @@ spec:
               cpu: 1000m
               memory: 900Mi
 ---
-# Source: rucio-daemons/templates/judge.yaml
+# Source: rucio-daemons/templates/judge-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -1204,7 +1198,7 @@ metadata:
   labels:
     app: rucio-daemons-judge-injector
     app-group: rucio-daemons
-    chart: rucio-daemons-32.0.2
+    chart: rucio-daemons-34.0.3
     release: fnal
     heritage: Helm
 spec:
@@ -1252,7 +1246,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-34.0.0"
+          image: "rucio/rucio-daemons:release-34.3.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1296,7 +1290,7 @@ spec:
               cpu: 700m
               memory: 200Mi
 ---
-# Source: rucio-daemons/templates/judge.yaml
+# Source: rucio-daemons/templates/judge-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -1304,7 +1298,7 @@ metadata:
   labels:
     app: rucio-daemons-judge-repairer
     app-group: rucio-daemons
-    chart: rucio-daemons-32.0.2
+    chart: rucio-daemons-34.0.3
     release: fnal
     heritage: Helm
 spec:
@@ -1352,7 +1346,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-34.0.0"
+          image: "rucio/rucio-daemons:release-34.3.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1396,7 +1390,7 @@ spec:
               cpu: 700m
               memory: 200Mi
 ---
-# Source: rucio-daemons/templates/minos.yaml
+# Source: rucio-daemons/templates/minos-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -1404,7 +1398,7 @@ metadata:
   labels:
     app: rucio-daemons-minos
     app-group: rucio-daemons
-    chart: rucio-daemons-32.0.2
+    chart: rucio-daemons-34.0.3
     release: fnal
     heritage: Helm
 spec:
@@ -1452,7 +1446,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-34.0.0"
+          image: "rucio/rucio-daemons:release-34.3.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1496,7 +1490,7 @@ spec:
               cpu: 100m
               memory: 100Mi
 ---
-# Source: rucio-daemons/templates/minos.yaml
+# Source: rucio-daemons/templates/minos-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -1504,7 +1498,7 @@ metadata:
   labels:
     app: rucio-daemons-minos-temporary-expiration
     app-group: rucio-daemons
-    chart: rucio-daemons-32.0.2
+    chart: rucio-daemons-34.0.3
     release: fnal
     heritage: Helm
 spec:
@@ -1552,7 +1546,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-34.0.0"
+          image: "rucio/rucio-daemons:release-34.3.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1596,7 +1590,7 @@ spec:
               cpu: 100m
               memory: 100Mi
 ---
-# Source: rucio-daemons/templates/necromancer.yaml
+# Source: rucio-daemons/templates/necromancer-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -1604,7 +1598,7 @@ metadata:
   labels:
     app: rucio-daemons-necromancer
     app-group: rucio-daemons
-    chart: rucio-daemons-32.0.2
+    chart: rucio-daemons-34.0.3
     release: fnal
     heritage: Helm
 spec:
@@ -1652,7 +1646,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-34.0.0"
+          image: "rucio/rucio-daemons:release-34.3.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1696,7 +1690,7 @@ spec:
               cpu: 100m
               memory: 100Mi
 ---
-# Source: rucio-daemons/templates/replica-recoverer.yaml
+# Source: rucio-daemons/templates/replica-recoverer-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -1704,7 +1698,7 @@ metadata:
   labels:
     app: rucio-daemons-replica-recoverer
     app-group: rucio-daemons
-    chart: rucio-daemons-32.0.2
+    chart: rucio-daemons-34.0.3
     release: fnal
     heritage: Helm
 spec:
@@ -1752,7 +1746,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-34.0.0"
+          image: "rucio/rucio-daemons:release-34.3.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1796,7 +1790,7 @@ spec:
               cpu: 700m
               memory: 200Mi
 ---
-# Source: rucio-daemons/templates/transmogrifier.yaml
+# Source: rucio-daemons/templates/transmogrifier-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -1804,7 +1798,7 @@ metadata:
   labels:
     app: rucio-daemons-transmogrifier
     app-group: rucio-daemons
-    chart: rucio-daemons-32.0.2
+    chart: rucio-daemons-34.0.3
     release: fnal
     heritage: Helm
 spec:
@@ -1852,7 +1846,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-34.0.0"
+          image: "rucio/rucio-daemons:release-34.3.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1896,7 +1890,7 @@ spec:
               cpu: 700m
               memory: 200Mi
 ---
-# Source: rucio-daemons/templates/undertaker.yaml
+# Source: rucio-daemons/templates/undertaker-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -1904,7 +1898,7 @@ metadata:
   labels:
     app: rucio-daemons-undertaker
     app-group: rucio-daemons
-    chart: rucio-daemons-32.0.2
+    chart: rucio-daemons-34.0.3
     release: fnal
     heritage: Helm
 spec:
@@ -1949,7 +1943,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-34.0.0"
+          image: "rucio/rucio-daemons:release-34.3.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: config-common
