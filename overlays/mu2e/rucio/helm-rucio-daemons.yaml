@@ -845,11 +845,11 @@ spec:
                   name: fnal-db-connstr
           resources:
             limits:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 1200m
+              memory: 1000Mi
             requests:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 1000m
+              memory: 900Mi
 ---
 # Source: rucio-daemons/templates/hermes.yaml
 apiVersion: apps/v1
@@ -1786,10 +1786,10 @@ spec:
           resources:
             limits:
               cpu: 700m
-              memory: 200Mi
+              memory: 400Mi
             requests:
               cpu: 700m
-              memory: 200Mi
+              memory: 400Mi
 ---
 # Source: rucio-daemons/templates/undertaker.yaml
 apiVersion: apps/v1
