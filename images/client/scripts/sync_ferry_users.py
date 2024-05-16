@@ -43,7 +43,6 @@ class User:
     name: str
     email: str
     identities: list[str]
-    create: bool = False
 
 
 def sync_ferry_users(commit=False,
@@ -65,6 +64,8 @@ def sync_ferry_users(commit=False,
     try:
         members = ferry.getAffiliationMembers(unitname)[0]
         all_dns = ferry.getAllUsersCertificateDNs(unitname)
+        group_members = ferry.getGroupMembers(unitname)
+        print(group_members)
     except Exception as e:
         logger.error(f"Could not get users in affiliation {unitname}")
         logger.error(e)
@@ -87,26 +88,24 @@ def sync_ferry_users(commit=False,
         except:
             continue
 
+        # get user email
         try:
             userLdap = ferry.getUserLdapInfo(username)
             email = userLdap['mail']
         except Exception as e:
-            logger.error(f"Could not get userLdapInfo for {username}")
+            logger.error(f"Could not get userLdapInfo for {username}, skipping")
             logger.error(e)
             continue
 
-        create = False
-        try:
-           client.get_account(username)
-        except AccountNotFound:
-            logger.info(f"Account {username} not found. Will create an account.")
-            create = True
-
         # get identities
         user_dns = list(filter(lambda x: x['username'] == username, all_dns))
-        dn = user_dns[0]['certificates']
+        if user_dns:
+            dn = user_dns[0]['certificates']
+        else:
+            logger.error(f"No dns for {username} found")
+            dn = []
 
-        users_to_add.append(User(name=username, email=email, identities=dn, create=create))
+        users_to_add.append(User(name=username, email=email, identities=dn))
     
     # Add or update users to Rucio
     if commit:
@@ -123,9 +122,9 @@ def add_user(client: RucioClient, user: User, scopes=False, analysis=False):
     Add users to Rucio
     """
     username = user.name
-
-    # create user, if they do not exist
-    if user.create:
+    try:
+        client.get_account(username)
+    except AccountNotFound:
         logger.info(f"Creating account for {username}")
         client.add_account(username, 'USER', user.email)
 
