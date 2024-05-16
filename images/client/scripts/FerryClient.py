@@ -10,6 +10,10 @@ import requests
 from requests.exceptions import HTTPError
 
 
+class UserLDAPError(Exception):
+    pass
+
+
 class FerryClient:
     """
     Client to access FERRY
