@@ -12,10 +12,10 @@ import logging
 import os
 import sys
 
-from rucio.client import Client
+from rucio.client import Client as RucioClient
 from rucio.common.exception import AccountNotFound, Duplicate
 
-from FerryClient import FerryClient
+from FerryClient import FerryClient, UserLDAPError
 
 # setup logger
 logger = logging.getLogger()
@@ -23,10 +23,6 @@ logger.setLevel(logging.DEBUG)
 ch = logging.StreamHandler(stream=sys.stdout)
 ch.setLevel(logging.INFO)
 logger.addHandler(ch)
-
-# setup clients
-ferry = FerryClient(logger=logger)
-client = Client()
 
 # analysis account attributes
 ANALYSIS_ATTRIBUTES = [
@@ -45,15 +41,22 @@ class User:
     a Rucio Account
     """
     name: str
-    email: str
+    # email: str
     identities: list[str]
-    create: bool = False
 
 
-def sync_ferry_users(commit=False, delete_accounts=False, vo='int'):
+def sync_ferry_users(commit=False,
+                     delete_accounts=False,
+                     scopes=False,
+                     analysis=False,
+                     vo='int'):
     """
     Fetches users from FERRY and adds them to Rucio with analysis attributes
     """
+    # setup clients
+    ferry = FerryClient(logger=logger)
+    client = RucioClient()
+
     unitname = os.getenv("FERRY_VO", vo)
     filtered_users = os.getenv("FILTER_USERS", None)
 
@@ -83,75 +86,92 @@ def sync_ferry_users(commit=False, delete_accounts=False, vo='int'):
         except:
             continue
 
-        try:
-            userLdap = ferry.getUserLdapInfo(username)
-            email = userLdap['mail']
-        except Exception as e:
-            logger.error(f"Could not get userLdapInfo for {username}")
-            logger.error(e)
-            continue
-
-        create = False
-        try:
-           client.get_account(username)
-        except AccountNotFound:
-            logger.info(f"Account {username} not found. Will create an account.")
-            create = True
-
         # get identities
         user_dns = list(filter(lambda x: x['username'] == username, all_dns))
-        dn = user_dns[0]['certificates']
+        if user_dns:
+            dn = user_dns[0]['certificates']
+        else:
+            logger.error(f"No dns for {username} found")
+            dn = []
 
-        users_to_add.append(User(name=username, email=email, identities=dn, create=create))
+        users_to_add.append(User(name=username, identities=dn))
     
     # Add or update users to Rucio
     if commit:
         for user in users_to_add:
-            add_user(user)
+            add_user(ferry, client, user, scopes, analysis)
 
     # delete rucio accounts not in FERRY members or if their status has changed
     if delete_accounts:
-        delete_users(members, commit)
+        delete_users(client, members, commit)
 
 
-def add_user(user: User):
+def get_email(ferry: FerryClient, username: str) -> str:
+    """Fetch email from FERRY using LDAP"""
+    try:
+        userLdap = ferry.getUserLdapInfo(username)
+        return userLdap['mail']
+    except Exception as e:
+        raise UserLDAPError(e)
+
+
+def add_user(ferry: FerryClient, client: RucioClient, user: User, scopes=False, analysis=False):
     """
     Add users to Rucio
     """
     username = user.name
-
-    # create user, if they do not exist
-    if user.create:
-        logger.info(f"Creating account for {username}")
-        client.add_account(username, 'USER', user.email)
-
-    # create a scope
-    logger.info(f"Adding scope for user: {username}")
+    email = ''
     try:
-        client.add_scope(username, f'user.{username}')
-    except Duplicate:
-        logger.info(f"Scope for user {username} already exists")
+        account = client.get_account(username)
+    except AccountNotFound:
+        logger.info(f"Creating account for {username}")
+        try:
+            email = get_email(ferry, username)
+        except UserLDAPError as e:
+            logger.error(f"Could not get userLdapInfo for {username}, skipping")
+            logger.error(e)
+            return
+        client.add_account(username, 'USER', email)
+        account = client.get_account(username)
+
+    email = account['email']
 
     # add user identities
     logger.info(f"Adding identities for {username}")
     for d in user.identities:
         try:
-            client.add_identity(username, d, "X509", user.email)
-        except Duplicate as e:
-            logger.info(e)
+            existing = client.list_identities(username)
+            if d['dn'] not in existing:
+                if not email:
+                    email = get_email(ferry, username)
+                client.add_identity(username, d['dn'], "X509", email)
+        except Duplicate:
             continue
-
-    # add attributes
-    logger.info(f"Adding analysis attributes")
-    for a in ANALYSIS_ATTRIBUTES:
-        try:
-            client.add_account_attribute(username, a, "1")
-        except Duplicate as e:
+        except UserLDAPError as e:
+            logger.error(f"Could not get email for {username}, skipping")
             logger.error(e)
             continue
 
+    # create a scope
+    if scopes:
+        logger.info(f"Adding scope for user: {username}")
+        try:
+            client.add_scope(username, f'user.{username}')
+        except Duplicate:
+            logger.info(f"Scope for user {username} already exists")
 
-def delete_users(members, commit=False):
+    # add attributes, default False
+    if analysis:
+        logger.info(f"Adding analysis attributes")
+        for a in ANALYSIS_ATTRIBUTES:
+            try:
+                client.add_account_attribute(username, a, "1")
+            except Duplicate as e:
+                logger.error(e)
+                continue
+
+
+def delete_users(client: RucioClient, members, commit=False):
     """
     Checks and delete/disable users from Rucio
     """
@@ -176,13 +196,26 @@ def main():
         description='Sync FERRY Users',
         epilog='Syncs FERRY Users of a VO with Rucio')
     parser.add_argument('--commit',
+                        help='commit users to Rucio',
                         action='store_true')
     parser.add_argument('--delete_accounts',
+                        help='allow deleting/disabling of accounts. --commit is required',
+                        action='store_true')
+    parser.add_argument('--add_scopes',
+                        help='add user scope',
+                        dest='scopes',
+                        action='store_true')
+    parser.add_argument('--add_analysis_attributes',
+                        help=f'add the following analysis account attributes: {ANALYSIS_ATTRIBUTES}',
+                        dest='analysis',
                         action='store_true')
 
     args = parser.parse_args()
 
-    sync_ferry_users(commit=args.commit, delete_accounts=args.delete_accounts)
+    sync_ferry_users(commit=args.commit,
+                    delete_accounts=args.delete_accounts,
+                    scopes=args.scopes,
+                    analysis=args.analysis)
 
 
 if __name__ == "__main__":

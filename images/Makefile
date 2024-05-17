@@ -1,6 +1,13 @@
 
 # Use this to control building and pushing of container images in a significantly less ugly fashion.
 #
+#
+# check to see if podman is installed and running; otherwise, use docker
+ifeq ($(shell command podman version 2> /dev/null),)
+	CMD=docker
+else
+	CMD=podman
+endif
 
 # Top level Makefile commands (also can build individual images with `make build-<server|daemons|webui|etc...>`)
 push-all:
@@ -33,128 +40,131 @@ build-all-nc:
 	$(build-statsd-nc-cmd)
 	$(build-prometheus-nc-cmd)
 
+test:
+	$(CMD) version
+
 # Image build command definitions
 define build-prometheus-cmd =
-podman build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-prometheus prometheus 
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-prometheus prometheus 
 endef
 
 define build-statsd-cmd =
-podman build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-statsd statsd
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-statsd statsd
 endef
 
 define build-logrotate-cmd =
-podman build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-logrotate logrotate
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-logrotate logrotate
 endef
 
 define build-logrotate-nc-cmd =
-podman build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-logrotate logrotate
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-logrotate logrotate
 endef
 
 define build-logstash-cmd =
-podman build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-logstash logstash
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-logstash logstash
 >>>>>>> Debugging
 endef
 
 define build-prometheus-nc-cmd =
-podman build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-prometheus prometheus
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-prometheus prometheus
 endef
 
 define build-statsd-nc-cmd =
-podman build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-statsd statsd
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-statsd statsd
 endef
 
 define build-fts-cron-cmd =
-podman build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-fts-cron fts-cron
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-fts-cron fts-cron
 endef
 
 define build-fts-cron-nc-cmd =
-podman build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-fts-cron fts-cron
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-fts-cron fts-cron
 endef
 
 define build-webui-cmd =
 -rm -rf webui/permissions
 cp -r permissions-fnal webui/permissions
-podman build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-webui --build-arg rucio_version=${RUCIO_AMS_VERSION} webui
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-webui --build-arg rucio_version=${RUCIO_AMS_VERSION} webui
 -rm -rf webui/permissions
 endef
 
 define build-webui-nc-cmd =
 -rm -rf webui/permissions
 cp -r permissions-fnal webui/permissions
-podman build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-webui --build-arg rucio_version=${RUCIO_AMS_VERSION} webui
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-webui --build-arg rucio_version=${RUCIO_AMS_VERSION} webui
 -rm -rf webui/permissions
 endef
 
 define build-server-cmd =
 -rm -rf server/permissions
 cp -r permissions-fnal server/permissions
-podman build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-server --build-arg rucio_version=${RUCIO_AMS_VERSION} server
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-server --build-arg rucio_version=${RUCIO_AMS_VERSION} server
 -rm -rf server/permissions
 endef
 
 define build-server-nc-cmd =
 -rm -rf server/permissions
 cp -r permissions-fnal server/permissions
-podman build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-server --build-arg rucio_version=${RUCIO_AMS_VERSION} server	
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-server --build-arg rucio_version=${RUCIO_AMS_VERSION} server	
 -rm -rf server/permissions
 endef
 
 define build-daemons-cmd =
 -rm -rf daemons/permissions
 cp -r permissions-fnal daemons/permissions
-podman build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-daemons --build-arg rucio_version=${RUCIO_AMS_VERSION} daemons
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-daemons --build-arg rucio_version=${RUCIO_AMS_VERSION} daemons
 -rm -rf daemons/permissions
 endef
 
 define build-daemons-nc-cmd =
 -rm -rf daemons/permissions
 cp -r permissions-fnal daemons/permissions
-podman build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-daemons --build-arg rucio_version=${RUCIO_AMS_VERSION} daemons
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-daemons --build-arg rucio_version=${RUCIO_AMS_VERSION} daemons
 -rm -rf daemons/permissions
 endef
 
 define build-init-cmd =
 -rm -rf init/permissions
 cp -r permissions-fnal init/permissions
-podman build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-init --build-arg rucio_version=${RUCIO_AMS_VERSION} init
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-init --build-arg rucio_version=${RUCIO_AMS_VERSION} init
 -rm -rf init/permissions
 endef
 
 define build-init-nc-cmd =
 -rm -rf init/permissions
 cp -r permissions-fnal init/permissions
-podman build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-init --build-arg rucio_version=${RUCIO_AMS_VERSION} init
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-init --build-arg rucio_version=${RUCIO_AMS_VERSION} init
 -rm -rf init/permissions
 endef
 
 define build-client-cmd =
 -rm -rf init/permissions
 cp -r permissions-fnal init/permissions
-podman build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-client --build-arg rucio_version=${RUCIO_AMS_VERSION} client
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-client --build-arg rucio_version=${RUCIO_AMS_VERSION} client
 -rm -rf init/permissions
 endef
 
 define build-client-nc-cmd =
 -rm -rf init/permissions
 cp -r permissions-fnal init/permissions
-podman build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-client --build-arg rucio_version=${RUCIO_AMS_VERSION} client
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-client --build-arg rucio_version=${RUCIO_AMS_VERSION} client
 -rm -rf init/permissions
 endef
 
 define build-cache-cmd =
-podman build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-cache cache
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-cache cache
 endef
 
 define build-cache-nc-cmd =
-podman build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-cache cache
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-cache cache
 endef
 
 define build-messenger-cmd =
-podman build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-messenger messenger
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" -t rucio-messenger messenger
 endef
 
 define build-messenger-nc-cmd =
-podman build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-messenger messenger
+$(CMD) build --label "maintainer=${RUCIO_BUILD_USER}" --no-cache -t rucio-messenger messenger
 endef
 
 # Image build command declarations
@@ -220,48 +230,48 @@ build-client-nc:
 
 # Image push command definitions
 define push-prometheus-cmd =
-	podman tag rucio-prometheus imageregistry.fnal.gov/rucio-ams/rucio-ams-prometheus:${RUCIO_AMS_VERSION_TAG}
-	podman push imageregistry.fnal.gov/rucio-ams/rucio-ams-prometheus:${RUCIO_AMS_VERSION_TAG}
+	$(CMD) tag rucio-prometheus imageregistry.fnal.gov/rucio-ams/rucio-ams-prometheus:${RUCIO_AMS_VERSION_TAG}
+	$(CMD) push imageregistry.fnal.gov/rucio-ams/rucio-ams-prometheus:${RUCIO_AMS_VERSION_TAG}
 endef
 
 define push-statsd-cmd =
-	podman tag rucio-statsd imageregistry.fnal.gov/rucio-ams/rucio-ams-statsd:${RUCIO_AMS_VERSION_TAG}
-	podman push imageregistry.fnal.gov/rucio-ams/rucio-ams-statsd:${RUCIO_AMS_VERSION_TAG}
+	$(CMD) tag rucio-statsd imageregistry.fnal.gov/rucio-ams/rucio-ams-statsd:${RUCIO_AMS_VERSION_TAG}
+	$(CMD) push imageregistry.fnal.gov/rucio-ams/rucio-ams-statsd:${RUCIO_AMS_VERSION_TAG}
 endef
 
 define push-fts-cron-cmd =
-	podman tag rucio-fts-cron imageregistry.fnal.gov/rucio-ams/rucio-ams-fts-cron:${RUCIO_AMS_VERSION_TAG}
-	podman push imageregistry.fnal.gov/rucio-ams/rucio-ams-fts-cron:${RUCIO_AMS_VERSION_TAG}
+	$(CMD) tag rucio-fts-cron imageregistry.fnal.gov/rucio-ams/rucio-ams-fts-cron:${RUCIO_AMS_VERSION_TAG}
+	$(CMD) push imageregistry.fnal.gov/rucio-ams/rucio-ams-fts-cron:${RUCIO_AMS_VERSION_TAG}
 endef
 
 define push-webui-cmd =
-	podman tag rucio-webui imageregistry.fnal.gov/rucio-ams/rucio-ams-webui:${RUCIO_AMS_VERSION_TAG}
-	podman push imageregistry.fnal.gov/rucio-ams/rucio-ams-webui:${RUCIO_AMS_VERSION_TAG}
+	$(CMD) tag rucio-webui imageregistry.fnal.gov/rucio-ams/rucio-ams-webui:${RUCIO_AMS_VERSION_TAG}
+	$(CMD) push imageregistry.fnal.gov/rucio-ams/rucio-ams-webui:${RUCIO_AMS_VERSION_TAG}
 endef
 
 define push-server-cmd =
-	podman tag rucio-server imageregistry.fnal.gov/rucio-ams/rucio-ams-server:${RUCIO_AMS_VERSION_TAG}
-	podman push imageregistry.fnal.gov/rucio-ams/rucio-ams-server:${RUCIO_AMS_VERSION_TAG}
+	$(CMD) tag rucio-server imageregistry.fnal.gov/rucio-ams/rucio-ams-server:${RUCIO_AMS_VERSION_TAG}
+	$(CMD) push imageregistry.fnal.gov/rucio-ams/rucio-ams-server:${RUCIO_AMS_VERSION_TAG}
 endef
 
 define push-daemons-cmd =
-	podman tag rucio-daemons imageregistry.fnal.gov/rucio-ams/rucio-ams-daemons:${RUCIO_AMS_VERSION_TAG}
-	podman push imageregistry.fnal.gov/rucio-ams/rucio-ams-daemons:${RUCIO_AMS_VERSION_TAG}
+	$(CMD) tag rucio-daemons imageregistry.fnal.gov/rucio-ams/rucio-ams-daemons:${RUCIO_AMS_VERSION_TAG}
+	$(CMD) push imageregistry.fnal.gov/rucio-ams/rucio-ams-daemons:${RUCIO_AMS_VERSION_TAG}
 endef
 
 define push-client-cmd =
-	podman tag rucio-client imageregistry.fnal.gov/rucio-ams/rucio-client:${RUCIO_AMS_VERSION_TAG}.fnal
-	podman push imageregistry.fnal.gov/rucio-ams/rucio-client:${RUCIO_AMS_VERSION_TAG}.fnal
+	$(CMD) tag rucio-client imageregistry.fnal.gov/rucio-ams/rucio-client:${RUCIO_AMS_VERSION_TAG}.fnal
+	$(CMD) push imageregistry.fnal.gov/rucio-ams/rucio-client:${RUCIO_AMS_VERSION_TAG}.fnal
 endef
 
 define push-cache-cmd =
-	podman tag rucio-cache imageregistry.fnal.gov/rucio-ams/rucio-ams-cache:${RUCIO_AMS_VERSION_TAG}
-	podman push imageregistry.fnal.gov/rucio-ams/rucio-ams-cache:${RUCIO_AMS_VERSION_TAG}
+	$(CMD) tag rucio-cache imageregistry.fnal.gov/rucio-ams/rucio-ams-cache:${RUCIO_AMS_VERSION_TAG}
+	$(CMD) push imageregistry.fnal.gov/rucio-ams/rucio-ams-cache:${RUCIO_AMS_VERSION_TAG}
 endef
 
 define push-messenger-cmd =
-	podman tag rucio-messenger imageregistry.fnal.gov/rucio-ams/rucio-ams-messenger:${RUCIO_AMS_VERSION_TAG}
-	podman push imageregistry.fnal.gov/rucio-ams/rucio-ams-messenger:${RUCIO_AMS_VERSION_TAG}
+	$(CMD) tag rucio-messenger imageregistry.fnal.gov/rucio-ams/rucio-ams-messenger:${RUCIO_AMS_VERSION_TAG}
+	$(CMD) push imageregistry.fnal.gov/rucio-ams/rucio-ams-messenger:${RUCIO_AMS_VERSION_TAG}
 endef
 
 # Image push command declarations

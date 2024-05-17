@@ -10,6 +10,10 @@ import requests
 from requests.exceptions import HTTPError
 
 
+class UserLDAPError(Exception):
+    pass
+
+
 class FerryClient:
     """
     Client to access FERRY
@@ -38,6 +42,16 @@ class FerryClient:
 
         data = r.json()
         return data["ferry_output"]
+    
+    def getGroupMembers(self, groupname: str) -> dict:
+        """
+        Returns all the members of the specified group
+        """
+        url = f"{self.server}/getGroupMembers"
+        params = {"groupname": groupname}
+        r = self.get(url, params)
+        return r
+
 
     def getUserInfo(self, username: str) -> dict:
         """
@@ -53,6 +67,15 @@ class FerryClient:
         Fetches members of an affiliation a given unitname
         """
         url = f"{self.server}/getAffiliationMembers"
+        params = {"unitname": unitname}
+        r = self.get(url, params)
+        return r
+
+    def getAffiliationUnitMembers(self, unitname: str) -> dict:
+        """
+        Fetches members of an affiliation a given unitname from SNOW
+        """
+        url = f"{self.server}/getAffiliationUnitMembers"
         params = {"unitname": unitname}
         r = self.get(url, params)
         return r
