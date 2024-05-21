@@ -36,7 +36,7 @@ serviceAccountName: useroot
 
 image:
   repository: rucio/rucio-daemons
-  tag: release-34.0.0
+  tag: release-34.3.0
   pullPolicy: Always
 
 strategy:
@@ -365,9 +365,6 @@ hermes:
       #If you use this block for a per-daemon config, it doesn't get the secrets from the main block (i.e. pp)
       - secretName: policy-package
         mountPath: /opt/rucio/permissions/fermilab/dune
-      - secretName: hotfix-6358-hermes-patch
-        mountPath: /patch/hotfix_6358_hermes.patch
-        subPath: hotfix_6358_hermes.patch
 
 hermesLegacy:
   threads: 1
