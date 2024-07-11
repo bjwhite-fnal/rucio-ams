@@ -173,7 +173,7 @@ cacheConsumer:
 conveyorTransferSubmitter:
   threads: 8
   podAnnotations: {}
-  activities: "'User Subscriptions' 'Recovery' 'Data Challenge'"
+  activities: "'Data Brokering' 'Data Consolidation' 'Data rebalancing' 'Debug' 'Express' 'Functional Test' 'Group Subscriptions' Production Input' 'Production Output' Analysis Input' 'Analysis Output' 'Staging' 'T0 Export' 'T0 Tape' 'Upload/Download' 'User Subscriptions' 'Data Challenge' 'Recovery'"
   sleepTime: 10
   archiveTimeout: ""
   resources:
@@ -196,7 +196,7 @@ conveyorTransferSubmitter:
 conveyorStager:
   threads: 1
   podAnnotations: {}
-  activities: "'User Subscriptions' 'Recovery'"
+  activities: "'Data Brokering' 'Data Consolidation' 'Data rebalancing' 'Debug' 'Express' 'Functional Test' 'Group Subscriptions' Production Input' 'Production Output' Analysis Input' 'Analysis Output' 'Staging' 'T0 Export' 'T0 Tape' 'Upload/Download' 'User Subscriptions' 'Data Challenge' 'Recovery'"
   sleepTime: 10
   archiveTimeout: ""
   resources:
@@ -219,6 +219,7 @@ conveyorStager:
 conveyorPoller:
   threads: 8
   podAnnotations: {}
+  activities: "'Data Brokering' 'Data Consolidation' 'Data rebalancing' 'Debug' 'Express' 'Functional Test' 'Group Subscriptions' Production Input' 'Production Output' Analysis Input' 'Analysis Output' 'Staging' 'T0 Export' 'T0 Tape' 'Upload/Download' 'User Subscriptions' 'Data Challenge' 'Recovery'"
   resources:
     limits:
       memory: "1500Mi"
@@ -239,6 +240,7 @@ conveyorPoller:
 conveyorFinisher:
   threads: 8
   podAnnotations: {}
+  activities: "'Data Brokering' 'Data Consolidation' 'Data rebalancing' 'Debug' 'Express' 'Functional Test' 'Group Subscriptions' Production Input' 'Production Output' Analysis Input' 'Analysis Output' 'Staging' 'T0 Export' 'T0 Tape' 'Upload/Download' 'User Subscriptions' 'Data Challenge' 'Recovery'"
   resources:
     limits:
       memory: "500Mi"

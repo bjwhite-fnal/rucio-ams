@@ -591,7 +591,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "conveyor-finisher"
             - name: RUCIO_DAEMON_ARGS
-              value: " --total-threads 8"
+              value: " --total-threads 8 --activities 'Data Brokering' 'Data Consolidation' 'Data rebalancing' 'Debug' 'Express' 'Functional Test' 'Group Subscriptions' Production Input' 'Production Output' Analysis Input' 'Analysis Output' 'Staging' 'T0 Export' 'T0 Tape' 'Upload/Download' 'User Subscriptions' 'Data Challenge' 'Recovery'"
             - name: PYTHONPATH
               value: /opt/rucio/permissions
             - name: RUCIO_CFG_DATABASE_DEFAULT
@@ -691,7 +691,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "conveyor-poller"
             - name: RUCIO_DAEMON_ARGS
-              value: " --total-threads 8 "
+              value: " --total-threads 8  --activities 'Data Brokering' 'Data Consolidation' 'Data rebalancing' 'Debug' 'Express' 'Functional Test' 'Group Subscriptions' Production Input' 'Production Output' Analysis Input' 'Analysis Output' 'Staging' 'T0 Export' 'T0 Tape' 'Upload/Download' 'User Subscriptions' 'Data Challenge' 'Recovery'"
             - name: PYTHONPATH
               value: /opt/rucio/permissions
             - name: RUCIO_CFG_DATABASE_DEFAULT
@@ -791,7 +791,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "conveyor-stager"
             - name: RUCIO_DAEMON_ARGS
-              value: " --total-threads 1 --sleep-time 10 --activities 'User Subscriptions' 'Recovery'"
+              value: " --total-threads 1 --sleep-time 10 --activities 'Data Brokering' 'Data Consolidation' 'Data rebalancing' 'Debug' 'Express' 'Functional Test' 'Group Subscriptions' Production Input' 'Production Output' Analysis Input' 'Analysis Output' 'Staging' 'T0 Export' 'T0 Tape' 'Upload/Download' 'User Subscriptions' 'Data Challenge' 'Recovery'"
             - name: PYTHONPATH
               value: /opt/rucio/permissions
             - name: RUCIO_CFG_DATABASE_DEFAULT
@@ -891,7 +891,7 @@ spec:
             - name: RUCIO_DAEMON
               value: "conveyor-submitter"
             - name: RUCIO_DAEMON_ARGS
-              value: " --total-threads 8 --sleep-time 10 --activities 'User Subscriptions' 'Recovery' 'Data Challenge'"
+              value: " --total-threads 8 --sleep-time 10 --activities 'Data Brokering' 'Data Consolidation' 'Data rebalancing' 'Debug' 'Express' 'Functional Test' 'Group Subscriptions' Production Input' 'Production Output' Analysis Input' 'Analysis Output' 'Staging' 'T0 Export' 'T0 Tape' 'Upload/Download' 'User Subscriptions' 'Data Challenge' 'Recovery'"
             - name: PYTHONPATH
               value: /opt/rucio/permissions
             - name: RUCIO_CFG_DATABASE_DEFAULT
