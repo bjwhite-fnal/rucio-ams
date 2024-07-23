@@ -1,7 +1,7 @@
 EXPERIMENT=mu2e
-SERVER_CHART_VERSION := 32.0.0
-DAEMON_CHART_VERSION := 32.0.2
-UI_CHART_VERSION := 32.0.0
+SERVER_CHART_VERSION := 34.0.2
+DAEMON_CHART_VERSION := 34.0.3
+UI_CHART_VERSION := 34.0.3
 
 helm:
 	helm repo add rucio https://rucio.github.io/helm-charts

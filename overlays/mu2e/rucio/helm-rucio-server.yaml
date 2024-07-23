@@ -20,7 +20,7 @@ metadata:
   name: fnal-rucio-server.cfg
   labels:
     app: rucio-server
-    chart: "rucio-server-32.0.0"
+    chart: "rucio-server-34.0.2"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
@@ -34,7 +34,7 @@ metadata:
   name: fnal-rucio-server
   labels:
     app: rucio-server
-    chart: rucio-server-32.0.0
+    chart: rucio-server-34.0.2
     release: fnal
     heritage: Helm
 spec:
@@ -55,7 +55,7 @@ metadata:
   name: fnal-rucio-server
   labels:
     app: rucio-server
-    chart: rucio-server-32.0.0
+    chart: rucio-server-34.0.2
     release: fnal
     heritage: Helm
 spec:
@@ -115,7 +115,7 @@ spec:
               cpu: 20m
               memory: 20Mi
         - name: rucio-server
-          image: "rucio/rucio-server:release-34.0.0"
+          image: "rucio/rucio-server:release-34.3.0"
           imagePullPolicy: Always
           resources:
             limits:
@@ -152,19 +152,22 @@ spec:
             - name: https
               containerPort: 443
               protocol: TCP
+            - name: health
+              containerPort: 444
+              protocol: TCP
           readinessProbe:
             httpGet:
               path: /ping
+              port: 444
               scheme: HTTPS
-              port: 443
             initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 5
           livenessProbe:
             httpGet:
               path: /ping
+              port: 444
               scheme: HTTPS
-              port: 443
             initialDelaySeconds: 10
             periodSeconds: 20
             timeoutSeconds: 5
@@ -176,6 +179,8 @@ spec:
                   key: grid_site_enabled
             - name: RUCIO_ENABLE_SSL
               value: "True"
+            - name: RUCIO_HEALTH_CHECK_PORT
+              value: "444"
             - name: OPENSSL_ALLOW_PROXY_CERTS
               value: "1"
             - name: RUCIO_SERVER_TYPE
