@@ -42,6 +42,7 @@ spec:
       - name: grid-certs
         image: docker.io/bjwhitefnal/grid-security-files:32
         command: ["/bin/bash", "-c", "chmod 755 /out/ && cp -rv --preserve=links /grid-certificates/* /out/"]
+        imagePullPolicy: Always
         volumeMounts:
         - name: ca-volume
           mountPath: /out/
