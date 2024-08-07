@@ -1374,11 +1374,11 @@ spec:
                   name: fnal-db-connstr
           resources:
             limits:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 1200m
+              memory: 2800Mi
             requests:
-              cpu: 700m
-              memory: 200Mi
+              cpu: 1000m
+              memory: 900Mi
 ---
 # Source: rucio-daemons/templates/judge-deployment.yaml
 apiVersion: apps/v1

@@ -439,11 +439,11 @@ judgeEvaluator:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "2800Mi"
+      cpu: "1200m"
     requests:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "900Mi"
+      cpu: "1000m"
   additionalEnvs:
     - name: PYTHONPATH
       value: /opt/rucio/permissions
