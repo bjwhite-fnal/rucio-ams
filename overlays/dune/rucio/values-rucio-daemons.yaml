@@ -24,7 +24,7 @@ judgeInjectorCount: 1
 judgeRepairerCount: 1
 oauthManagerCount: 0
 undertakerCount: 1
-reaperCount: 1
+reaperCount: 2
 replicaRecovererCount: 1
 transmogrifierCount: 1
 tracerKronosCount: 0
@@ -859,6 +859,9 @@ config:
     destination: "/topic/rucio.events.dune"
     brokers: "fnal-rucio-messenger"
     voname: "dune"
+
+  reaper:
+    nb_workers_by_hostname: 10
 
   # tracer-kronos:
     # brokers: "atlas-test-mb.cern.ch"
