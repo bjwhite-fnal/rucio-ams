@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: fnal-sync-ferry-users
 spec:
-  schedule: "13 * * * *"
+  schedule: "30 2 */1 * *"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
