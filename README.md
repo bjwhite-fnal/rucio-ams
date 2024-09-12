@@ -181,9 +181,23 @@ At Fermilab, we use centrally managed PostgreSQL databases.
 
 3. Follow instructions at <https://rucio.github.io/documentation/operator/database#upgrading-and-downgrading-the-database-schema>
 
+    > Ensure that in etc/alembic.ini the database connection string is is set to the same database connection string as the etc/rucio.cfg and issue the following command to verify the changes to the upgrade of the schema:
+    >
+    > ```bash
+    > alembic upgrade --sql $(alembic current | cut -d' '-f1):head
+    > ```
+    >
+    > You can edit and then apply the SQL directly on your database.
+    >
+    > ```bash
+    > alembic upgrade head
+    > ```
+
+    Rucio developers do no advise running upgrades using alembic
+
 4. Delete the pod with
 
     ```bash
     $ kubectl delete pod/rucio-db-upgrade
-    pod "rucio-db-upgrade" delted
+    pod "rucio-db-upgrade" deleted
     ```

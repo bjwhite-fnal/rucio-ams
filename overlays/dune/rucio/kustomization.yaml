@@ -6,6 +6,7 @@ resources:
 - cache.yaml
 - prometheus.yaml
 - messenger.yaml
+- ferry-users.yaml
 
 patchesStrategicMerge:
 - patch-service.yaml
@@ -135,3 +136,8 @@ secretGenerator:
 - name: fnal-httpd-custom-config
   files:
   - fnal-custom-config.conf=etc/fnal-custom-config.conf
+
+# Rucio/FERRY Syncer Rucio config
+- name: fnal-ferry-rucio-config
+  files:
+  - rucio.cfg=etc/ferry-sync-rucio.cfg

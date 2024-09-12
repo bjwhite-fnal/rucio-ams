@@ -36,6 +36,7 @@ class FerryClient:
                 params=params,
                 cert=(self.cert, self.key),
                 verify=self.capath)
+            r.raise_for_status()
         except HTTPError as e:
             self.logger.error(e)
             raise
