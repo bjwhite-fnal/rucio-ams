@@ -4,6 +4,8 @@ Script to sync FERRY users to Rucio based on vo/afffiliation
 
 Adds FERRY users and identities to Rucio as account type USER.
 Also applies analysis account attributes/policy to these accounts.
+
+The DN of the cert used to access FERRY needs Read-only access
 """
 
 import argparse
