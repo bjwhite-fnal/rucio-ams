@@ -397,9 +397,10 @@ config:
     # support_rucio: "https://github.com/rucio/rucio/issues/"
 
   ## Only necessary for webui deployments
-  # webui:
+  webui:
     ## config.webui.usercert:  (default "/opt/rucio/etc/usercert_with_key.pem")
     # usercert: "/opt/rucio/etc/usercert_with_key.pem"
+    urls: "https://webui-int-rucio.fnal.gov"
 
 #optional_config:
 #  policy_pkg_dir: /opt/rucio/permissions

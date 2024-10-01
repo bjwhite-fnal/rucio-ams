@@ -8,7 +8,7 @@ rucio_ca_path: /etc/grid-security/certificates
 webui_certkeycombined_path: /etc/grid-security/hostcertkeycombined.pem
 
 ## replicaCount gives the number of server pods to run
-replicaCount: 0
+replicaCount: 1
 
 # When set, run extra busybox containers in the relevant pods to also expose the error logs
 exposeErrorLogs: 0
@@ -39,19 +39,8 @@ strategy:
 
 minReadySeconds: 5
 
-proxy:
-  rucioProxy: "int-rucio.fnal.gov"
-  # rucioProxyScheme: "https"
-  rucioAuthProxy: "int-rucio.fnal.gov"
-  # rucioAuthProxyScheme: "https"
-
 ingress:
   enabled: 0
-
-webuiRoute:
-  app: rucio-webui
-  host: webui-int-rucio.fnal.gov
-  serviceName: rucio-int-rucio-ui
 
 additionalSecrets: {}
 # - volumeName: gcssecret
@@ -95,6 +84,11 @@ config:
   webui:
     # config.webui.usercert:  (default "/opt/rucio/etc/usercert_with_key.pem")
     usercert: "/opt/rucio/etc/usercert_with_key.pem"
+    rucio_host: "https://int-rucio.fnal.gov"
+    rucio_auth_host: "https://int-rucio.fnal.gov"
+    hostname: "https://webui-int-rucio.fnal.gov"
+    project_url: "https://github.com/bjwhite-fnal/rucio-ams"
+    oidc_enabled: "False"
 
 optional_config:
   experiment: Uses $EXPERIMENT
@@ -111,6 +105,7 @@ resources: {}
 secretMounts:
   - secretName: policy-package
     mountPath: /opt/rucio/permissions/fermilab
+  - secretName: 
 
 nodeSelector: {}
 
