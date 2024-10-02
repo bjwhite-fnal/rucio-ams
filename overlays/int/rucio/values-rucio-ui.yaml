@@ -4,8 +4,10 @@
 
 serviceAccountName: useroot
 
-rucio_ca_path: /etc/grid-security/certificates
-webui_certkeycombined_path: /etc/grid-security/hostcertkeycombined.pem
+useSSL: true
+
+# rucio_ca_path: /etc/grid-security/certificates
+# webui_certkeycombined_path: /etc/grid-security/hostcertkeycombined.pem
 
 ## replicaCount gives the number of server pods to run
 replicaCount: 1
@@ -95,6 +97,14 @@ optional_config:
   rucio_enable_logfile: "True"    
   pythonpath: /opt/rucio/permissions
 
+additionalEnvs:
+  - name: RUCIO_CA_PATH
+    value: "/opt/certs"
+  - name: RUCIO_WEBUI_SERVER_CA_BUNDLE
+    value: "/opt/certs/ca.pem"
+  - name: RUCIO_SSL_PROTOCOL
+    value: "-SSLv3 -TLSv1 -TLSv1.1 +TLSv1.2"
+
 resources: {}
   # limits:
   #  cpu: 100m
@@ -103,9 +113,17 @@ resources: {}
   #  cpu: 100m
   #  memory: 128Mi
 secretMounts:
-  - secretName: policy-package
-    mountPath: /opt/rucio/permissions/fermilab
-  - secretName: 
+  #  - secretName: policy-package
+  #    mountPath: /opt/rucio/permissions/fermilab
+  - secretName: hostcert
+    mountPath: /opt/certs/hostcert.pem
+    subPath: hostcert.pem
+  - secretName: hostkey
+    mountPath: /opt/certs/hostkey.pem
+    subPath: hostkey.pem
+  - secretName: cafile
+    mountPath: /opt/certs/ca.pem
+    subPath: ca.pem
 
 nodeSelector: {}
 
