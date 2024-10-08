@@ -25,12 +25,14 @@ service:
   type: ClusterIP
   port: 443
   targetPort: 443
+  name: https
   tls:
     enabled: true
+  allocateLoadBalancerNodePorts: false
 
 image:
-  repository: rucio/rucio-ui
-  tag: release-35.4.0
+  repository: rucio/rucio-webui
+  tag: release-35.3.0
   pullPolicy: Always
 
 strategy:
@@ -85,12 +87,14 @@ config:
   ## Only necessary for webui deployments
   webui:
     # config.webui.usercert:  (default "/opt/rucio/etc/usercert_with_key.pem")
-    usercert: "/opt/rucio/etc/usercert_with_key.pem"
+    #usercert: "/opt/rucio/etc/usercert_with_key.pem"
     rucio_host: "https://int-rucio.fnal.gov"
     rucio_auth_host: "https://int-rucio.fnal.gov"
-    hostname: "https://webui-int-rucio.fnal.gov"
+    hostname: "webui-int-rucio.fnal.gov"
     project_url: "https://github.com/bjwhite-fnal/rucio-ams"
     oidc_enabled: "False"
+    enable_ssl: "True"
+    server_ca_bundle: "/etc/grid-security/ca.pem"
 
 optional_config:
   experiment: Uses $EXPERIMENT
@@ -98,17 +102,19 @@ optional_config:
   pythonpath: /opt/rucio/permissions
 
 additionalEnvs:
-  - name: RUCIO_CA_PATH
-    value: "/opt/certs"
-  - name: RUCIO_WEBUI_SERVER_CA_BUNDLE
-    value: "/opt/certs/ca.pem"
-  - name: RUCIO_SSL_PROTOCOL
-    value: "-SSLv3 -TLSv1 -TLSv1.1 +TLSv1.2"
+  - name: RUCIO_CA_FILE
+    value: "/etc/grid-security/ca.pem"
+  - name: RUCIO_ENABLE_SSL
+    value: "True"
+  - name: RUCIO_HTTPD_LEGACY_DN
+    value: "True"
+  - name: RUCIO_LOG_LEVEL
+    value: debug
 
-resources: {}
-  # limits:
-  #  cpu: 100m
-  #  memory: 128Mi
+resources:
+  limits:
+    cpu: 1000m
+    memory: 8Gi
   # requests:
   #  cpu: 100m
   #  memory: 128Mi
@@ -116,13 +122,13 @@ secretMounts:
   #  - secretName: policy-package
   #    mountPath: /opt/rucio/permissions/fermilab
   - secretName: hostcert
-    mountPath: /opt/certs/hostcert.pem
+    mountPath: /etc/grid-security/hostcert.pem
     subPath: hostcert.pem
   - secretName: hostkey
-    mountPath: /opt/certs/hostkey.pem
+    mountPath: /etc/grid-security/hostkey.pem
     subPath: hostkey.pem
   - secretName: cafile
-    mountPath: /opt/certs/ca.pem
+    mountPath: /etc/grid-security/ca.pem
     subPath: ca.pem
 
 nodeSelector: {}

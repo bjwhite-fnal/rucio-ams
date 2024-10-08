@@ -15,6 +15,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: fnal-rucio-ui
+  name: fnal-rucio-webui
 spec:
   externalIPs: [ 131.225.218.158 ]

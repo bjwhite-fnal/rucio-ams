@@ -6,12 +6,12 @@ metadata:
   name: fnal-rucio-webui.config.yaml
   labels:
     app: rucio-webui
-    chart: rucio-webui-34.0.3
+    chart: rucio-webui-35.0.0
     release: "fnal"
     heritage: "Helm"
 type: Opaque
 data:
-  common.json: "ewogICJib290c3RyYXAiOiB7CiAgICAieDUwOV9lbWFpbCI6ICJiandoaXRlQGZuYWwuZ292IiwKICAgICJ4NTA5X2lkZW50aXR5IjogIi9EQz1vcmcvREM9Y2lsb2dvbi9DPVVTL089RmVybWkgTmF0aW9uYWwgQWNjZWxlcmF0b3IgTGFib3JhdG9yeS9PVT1QZW9wbGUvQ049QnJhbmRvbiBXaGl0ZS9DTj1VSUQ6Ymp3aGl0ZSIKICB9LAogICJjb3JlIjogewogICAgInVzZV90ZW1wX3RhYmxlcyI6ICJUcnVlIgogIH0sCiAgImh0dHBkIjogewogICAgImtlZXBfYWxpdmUiOiAiT24iLAogICAgImtlZXBfYWxpdmVfdGltZW91dCI6ICI1IiwKICAgICJtYXhfY2xpZW50cyI6ICIyMCIsCiAgICAibWF4X2Nvbm5lY3Rpb25zX3Blcl9jaGlsZCI6ICIyMDQ4IiwKICAgICJtYXhfa2VlcF9hbGl2ZV9yZXF1ZXN0cyI6ICIxMjgiLAogICAgIm1heF9yZXF1ZXN0X3dvcmtlcnMiOiAiMTI4MCIsCiAgICAibWF4X3JlcXVlc3RzX3Blcl9jaGlsZCI6ICI4MTkyIiwKICAgICJtYXhfc3BhcmVfc2VydmVycyI6ICI1IiwKICAgICJtYXhfc3BhcmVfdGhyZWFkcyI6ICIyMCIsCiAgICAibWluX3NwYXJlX3NlcnZlcnMiOiAiMSIsCiAgICAibWluX3NwYXJlX3RocmVhZHMiOiAiMSIsCiAgICAibXBtX21vZGUiOiAiZXZlbnQiLAogICAgInNlcnZlcl9saW1pdCI6ICIxMCIsCiAgICAic3RhcnRfc2VydmVycyI6ICIxIiwKICAgICJ0aHJlYWRzX2xpbWl0IjogIjEyOCIsCiAgICAidGhyZWFkc19wZXJfY2hpbGQiOiAiNSIsCiAgICAidGltZW91dCI6IDMwMAogIH0sCiAgImxvZ3MiOiB7CiAgICAiZXhwb3NlSHR0cGRMb2dzIjogdHJ1ZSwKICAgICJleHBvc2VXZWJ1aUxvZ3MiOiB0cnVlCiAgfSwKICAib2lkY19wcm92aWRlcnMiOiB7CiAgICAiY2VybiI6IHsKICAgICAgImF1dGhvcml6YXRpb25fdXJsIjogIiIsCiAgICAgICJjbGllbnRfaWQiOiAiIiwKICAgICAgImNsaWVudF9zZWNyZXQiOiAiIiwKICAgICAgInJlZGlyZWN0X3VybCI6ICIiLAogICAgICAicmVmcmVzaF90b2tlbl91cmwiOiAiIiwKICAgICAgInRva2VuX3VybCI6ICIiLAogICAgICAidXNlcmluZm9fdXJsIjogIiIKICAgIH0KICB9LAogICJwb2xpY3kiOiB7CiAgICAicGFja2FnZSI6ICJmZXJtaWxhYiIKICB9LAogICJ2byI6IHsKICAgICJkZWYiOiB7CiAgICAgICJuYW1lIjogImRlZmF1bHQiLAogICAgICAib2lkY19lbmFibGVkIjogIkZhbHNlIiwKICAgICAgIm9pZGNfcHJvdmlkZXJzIjogIiIKICAgIH0KICB9LAogICJ3ZWJ1aSI6IHsKICAgICJob3N0bmFtZSI6ICJodHRwczovL3dlYnVpLWludC1ydWNpby5mbmFsLmdvdiIsCiAgICAibXVsdGl2b19lbmFibGVkIjogIkZhbHNlIiwKICAgICJvaWRjX2VuYWJsZWQiOiAiRmFsc2UiLAogICAgIm9pZGNfcHJvdmlkZXJzIjogIiIsCiAgICAicHJvamVjdF91cmwiOiAiaHR0cHM6Ly9naXRodWIuY29tL2Jqd2hpdGUtZm5hbC9ydWNpby1hbXMiLAogICAgInJ1Y2lvX2F1dGhfaG9zdCI6ICJodHRwczovL2ludC1ydWNpby5mbmFsLmdvdiIsCiAgICAicnVjaW9faG9zdCI6ICJodHRwczovL2ludC1ydWNpby5mbmFsLmdvdiIsCiAgICAidXNlcmNlcnQiOiAiL29wdC9ydWNpby9ldGMvdXNlcmNlcnRfd2l0aF9rZXkucGVtIiwKICAgICJ2b19kZWZhdWx0IjogImRlZiIsCiAgICAidm9fbGlzdCI6ICJkZWYiCiAgfQp9"
+  common.json: "ewogICJib290c3RyYXAiOiB7CiAgICAieDUwOV9lbWFpbCI6ICJiandoaXRlQGZuYWwuZ292IiwKICAgICJ4NTA5X2lkZW50aXR5IjogIi9EQz1vcmcvREM9Y2lsb2dvbi9DPVVTL089RmVybWkgTmF0aW9uYWwgQWNjZWxlcmF0b3IgTGFib3JhdG9yeS9PVT1QZW9wbGUvQ049QnJhbmRvbiBXaGl0ZS9DTj1VSUQ6Ymp3aGl0ZSIKICB9LAogICJjb3JlIjogewogICAgInVzZV90ZW1wX3RhYmxlcyI6ICJUcnVlIgogIH0sCiAgImh0dHBkIjogewogICAgImtlZXBfYWxpdmUiOiAiT24iLAogICAgImtlZXBfYWxpdmVfdGltZW91dCI6ICI1IiwKICAgICJtYXhfY2xpZW50cyI6ICIyMCIsCiAgICAibWF4X2Nvbm5lY3Rpb25zX3Blcl9jaGlsZCI6ICIyMDQ4IiwKICAgICJtYXhfa2VlcF9hbGl2ZV9yZXF1ZXN0cyI6ICIxMjgiLAogICAgIm1heF9yZXF1ZXN0X3dvcmtlcnMiOiAiMTI4MCIsCiAgICAibWF4X3JlcXVlc3RzX3Blcl9jaGlsZCI6ICI4MTkyIiwKICAgICJtYXhfc3BhcmVfc2VydmVycyI6ICI1IiwKICAgICJtYXhfc3BhcmVfdGhyZWFkcyI6ICIyMCIsCiAgICAibWluX3NwYXJlX3NlcnZlcnMiOiAiMSIsCiAgICAibWluX3NwYXJlX3RocmVhZHMiOiAiMSIsCiAgICAibXBtX21vZGUiOiAiZXZlbnQiLAogICAgInNlcnZlcl9saW1pdCI6ICIxMCIsCiAgICAic3RhcnRfc2VydmVycyI6ICIxIiwKICAgICJ0aHJlYWRzX2xpbWl0IjogIjEyOCIsCiAgICAidGhyZWFkc19wZXJfY2hpbGQiOiAiNSIsCiAgICAidGltZW91dCI6IDMwMAogIH0sCiAgImxvZ3MiOiB7CiAgICAiZXhwb3NlSHR0cGRMb2dzIjogdHJ1ZSwKICAgICJleHBvc2VXZWJ1aUxvZ3MiOiB0cnVlCiAgfSwKICAib2lkY19wcm92aWRlcnMiOiB7CiAgICAiY2VybiI6IHsKICAgICAgImF1dGhvcml6YXRpb25fdXJsIjogIiIsCiAgICAgICJjbGllbnRfaWQiOiAiIiwKICAgICAgImNsaWVudF9zZWNyZXQiOiAiIiwKICAgICAgInJlZGlyZWN0X3VybCI6ICIiLAogICAgICAicmVmcmVzaF90b2tlbl91cmwiOiAiIiwKICAgICAgInRva2VuX3VybCI6ICIiLAogICAgICAidXNlcmluZm9fdXJsIjogIiIKICAgIH0KICB9LAogICJwb2xpY3kiOiB7CiAgICAicGFja2FnZSI6ICJmZXJtaWxhYiIKICB9LAogICJ2byI6IHsKICAgICJkZWYiOiB7CiAgICAgICJuYW1lIjogImRlZmF1bHQiLAogICAgICAib2lkY19lbmFibGVkIjogIkZhbHNlIiwKICAgICAgIm9pZGNfcHJvdmlkZXJzIjogIiIKICAgIH0KICB9LAogICJ3ZWJ1aSI6IHsKICAgICJlbmFibGVfc3NsIjogIlRydWUiLAogICAgImhvc3RuYW1lIjogIndlYnVpLWludC1ydWNpby5mbmFsLmdvdiIsCiAgICAibXVsdGl2b19lbmFibGVkIjogIkZhbHNlIiwKICAgICJvaWRjX2VuYWJsZWQiOiAiRmFsc2UiLAogICAgIm9pZGNfcHJvdmlkZXJzIjogIiIsCiAgICAicHJvamVjdF91cmwiOiAiaHR0cHM6Ly9naXRodWIuY29tL2Jqd2hpdGUtZm5hbC9ydWNpby1hbXMiLAogICAgInJ1Y2lvX2F1dGhfaG9zdCI6ICJodHRwczovL2ludC1ydWNpby5mbmFsLmdvdiIsCiAgICAicnVjaW9faG9zdCI6ICJodHRwczovL2ludC1ydWNpby5mbmFsLmdvdiIsCiAgICAic2VydmVyX2NhX2J1bmRsZSI6ICIvZXRjL2dyaWQtc2VjdXJpdHkvY2EucGVtIiwKICAgICJ2b19kZWZhdWx0IjogImRlZiIsCiAgICAidm9fbGlzdCI6ICJkZWYiCiAgfQp9"
 ---
 # Source: rucio-webui/templates/service.yaml
 apiVersion: v1
@@ -20,7 +20,7 @@ metadata:
   name: fnal-rucio-webui
   labels:
     app: rucio-webui
-    chart: rucio-webui-34.0.3
+    chart: rucio-webui-35.0.0
     release: fnal
     heritage: Helm
 spec:
@@ -29,7 +29,7 @@ spec:
     - port: 443
       targetPort: 443
       protocol: TCP
-      name: http
+      name: https
   selector:
     app: rucio-webui
     release: fnal
@@ -41,7 +41,7 @@ metadata:
   name: fnal-rucio-webui
   labels:
     app: rucio-webui
-    chart: rucio-webui-34.0.3
+    chart: rucio-webui-35.0.0
     release: fnal
     heritage: Helm
 spec:
@@ -62,7 +62,7 @@ spec:
         app: rucio-webui
         release: fnal
       annotations:
-        checksum/config: 16aba41356f7a4a0520f16919cac596d7ce74482
+        checksum/config: 1aede2795d51a419fee09718d75983eb7313e44a
     spec:
       volumes:
       - name: config
@@ -95,7 +95,7 @@ spec:
           - name: webui-log
             mountPath: /var/log/webui/
         - name: rucio-webui
-          image: "rucio/rucio-ui:release-35.4.0"
+          image: "rucio/rucio-webui:release-35.3.0"
           imagePullPolicy: Always
           ports:
             - name: http
@@ -110,13 +110,13 @@ spec:
             - name: webui-log
               mountPath: /root/.pm2/logs/
             - name: hostcert
-              mountPath: /opt/certs/hostcert.pem
+              mountPath: /etc/grid-security/hostcert.pem
               subPath: hostcert.pem
             - name: hostkey
-              mountPath: /opt/certs/hostkey.pem
+              mountPath: /etc/grid-security/hostkey.pem
               subPath: hostkey.pem
             - name: cafile
-              mountPath: /opt/certs/ca.pem
+              mountPath: /etc/grid-security/ca.pem
               subPath: ca.pem
           env:
             - name: RUCIO_HTTPD_KEEP_ALIVE
@@ -153,8 +153,10 @@ spec:
               value: "5"
             - name: RUCIO_HTTPD_TIMEOUT
               value: "300"
+            - name: RUCIO_WEBUI_ENABLE_SSL
+              value: "True"
             - name: RUCIO_WEBUI_HOSTNAME
-              value: "https://webui-int-rucio.fnal.gov"
+              value: "webui-int-rucio.fnal.gov"
             - name: RUCIO_WEBUI_MULTIVO_ENABLED
               value: "False"
             - name: RUCIO_WEBUI_OIDC_ENABLED
@@ -167,8 +169,8 @@ spec:
               value: "https://int-rucio.fnal.gov"
             - name: RUCIO_WEBUI_RUCIO_HOST
               value: "https://int-rucio.fnal.gov"
-            - name: RUCIO_WEBUI_USERCERT
-              value: "/opt/rucio/etc/usercert_with_key.pem"
+            - name: RUCIO_WEBUI_SERVER_CA_BUNDLE
+              value: "/etc/grid-security/ca.pem"
             - name: RUCIO_WEBUI_VO_DEFAULT
               value: "def"
             - name: RUCIO_WEBUI_VO_LIST
@@ -195,10 +197,6 @@ spec:
               value: "False"
             - name: RUCIO_WEBUI_VO_DEF_OIDC_PROVIDERS
               value: ""
-            - name: RUCIO_WEBUI_RUCIO_HOST
-              value: https://int-rucio.fnal.gov
-            - name: RUCIO_WEBUI_RUCIO_AUTH_HOST
-              value: https://int-rucio.fnal.gov
             - name: RUCIO_LOG_LEVEL
               value: "INFO"
             - name: RUCIO_ENABLE_LOGS
@@ -207,5 +205,15 @@ spec:
               value: '[%{%Y-%m-%d %H:%M:%S}t]\t%v\t%h\t%{X-Forwarded-For}i\t%{X-Rucio-RequestId}i\t%>s\t%I\t%B\t%D\t\"%r\"\t\"%{X-Rucio-Auth-Token}i\"\t\"%{User-Agent}i\"\t%{X-Rucio-Script}i'
             - name: RUCIO_WEBUI_ENABLE_SSL
               value: "True"
+            - name: RUCIO_CA_FILE
+              value: /etc/grid-security/ca.pem
+            - name: RUCIO_ENABLE_SSL
+              value: "True"
+            - name: RUCIO_HTTPD_LEGACY_DN
+              value: "True"
+            - name: RUCIO_LOG_LEVEL
+              value: debug
           resources:
-            {}
+            limits:
+              cpu: 1000m
+              memory: 8Gi
