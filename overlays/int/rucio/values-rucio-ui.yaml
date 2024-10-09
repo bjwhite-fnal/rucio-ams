@@ -4,11 +4,13 @@
 
 serviceAccountName: useroot
 
-rucio_ca_path: /etc/grid-security/certificates
-webui_certkeycombined_path: /etc/grid-security/hostcertkeycombined.pem
+useSSL: true
+
+# rucio_ca_path: /etc/grid-security/certificates
+# webui_certkeycombined_path: /etc/grid-security/hostcertkeycombined.pem
 
 ## replicaCount gives the number of server pods to run
-replicaCount: 0
+replicaCount: 1
 
 # When set, run extra busybox containers in the relevant pods to also expose the error logs
 exposeErrorLogs: 0
@@ -23,12 +25,14 @@ service:
   type: ClusterIP
   port: 443
   targetPort: 443
+  name: https
   tls:
     enabled: true
+  allocateLoadBalancerNodePorts: false
 
 image:
-  repository: rucio/rucio-ui
-  tag: release-35.4.0
+  repository: rucio/rucio-webui
+  tag: release-35.3.0
   pullPolicy: Always
 
 strategy:
@@ -39,19 +43,8 @@ strategy:
 
 minReadySeconds: 5
 
-proxy:
-  rucioProxy: "int-rucio.fnal.gov"
-  # rucioProxyScheme: "https"
-  rucioAuthProxy: "int-rucio.fnal.gov"
-  # rucioAuthProxyScheme: "https"
-
 ingress:
   enabled: 0
-
-webuiRoute:
-  app: rucio-webui
-  host: webui-int-rucio.fnal.gov
-  serviceName: rucio-int-rucio-ui
 
 additionalSecrets: {}
 # - volumeName: gcssecret
@@ -94,23 +87,49 @@ config:
   ## Only necessary for webui deployments
   webui:
     # config.webui.usercert:  (default "/opt/rucio/etc/usercert_with_key.pem")
-    usercert: "/opt/rucio/etc/usercert_with_key.pem"
+    #usercert: "/opt/rucio/etc/usercert_with_key.pem"
+    rucio_host: "https://int-rucio.fnal.gov"
+    rucio_auth_host: "https://int-rucio.fnal.gov"
+    hostname: "webui-int-rucio.fnal.gov"
+    project_url: "https://github.com/bjwhite-fnal/rucio-ams"
+    oidc_enabled: "False"
+    enable_ssl: "True"
+    server_ca_bundle: "/etc/grid-security/ca.pem"
 
 optional_config:
   experiment: Uses $EXPERIMENT
   rucio_enable_logfile: "True"    
   pythonpath: /opt/rucio/permissions
 
-resources: {}
-  # limits:
-  #  cpu: 100m
-  #  memory: 128Mi
+additionalEnvs:
+  - name: RUCIO_CA_FILE
+    value: "/etc/grid-security/ca.pem"
+  - name: RUCIO_ENABLE_SSL
+    value: "True"
+  - name: RUCIO_HTTPD_LEGACY_DN
+    value: "True"
+  - name: RUCIO_LOG_LEVEL
+    value: debug
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 8Gi
   # requests:
   #  cpu: 100m
   #  memory: 128Mi
 secretMounts:
-  - secretName: policy-package
-    mountPath: /opt/rucio/permissions/fermilab
+  #  - secretName: policy-package
+  #    mountPath: /opt/rucio/permissions/fermilab
+  - secretName: hostcert
+    mountPath: /etc/grid-security/hostcert.pem
+    subPath: hostcert.pem
+  - secretName: hostkey
+    mountPath: /etc/grid-security/hostkey.pem
+    subPath: hostkey.pem
+  - secretName: cafile
+    mountPath: /etc/grid-security/ca.pem
+    subPath: ca.pem
 
 nodeSelector: {}
 
