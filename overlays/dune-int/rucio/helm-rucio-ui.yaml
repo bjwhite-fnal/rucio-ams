@@ -1,65 +1,54 @@
 ---
-# Source: rucio-ui/templates/deployment.yaml
+# Source: rucio-webui/templates/deployment.yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  name: fnal-rucio-ui.config.yaml
+  name: fnal-rucio-webui.config.yaml
   labels:
-    app: rucio-ui
-    chart: rucio-ui-34.0.3
+    app: rucio-webui
+    chart: rucio-webui-35.0.0
     release: "fnal"
     heritage: "Helm"
 type: Opaque
 data:
-  common.json: "ewogICJib290c3RyYXAiOiB7CiAgICAieDUwOV9lbWFpbCI6ICJiandoaXRlQGZuYWwuZ292IiwKICAgICJ4NTA5X2lkZW50aXR5IjogIi9EQz1vcmcvREM9Y2lsb2dvbi9DPVVTL089RmVybWkgTmF0aW9uYWwgQWNjZWxlcmF0b3IgTGFib3JhdG9yeS9PVT1QZW9wbGUvQ049QnJhbmRvbiBXaGl0ZS9DTj1VSUQ6Ymp3aGl0ZSIKICB9LAogICJkYXRhYmFzZSI6IHt9LAogICJwb2xpY3kiOiB7CiAgICAibGZuMnBmbl9hbGdvcml0aG1fZGVmYXVsdCI6ICJEVU5FIiwKICAgICJtZXRhY2F0X2Jhc2VfdXJsIjogImh0dHBzOi8vbWV0YWNhdC5mbmFsLmdvdjo5NDQzL2R1bmVfbWV0YV9wcm9kL2FwcCIsCiAgICAicGFja2FnZSI6ICJmZXJtaWxhYi5kdW5lIgogIH0sCiAgIndlYnVpIjogewogICAgInVzZXJjZXJ0IjogIi9vcHQvcnVjaW8vZXRjL3VzZXJjZXJ0X3dpdGhfa2V5LnBlbSIKICB9Cn0="
+  common.json: "ewogICJib290c3RyYXAiOiB7CiAgICAieDUwOV9lbWFpbCI6ICJiandoaXRlQGZuYWwuZ292IiwKICAgICJ4NTA5X2lkZW50aXR5IjogIi9EQz1vcmcvREM9Y2lsb2dvbi9DPVVTL089RmVybWkgTmF0aW9uYWwgQWNjZWxlcmF0b3IgTGFib3JhdG9yeS9PVT1QZW9wbGUvQ049QnJhbmRvbiBXaGl0ZS9DTj1VSUQ6Ymp3aGl0ZSIKICB9LAogICJodHRwZCI6IHsKICAgICJrZWVwX2FsaXZlIjogIk9uIiwKICAgICJrZWVwX2FsaXZlX3RpbWVvdXQiOiAiNSIsCiAgICAibWF4X2NsaWVudHMiOiAiMjAiLAogICAgIm1heF9jb25uZWN0aW9uc19wZXJfY2hpbGQiOiAiMjA0OCIsCiAgICAibWF4X2tlZXBfYWxpdmVfcmVxdWVzdHMiOiAiMTI4IiwKICAgICJtYXhfcmVxdWVzdF93b3JrZXJzIjogIjEyODAiLAogICAgIm1heF9yZXF1ZXN0c19wZXJfY2hpbGQiOiAiODE5MiIsCiAgICAibWF4X3NwYXJlX3NlcnZlcnMiOiAiNSIsCiAgICAibWF4X3NwYXJlX3RocmVhZHMiOiAiMjAiLAogICAgIm1pbl9zcGFyZV9zZXJ2ZXJzIjogIjEiLAogICAgIm1pbl9zcGFyZV90aHJlYWRzIjogIjEiLAogICAgIm1wbV9tb2RlIjogImV2ZW50IiwKICAgICJzZXJ2ZXJfbGltaXQiOiAiMTAiLAogICAgInN0YXJ0X3NlcnZlcnMiOiAiMSIsCiAgICAidGhyZWFkc19saW1pdCI6ICIxMjgiLAogICAgInRocmVhZHNfcGVyX2NoaWxkIjogIjUiLAogICAgInRpbWVvdXQiOiAzMDAKICB9LAogICJsb2dzIjogewogICAgImV4cG9zZUh0dHBkTG9ncyI6IHRydWUsCiAgICAiZXhwb3NlV2VidWlMb2dzIjogdHJ1ZQogIH0sCiAgIm9pZGNfcHJvdmlkZXJzIjogewogICAgImNlcm4iOiB7CiAgICAgICJhdXRob3JpemF0aW9uX3VybCI6ICIiLAogICAgICAiY2xpZW50X2lkIjogIiIsCiAgICAgICJjbGllbnRfc2VjcmV0IjogIiIsCiAgICAgICJyZWRpcmVjdF91cmwiOiAiIiwKICAgICAgInJlZnJlc2hfdG9rZW5fdXJsIjogIiIsCiAgICAgICJ0b2tlbl91cmwiOiAiIiwKICAgICAgInVzZXJpbmZvX3VybCI6ICIiCiAgICB9CiAgfSwKICAicG9saWN5IjogewogICAgImxmbjJwZm5fYWxnb3JpdGhtX2RlZmF1bHQiOiAiRFVORSIsCiAgICAibWV0YWNhdF9iYXNlX3VybCI6ICJodHRwczovL21ldGFjYXQuZm5hbC5nb3Y6OTQ0My9kdW5lX21ldGFfcHJvZC9hcHAiLAogICAgInBhY2thZ2UiOiAiZmVybWlsYWIuZHVuZSIKICB9LAogICJ2byI6IHsKICAgICJkZWYiOiB7CiAgICAgICJuYW1lIjogImRlZmF1bHQiLAogICAgICAib2lkY19lbmFibGVkIjogIkZhbHNlIiwKICAgICAgIm9pZGNfcHJvdmlkZXJzIjogIiIKICAgIH0KICB9LAogICJ3ZWJ1aSI6IHsKICAgICJlbmFibGVfc3NsIjogIlRydWUiLAogICAgImhvc3RuYW1lIjogIndlYnVpLWR1bmUtaW50LXJ1Y2lvLmZuYWwuZ292IiwKICAgICJtdWx0aXZvX2VuYWJsZWQiOiAiRmFsc2UiLAogICAgIm9pZGNfZW5hYmxlZCI6ICJGYWxzZSIsCiAgICAib2lkY19wcm92aWRlcnMiOiAiIiwKICAgICJwcm9qZWN0X3VybCI6ICJodHRwczovL2R1bmVzY2llbmNlLm9yZyIsCiAgICAicnVjaW9fYXV0aF9ob3N0IjogImh0dHBzOi8vZHVuZS1pbnQtcnVjaW8uZm5hbC5nb3YiLAogICAgInJ1Y2lvX2hvc3QiOiAiaHR0cHM6Ly9kdW5lLWludC1ydWNpby5mbmFsLmdvdiIsCiAgICAic2VydmVyX2NhX2J1bmRsZSI6ICIvZXRjL2dyaWQtc2VjdXJpdHkvY2EucGVtIiwKICAgICJ2b19kZWZhdWx0IjogImRlZiIsCiAgICAidm9fbGlzdCI6ICJkZWYiCiAgfQp9"
 ---
-# Source: rucio-ui/templates/secrets.yaml
+# Source: rucio-webui/templates/service.yaml
 apiVersion: v1
-kind: Secret
+kind: Service
 metadata:
-  name: fnal-rucio-ui.cfg
+  name: fnal-rucio-webui
   labels:
-    app: rucio-ui
-    chart: "rucio-ui-34.0.3"
-    release: "fnal"
-    heritage: "Helm"
-type: Opaque
-data:
-  legacy_dn: "VHJ1ZQ=="
-  log_dir: "L3J1Y2lvL2xvZ3M="
-  rucio_hostname: "bXktcnVjaW8tdWkuZXhhbXBsZS5jb20="
----
-# Source: rucio-ui/templates/config.yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: fnal-rucio-ui-aliases
-  labels:
-    app: fnal-rucio-ui
-    chart: "rucio-ui-34.0.3"
-    release: "fnal"
-    heritage: "Helm"
-data:
-  aliases.conf: |+
-    Alias /media        /opt/rucio/.venv/lib/python2.7/site-packages/rucio/web/ui/media
-    Alias /static       /opt/rucio/.venv/lib/python2.7/site-packages/rucio/web/ui/static
-    WSGIScriptAlias /   /opt/rucio/.venv/lib/python2.7/site-packages/rucio/web/ui/main.py
----
-# Source: rucio-ui/templates/deployment.yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: fnal-rucio-ui
-  labels:
-    app: rucio-ui
-    chart: rucio-ui-34.0.3
+    app: rucio-webui
+    chart: rucio-webui-35.0.0
     release: fnal
     heritage: Helm
 spec:
-  replicas: 0
+  type: ClusterIP
+  ports:
+    - port: 443
+      targetPort: 443
+      protocol: TCP
+      name: https
+  selector:
+    app: rucio-webui
+    release: fnal
+---
+# Source: rucio-webui/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fnal-rucio-webui
+  labels:
+    app: rucio-webui
+    chart: rucio-webui-35.0.0
+    release: fnal
+    heritage: Helm
+spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: rucio-ui
+      app: rucio-webui
       release: fnal
   strategy:
     type: RollingUpdate
@@ -70,78 +59,159 @@ spec:
   template:
     metadata:
       labels:
-        app: rucio-ui
+        app: rucio-webui
         release: fnal
       annotations:
-        checksum/config: 97b1de55de6e88afb0c73c387d39acba521a07f7
+        checksum/config: 0a6612a5db3968338fdfb5517b5df1a66ce2060e
     spec:
-      serviceAccountName: useroot
       volumes:
       - name: config
         secret:
-          secretName: fnal-rucio-ui.config.yaml
-      - name: aliases
-        configMap:
-          name: fnal-rucio-ui-aliases
+          secretName: fnal-rucio-webui.config.yaml
       - name: httpdlog
         emptyDir: {}
-      - name: policy-package
+      - name: webui-log
+        emptyDir: {}
+      - name: hostcert
         secret:
-          secretName: fnal-policy-package
+          secretName: fnal-hostcert
+      - name: hostkey
+        secret:
+          secretName: fnal-hostkey
+      - name: cafile
+        secret:
+          secretName: fnal-cafile
       containers:
-        - name: rucio-ui
-          image: "rucio/rucio-ui:release-35.4.0"
+        - name: httpd-error-log
+          image: busybox
+          args: [/bin/sh, -c, 'tail -n+1 -F /var/log/httpd/error_log']
+          volumeMounts:
+          - name: httpdlog
+            mountPath: /var/log/httpd
+        - name: webui-log
+          image: busybox
+          args: [/bin/sh, -c, 'tail -n+1 -F /var/log/webui/rucio-webui-out.log /var/log/webui/rucio-webui-error.log']
+          volumeMounts:
+          - name: webui-log
+            mountPath: /var/log/webui/
+        - name: rucio-webui
+          image: "rucio/rucio-webui:release-35.3.0"
           imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 80
               protocol: TCP
+            - name: https
+              containerPort: 443
+              protocol: TCP
           volumeMounts:
-            - name: config
-              mountPath: /opt/rucio/etc/conf.d/10_common.json
-              subPath: common.json
             - name: httpdlog
               mountPath: /var/log/httpd
-            - name: aliases
-              mountPath: /opt/rucio/etc/aliases.conf
-              subPath: aliases.conf
-            - name: policy-package
-              mountPath: /opt/rucio/permissions/fermilab/dune
-              subPath: 
+            - name: webui-log
+              mountPath: /root/.pm2/logs/
+            - name: hostcert
+              mountPath: /etc/grid-security/hostcert.pem
+              subPath: hostcert.pem
+            - name: hostkey
+              mountPath: /etc/grid-security/hostkey.pem
+              subPath: hostkey.pem
+            - name: cafile
+              mountPath: /etc/grid-security/ca.pem
+              subPath: ca.pem
           env:
-            - name: RUCIO_HTTPD_LEGACY_DN
-              valueFrom:
-                secretKeyRef:
-                  name: fnal-rucio-ui.cfg
-                  key: legacy_dn
-            - name: RUCIO_HTTPD_LOG_DIR
-              valueFrom:
-                secretKeyRef:
-                  name: fnal-rucio-ui.cfg
-                  key: log_dir
-            - name: RUCIO_HTTPD_RUCIO_HOSTNAME
-              valueFrom:
-                secretKeyRef:
-                  name: fnal-rucio-ui.cfg
-                  key: rucio_hostname
-            - name: PYTHONPATH
-              value: "/opt/rucio/permissions"
-
-            - name: RUCIO_PROXY
-              value: dune-int-rucio.fnal.gov
-            - name: RUCIO_AUTH_PROXY
-              value: dune-int-rucio.fnal.gov
-            - name: RUCIO_PROXY_SCHEME
-              value: https
-            - name: RUCIO_AUTH_PROXY_SCHEME
-              value: https
-            - name: RUCIO_HOSTNAME
-              value: my-rucio-ui.example.com
-            - name: RUCIO_OVERRIDE_CONFIGS
-              value: "/opt/rucio/etc/conf.d/"
+            - name: RUCIO_HTTPD_KEEP_ALIVE
+              value: "On"
+            - name: RUCIO_HTTPD_KEEP_ALIVE_TIMEOUT
+              value: "5"
+            - name: RUCIO_HTTPD_MAX_CLIENTS
+              value: "20"
+            - name: RUCIO_HTTPD_MAX_CONNECTIONS_PER_CHILD
+              value: "2048"
+            - name: RUCIO_HTTPD_MAX_KEEP_ALIVE_REQUESTS
+              value: "128"
+            - name: RUCIO_HTTPD_MAX_REQUEST_WORKERS
+              value: "1280"
+            - name: RUCIO_HTTPD_MAX_REQUESTS_PER_CHILD
+              value: "8192"
+            - name: RUCIO_HTTPD_MAX_SPARE_SERVERS
+              value: "5"
+            - name: RUCIO_HTTPD_MAX_SPARE_THREADS
+              value: "20"
+            - name: RUCIO_HTTPD_MIN_SPARE_SERVERS
+              value: "1"
+            - name: RUCIO_HTTPD_MIN_SPARE_THREADS
+              value: "1"
+            - name: RUCIO_HTTPD_MPM_MODE
+              value: "event"
+            - name: RUCIO_HTTPD_SERVER_LIMIT
+              value: "10"
+            - name: RUCIO_HTTPD_START_SERVERS
+              value: "1"
+            - name: RUCIO_HTTPD_THREADS_LIMIT
+              value: "128"
+            - name: RUCIO_HTTPD_THREADS_PER_CHILD
+              value: "5"
+            - name: RUCIO_HTTPD_TIMEOUT
+              value: "300"
+            - name: RUCIO_WEBUI_ENABLE_SSL
+              value: "True"
+            - name: RUCIO_WEBUI_HOSTNAME
+              value: "webui-dune-int-rucio.fnal.gov"
+            - name: RUCIO_WEBUI_MULTIVO_ENABLED
+              value: "False"
+            - name: RUCIO_WEBUI_OIDC_ENABLED
+              value: "False"
+            - name: RUCIO_WEBUI_OIDC_PROVIDERS
+              value: ""
+            - name: RUCIO_WEBUI_PROJECT_URL
+              value: "https://dunescience.org"
+            - name: RUCIO_WEBUI_RUCIO_AUTH_HOST
+              value: "https://dune-int-rucio.fnal.gov"
+            - name: RUCIO_WEBUI_RUCIO_HOST
+              value: "https://dune-int-rucio.fnal.gov"
+            - name: RUCIO_WEBUI_SERVER_CA_BUNDLE
+              value: "/etc/grid-security/ca.pem"
+            - name: RUCIO_WEBUI_VO_DEFAULT
+              value: "def"
+            - name: RUCIO_WEBUI_VO_LIST
+              value: "def"
+            
+            - name: RUCIO_WEBUI_OIDC_PROVIDER_CERN_AUTHORIZATION_URL
+              value: ""
+            - name: RUCIO_WEBUI_OIDC_PROVIDER_CERN_CLIENT_ID
+              value: ""
+            - name: RUCIO_WEBUI_OIDC_PROVIDER_CERN_CLIENT_SECRET
+              value: ""
+            - name: RUCIO_WEBUI_OIDC_PROVIDER_CERN_REDIRECT_URL
+              value: ""
+            - name: RUCIO_WEBUI_OIDC_PROVIDER_CERN_REFRESH_TOKEN_URL
+              value: ""
+            - name: RUCIO_WEBUI_OIDC_PROVIDER_CERN_TOKEN_URL
+              value: ""
+            - name: RUCIO_WEBUI_OIDC_PROVIDER_CERN_USERINFO_URL
+              value: ""
+            
+            - name: RUCIO_WEBUI_VO_DEF_NAME
+              value: "default"
+            - name: RUCIO_WEBUI_VO_DEF_OIDC_ENABLED
+              value: "False"
+            - name: RUCIO_WEBUI_VO_DEF_OIDC_PROVIDERS
+              value: ""
+            - name: RUCIO_LOG_LEVEL
+              value: "INFO"
+            - name: RUCIO_ENABLE_LOGS
+              value: "True"
             - name: RUCIO_LOG_FORMAT
               value: '[%{%Y-%m-%d %H:%M:%S}t]\t%v\t%h\t%{X-Forwarded-For}i\t%{X-Rucio-RequestId}i\t%>s\t%I\t%B\t%D\t\"%r\"\t\"%{X-Rucio-Auth-Token}i\"\t\"%{User-Agent}i\"\t%{X-Rucio-Script}i'
+            - name: RUCIO_WEBUI_ENABLE_SSL
+              value: "True"
+            - name: RUCIO_CA_FILE
+              value: /etc/grid-security/ca.pem
             - name: RUCIO_ENABLE_SSL
-              value: "False"
+              value: "True"
+            - name: RUCIO_HTTPD_LEGACY_DN
+              value: "True"
+            - name: RUCIO_LOG_LEVEL
+              value: debug
           resources:
             {}

@@ -54,7 +54,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fnal-rucio-ui
+  name: fnal-rucio-webui
 spec:
   template:
     spec:

@@ -3,14 +3,14 @@
 # Declare variables to be passed into your templates.
 
 ## judgeCleanerCount gives the number of judge-cleaner pods to run
-abacusAccountCount: 1
+abacusAccountCount: 0
 abacusCollectionReplicaCount: 0
 abacusRseCount: 1
 automatixCount: 0
 cacheConsumerCount: 0
-conveyorTransferSubmitterCount: 1
-conveyorPollerCount: 1
-conveyorFinisherCount: 1
+conveyorTransferSubmitterCount: 0
+conveyorPollerCount: 0
+conveyorFinisherCount: 0
 conveyorReceiverCount: 0
 conveyorStagerCount: 1
 conveyorThrottlerCount: 0
@@ -26,7 +26,7 @@ oauthManagerCount: 0
 undertakerCount: 1
 reaperCount: 0
 replicaRecovererCount: 1
-transmogrifierCount: 1
+transmogrifierCount: 0
 tracerKronosCount: 0
 minosCount: 1
 minosTemporaryExpirationCount: 1
