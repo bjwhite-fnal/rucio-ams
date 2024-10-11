@@ -35,21 +35,21 @@ spec:
   tls:
     termination: passthrough
 ---
-## Source: rucio-routes/templates/webui_route.yaml
-#apiVersion: route.openshift.io/v1
-#kind: Route
-#metadata:
-#  name: rucio-ui-route
-#  labels:
-#    app: rucio-ui 
-#    chart: rucio-routes-0.2.0
-#    release: rucio-dune-int
-#    heritage: Helm
-#spec:
-#  host: webui-dune-int-rucio.fnal.gov 
-#  to:
-#    kind: Service
-#    name: fnal-rucio-ui
-#  tls:
-#    termination: passthrough
+# Source: rucio-routes/templates/webui_route.yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: rucio-webui-route
+  labels:
+    app: rucio-webui 
+    chart: rucio-routes-0.2.0
+    release: rucio-dune-int
+    heritage: Helm
+spec:
+  host: webui-dune-int-rucio.fnal.gov 
+  to:
+    kind: Service
+    name: fnal-rucio-webui
+  tls:
+    termination: passthrough
 #

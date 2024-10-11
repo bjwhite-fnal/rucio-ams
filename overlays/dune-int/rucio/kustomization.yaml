@@ -1,4 +1,4 @@
-
+# kustomize.yaml for rucio-dune-int
 resources:
 - helm-rucio-server.yaml
 - helm-rucio-daemons.yaml
@@ -7,11 +7,19 @@ resources:
 - prometheus.yaml
 - messenger.yaml
 - routes.yaml
-- ferry-users.yaml
+  #- ferry-users.yaml
 
 patchesStrategicMerge:
 - grid-certificates-patch.yaml
-#- patch-webui.yaml
+- patch-webui.yaml
+
+configmapGenerator:
+- name: webui-patch
+  files:
+  - next.config.js=etc/next.config.js
+- name: webui-rucio-conf-j2
+  files:
+  - rucio.conf.j2=etc/rucio.conf.j2
 
 secretGenerator:
 # Database Connection String

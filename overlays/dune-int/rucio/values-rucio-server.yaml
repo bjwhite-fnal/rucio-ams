@@ -406,7 +406,8 @@ config:
     # support_rucio: "https://github.com/rucio/rucio/issues/"
 
   ## Only necessary for webui deployments
-  # webui:
+  webui:
+    urls: "https://webui-dune-int-rucio.fnal.gov"
     ## config.webui.usercert:  (default "/opt/rucio/etc/usercert_with_key.pem")
     # usercert: "/opt/rucio/etc/usercert_with_key.pem"
 

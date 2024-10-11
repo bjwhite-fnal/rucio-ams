@@ -39,3 +39,5 @@ notes
 
 # Ingore .env files
 .env
+
+.DS_Store
