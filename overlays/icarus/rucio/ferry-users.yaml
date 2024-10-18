@@ -61,7 +61,7 @@ spec:
                   mountPath: /opt/rucio/keys/
               env:
                 - name: FERRY_VO
-                  value: "dune"
+                  value: "icarus"
                 - name: FERRY_URL
                   value: "https://ferry.fnal.gov:8445"
                 - name: CA_PATH
