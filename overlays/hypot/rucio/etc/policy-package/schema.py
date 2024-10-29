@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-# Copyright 2017-2021 CERN
+# Copyright European Organization for Nuclear Research (CERN) since 2012
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,18 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
-# Authors:
-# - Vincent Garonne <vincent.garonne@cern.ch>, 2017
-# - Hannes Hansen <hannes.jakob.hansen@cern.ch>, 2018-2019
-# - Robert Illingworth <illingwo@fnal.gov>, 2018
-# - Mario Lassnig <mario.lassnig@cern.ch>, 2019-2021
-# - Jaroslav Guenther <jaroslav.guenther@cern.ch>, 2019
-# - Andrew Lister <andrew.lister@stfc.ac.uk>, 2019
-# - Eli Chadwick <eli.chadwick@stfc.ac.uk>, 2020
-# - Radu Carpa <radu.carpa@cern.ch>, 2021
 
-from jsonschema import validate, ValidationError
+from jsonschema import ValidationError, validate
 
 from rucio.common.exception import InvalidObject
 
@@ -31,7 +20,8 @@ ACCOUNT_LENGTH = 25
 
 ACCOUNT = {"description": "Account name",
            "type": "string",
-           "pattern": "^[a-z0-9-_]{1,%s}$" % ACCOUNT_LENGTH}
+           "maxLength": ACCOUNT_LENGTH,
+           "pattern": "^[a-z0-9-_]+$"}
 
 ACCOUNTS = {"description": "Array of accounts",
             "type": "array",
@@ -46,7 +36,7 @@ ACCOUNT_TYPE = {"description": "Account type",
 
 ACTIVITY = {"description": "Activity name",
             "type": "string",
-            "enum": ["Data Brokering", "Data Consolidation", "Data rebalancing",
+            "enum": ["Data Brokering", "Data Consolidation", "Data Rebalancing",
                      "Debug", "Express", "Functional Test", "Group Subscriptions",
                      "Production Input", "Production Output",
                      "Analysis Input", "Analysis Output", "Staging",
@@ -57,7 +47,8 @@ SCOPE_LENGTH = 25
 
 SCOPE = {"description": "Scope name",
          "type": "string",
-         "pattern": "^[a-zA-Z_\\-.0-9]{1,%s}$" % SCOPE_LENGTH}
+         "maxLength": SCOPE_LENGTH,
+         "pattern": "^[a-zA-Z_\\-.0-9]+$"}
 
 R_SCOPE = {"description": "Scope name",
            "type": "string",
@@ -67,7 +58,8 @@ NAME_LENGTH = 250
 
 NAME = {"description": "Data Identifier name",
         "type": "string",
-        "pattern": "^[A-Za-z0-9][A-Za-z0-9\\.\\-\\_]{1,%s}$" % NAME_LENGTH}
+        "maxLength": NAME_LENGTH,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9\\.\\-\\_]*$"}
 
 R_NAME = {"description": "Data Identifier name",
           "type": "string",
@@ -174,6 +166,33 @@ PRIORITY = {"description": "Priority of the transfers",
 SPLIT_CONTAINER = {"description": "Rule split container mode",
                    "type": ["boolean", "null"]}
 
+TIME_ENTRY = {
+    "description": "Datetime, ISO 8601",
+    "type": "string",
+    "pattern": r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d*$'
+}
+
+IP = {
+    "description": "Internet Protocol address v4, RFC 791",
+    "type": "string",
+    "pattern": r'^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}$'
+}
+
+IPv4orIPv6 = {
+    "description": "IPv4 or IPv6 address",
+    "type": "string",
+    "format": "ipv4_or_ipv6"
+}
+
+CLIENT_STATE = {
+    "description": "Client state",
+    "type": "string",
+    "enum": ['DONE', 'FAILED', 'PROCESSING', 'ALREADY_DONE', 'FILE_NOT_FOUND', 'FOUND_IN_PCACHE', 'DOWNLOAD_ATTEMPT',
+             'FAIL_VALIDATE', 'FOUND_ROOT', 'ServiceUnavailable', 'SERVICE_ERROR', 'CP_TIMEOUT', 'COPY_ERROR',
+             'STAGEIN_ATTEMPT_FAILED', 'SourceNotFound', 'MISSINGOUTPUTFILE', 'MD_MISMATCH', 'CHECKSUMCALCULATIONFAILURE',
+             'MISSINGINPUT', 'MISSING_INPUT']
+}
+
 RULE = {"description": "Replication rule",
         "type": "object",
         "properties": {"dids": {"type": "array"},
@@ -241,10 +260,8 @@ DID = {"description": "Data Identifier(DID)",
        "required": ["scope", "name"],
        "additionalProperties": False}
 
-DID_FILTERS = {"description": "Filters dictionary to list DIDs",
-               "type": "object",
-               "properties": {"created_before": DATE,
-                              "created_afted": DATE},
+DID_FILTERS = {"description": "Array to filter DIDs by metadata",
+               "type": "array",
                "additionalProperties": True}
 
 R_DID = {"description": "Data Identifier(DID)",
@@ -274,7 +291,7 @@ R_DIDS = {"description": "Array of Data Identifiers(DIDs)",
           "minItems": 1,
           "maxItems": 1000}
 
-ATTACHMENT = {"description": "Attachement",
+ATTACHMENT = {"description": "Attachment",
               "type": "object",
               "properties": {"scope": SCOPE,
                              "name": NAME,
@@ -413,4 +430,4 @@ def validate_schema(name, obj):
         if obj:
             validate(obj, SCHEMAS.get(name, {}))
     except ValidationError as error:  # NOQA, pylint: disable=W0612
-        raise InvalidObject("Problem validating %(name)s : %(error)s" % locals())
+        raise InvalidObject(f'Problem validating {name}: {error}')
