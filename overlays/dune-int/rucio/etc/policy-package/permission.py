@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright European Organization for Nuclear Research (CERN) since 2012
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,10 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
+import rucio.core.permission.generic
 import rucio.core.scope
-from rucio.core.account import list_account_attributes, has_account_attribute
+from rucio.common.constants import RseAttr
+from rucio.core.account import has_account_attribute, list_account_attributes
 from rucio.core.identity import exist_identity_account
 from rucio.core.lifetime_exception import list_exceptions
 from rucio.core.rse import list_rse_attributes
@@ -25,16 +26,16 @@ from rucio.db.sqla.constants import IdentityType
 
 if TYPE_CHECKING:
     from typing import Optional
-    from sqlalchemy.orm import Session
-    from rucio.common.types import InternalAccount
 
-import rucio.core.permission.generic
+    from sqlalchemy.orm import Session
+
+    from rucio.common.types import InternalAccount
 
 from metacat.webapi import MetaCatClient
 
 metacat_client = MetaCatClient()				# will read env. METACAT_SERVER_URL by default
 
-def has_permission(issuer, action, kwargs, *, session: "Optional[Session]" = None):
+def has_permission(issuer: "InternalAccount", action: str, kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account has the specified permission to
     execute an action with parameters.
@@ -132,11 +133,11 @@ def has_permission(issuer, action, kwargs, *, session: "Optional[Session]" = Non
     return perm.get(action, perm_default)(issuer=issuer, kwargs=kwargs, session=session)
 
 
-def _is_root(issuer):
+def _is_root(issuer) -> bool:
     return issuer.external == 'root'
 
 
-def perm_default(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_default(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Default permission.
 
@@ -148,7 +149,7 @@ def perm_default(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session)
 
 
-def perm_add_rse(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_add_rse(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can add a RSE.
 
@@ -160,7 +161,7 @@ def perm_add_rse(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session) or has_account_attribute(account=issuer, key='add_rse', session=session)
 
 
-def perm_update_rse(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_update_rse(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can update a RSE.
 
@@ -172,7 +173,7 @@ def perm_update_rse(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session)
 
 
-def perm_add_rule(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_add_rule(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can add a replication rule.
 
@@ -191,7 +192,7 @@ def perm_add_rule(issuer, kwargs, *, session: "Optional[Session]" = None):
     return False
 
 
-def perm_add_subscription(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_add_subscription(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can add a subscription.
 
@@ -208,7 +209,7 @@ def perm_add_subscription(issuer, kwargs, *, session: "Optional[Session]" = None
     return False
 
 
-def perm_add_rse_attribute(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_add_rse_attribute(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can add a RSE attribute.
 
@@ -222,7 +223,7 @@ def perm_add_rse_attribute(issuer, kwargs, *, session: "Optional[Session]" = Non
     return False
 
 
-def perm_del_rse_attribute(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_del_rse_attribute(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can delete a RSE attribute.
 
@@ -236,7 +237,7 @@ def perm_del_rse_attribute(issuer, kwargs, *, session: "Optional[Session]" = Non
     return False
 
 
-def perm_del_rse(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_del_rse(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can delete a RSE.
 
@@ -248,7 +249,7 @@ def perm_del_rse(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session) or has_account_attribute(account=issuer, key='del_rse', session=session)
 
 
-def perm_add_account(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_add_account(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can add an account.
 
@@ -260,7 +261,7 @@ def perm_add_account(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer)
 
 
-def perm_del_account(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_del_account(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can del an account.
 
@@ -272,7 +273,7 @@ def perm_del_account(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer)
 
 
-def perm_update_account(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_update_account(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can update an account.
 
@@ -284,7 +285,7 @@ def perm_update_account(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session)
 
 
-def perm_add_scope(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_add_scope(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can add a scop to a account.
 
@@ -296,7 +297,7 @@ def perm_add_scope(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session) or has_account_attribute(account=issuer, key='add_scope', session=session)
 
 
-def perm_get_auth_token_user_pass(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_get_auth_token_user_pass(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if a user can request a token with user_pass for an account.
 
@@ -310,7 +311,7 @@ def perm_get_auth_token_user_pass(issuer, kwargs, *, session: "Optional[Session]
     return False
 
 
-def perm_get_auth_token_gss(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_get_auth_token_gss(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if a user can request a token with user_pass for an account.
 
@@ -324,7 +325,7 @@ def perm_get_auth_token_gss(issuer, kwargs, *, session: "Optional[Session]" = No
     return False
 
 
-def perm_get_auth_token_x509(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_get_auth_token_x509(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if a user can request a token with user_pass for an account.
 
@@ -338,7 +339,7 @@ def perm_get_auth_token_x509(issuer, kwargs, *, session: "Optional[Session]" = N
     return False
 
 
-def perm_get_auth_token_saml(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_get_auth_token_saml(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if a user can request a token with user_pass for an account.
 
@@ -352,7 +353,7 @@ def perm_get_auth_token_saml(issuer, kwargs, *, session: "Optional[Session]" = N
     return False
 
 
-def perm_add_account_identity(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_add_account_identity(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can add an identity to an account.
 
@@ -365,7 +366,7 @@ def perm_add_account_identity(issuer, kwargs, *, session: "Optional[Session]" = 
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session)
 
 
-def perm_del_account_identity(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_del_account_identity(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can delete an identity to an account.
 
@@ -378,7 +379,7 @@ def perm_del_account_identity(issuer, kwargs, *, session: "Optional[Session]" = 
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session)
 
 
-def perm_del_identity(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_del_identity(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can delete an identity.
 
@@ -401,7 +402,7 @@ def _dataset_exists(dataset):
     return metacat_client.get_dataset(did=dataset["scope"].external+":"+dataset["name"]) is not None
 
 
-def perm_add_did(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_add_did(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can add an data identifier to a scope.
 
@@ -430,7 +431,7 @@ def perm_add_did(issuer, kwargs, *, session: "Optional[Session]" = None):
         or kwargs['scope'].external == 'mock'
 
 
-def perm_add_dids(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_add_dids(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can bulk add data identifiers.
 
@@ -457,7 +458,7 @@ def perm_add_dids(issuer, kwargs, *, session: "Optional[Session]" = None):
         or has_account_attribute(account=issuer, key='add_dids', session=session)
 
 
-def perm_attach_dids(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_attach_dids(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can append an data identifier to the other data identifier.
 
@@ -473,7 +474,7 @@ def perm_attach_dids(issuer, kwargs, *, session: "Optional[Session]" = None):
         or kwargs['scope'].external == 'mock'
 
 
-def perm_attach_dids_to_dids(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_attach_dids_to_dids(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can append an data identifier to the other data identifier.
 
@@ -494,7 +495,7 @@ def perm_attach_dids_to_dids(issuer, kwargs, *, session: "Optional[Session]" = N
         return True
 
 
-def perm_create_did_sample(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_create_did_sample(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can create a sample of a data identifier collection.
 
@@ -510,7 +511,7 @@ def perm_create_did_sample(issuer, kwargs, *, session: "Optional[Session]" = Non
         or kwargs['scope'].external == 'mock'
 
 
-def perm_del_rule(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_del_rule(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an issuer can delete a replication rule.
 
@@ -527,7 +528,7 @@ def perm_del_rule(issuer, kwargs, *, session: "Optional[Session]" = None):
     return False
 
 
-def perm_update_rule(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_update_rule(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an issuer can update a replication rule.
 
@@ -544,7 +545,7 @@ def perm_update_rule(issuer, kwargs, *, session: "Optional[Session]" = None):
     return False
 
 
-def perm_approve_rule(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_approve_rule(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an issuer can approve a replication rule.
 
@@ -561,7 +562,7 @@ def perm_approve_rule(issuer, kwargs, *, session: "Optional[Session]" = None):
     return False
 
 
-def perm_reduce_rule(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_reduce_rule(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an issuer can reduce a replication rule.
 
@@ -578,7 +579,7 @@ def perm_reduce_rule(issuer, kwargs, *, session: "Optional[Session]" = None):
     return False
 
 
-def perm_move_rule(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_move_rule(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an issuer can move a replication rule.
 
@@ -595,7 +596,7 @@ def perm_move_rule(issuer, kwargs, *, session: "Optional[Session]" = None):
     return False
 
 
-def perm_update_subscription(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_update_subscription(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can update a subscription.
 
@@ -613,7 +614,7 @@ def perm_update_subscription(issuer, kwargs, *, session: "Optional[Session]" = N
     return False
 
 
-def perm_detach_dids(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_detach_dids(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can detach an data identifier from the other data identifier.
 
@@ -625,7 +626,7 @@ def perm_detach_dids(issuer, kwargs, *, session: "Optional[Session]" = None):
     return perm_attach_dids(issuer, kwargs, session=session)
 
 
-def perm_set_metadata_bulk(issuer: "InternalAccount", kwargs: dict, *, session: "Optional[Session]" = None) -> bool:
+def perm_set_metadata_bulk(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can set a metadata on a data identifier.
 
@@ -637,7 +638,7 @@ def perm_set_metadata_bulk(issuer: "InternalAccount", kwargs: dict, *, session: 
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session) or rucio.core.scope.is_scope_owner(scope=kwargs['scope'], account=issuer, session=session)
 
 
-def perm_set_metadata(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_set_metadata(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can set a metadata on a data identifier.
 
@@ -649,7 +650,7 @@ def perm_set_metadata(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session) or rucio.core.scope.is_scope_owner(scope=kwargs['scope'], account=issuer, session=session)
 
 
-def perm_set_status(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_set_status(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can set status on an data identifier.
 
@@ -665,7 +666,7 @@ def perm_set_status(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session) or rucio.core.scope.is_scope_owner(scope=kwargs['scope'], account=issuer, session=session)
 
 
-def perm_add_protocol(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_add_protocol(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can add a protocol to an RSE.
 
@@ -677,7 +678,7 @@ def perm_add_protocol(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session) or has_account_attribute(account=issuer, key='add_protocol', session=session)
 
 
-def perm_del_protocol(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_del_protocol(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can delete protocols from an RSE.
 
@@ -689,7 +690,7 @@ def perm_del_protocol(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session) or has_account_attribute(account=issuer, key='add_protocol', session=session)
 
 
-def perm_update_protocol(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_update_protocol(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can update protocols of an RSE.
 
@@ -701,7 +702,7 @@ def perm_update_protocol(issuer, kwargs, *, session: "Optional[Session]" = None)
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session) or has_account_attribute(account=issuer, key='add_protocol', session=session)
 
 
-def perm_add_qos_policy(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_add_qos_policy(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can add QoS policies to an RSE.
 
@@ -713,7 +714,7 @@ def perm_add_qos_policy(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session)
 
 
-def perm_delete_qos_policy(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_delete_qos_policy(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can delete QoS policies from an RSE.
 
@@ -725,7 +726,7 @@ def perm_delete_qos_policy(issuer, kwargs, *, session: "Optional[Session]" = Non
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session)
 
 
-def perm_declare_bad_file_replicas(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_declare_bad_file_replicas(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can declare bad file replicas.
 
@@ -737,7 +738,7 @@ def perm_declare_bad_file_replicas(issuer, kwargs, *, session: "Optional[Session
     return _is_root(issuer) or has_account_attribute(account=issuer, key='declare_bad_file_replicas', session=session)
 
 
-def perm_declare_suspicious_file_replicas(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_declare_suspicious_file_replicas(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can declare suspicious file replicas.
 
@@ -749,7 +750,7 @@ def perm_declare_suspicious_file_replicas(issuer, kwargs, *, session: "Optional[
     return True
 
 
-def perm_add_replicas(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_add_replicas(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can add replicas.
 
@@ -767,7 +768,7 @@ def perm_add_replicas(issuer, kwargs, *, session: "Optional[Session]" = None):
         or has_account_attribute(account=issuer, key='add_replicas', session=session)
 
 
-def perm_skip_availability_check(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_skip_availability_check(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can skip the availabity check to add/delete file replicas.
 
@@ -779,7 +780,7 @@ def perm_skip_availability_check(issuer, kwargs, *, session: "Optional[Session]"
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session)
 
 
-def perm_delete_replicas(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_delete_replicas(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can delete replicas.
 
@@ -791,7 +792,7 @@ def perm_delete_replicas(issuer, kwargs, *, session: "Optional[Session]" = None)
     return False
 
 
-def perm_update_replicas_states(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_update_replicas_states(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can delete replicas.
 
@@ -805,7 +806,7 @@ def perm_update_replicas_states(issuer, kwargs, *, session: "Optional[Session]" 
         or has_account_attribute(account=issuer, key='update_replicas_states', session=session)
 
 
-def perm_queue_requests(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_queue_requests(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can submit transfer or deletion requests on destination RSEs for data identifiers.
 
@@ -817,7 +818,7 @@ def perm_queue_requests(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer) or has_account_attribute(account=issuer, key='queue_requests', session=session)
 
 
-def perm_list_requests(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_list_requests(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can list requests.
 
@@ -829,7 +830,7 @@ def perm_list_requests(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session)
 
 
-def perm_list_requests_history(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_list_requests_history(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can list historical requests.
 
@@ -841,7 +842,7 @@ def perm_list_requests_history(issuer, kwargs, *, session: "Optional[Session]" =
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session)
 
 
-def perm_get_request_by_did(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_get_request_by_did(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can get a request by DID.
 
@@ -853,7 +854,7 @@ def perm_get_request_by_did(issuer, kwargs, *, session: "Optional[Session]" = No
     return True
 
 
-def perm_get_request_history_by_did(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_get_request_history_by_did(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can get a historical request by DID.
 
@@ -865,7 +866,7 @@ def perm_get_request_history_by_did(issuer, kwargs, *, session: "Optional[Sessio
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session)
 
 
-def perm_cancel_request(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_cancel_request(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can cancel a request.
 
@@ -877,7 +878,7 @@ def perm_cancel_request(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer) or has_account_attribute(account=issuer, key='cancel_request', session=session)
 
 
-def perm_get_next(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_get_next(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can retrieve the next request matching the request type and state.
 
@@ -889,7 +890,7 @@ def perm_get_next(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer) or has_account_attribute(account=issuer, key='get_next', session=session)
 
 
-def perm_set_rse_usage(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_set_rse_usage(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can set RSE usage information.
 
@@ -901,7 +902,7 @@ def perm_set_rse_usage(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer) or has_account_attribute(account=issuer, key='set_rse_usage', session=session)
 
 
-def perm_set_rse_limits(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_set_rse_limits(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can set RSE limits.
 
@@ -913,7 +914,7 @@ def perm_set_rse_limits(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session) or has_account_attribute(account=issuer, key='set_rse_limits', session=session)
 
 
-def perm_set_local_account_limit(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_set_local_account_limit(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can set an account limit.
 
@@ -929,12 +930,12 @@ def perm_set_local_account_limit(issuer, kwargs, *, session: "Optional[Session]"
     for kv in list_account_attributes(account=issuer, session=session):
         if kv['key'].startswith('country-') and kv['value'] == 'admin':
             admin_in_country.append(kv['key'].partition('-')[2])
-    if admin_in_country and list_rse_attributes(rse_id=kwargs['rse_id'], session=session).get('country') in admin_in_country:
+    if admin_in_country and list_rse_attributes(rse_id=kwargs['rse_id'], session=session).get(RseAttr.COUNTRY) in admin_in_country:
         return True
     return False
 
 
-def perm_set_global_account_limit(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_set_global_account_limit(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can set a global account limit.
 
@@ -950,14 +951,14 @@ def perm_set_global_account_limit(issuer, kwargs, *, session: "Optional[Session]
     for kv in list_account_attributes(account=issuer, session=session):
         if kv['key'].startswith('country-') and kv['value'] == 'admin':
             admin_in_country.add(kv['key'].partition('-')[2])
-    resolved_rse_countries = {list_rse_attributes(rse_id=rse['rse_id'], session=session).get('country')
+    resolved_rse_countries = {list_rse_attributes(rse_id=rse['rse_id'], session=session).get(RseAttr.COUNTRY)
                               for rse in parse_expression(kwargs['rse_expression'], filter_={'vo': issuer.vo}, session=session)}
     if resolved_rse_countries.issubset(admin_in_country):
         return True
     return False
 
 
-def perm_delete_local_account_limit(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_delete_local_account_limit(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can delete an account limit.
 
@@ -973,12 +974,12 @@ def perm_delete_local_account_limit(issuer, kwargs, *, session: "Optional[Sessio
     for kv in list_account_attributes(account=issuer, session=session):
         if kv['key'].startswith('country-') and kv['value'] == 'admin':
             admin_in_country.append(kv['key'].partition('-')[2])
-    if admin_in_country and list_rse_attributes(rse_id=kwargs['rse_id'], session=session).get('country') in admin_in_country:
+    if admin_in_country and list_rse_attributes(rse_id=kwargs['rse_id'], session=session).get(RseAttr.COUNTRY) in admin_in_country:
         return True
     return False
 
 
-def perm_delete_global_account_limit(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_delete_global_account_limit(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can delete a global account limit.
 
@@ -995,14 +996,14 @@ def perm_delete_global_account_limit(issuer, kwargs, *, session: "Optional[Sessi
         if kv['key'].startswith('country-') and kv['value'] == 'admin':
             admin_in_country.add(kv['key'].partition('-')[2])
     if admin_in_country:
-        resolved_rse_countries = {list_rse_attributes(rse_id=rse['rse_id'], session=session).get('country')
+        resolved_rse_countries = {list_rse_attributes(rse_id=rse['rse_id'], session=session).get(RseAttr.COUNTRY)
                                   for rse in parse_expression(kwargs['rse_expression'], filter_={'vo': issuer.vo}, session=session)}
         if resolved_rse_countries.issubset(admin_in_country):
             return True
     return False
 
 
-def perm_config(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_config(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can read/write the configuration.
 
@@ -1014,7 +1015,7 @@ def perm_config(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session)
 
 
-def perm_get_local_account_usage(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_get_local_account_usage(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can get the account usage of an account.
 
@@ -1033,7 +1034,7 @@ def perm_get_local_account_usage(issuer, kwargs, *, session: "Optional[Session]"
     return False
 
 
-def perm_get_global_account_usage(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_get_global_account_usage(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can get the account usage of an account.
 
@@ -1053,7 +1054,7 @@ def perm_get_global_account_usage(issuer, kwargs, *, session: "Optional[Session]
     return False
 
 
-def perm_add_account_attribute(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_add_account_attribute(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can add attributes to accounts.
 
@@ -1065,7 +1066,7 @@ def perm_add_account_attribute(issuer, kwargs, *, session: "Optional[Session]" =
     return _is_root(issuer) or has_account_attribute(account=issuer, key='admin', session=session)
 
 
-def perm_del_account_attribute(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_del_account_attribute(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can add attributes to accounts.
 
@@ -1077,7 +1078,7 @@ def perm_del_account_attribute(issuer, kwargs, *, session: "Optional[Session]" =
     return perm_add_account_attribute(issuer, kwargs, session=session)
 
 
-def perm_list_heartbeats(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_list_heartbeats(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can list heartbeats.
 
@@ -1089,7 +1090,7 @@ def perm_list_heartbeats(issuer, kwargs, *, session: "Optional[Session]" = None)
     return _is_root(issuer)
 
 
-def perm_resurrect(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_resurrect(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can resurrect DIDS.
 
@@ -1103,7 +1104,7 @@ def perm_resurrect(issuer, kwargs, *, session: "Optional[Session]" = None):
         or has_account_attribute(account=issuer, key='resurrect', session=session)
 
 
-def perm_update_lifetime_exceptions(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_update_lifetime_exceptions(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can approve/reject Lifetime Model exceptions.
 
@@ -1120,7 +1121,7 @@ def perm_update_lifetime_exceptions(issuer, kwargs, *, session: "Optional[Sessio
         or has_account_attribute(account=issuer, key='update_lifetime_exceptions', session=session)
 
 
-def perm_get_auth_token_ssh(issuer: "InternalAccount", kwargs: dict, *, session: "Optional[Session]" = None) -> bool:
+def perm_get_auth_token_ssh(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can request an ssh token.
 
@@ -1131,7 +1132,7 @@ def perm_get_auth_token_ssh(issuer: "InternalAccount", kwargs: dict, *, session:
     return True
 
 
-def perm_get_signed_url(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_get_signed_url(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can request a signed URL.
 
@@ -1142,7 +1143,7 @@ def perm_get_signed_url(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer)
 
 
-def perm_add_bad_pfns(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_add_bad_pfns(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can declare bad PFNs.
 
@@ -1154,7 +1155,7 @@ def perm_add_bad_pfns(issuer, kwargs, *, session: "Optional[Session]" = None):
     return _is_root(issuer) or has_account_attribute(account=issuer, key='add_bad_pfns', session=session)
 
 
-def perm_remove_did_from_followed(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_remove_did_from_followed(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can remove did from followed table.
 
@@ -1170,7 +1171,7 @@ def perm_remove_did_from_followed(issuer, kwargs, *, session: "Optional[Session]
         or kwargs['scope'].external == 'mock'
 
 
-def perm_remove_dids_from_followed(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_remove_dids_from_followed(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can bulk remove dids from followed table.
 
@@ -1189,7 +1190,7 @@ def perm_remove_dids_from_followed(issuer, kwargs, *, session: "Optional[Session
     return True
 
 
-def perm_export(issuer, kwargs, *, session: "Optional[Session]" = None):
+def perm_export(issuer: "InternalAccount", kwargs: dict[str, Any], *, session: "Optional[Session]" = None) -> bool:
     """
     Checks if an account can export the RSE info.
 
