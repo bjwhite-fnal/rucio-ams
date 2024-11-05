@@ -127,7 +127,7 @@ abacusRse:
 
 automatix:
   threads: 1
-  sleepTime: 30
+  sleepTime: 3600
   podAnnotations: {}
   inputFile: "/opt/rucio/etc/automatix.json"
   resources:
@@ -184,11 +184,11 @@ conveyorTransferSubmitter:
   archiveTimeout: ""
   resources:
     limits:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "1000Mi"
+      cpu: "1200m"
     requests:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "900Mi"
+      cpu: "1000m"
   additionalEnvs:
     - name: PYTHONPATH
       value: /opt/rucio/permissions
@@ -231,10 +231,10 @@ conveyorPoller:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "1500Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "1000Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -253,11 +253,11 @@ conveyorFinisher:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "500Mi"
+      cpu: "2000m"
     requests:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "500Mi"
+      cpu: "1000m"
   additionalEnvs:
     - name: PYTHONPATH
       value: /opt/rucio/permissions
@@ -275,11 +275,11 @@ conveyorReceiver:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "500Mi"
+      cpu: "1100m"
     requests:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "500Mi"
+      cpu: "1000m"
   additionalEnvs:
     - name: PYTHONPATH
       value: /opt/rucio/permissions
@@ -417,11 +417,11 @@ judgeCleaner:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "4000Mi"
+      cpu: "1000m"
     requests:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "500Mi"
+      cpu: "400m"
   additionalEnvs:
     - name: PYTHONPATH
       value: /opt/rucio/permissions
@@ -461,7 +461,7 @@ judgeInjector:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "900Mi"
       cpu: "700m"
     requests:
       memory: "200Mi"
@@ -483,11 +483,11 @@ judgeRepairer:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "1800Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "1200Mi"
+      cpu: "200m"
   additionalEnvs:
     - name: PYTHONPATH
       value: /opt/rucio/permissions
@@ -527,11 +527,11 @@ undertaker:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "500Mi"
+      cpu: "800m"
     requests:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "500Mi"
+      cpu: "400m"
   additionalEnvs:
     - name: PYTHONPATH
       value: /opt/rucio/permissions
@@ -552,11 +552,11 @@ reaper:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "2000Mi"
+      cpu: "1700m"
     requests:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "2000Mi"
+      cpu: "1000m"
   additionalEnvs:
     - name: PYTHONPATH
       value: /opt/rucio/permissions
@@ -596,7 +596,7 @@ transmogrifier:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "400Mi"
       cpu: "700m"
     requests:
       memory: "200Mi"
@@ -640,11 +640,11 @@ minos:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
-      cpu: "700m"
+      memory: "400Mi"
+      cpu: "1200m"
     requests:
-      memory: "100Mi"
-      cpu: "100m"
+      memory: "400Mi"
+      cpu: "1000m"
   additionalEnvs:
     - name: PYTHONPATH
       value: /opt/rucio/permissions
@@ -774,7 +774,7 @@ config:
     # special_accounts: "panda, tier0"
 
   automatix:
-    rses: "DCACHE_BJWHITE_END, DCACHE_BJWHITE_END2"
+    rses: "DCACHE_BJWHITE_START, DCACHE_BJWHITE_END"
     account: "automatix"
     set_metadata: "True"
     dataset_lifetime: 30
