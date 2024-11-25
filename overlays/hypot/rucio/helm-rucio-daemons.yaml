@@ -387,7 +387,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -480,7 +480,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -573,7 +573,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -675,7 +675,7 @@ spec:
           secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -777,7 +777,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -870,7 +870,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -963,7 +963,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1056,7 +1056,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1151,7 +1151,7 @@ spec:
             secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
 
@@ -1246,7 +1246,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1339,7 +1339,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1432,7 +1432,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1525,7 +1525,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1618,7 +1618,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1711,7 +1711,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1804,7 +1804,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1897,7 +1897,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1996,7 +1996,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -2089,7 +2089,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -2179,7 +2179,7 @@ spec:
           secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: config-common
