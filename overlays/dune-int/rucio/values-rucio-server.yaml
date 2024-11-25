@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 ## replicaCount gives the number of server pods to run
-replicaCount: 2
+replicaCount: 1
 
 serviceAccountName: useroot
 
@@ -25,7 +25,7 @@ useSSL: true
 
 image:
   repository: rucio/rucio-server
-  tag: release-35.4.0
+  tag: release-35.6.0
   pullPolicy: Always
 
 service:

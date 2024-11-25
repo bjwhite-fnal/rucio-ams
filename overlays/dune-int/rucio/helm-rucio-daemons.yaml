@@ -23,9 +23,51 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
+  name: fnal-rucio-daemons.config.conveyor-finisher
+  labels:
+    app: rucio-daemons-conveyor-finisher
+    chart: "rucio-daemons-34.0.3"
+    release: "fnal"
+    heritage: "Helm"
+type: Opaque
+data:
+  component.json: "e30="
+---
+# Source: rucio-daemons/templates/conveyor-deployment.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fnal-rucio-daemons.config.conveyor-poller
+  labels:
+    app: rucio-daemons-conveyor-poller
+    chart: "rucio-daemons-34.0.3"
+    release: "fnal"
+    heritage: "Helm"
+type: Opaque
+data:
+  component.json: "e30="
+---
+# Source: rucio-daemons/templates/conveyor-deployment.yaml
+apiVersion: v1
+kind: Secret
+metadata:
   name: fnal-rucio-daemons.config.conveyor-stager
   labels:
     app: rucio-daemons-conveyor-stager
+    chart: "rucio-daemons-34.0.3"
+    release: "fnal"
+    heritage: "Helm"
+type: Opaque
+data:
+  component.json: "e30="
+---
+# Source: rucio-daemons/templates/conveyor-deployment.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fnal-rucio-daemons.config.conveyor-submitter
+  labels:
+    app: rucio-daemons-conveyor-submitter
     chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
@@ -138,6 +180,20 @@ metadata:
   name: fnal-rucio-daemons.config.necromancer
   labels:
     app: rucio-daemons-necromancer
+    chart: "rucio-daemons-34.0.3"
+    release: "fnal"
+    heritage: "Helm"
+type: Opaque
+data:
+  component.json: "e30="
+---
+# Source: rucio-daemons/templates/reaper-deployment.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fnal-rucio-daemons.config.reaper
+  labels:
+    app: rucio-daemons-reaper
     chart: "rucio-daemons-34.0.3"
     release: "fnal"
     heritage: "Helm"
@@ -279,7 +335,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -308,6 +364,206 @@ spec:
               value: "abacus-rse"
             - name: RUCIO_DAEMON_ARGS
               value: "--threads 1"
+            - name: PYTHONPATH
+              value: /opt/rucio/permissions
+            - name: RUCIO_CFG_DATABASE_DEFAULT
+              valueFrom:
+                secretKeyRef:
+                  key: db-connstr.txt
+                  name: fnal-db-connstr
+          resources:
+            limits:
+              cpu: 700m
+              memory: 200Mi
+            requests:
+              cpu: 700m
+              memory: 200Mi
+---
+# Source: rucio-daemons/templates/conveyor-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fnal-conveyor-finisher
+  labels:
+    app: rucio-daemons-conveyor-finisher
+    app-group: rucio-daemons
+    chart: rucio-daemons-34.0.3
+    release: fnal
+    heritage: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rucio-daemons-conveyor-finisher
+      release: fnal
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: rucio-daemons-conveyor-finisher
+        app-group: rucio-daemons
+        release: fnal
+        rucio-daemon: conveyor-finisher
+      annotations:
+        checksum/config: 0ccf93455924bb86041f90257b82a254dc89c29f
+    spec:
+      serviceAccountName: useroot
+      volumes:
+      - name: config-common
+        secret:
+          secretName: fnal-rucio-daemons.config.common
+      - name: config-component
+        secret:
+          secretName: fnal-rucio-daemons.config.conveyor-finisher
+      - name: proxy-volume
+        secret:
+          secretName: fnal-rucio-x509up
+      - name: ca-volume
+        secret:
+          secretName: fnal-rucio-ca-bundle
+      - name: policy-package
+        secret:
+          secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
+      containers:
+        - name: rucio-daemons
+          image: "rucio/rucio-daemons:release-35.6.0"
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: proxy-volume
+              mountPath: /opt/proxy
+            - name: ca-volume
+              mountPath: /opt/certs
+            - name: config-common
+              mountPath: /opt/rucio/etc/conf.d/10_common.json
+              subPath: common.json
+            - name: config-component
+              mountPath: /opt/rucio/etc/conf.d/20_component.json
+              subPath: component.json
+            - name: policy-package
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
+          ports:
+            - name: metrics
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: RUCIO_OVERRIDE_CONFIGS
+              value: "/opt/rucio/etc/conf.d/"
+            - name: RUCIO_DAEMON
+              value: "conveyor-finisher"
+            - name: RUCIO_DAEMON_ARGS
+              value: " --total-threads 1"
+            - name: PYTHONPATH
+              value: /opt/rucio/permissions
+            - name: RUCIO_CFG_DATABASE_DEFAULT
+              valueFrom:
+                secretKeyRef:
+                  key: db-connstr.txt
+                  name: fnal-db-connstr
+          resources:
+            limits:
+              cpu: 700m
+              memory: 200Mi
+            requests:
+              cpu: 700m
+              memory: 200Mi
+---
+# Source: rucio-daemons/templates/conveyor-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fnal-conveyor-poller
+  labels:
+    app: rucio-daemons-conveyor-poller
+    app-group: rucio-daemons
+    chart: rucio-daemons-34.0.3
+    release: fnal
+    heritage: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rucio-daemons-conveyor-poller
+      release: fnal
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: rucio-daemons-conveyor-poller
+        app-group: rucio-daemons
+        release: fnal
+        rucio-daemon: conveyor-poller
+      annotations:
+        checksum/config: 0ccf93455924bb86041f90257b82a254dc89c29f
+    spec:
+      serviceAccountName: useroot
+      volumes:
+      - name: config-common
+        secret:
+          secretName: fnal-rucio-daemons.config.common
+      - name: config-component
+        secret:
+          secretName: fnal-rucio-daemons.config.conveyor-poller
+      - name: proxy-volume
+        secret:
+          secretName: fnal-rucio-x509up
+      - name: ca-volume
+        secret:
+          secretName: fnal-rucio-ca-bundle
+      - name: policy-package
+        secret:
+          secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
+      containers:
+        - name: rucio-daemons
+          image: "rucio/rucio-daemons:release-35.6.0"
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: proxy-volume
+              mountPath: /opt/proxy
+            - name: ca-volume
+              mountPath: /opt/certs
+            - name: config-common
+              mountPath: /opt/rucio/etc/conf.d/10_common.json
+              subPath: common.json
+            - name: config-component
+              mountPath: /opt/rucio/etc/conf.d/20_component.json
+              subPath: component.json
+            - name: policy-package
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
+          ports:
+            - name: metrics
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: RUCIO_OVERRIDE_CONFIGS
+              value: "/opt/rucio/etc/conf.d/"
+            - name: RUCIO_DAEMON
+              value: "conveyor-poller"
+            - name: RUCIO_DAEMON_ARGS
+              value: " --total-threads 1 "
             - name: PYTHONPATH
               value: /opt/rucio/permissions
             - name: RUCIO_CFG_DATABASE_DEFAULT
@@ -379,7 +635,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -408,6 +664,106 @@ spec:
               value: "conveyor-stager"
             - name: RUCIO_DAEMON_ARGS
               value: " --total-threads 1 --sleep-time 10 --activities 'User Subscriptions' 'Recovery'"
+            - name: PYTHONPATH
+              value: /opt/rucio/permissions
+            - name: RUCIO_CFG_DATABASE_DEFAULT
+              valueFrom:
+                secretKeyRef:
+                  key: db-connstr.txt
+                  name: fnal-db-connstr
+          resources:
+            limits:
+              cpu: 700m
+              memory: 200Mi
+            requests:
+              cpu: 700m
+              memory: 200Mi
+---
+# Source: rucio-daemons/templates/conveyor-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fnal-conveyor-submitter
+  labels:
+    app: rucio-daemons-conveyor-submitter
+    app-group: rucio-daemons
+    chart: rucio-daemons-34.0.3
+    release: fnal
+    heritage: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rucio-daemons-conveyor-submitter
+      release: fnal
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: rucio-daemons-conveyor-submitter
+        app-group: rucio-daemons
+        release: fnal
+        rucio-daemon: conveyor-submitter
+      annotations:
+        checksum/config: 0ccf93455924bb86041f90257b82a254dc89c29f
+    spec:
+      serviceAccountName: useroot
+      volumes:
+      - name: config-common
+        secret:
+          secretName: fnal-rucio-daemons.config.common
+      - name: config-component
+        secret:
+          secretName: fnal-rucio-daemons.config.conveyor-submitter
+      - name: proxy-volume
+        secret:
+          secretName: fnal-rucio-x509up
+      - name: ca-volume
+        secret:
+          secretName: fnal-rucio-ca-bundle
+      - name: policy-package
+        secret:
+          secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
+      containers:
+        - name: rucio-daemons
+          image: "rucio/rucio-daemons:release-35.6.0"
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: proxy-volume
+              mountPath: /opt/proxy
+            - name: ca-volume
+              mountPath: /opt/certs
+            - name: config-common
+              mountPath: /opt/rucio/etc/conf.d/10_common.json
+              subPath: common.json
+            - name: config-component
+              mountPath: /opt/rucio/etc/conf.d/20_component.json
+              subPath: component.json
+            - name: policy-package
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
+          ports:
+            - name: metrics
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: RUCIO_OVERRIDE_CONFIGS
+              value: "/opt/rucio/etc/conf.d/"
+            - name: RUCIO_DAEMON
+              value: "conveyor-submitter"
+            - name: RUCIO_DAEMON_ARGS
+              value: " --total-threads 1 --sleep-time 10 --activities 'User Subscriptions' 'Recovery' 'Data Challenge'"
             - name: PYTHONPATH
               value: /opt/rucio/permissions
             - name: RUCIO_CFG_DATABASE_DEFAULT
@@ -477,7 +833,7 @@ spec:
             secretName: fnal-policy-package
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
 
@@ -576,7 +932,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -676,7 +1032,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -776,7 +1132,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -876,7 +1232,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -976,7 +1332,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1076,7 +1432,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1176,7 +1532,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1219,6 +1575,112 @@ spec:
             requests:
               cpu: 100m
               memory: 100Mi
+---
+# Source: rucio-daemons/templates/reaper-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fnal-reaper
+  labels:
+    app: rucio-daemons-reaper
+    app-group: rucio-daemons
+    chart: rucio-daemons-34.0.3
+    release: fnal
+    heritage: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rucio-daemons-reaper
+      release: fnal
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: rucio-daemons-reaper
+        app-group: rucio-daemons
+        release: fnal
+        rucio-daemon: reaper
+      annotations:
+        checksum/config: 0ccf93455924bb86041f90257b82a254dc89c29f
+    spec:
+      serviceAccountName: useroot
+      volumes:
+      - name: config-common
+        secret:
+          secretName: fnal-rucio-daemons.config.common
+      - name: config-component
+        secret:
+          secretName: fnal-rucio-daemons.config.reaper
+      - name: proxy-volume
+        secret:
+          secretName: fnal-rucio-x509up
+      - name: ca-volume
+        secret:
+          secretName: fnal-rucio-ca-bundle-reaper
+      - name: policy-package
+        secret:
+          secretName: fnal-policy-package
+      - name: docker-entrypoint-daemons
+        secret:
+          secretName: fnal-docker-entrypoint-daemons
+          defaultMode: 488
+      containers:
+        - name: rucio-daemons
+          image: "rucio/rucio-daemons:release-35.6.0"
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: proxy-volume
+              mountPath: /opt/proxy
+            - name: ca-volume
+              mountPath: /etc/grid-security/certificates
+            - name: config-common
+              mountPath: /opt/rucio/etc/conf.d/10_common.json
+              subPath: common.json
+            - name: config-component
+              mountPath: /opt/rucio/etc/conf.d/20_component.json
+              subPath: component.json
+            - name: policy-package
+              mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
+          ports:
+            - name: metrics
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: RUCIO_OVERRIDE_CONFIGS
+              value: "/opt/rucio/etc/conf.d/"
+            - name: RUCIO_DAEMON
+              value: "reaper"
+            - name: RUCIO_DAEMON_ARGS
+              value: ' --threads 4'
+            - name: GLOBUS_THREAD_MODEL
+              value: "pthread"
+            - name: RUCIO_HOME
+              value: "/opt/rucio/reaper"
+            - name: X509_USER_PROXY
+              value: "/opt/proxy/x509up"
+            - name: PYTHONPATH
+              value: /opt/rucio/permissions
+            - name: RUCIO_CFG_DATABASE_DEFAULT
+              valueFrom:
+                secretKeyRef:
+                  key: db-connstr.txt
+                  name: fnal-db-connstr
+          resources:
+            limits:
+              cpu: 700m
+              memory: 200Mi
+            requests:
+              cpu: 700m
+              memory: 200Mi
 ---
 # Source: rucio-daemons/templates/replica-recoverer-deployment.yaml
 apiVersion: apps/v1
@@ -1276,7 +1738,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: proxy-volume
@@ -1373,7 +1835,7 @@ spec:
           defaultMode: 488
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.4.0"
+          image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
             - name: config-common
