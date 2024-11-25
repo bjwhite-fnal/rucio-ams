@@ -32,7 +32,7 @@ service:
 
 image:
   repository: rucio/rucio-webui
-  tag: release-35.3.0
+  tag: release-35.3.1
   pullPolicy: Always
 
 strategy:
