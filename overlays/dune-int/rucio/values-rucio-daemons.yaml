@@ -68,10 +68,10 @@ abacusAccount:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -88,10 +88,10 @@ abacusCollectionReplica:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -109,10 +109,10 @@ abacusRse:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -131,7 +131,7 @@ automatix:
   inputFile: "/opt/rucio/etc/automatix.json"
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
       memory: "100Mi"
@@ -155,7 +155,7 @@ cacheConsumer:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
       memory: "100Mi"
@@ -178,10 +178,10 @@ conveyorTransferSubmitter:
   archiveTimeout: ""
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -201,10 +201,10 @@ conveyorStager:
   archiveTimeout: ""
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -221,10 +221,10 @@ conveyorPoller:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -241,10 +241,10 @@ conveyorFinisher:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -261,10 +261,10 @@ conveyorReceiver:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -281,10 +281,10 @@ conveyorThrottler:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -301,10 +301,10 @@ conveyorPreparer:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -326,10 +326,10 @@ darkReaper:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -348,10 +348,10 @@ hermes:
   useSSL: "True"
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -374,10 +374,10 @@ hermesLegacy:
   brokerTimeout: 3
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -394,10 +394,10 @@ judgeCleaner:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -434,10 +434,10 @@ judgeInjector:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -454,10 +454,10 @@ judgeRepairer:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -474,10 +474,10 @@ oauthManager:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -494,10 +494,10 @@ undertaker:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -517,10 +517,10 @@ reaper:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -537,10 +537,10 @@ replicaRecoverer:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -557,10 +557,10 @@ transmogrifier:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -577,10 +577,10 @@ tracerKronos:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
   additionalEnvs:
     - name: PYTHONPATH
@@ -597,7 +597,7 @@ minos:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
       memory: "100Mi"
@@ -617,7 +617,7 @@ minosTemporaryExpiration:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
       memory: "100Mi"
@@ -636,7 +636,7 @@ necromancer:
   podAnnotations: {}
   resources:
     limits:
-      memory: "200Mi"
+      memory: "600Mi"
       cpu: "700m"
     requests:
       memory: "100Mi"

@@ -374,10 +374,10 @@ spec:
           resources:
             limits:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
             requests:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
 ---
 # Source: rucio-daemons/templates/conveyor-deployment.yaml
 apiVersion: apps/v1
@@ -474,10 +474,10 @@ spec:
           resources:
             limits:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
             requests:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
 ---
 # Source: rucio-daemons/templates/conveyor-deployment.yaml
 apiVersion: apps/v1
@@ -574,10 +574,10 @@ spec:
           resources:
             limits:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
             requests:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
 ---
 # Source: rucio-daemons/templates/conveyor-deployment.yaml
 apiVersion: apps/v1
@@ -674,10 +674,10 @@ spec:
           resources:
             limits:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
             requests:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
 ---
 # Source: rucio-daemons/templates/conveyor-deployment.yaml
 apiVersion: apps/v1
@@ -774,10 +774,10 @@ spec:
           resources:
             limits:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
             requests:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
 ---
 # Source: rucio-daemons/templates/hermes-deployment.yaml
 apiVersion: apps/v1
@@ -871,10 +871,10 @@ spec:
           resources:
             limits:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
             requests:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
 ---
 # Source: rucio-daemons/templates/judge-deployment.yaml
 apiVersion: apps/v1
@@ -971,10 +971,10 @@ spec:
           resources:
             limits:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
             requests:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
 ---
 # Source: rucio-daemons/templates/judge-deployment.yaml
 apiVersion: apps/v1
@@ -1171,10 +1171,10 @@ spec:
           resources:
             limits:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
             requests:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
 ---
 # Source: rucio-daemons/templates/judge-deployment.yaml
 apiVersion: apps/v1
@@ -1271,10 +1271,10 @@ spec:
           resources:
             limits:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
             requests:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
 ---
 # Source: rucio-daemons/templates/minos-deployment.yaml
 apiVersion: apps/v1
@@ -1371,7 +1371,7 @@ spec:
           resources:
             limits:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
             requests:
               cpu: 100m
               memory: 100Mi
@@ -1471,7 +1471,7 @@ spec:
           resources:
             limits:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
             requests:
               cpu: 100m
               memory: 100Mi
@@ -1571,7 +1571,7 @@ spec:
           resources:
             limits:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
             requests:
               cpu: 100m
               memory: 100Mi
@@ -1677,10 +1677,10 @@ spec:
           resources:
             limits:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
             requests:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
 ---
 # Source: rucio-daemons/templates/replica-recoverer-deployment.yaml
 apiVersion: apps/v1
@@ -1777,10 +1777,10 @@ spec:
           resources:
             limits:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
             requests:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
 ---
 # Source: rucio-daemons/templates/undertaker-deployment.yaml
 apiVersion: apps/v1
@@ -1872,10 +1872,10 @@ spec:
           resources:
             limits:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
             requests:
               cpu: 700m
-              memory: 200Mi
+              memory: 600Mi
 ---
 # Source: rucio-daemons/templates/renew-fts-cronjob.yaml
 apiVersion: batch/v1
