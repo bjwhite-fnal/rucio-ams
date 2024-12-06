@@ -790,7 +790,7 @@ config:
     enable_metrics: True
 
   transfers:
-    multihop_rse_expression: ""
+    use_multihop: True
     srm_https_compatibility: True
 
   policy:
