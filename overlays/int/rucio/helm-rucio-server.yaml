@@ -20,7 +20,7 @@ metadata:
   name: fnal-rucio-server.cfg
   labels:
     app: rucio-server
-    chart: "rucio-server-34.0.2"
+    chart: "rucio-server-35.0.0"
     release: "fnal"
     heritage: "Helm"
 type: Opaque
@@ -34,7 +34,7 @@ metadata:
   name: fnal-rucio-server
   labels:
     app: rucio-server
-    chart: rucio-server-34.0.2
+    chart: rucio-server-35.0.0
     release: fnal
     heritage: Helm
 spec:
@@ -55,7 +55,7 @@ metadata:
   name: fnal-rucio-server
   labels:
     app: rucio-server
-    chart: rucio-server-34.0.2
+    chart: rucio-server-35.0.0
     release: fnal
     heritage: Helm
 spec:
@@ -181,8 +181,6 @@ spec:
               value: "True"
             - name: RUCIO_HEALTH_CHECK_PORT
               value: "444"
-            - name: OPENSSL_ALLOW_PROXY_CERTS
-              value: "1"
             - name: RUCIO_SERVER_TYPE
               value: "api"
             - name: RUCIO_OVERRIDE_CONFIGS
