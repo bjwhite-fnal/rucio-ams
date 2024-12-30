@@ -788,7 +788,7 @@ config:
     auth_host: "https://hypot-rucio.fnal.gov"
     account: "automatix"
     auth_type: "x509_proxy"
-    ca_cert: "/opt/certs"
+    ca_cert: "/etc/grid-security/certificates"
     request_retries: 3
     protocol_stat_retries: 6
     client_x509_proxy: "/opt/proxy/x509up"
