@@ -91,6 +91,9 @@ spec:
       - name: httpd-custom-config
         secret:
           secretName: fnal-httpd-custom-config
+      - name: ca-volume
+        secret:
+          secretName: fnal-ca-volume
       - name: hostcert
         secret:
           secretName: fnal-server-hostcert
@@ -136,6 +139,9 @@ spec:
           - name: httpd-custom-config
             mountPath: /etc/httpd/conf.d/fnal-custom-config.conf
             subPath: fnal-custom-config.conf
+          - name: ca-volume
+            mountPath: /etc/grid-security/certificates
+            subPath: 
           - name: hostcert
             mountPath: /etc/grid-security/hostcert.pem
             subPath: hostcert.pem
@@ -200,4 +206,6 @@ spec:
                   name: fnal-db-connstr
             - name: RUCIO_HTTPD_LEGACY_DN
               value: "True"
+            - name: RUCIO_CA_PATH
+              value: /etc/grid-security/certificates
       affinity:
