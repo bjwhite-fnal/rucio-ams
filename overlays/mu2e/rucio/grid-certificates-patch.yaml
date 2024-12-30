@@ -14,13 +14,10 @@
 #    spec:
 #      initContainers:
 #      - name: grid-certs
-#        image: docker.io/bjwhitefnal/grid-security-files:32
-#        command: ["/bin/bash", "-c", "chmod 755 /out/ && cp -rv --preserve=links /grid-certificates/* /out/ && cp -rv --preserve=links /grid-certificates/* /out2/"]
+#        image: docker.io/bjwhitefnal/fetch-crl-cron:latest
 #        volumeMounts:
-#        - name: ca-volume
-#          mountPath: /out/
 #        - name: ca-volume-reaper
-#          mountPath: /out2/
+#          mountPath: /out/
 #      volumes:
 #       - name: ca-volume
 #         secret:
@@ -40,8 +37,7 @@
 #    spec:
 #      initContainers:
 #      - name: grid-certs
-#        image: docker.io/bjwhitefnal/grid-security-files:32
-#        command: ["/bin/bash", "-c", "chmod 755 /out/ && cp -rv --preserve=links /grid-certificates/* /out/"]
+#        image: docker.io/bjwhitefnal/fetch-crl-cron:latest
 #        volumeMounts:
 #        - name: ca-volume
 #          mountPath: /out/
@@ -60,8 +56,7 @@ spec:
     spec:
       initContainers:
       - name: grid-certs
-        image: docker.io/bjwhitefnal/grid-security-files:32
-        command: ["/bin/bash", "-c", "chmod 755 /out/ && cp -rv --preserve=links /grid-certificates/* /out/"]
+        image: docker.io/bjwhitefnal/fetch-crl-cron:latest
         volumeMounts:
         - name: ca-volume
           mountPath: /out/
