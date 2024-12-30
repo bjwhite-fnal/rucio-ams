@@ -95,6 +95,9 @@ spec:
       - name: httpd-custom-config
         secret:
           secretName: fnal-httpd-custom-config
+      - name: ca-volume
+        secret:
+          secretName: fnal-ca-volume
       - name: hostcert
         secret:
           secretName: fnal-server-hostcert
@@ -143,6 +146,9 @@ spec:
           - name: httpd-custom-config
             mountPath: /etc/httpd/conf.d/fnal-custom-config.conf
             subPath: fnal-custom-config.conf
+          - name: ca-volume
+            mountPath: /etc/grid-security/certificates
+            subPath: 
           - name: hostcert
             mountPath: /etc/grid-security/hostcert.pem
             subPath: hostcert.pem
@@ -211,4 +217,6 @@ spec:
               value: https://metacat.fnal.gov:9443/dune_meta_prod/app
             - name: METACAT_AUTH_SERVER_URL
               value: https://metacat.fnal.gov:8143/auth/dune
+            - name: RUCIO_CA_PATH
+              value: /etc/grid-security/certificates
       affinity:
