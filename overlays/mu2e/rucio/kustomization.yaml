@@ -6,6 +6,8 @@ resources:
 - cache.yaml
 - prometheus.yaml
 - messenger.yaml
+- grid-certificates-pvc.yaml
+- grid-certificates-cronjob.yaml
 
 patchesStrategicMerge:
 - patch-service.yaml
