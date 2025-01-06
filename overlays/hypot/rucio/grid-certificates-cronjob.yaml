@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: fetch-crl-cron
+spec:
+  concurrencyPolicy: Replace
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+    spec:
+      template:
+        metadata:
+          creationTimestamp: null
+        spec:
+          containers:
+          - args:
+            name: fetch-crl
+            image: docker.io/bjwhitefnal/fetch-crl-cron:latest
+            imagePullPolicy: Always
+            volumeMounts:
+            - name: ca-volume
+              mountPath: /out/
+          restartPolicy: OnFailure
+          terminationGracePeriodSeconds: 30
+          volumes:
+          - name: ca-volume
+            persistentVolumeClaim:
+              claimName: grid-certificates-pvc
+  schedule: 0 */3 * * *
+  suspend: false

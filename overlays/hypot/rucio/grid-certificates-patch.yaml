@@ -22,7 +22,8 @@ spec:
        - name: ca-volume-reaper
          secret:
            $patch: delete
-         emptyDir: {}
+         persistentVolumeClaim:
+           claimName: grid-certificates-pvc
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -42,7 +43,8 @@ spec:
        - name: ca-volume
          secret:
            $patch: delete
-         emptyDir: {}
+         persistentVolumeClaim:
+           claimName: grid-certificates-pvc
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -61,7 +63,8 @@ spec:
        - name: ca-volume
          secret:
            $patch: delete
-         emptyDir: {}
+         persistentVolumeClaim:
+           claimName: grid-certificates-pvc
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -80,4 +83,5 @@ spec:
        - name: ca-volume
          secret:
            $patch: delete
-         emptyDir: {}
+         persistentVolumeClaim:
+           claimName: grid-certificates-pvc
