@@ -12,6 +12,7 @@ spec:
         metadata:
           creationTimestamp: null
         spec:
+          serviceAccountName: useroot
           containers:
           - args:
             name: fetch-crl

@@ -12,6 +12,7 @@ spec:
         metadata:
           creationTimestamp: null
         spec:
+          serviceAccountName: useroot
           containers:
           - args:
             name: fetch-crl
@@ -26,5 +27,5 @@ spec:
           - name: ca-volume
             persistentVolumeClaim:
               claimName: grid-certificates-pvc
-  schedule: 0 */3 * * *
+  schedule: "0 */3 * * *"
   suspend: false
