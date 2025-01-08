@@ -82,6 +82,9 @@ spec:
       - name: cafile
         secret:
           secretName: fnal-cafile
+      - name: ca-volume
+        secret:
+          secretName: fnal-ca-volume
       containers:
         - name: httpd-error-log
           image: busybox
@@ -119,6 +122,9 @@ spec:
             - name: cafile
               mountPath: /etc/grid-security/ca.pem
               subPath: ca.pem
+            - name: ca-volume
+              mountPath: /etc/grid-security/certificates
+              subPath: 
           env:
             - name: RUCIO_HTTPD_KEEP_ALIVE
               value: "On"
@@ -214,8 +220,8 @@ spec:
               value: '[%{%Y-%m-%d %H:%M:%S}t]\t%v\t%h\t%{X-Forwarded-For}i\t%{X-Rucio-RequestId}i\t%>s\t%I\t%B\t%D\t\"%r\"\t\"%{X-Rucio-Auth-Token}i\"\t\"%{User-Agent}i\"\t%{X-Rucio-Script}i'
             - name: RUCIO_WEBUI_ENABLE_SSL
               value: "True"
-            - name: RUCIO_CA_FILE
-              value: /etc/grid-security/ca.pem
+            - name: RUCIO_CA_PATH
+              value: /etc/grid-security/certificates
             - name: RUCIO_ENABLE_SSL
               value: "True"
             - name: RUCIO_HTTPD_LEGACY_DN

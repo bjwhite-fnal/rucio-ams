@@ -36,9 +36,6 @@ secretGenerator:
 - name: fnal-server-hostkey
   files:
   - hostkey.pem=etc/.secrets/hostkey.pem
-- name: fnal-server-cafile
-  files:
-  - ca.pem=etc/.secrets/ca.pem
 
 # The desired policy package implementation files
 - name: fnal-policy-package
@@ -48,21 +45,10 @@ secretGenerator:
   - schema.py=etc/policy-package/schema.py
 
 # Used by daemons
-#- name: fnal-rucio-x509up
-#  files:
-#  - hostcert.pem=etc/.secrets/hostcert.pem
-#  - hostkey.pem=etc/.secrets/hostkey.pem
-#  options:
-#    disableNameSuffixHash: true
-- name: fnal-rucio-ca-bundle
+- name: fnal-rucio-x509up
   files:
-  - ca.pem=etc/.secrets/ca.pem
-  options:
-    disableNameSuffixHash: true
-- name: fnal-rucio-ca-bundle-reaper
-  # Reaper ca bundle
-  files:
-  - ca.pem=etc/.secrets/ca.pem
+  - hostcert.pem=etc/.secrets/hostcert.pem
+  - hostkey.pem=etc/.secrets/hostkey.pem
   options:
     disableNameSuffixHash: true
 - name: fnal-hermes-cert
@@ -87,7 +73,7 @@ secretGenerator:
   files:
   - new_userkey.pem=etc/.secrets/hostkey.pem
 
-# Memcache
+# Messenger
 - name: ssl-secrets
   files:
   - hostcert.pem=etc/.secrets/hostcert.pem
