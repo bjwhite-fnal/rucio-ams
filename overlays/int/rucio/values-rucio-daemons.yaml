@@ -127,7 +127,7 @@ abacusRse:
 
 automatix:
   threads: 1
-  sleepTime: 30
+  sleepTime: 600
   podAnnotations: {}
   inputFile: "/opt/rucio/etc/automatix.json"
   resources:
@@ -179,12 +179,12 @@ cacheConsumer:
 conveyorTransferSubmitter:
   threads: 1
   podAnnotations: {}
-  activities: "'User Subscriptions' 'Recovery'"
+  activities: "'User Subscriptions' 'Recovery' 'Functional Test'"
   sleepTime: 10
   archiveTimeout: ""
   resources:
     limits:
-      memory: "200Mi"
+      memory: "900Mi"
       cpu: "700m"
     requests:
       memory: "200Mi"
@@ -204,7 +204,7 @@ conveyorTransferSubmitter:
 conveyorStager:
   threads: 1
   podAnnotations: {}
-  activities: "'User Subscriptions' 'Recovery'"
+  activities: "'User Subscriptions' 'Recovery' 'Functional Test'"
   sleepTime: 10
   archiveTimeout: ""
   resources:
@@ -229,6 +229,7 @@ conveyorStager:
 conveyorPoller:
   threads: 1
   podAnnotations: {}
+  activities: "'User Subscriptions' 'Recovery' 'Functional Test'"
   resources:
     limits:
       memory: "200Mi"
@@ -251,6 +252,7 @@ conveyorPoller:
 conveyorFinisher:
   threads: 1
   podAnnotations: {}
+  activities: "'User Subscriptions' 'Recovery' 'Functional Test'"
   resources:
     limits:
       memory: "200Mi"
@@ -273,6 +275,7 @@ conveyorFinisher:
 conveyorReceiver:
   threads: 1
   podAnnotations: {}
+  activities: "'User Subscriptions' 'Recovery' 'Functional Test'"
   resources:
     limits:
       memory: "200Mi"
@@ -295,6 +298,7 @@ conveyorReceiver:
 conveyorThrottler:
   threads: 1
   podAnnotations: {}
+  activities: "'User Subscriptions' 'Recovery' 'Functional Test'"
   resources:
     limits:
       memory: "200Mi"
@@ -317,6 +321,7 @@ conveyorThrottler:
 conveyorPreparer:
   threads: 1
   podAnnotations: {}
+  activities: "'User Subscriptions' 'Recovery' 'Functional Test'"
   resources:
     limits:
       memory: "200Mi"
@@ -774,10 +779,10 @@ config:
     # special_accounts: "panda, tier0"
 
   automatix:
-    rses: "DCACHE_BJWHITE_END, DCACHE_BJWHITE_END2"
+    rses: "DCACHE_BJWHITE_START"
     account: "automatix"
     set_metadata: "True"
-    dataset_lifetime: 30
+    dataset_lifetime: 3600
     scope: "automatix"
 
   cache:
