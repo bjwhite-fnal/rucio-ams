@@ -45,7 +45,7 @@ strategy:
     maxSurge: 1
     maxUnavailable: 1
 
-useDeprecatedImplicitSecrets: true
+useDeprecatedImplicitSecrets: false
 
 podLabels: {}
 podAnnotations: {}
@@ -76,9 +76,7 @@ abacusAccount:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 abacusCollectionReplica:
   threads: 1
@@ -98,9 +96,7 @@ abacusCollectionReplica:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 abacusRse:
   fillHistoryTable: 0
@@ -121,13 +117,11 @@ abacusRse:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 automatix:
   threads: 1
-  sleepTime: 30
+  sleepTime: 300
   podAnnotations: {}
   inputFile: "/opt/rucio/etc/automatix.json"
   resources:
@@ -146,13 +140,15 @@ automatix:
           name: fnal-db-connstr 
           key: db-connstr.txt
   secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
-      - secretName: automatix-json
-        mountPath: /opt/rucio/etc/automatix.json
-        subPath: automatix.json
-      - secretName: rucio-x509up
-        mountPath: /opt/proxy
+    - secretName: policy-package
+      mountPath: /opt/rucio/permissions/fermilab
+    - secretName: automatix-json
+      mountPath: /opt/rucio/etc/automatix.json
+      subPath: automatix.json
+    - secretName: rucio-x509up
+      mountPath: /opt/proxy
+    - secretName: ca-volume
+      mountPath: /etc/grid-security/certificates
 
 cacheConsumer:
   threads: 1
@@ -172,9 +168,7 @@ cacheConsumer:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 conveyorTransferSubmitter:
   threads: 1
@@ -197,9 +191,7 @@ conveyorTransferSubmitter:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 conveyorStager:
   threads: 1
@@ -222,9 +214,7 @@ conveyorStager:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 conveyorPoller:
   threads: 1
@@ -244,9 +234,7 @@ conveyorPoller:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 conveyorFinisher:
   threads: 1
@@ -266,9 +254,7 @@ conveyorFinisher:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 conveyorReceiver:
   threads: 1
@@ -288,9 +274,7 @@ conveyorReceiver:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 conveyorThrottler:
   threads: 1
@@ -310,9 +294,7 @@ conveyorThrottler:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 conveyorPreparer:
   threads: 1
@@ -332,9 +314,7 @@ conveyorPreparer:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 darkReaper:
   workers: 1
@@ -359,9 +339,7 @@ darkReaper:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 hermes:
   threads: 1
@@ -383,9 +361,7 @@ hermes:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 hermesLegacy:
   threads: 1
@@ -408,9 +384,7 @@ hermesLegacy:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 judgeCleaner:
   threads: 1
@@ -430,9 +404,7 @@ judgeCleaner:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 judgeEvaluator:
   threads: 1
@@ -452,9 +424,7 @@ judgeEvaluator:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 judgeInjector:
   threads: 1
@@ -474,9 +444,7 @@ judgeInjector:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 judgeRepairer:
   threads: 1
@@ -496,9 +464,7 @@ judgeRepairer:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 oauthManager:
   threads: 1
@@ -518,9 +484,7 @@ oauthManager:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 undertaker:
   threads: 1
@@ -540,9 +504,7 @@ undertaker:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 reaper:
   greedy: 0
@@ -566,8 +528,12 @@ reaper:
           name: fnal-db-connstr 
           key: db-connstr.txt
   secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+    - secretName: ca-volume
+      mountPath: /etc/grid-security/certificates
+    - secretName: policy-package
+      mountPath: /opt/rucio/permissions/fermilab
+    - secretName: rucio-x509up
+      mountPath: /opt/proxy
 
 replicaRecoverer:
   threads: 1
@@ -587,9 +553,7 @@ replicaRecoverer:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 transmogrifier:
   threads: 1
@@ -609,9 +573,7 @@ transmogrifier:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 tracerKronos:
   threads: 1
@@ -631,9 +593,7 @@ tracerKronos:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 minos:
   threads: 1
@@ -653,9 +613,7 @@ minos:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 minosTemporaryExpiration:
   threads: 1
@@ -675,9 +633,7 @@ minosTemporaryExpiration:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 necromancer:
   podAnnotations: {}
@@ -696,9 +652,7 @@ necromancer:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+  secretMounts: []
 
 ftsRenewal:
   enabled: 1
@@ -715,6 +669,14 @@ ftsRenewal:
   secretMounts:
     - secretName: vomses
       mountPath: /etc/vomses
+    - secretName: fts-cert
+      mountPath: /opt/rucio/certs/usercert.pem
+      subPath: usercert.pem
+    - secretName: fts-key
+      mountPath: /opt/rucio/keys/new_userkey.pem
+      subPath: new_userkey.pem
+    - secretName: rucio-x509up
+      mountPath: /opt/proxy
     #- secretName: fts-cert
     #  mountPath: /opt/rucio/certs/usercert.pem
     #  subPath: usercert.pem
@@ -725,8 +687,10 @@ ftsRenewal:
     #   mountPath: /opt/rucio/certs/long.proxy
     #   subPath: long.proxy
   additionalEnvs:
-    #- name: RUCIO_FTS_SECRETS
-    #  value: fnal-rucio-x509up
+    - name: RUCIO_FTS_SECRETS
+      value: fnal-rucio-x509up
+    - name: FETCH_CRL
+      value: "False"
     - name: USERCERT_NAME
       value: "usercert.pem"
     - name: USERKEY_NAME
@@ -762,7 +726,11 @@ automaticRestart:
       cpu: 100m
       memory: 128Mi
 
-secretMounts: []
+secretMounts:
+  - secretName: policy-package
+    mountPath: /opt/rucio/permissions/fermilab
+  - secretName: rucio-x509up
+    mountPath: /opt/proxy
   # - volumeName: gcssecret
   #   secretName: gcssecret
   #   mountPath: /opt/rucio/etc/gcs_rucio.json

@@ -16,10 +16,10 @@ spec:
       - name: grid-certs
         image: docker.io/bjwhitefnal/fetch-crl-cron:latest
         volumeMounts:
-        - name: ca-volume-reaper
+        - name: ca-volume
           mountPath: /out/
       volumes:
-       - name: ca-volume-reaper
+       - name: ca-volume
          secret:
            $patch: delete
          persistentVolumeClaim:
@@ -49,7 +49,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fnal-rucio-ui
+  name: fnal-rucio-webui
 spec:
   template:
     spec:

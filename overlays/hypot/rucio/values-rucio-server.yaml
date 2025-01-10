@@ -7,7 +7,7 @@ replicaCount: 1
 
 serviceAccountName: useroot
 
-useDeprecatedImplicitSecrets: true
+useDeprecatedImplicitSecrets: false
 
 # When set, run extra busybox containers in the relevant pods to also expose the error logs
 exposeErrorLogs: true
@@ -189,6 +189,12 @@ secretMounts:
     subPath: fnal-custom-config.conf
   - secretName: ca-volume
     mountPath: /etc/grid-security/certificates
+  - secretName: server-hostcert
+    mountPath: /etc/grid-security/hostcert.pem
+    subPath: hostcert.pem
+  - secretName: server-hostkey
+    mountPath: /etc/grid-security/hostkey.pem
+    subPath: hostkey.pem
   # - volumeName: gcssecret
   #   secretName: gcssecret
   #   mountPath: /opt/rucio/etc/gcs_rucio.json
