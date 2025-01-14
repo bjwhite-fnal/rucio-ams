@@ -98,15 +98,12 @@ spec:
       - name: ca-volume
         secret:
           secretName: fnal-ca-volume
-      - name: hostcert
+      - name: server-hostcert
         secret:
           secretName: fnal-server-hostcert
-      - name: hostkey
+      - name: server-hostkey
         secret:
           secretName: fnal-server-hostkey
-      - name: cafile
-        secret:
-          secretName: fnal-server-cafile
       containers:
         - name: httpd-error-log
           image: busybox
@@ -149,15 +146,12 @@ spec:
           - name: ca-volume
             mountPath: /etc/grid-security/certificates
             subPath: 
-          - name: hostcert
+          - name: server-hostcert
             mountPath: /etc/grid-security/hostcert.pem
             subPath: hostcert.pem
-          - name: hostkey
+          - name: server-hostkey
             mountPath: /etc/grid-security/hostkey.pem
             subPath: hostkey.pem
-          - name: cafile
-            mountPath: /etc/grid-security/ca.pem
-            subPath: ca.pem
           ports:
             - name: http
               containerPort: 80

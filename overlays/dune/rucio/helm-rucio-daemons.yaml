@@ -348,12 +348,6 @@ spec:
       - name: config-component
         secret:
           secretName: fnal-rucio-daemons.config.abacus-account
-      - name: proxy-volume
-        secret:
-          secretName: fnal-rucio-x509up
-      - name: ca-volume
-        secret:
-          secretName: fnal-rucio-ca-bundle
       - name: policy-package
         secret:
           secretName: fnal-policy-package
@@ -361,15 +355,14 @@ spec:
         secret:
           secretName: fnal-docker-entrypoint-daemons
           defaultMode: 488
+      - name: rucio-x509up
+        secret:
+          secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
-            - name: proxy-volume
-              mountPath: /opt/proxy
-            - name: ca-volume
-              mountPath: /opt/certs
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
               subPath: common.json
@@ -381,6 +374,8 @@ spec:
             - name: docker-entrypoint-daemons
               mountPath: /start-daemon.sh
               subPath: "start-daemon.sh"
+            - name: rucio-x509up
+              mountPath: /opt/proxy
           ports:
             - name: metrics
               containerPort: 8080
@@ -448,12 +443,6 @@ spec:
       - name: config-component
         secret:
           secretName: fnal-rucio-daemons.config.abacus-rse
-      - name: proxy-volume
-        secret:
-          secretName: fnal-rucio-x509up
-      - name: ca-volume
-        secret:
-          secretName: fnal-rucio-ca-bundle
       - name: policy-package
         secret:
           secretName: fnal-policy-package
@@ -461,15 +450,14 @@ spec:
         secret:
           secretName: fnal-docker-entrypoint-daemons
           defaultMode: 488
+      - name: rucio-x509up
+        secret:
+          secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
-            - name: proxy-volume
-              mountPath: /opt/proxy
-            - name: ca-volume
-              mountPath: /opt/certs
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
               subPath: common.json
@@ -481,6 +469,8 @@ spec:
             - name: docker-entrypoint-daemons
               mountPath: /start-daemon.sh
               subPath: "start-daemon.sh"
+            - name: rucio-x509up
+              mountPath: /opt/proxy
           ports:
             - name: metrics
               containerPort: 8080
@@ -548,12 +538,6 @@ spec:
       - name: config-component
         secret:
           secretName: fnal-rucio-daemons.config.conveyor-finisher
-      - name: proxy-volume
-        secret:
-          secretName: fnal-rucio-x509up
-      - name: ca-volume
-        secret:
-          secretName: fnal-rucio-ca-bundle
       - name: policy-package
         secret:
           secretName: fnal-policy-package
@@ -561,15 +545,14 @@ spec:
         secret:
           secretName: fnal-docker-entrypoint-daemons
           defaultMode: 488
+      - name: rucio-x509up
+        secret:
+          secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
-            - name: proxy-volume
-              mountPath: /opt/proxy
-            - name: ca-volume
-              mountPath: /opt/certs
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
               subPath: common.json
@@ -581,6 +564,8 @@ spec:
             - name: docker-entrypoint-daemons
               mountPath: /start-daemon.sh
               subPath: "start-daemon.sh"
+            - name: rucio-x509up
+              mountPath: /opt/proxy
           ports:
             - name: metrics
               containerPort: 8080
@@ -648,12 +633,6 @@ spec:
       - name: config-component
         secret:
           secretName: fnal-rucio-daemons.config.conveyor-poller
-      - name: proxy-volume
-        secret:
-          secretName: fnal-rucio-x509up
-      - name: ca-volume
-        secret:
-          secretName: fnal-rucio-ca-bundle
       - name: policy-package
         secret:
           secretName: fnal-policy-package
@@ -661,15 +640,14 @@ spec:
         secret:
           secretName: fnal-docker-entrypoint-daemons
           defaultMode: 488
+      - name: rucio-x509up
+        secret:
+          secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
-            - name: proxy-volume
-              mountPath: /opt/proxy
-            - name: ca-volume
-              mountPath: /opt/certs
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
               subPath: common.json
@@ -681,6 +659,8 @@ spec:
             - name: docker-entrypoint-daemons
               mountPath: /start-daemon.sh
               subPath: "start-daemon.sh"
+            - name: rucio-x509up
+              mountPath: /opt/proxy
           ports:
             - name: metrics
               containerPort: 8080
@@ -748,12 +728,6 @@ spec:
       - name: config-component
         secret:
           secretName: fnal-rucio-daemons.config.conveyor-stager
-      - name: proxy-volume
-        secret:
-          secretName: fnal-rucio-x509up
-      - name: ca-volume
-        secret:
-          secretName: fnal-rucio-ca-bundle
       - name: policy-package
         secret:
           secretName: fnal-policy-package
@@ -761,15 +735,14 @@ spec:
         secret:
           secretName: fnal-docker-entrypoint-daemons
           defaultMode: 488
+      - name: rucio-x509up
+        secret:
+          secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
-            - name: proxy-volume
-              mountPath: /opt/proxy
-            - name: ca-volume
-              mountPath: /opt/certs
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
               subPath: common.json
@@ -781,6 +754,8 @@ spec:
             - name: docker-entrypoint-daemons
               mountPath: /start-daemon.sh
               subPath: "start-daemon.sh"
+            - name: rucio-x509up
+              mountPath: /opt/proxy
           ports:
             - name: metrics
               containerPort: 8080
@@ -848,12 +823,6 @@ spec:
       - name: config-component
         secret:
           secretName: fnal-rucio-daemons.config.conveyor-submitter
-      - name: proxy-volume
-        secret:
-          secretName: fnal-rucio-x509up
-      - name: ca-volume
-        secret:
-          secretName: fnal-rucio-ca-bundle
       - name: policy-package
         secret:
           secretName: fnal-policy-package
@@ -861,15 +830,14 @@ spec:
         secret:
           secretName: fnal-docker-entrypoint-daemons
           defaultMode: 488
+      - name: rucio-x509up
+        secret:
+          secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
-            - name: proxy-volume
-              mountPath: /opt/proxy
-            - name: ca-volume
-              mountPath: /opt/certs
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
               subPath: common.json
@@ -881,6 +849,8 @@ spec:
             - name: docker-entrypoint-daemons
               mountPath: /start-daemon.sh
               subPath: "start-daemon.sh"
+            - name: rucio-x509up
+              mountPath: /opt/proxy
           ports:
             - name: metrics
               containerPort: 8080
@@ -959,6 +929,13 @@ spec:
         - name: policy-package
           secret:
             secretName: fnal-policy-package
+        - name: docker-entrypoint-daemons
+          secret:
+            secretName: fnal-docker-entrypoint-daemons
+            defaultMode: 488
+        - name: rucio-x509up
+          secret:
+            secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-35.6.0"
@@ -978,6 +955,11 @@ spec:
               subPath: component.json
             - name: policy-package
               mountPath: /opt/rucio/permissions/fermilab/dune
+            - name: docker-entrypoint-daemons
+              mountPath: /start-daemon.sh
+              subPath: "start-daemon.sh"
+            - name: rucio-x509up
+              mountPath: /opt/proxy
           ports:
             - name: metrics
               containerPort: 8080
@@ -1045,12 +1027,6 @@ spec:
       - name: config-component
         secret:
           secretName: fnal-rucio-daemons.config.judge-cleaner
-      - name: proxy-volume
-        secret:
-          secretName: fnal-rucio-x509up
-      - name: ca-volume
-        secret:
-          secretName: fnal-rucio-ca-bundle
       - name: policy-package
         secret:
           secretName: fnal-policy-package
@@ -1058,15 +1034,14 @@ spec:
         secret:
           secretName: fnal-docker-entrypoint-daemons
           defaultMode: 488
+      - name: rucio-x509up
+        secret:
+          secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
-            - name: proxy-volume
-              mountPath: /opt/proxy
-            - name: ca-volume
-              mountPath: /opt/certs
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
               subPath: common.json
@@ -1078,6 +1053,8 @@ spec:
             - name: docker-entrypoint-daemons
               mountPath: /start-daemon.sh
               subPath: "start-daemon.sh"
+            - name: rucio-x509up
+              mountPath: /opt/proxy
           ports:
             - name: metrics
               containerPort: 8080
@@ -1145,12 +1122,6 @@ spec:
       - name: config-component
         secret:
           secretName: fnal-rucio-daemons.config.judge-evaluator
-      - name: proxy-volume
-        secret:
-          secretName: fnal-rucio-x509up
-      - name: ca-volume
-        secret:
-          secretName: fnal-rucio-ca-bundle
       - name: policy-package
         secret:
           secretName: fnal-policy-package
@@ -1158,15 +1129,14 @@ spec:
         secret:
           secretName: fnal-docker-entrypoint-daemons
           defaultMode: 488
+      - name: rucio-x509up
+        secret:
+          secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
-            - name: proxy-volume
-              mountPath: /opt/proxy
-            - name: ca-volume
-              mountPath: /opt/certs
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
               subPath: common.json
@@ -1178,6 +1148,8 @@ spec:
             - name: docker-entrypoint-daemons
               mountPath: /start-daemon.sh
               subPath: "start-daemon.sh"
+            - name: rucio-x509up
+              mountPath: /opt/proxy
           ports:
             - name: metrics
               containerPort: 8080
@@ -1245,12 +1217,6 @@ spec:
       - name: config-component
         secret:
           secretName: fnal-rucio-daemons.config.judge-injector
-      - name: proxy-volume
-        secret:
-          secretName: fnal-rucio-x509up
-      - name: ca-volume
-        secret:
-          secretName: fnal-rucio-ca-bundle
       - name: policy-package
         secret:
           secretName: fnal-policy-package
@@ -1258,15 +1224,14 @@ spec:
         secret:
           secretName: fnal-docker-entrypoint-daemons
           defaultMode: 488
+      - name: rucio-x509up
+        secret:
+          secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
-            - name: proxy-volume
-              mountPath: /opt/proxy
-            - name: ca-volume
-              mountPath: /opt/certs
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
               subPath: common.json
@@ -1278,6 +1243,8 @@ spec:
             - name: docker-entrypoint-daemons
               mountPath: /start-daemon.sh
               subPath: "start-daemon.sh"
+            - name: rucio-x509up
+              mountPath: /opt/proxy
           ports:
             - name: metrics
               containerPort: 8080
@@ -1345,12 +1312,6 @@ spec:
       - name: config-component
         secret:
           secretName: fnal-rucio-daemons.config.judge-repairer
-      - name: proxy-volume
-        secret:
-          secretName: fnal-rucio-x509up
-      - name: ca-volume
-        secret:
-          secretName: fnal-rucio-ca-bundle
       - name: policy-package
         secret:
           secretName: fnal-policy-package
@@ -1358,15 +1319,14 @@ spec:
         secret:
           secretName: fnal-docker-entrypoint-daemons
           defaultMode: 488
+      - name: rucio-x509up
+        secret:
+          secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
-            - name: proxy-volume
-              mountPath: /opt/proxy
-            - name: ca-volume
-              mountPath: /opt/certs
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
               subPath: common.json
@@ -1378,6 +1338,8 @@ spec:
             - name: docker-entrypoint-daemons
               mountPath: /start-daemon.sh
               subPath: "start-daemon.sh"
+            - name: rucio-x509up
+              mountPath: /opt/proxy
           ports:
             - name: metrics
               containerPort: 8080
@@ -1445,12 +1407,6 @@ spec:
       - name: config-component
         secret:
           secretName: fnal-rucio-daemons.config.minos
-      - name: proxy-volume
-        secret:
-          secretName: fnal-rucio-x509up
-      - name: ca-volume
-        secret:
-          secretName: fnal-rucio-ca-bundle
       - name: policy-package
         secret:
           secretName: fnal-policy-package
@@ -1458,15 +1414,14 @@ spec:
         secret:
           secretName: fnal-docker-entrypoint-daemons
           defaultMode: 488
+      - name: rucio-x509up
+        secret:
+          secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
-            - name: proxy-volume
-              mountPath: /opt/proxy
-            - name: ca-volume
-              mountPath: /opt/certs
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
               subPath: common.json
@@ -1478,6 +1433,8 @@ spec:
             - name: docker-entrypoint-daemons
               mountPath: /start-daemon.sh
               subPath: "start-daemon.sh"
+            - name: rucio-x509up
+              mountPath: /opt/proxy
           ports:
             - name: metrics
               containerPort: 8080
@@ -1545,12 +1502,6 @@ spec:
       - name: config-component
         secret:
           secretName: fnal-rucio-daemons.config.minos-temporary-expiration
-      - name: proxy-volume
-        secret:
-          secretName: fnal-rucio-x509up
-      - name: ca-volume
-        secret:
-          secretName: fnal-rucio-ca-bundle
       - name: policy-package
         secret:
           secretName: fnal-policy-package
@@ -1558,15 +1509,14 @@ spec:
         secret:
           secretName: fnal-docker-entrypoint-daemons
           defaultMode: 488
+      - name: rucio-x509up
+        secret:
+          secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
-            - name: proxy-volume
-              mountPath: /opt/proxy
-            - name: ca-volume
-              mountPath: /opt/certs
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
               subPath: common.json
@@ -1578,6 +1528,8 @@ spec:
             - name: docker-entrypoint-daemons
               mountPath: /start-daemon.sh
               subPath: "start-daemon.sh"
+            - name: rucio-x509up
+              mountPath: /opt/proxy
           ports:
             - name: metrics
               containerPort: 8080
@@ -1645,12 +1597,6 @@ spec:
       - name: config-component
         secret:
           secretName: fnal-rucio-daemons.config.necromancer
-      - name: proxy-volume
-        secret:
-          secretName: fnal-rucio-x509up
-      - name: ca-volume
-        secret:
-          secretName: fnal-rucio-ca-bundle
       - name: policy-package
         secret:
           secretName: fnal-policy-package
@@ -1658,15 +1604,14 @@ spec:
         secret:
           secretName: fnal-docker-entrypoint-daemons
           defaultMode: 488
+      - name: rucio-x509up
+        secret:
+          secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
-            - name: proxy-volume
-              mountPath: /opt/proxy
-            - name: ca-volume
-              mountPath: /opt/certs
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
               subPath: common.json
@@ -1678,6 +1623,8 @@ spec:
             - name: docker-entrypoint-daemons
               mountPath: /start-daemon.sh
               subPath: "start-daemon.sh"
+            - name: rucio-x509up
+              mountPath: /opt/proxy
           ports:
             - name: metrics
               containerPort: 8080
@@ -1745,39 +1692,32 @@ spec:
       - name: config-component
         secret:
           secretName: fnal-rucio-daemons.config.reaper
-      - name: proxy-volume
-        secret:
-          secretName: fnal-rucio-x509up
       - name: ca-volume
         secret:
-          secretName: fnal-rucio-ca-bundle-reaper
+          secretName: fnal-ca-volume
       - name: policy-package
         secret:
           secretName: fnal-policy-package
-      - name: docker-entrypoint-daemons
+      - name: rucio-x509up
         secret:
-          secretName: fnal-docker-entrypoint-daemons
-          defaultMode: 488
+          secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
-            - name: proxy-volume
-              mountPath: /opt/proxy
-            - name: ca-volume
-              mountPath: /etc/grid-security/certificates
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
               subPath: common.json
             - name: config-component
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
+            - name: ca-volume
+              mountPath: /etc/grid-security/certificates
             - name: policy-package
               mountPath: /opt/rucio/permissions/fermilab/dune
-            - name: docker-entrypoint-daemons
-              mountPath: /start-daemon.sh
-              subPath: "start-daemon.sh"
+            - name: rucio-x509up
+              mountPath: /opt/proxy
           ports:
             - name: metrics
               containerPort: 8080
@@ -1793,8 +1733,6 @@ spec:
               value: "pthread"
             - name: RUCIO_HOME
               value: "/opt/rucio/reaper"
-            - name: X509_USER_PROXY
-              value: "/opt/proxy/x509up"
             - name: PYTHONPATH
               value: /opt/rucio/permissions
             - name: RUCIO_CFG_DATABASE_DEFAULT
@@ -1851,12 +1789,6 @@ spec:
       - name: config-component
         secret:
           secretName: fnal-rucio-daemons.config.replica-recoverer
-      - name: proxy-volume
-        secret:
-          secretName: fnal-rucio-x509up
-      - name: ca-volume
-        secret:
-          secretName: fnal-rucio-ca-bundle
       - name: policy-package
         secret:
           secretName: fnal-policy-package
@@ -1864,15 +1796,14 @@ spec:
         secret:
           secretName: fnal-docker-entrypoint-daemons
           defaultMode: 488
+      - name: rucio-x509up
+        secret:
+          secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
-            - name: proxy-volume
-              mountPath: /opt/proxy
-            - name: ca-volume
-              mountPath: /opt/certs
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
               subPath: common.json
@@ -1884,6 +1815,8 @@ spec:
             - name: docker-entrypoint-daemons
               mountPath: /start-daemon.sh
               subPath: "start-daemon.sh"
+            - name: rucio-x509up
+              mountPath: /opt/proxy
           ports:
             - name: metrics
               containerPort: 8080
@@ -1951,12 +1884,6 @@ spec:
       - name: config-component
         secret:
           secretName: fnal-rucio-daemons.config.transmogrifier
-      - name: proxy-volume
-        secret:
-          secretName: fnal-rucio-x509up
-      - name: ca-volume
-        secret:
-          secretName: fnal-rucio-ca-bundle
       - name: policy-package
         secret:
           secretName: fnal-policy-package
@@ -1964,15 +1891,14 @@ spec:
         secret:
           secretName: fnal-docker-entrypoint-daemons
           defaultMode: 488
+      - name: rucio-x509up
+        secret:
+          secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-35.6.0"
           imagePullPolicy: Always
           volumeMounts:
-            - name: proxy-volume
-              mountPath: /opt/proxy
-            - name: ca-volume
-              mountPath: /opt/certs
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
               subPath: common.json
@@ -1984,6 +1910,8 @@ spec:
             - name: docker-entrypoint-daemons
               mountPath: /start-daemon.sh
               subPath: "start-daemon.sh"
+            - name: rucio-x509up
+              mountPath: /opt/proxy
           ports:
             - name: metrics
               containerPort: 8080
@@ -2051,9 +1979,6 @@ spec:
       - name: config-component
         secret:
           secretName: fnal-rucio-daemons.config.undertaker
-      - name: proxy-volume
-        secret:
-          secretName: fnal-rucio-x509up
       - name: policy-package
         secret:
           secretName: fnal-policy-package
@@ -2061,6 +1986,9 @@ spec:
         secret:
           secretName: fnal-docker-entrypoint-daemons
           defaultMode: 488
+      - name: rucio-x509up
+        secret:
+          secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-35.6.0"
@@ -2072,13 +2000,13 @@ spec:
             - name: config-component
               mountPath: /opt/rucio/etc/conf.d/20_component.json
               subPath: component.json
-            - name: proxy-volume
-              mountPath: /opt/proxy
             - name: policy-package
               mountPath: /opt/rucio/permissions/fermilab/dune
             - name: docker-entrypoint-daemons
               mountPath: /start-daemon.sh
               subPath: "start-daemon.sh"
+            - name: rucio-x509up
+              mountPath: /opt/proxy
           ports:
             - name: metrics
               containerPort: 8080
@@ -2124,12 +2052,15 @@ spec:
           - name: vomses
             secret:
               secretName: fnal-vomses
-          - name: usercert
+          - name: fts-cert
             secret:
               secretName: fnal-fts-cert
-          - name: userkey
+          - name: fts-key
             secret:
-              secretName:  fnal-fts-key
+              secretName: fnal-fts-key
+          - name: rucio-x509up
+            secret:
+              secretName: fnal-rucio-x509up
           containers:
             - name: renew-fts-cron
               image: "rucio/fts-cron:latest"
@@ -2145,12 +2076,16 @@ spec:
                 - name: config-common
                   mountPath: /opt/rucio/etc/conf.d/10_common.json
                   subPath: common.json
-                - name: usercert
-                  mountPath: /opt/rucio/certs/
-                - name: userkey
-                  mountPath: /opt/rucio/keys/
                 - name: vomses
                   mountPath: /etc/vomses
+                - name: fts-cert
+                  mountPath: /opt/rucio/certs/usercert.pem
+                  subPath: "usercert.pem"
+                - name: fts-key
+                  mountPath: /opt/rucio/keys/new_userkey.pem
+                  subPath: "new_userkey.pem"
+                - name: rucio-x509up
+                  mountPath: /opt/proxy
               env:
                 - name: RUCIO_VO
                   value: "dune"
@@ -2167,7 +2102,9 @@ spec:
                 - name: RUCIO_FTS_SERVERS
                   value: "https://fts3-public.cern.ch:8446,https://fts3-public.fnal.gov:8446"
                 - name: RUCIO_FTS_SECRETS
-                  value: "fnal-rucio-x509up"
+                  value: fnal-rucio-x509up
+                - name: FETCH_CRL
+                  value: "False"
                 - name: USERCERT_NAME
                   value: usercert.pem
                 - name: USERKEY_NAME
@@ -2194,12 +2131,15 @@ spec:
       - name: vomses
         secret:
           secretName: fnal-vomses
-      - name: usercert
+      - name: fts-cert
         secret:
           secretName: fnal-fts-cert
-      - name: userkey
+      - name: fts-key
         secret:
-          secretName:  fnal-fts-key
+          secretName: fnal-fts-key
+      - name: rucio-x509up
+        secret:
+          secretName: fnal-rucio-x509up
       containers:
         - name: renew-fts-cron
           image: "rucio/fts-cron:latest"
@@ -2215,12 +2155,16 @@ spec:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
               subPath: common.json
-            - name: usercert
-              mountPath: /opt/rucio/certs/
-            - name: userkey
-              mountPath: /opt/rucio/keys/
             - name: vomses
               mountPath: /etc/vomses
+            - name: fts-cert
+              mountPath: /opt/rucio/certs/usercert.pem
+              subPath: "usercert.pem"
+            - name: fts-key
+              mountPath: /opt/rucio/keys/new_userkey.pem
+              subPath: "new_userkey.pem"
+            - name: rucio-x509up
+              mountPath: /opt/proxy
           env:
             - name: RUCIO_VO
               value: "dune"
@@ -2237,7 +2181,9 @@ spec:
             - name: RUCIO_FTS_SERVERS
               value: "https://fts3-public.cern.ch:8446,https://fts3-public.fnal.gov:8446"
             - name: RUCIO_FTS_SECRETS
-              value: "fnal-rucio-x509up"
+              value: fnal-rucio-x509up
+            - name: FETCH_CRL
+              value: "False"
             - name: USERCERT_NAME
               value: usercert.pem
             - name: USERKEY_NAME

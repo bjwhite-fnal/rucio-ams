@@ -1,7 +1,7 @@
 EXPERIMENT=dune
 SERVER_CHART_VERSION := 35.0.0
 DAEMON_CHART_VERSION := 35.0.2
-UI_CHART_VERSION := 32.0.0
+UI_CHART_VERSION := 34.0.3
 
 helm:
 	helm repo add rucio https://rucio.github.io/helm-charts
@@ -13,10 +13,10 @@ rucio-server: helm
 rucio-daemons: helm
 	helm template fnal rucio/rucio-daemons --version=${DAEMON_CHART_VERSION} --values=rucio/values-rucio-daemons.yaml > rucio/helm-rucio-daemons.yaml
 
-rucio-ui: helm
-	helm template fnal rucio/rucio-ui --version=${UI_CHART_VERSION} --values=rucio/values-rucio-ui.yaml > rucio/helm-rucio-ui.yaml
+rucio-webui: helm
+	helm template fnal rucio/rucio-webui --version=${UI_CHART_VERSION} --values=rucio/values-rucio-webui.yaml > rucio/helm-rucio-webui.yaml
 
-rucio: rucio-server rucio-daemons rucio-ui
+rucio: rucio-server rucio-daemons rucio-webui
 
 # get-secrets:
 # 	mkdir -p rucio/etc/.secrets
