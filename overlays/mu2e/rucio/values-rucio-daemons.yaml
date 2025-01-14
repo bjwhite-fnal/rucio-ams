@@ -45,7 +45,7 @@ strategy:
     maxSurge: 1
     maxUnavailable: 1
 
-useDeprecatedImplicitSecrets: true
+useDeprecatedImplicitSecrets: false
 
 podLabels: {}
 podAnnotations: {}
@@ -140,10 +140,15 @@ automatix:
           name: fnal-db-connstr 
           key: db-connstr.txt
   secretMounts:
-      - mountPath: /opt/rucio/etc/automatix.json
-        subPath: automatix.json
-      - secretName: rucio-x509up
-        mountPath: /opt/proxy
+    - secretName: policy-package
+      mountPath: /opt/rucio/permissions/fermilab/mu2e
+    - secretName: automatix-json
+      mountPath: /opt/rucio/etc/automatix.json
+      subPath: automatix.json
+    - secretName: rucio-x509up
+      mountPath: /opt/proxy
+    - secretName: ca-volume
+      mountPath: /etc/grid-security/certificates
 
 cacheConsumer:
   threads: 1
@@ -356,10 +361,7 @@ hermes:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts:
-      #If you use this block for a per-daemon config, it doesn't get the secrets from the main block (i.e. pp)
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab/mu2e
+  secretMounts: []
 
 hermesLegacy:
   threads: 1
@@ -525,7 +527,13 @@ reaper:
         secretKeyRef:
           name: fnal-db-connstr 
           key: db-connstr.txt
-  secretMounts: []
+  secretMounts:
+    - secretName: ca-volume
+      mountPath: /etc/grid-security/certificates
+    - secretName: policy-package
+      mountPath: /opt/rucio/permissions/fermilab/mu2e
+    - secretName: rucio-x509up
+      mountPath: /opt/proxy
 
 replicaRecoverer:
   threads: 1
@@ -661,18 +669,22 @@ ftsRenewal:
   secretMounts:
     - secretName: vomses
       mountPath: /etc/vomses
-    #- secretName: fts-cert
-    #  mountPath: /opt/rucio/certs/usercert.pem
-    #  subPath: usercert.pem
-    #- secretName: fts-key
-    #  mountPath: /opt/rucio/keys/new_userkey.pem
-    #  subPath: new_userkey.pem
+    - secretName: fts-cert
+      mountPath: /opt/rucio/certs/usercert.pem
+      subPath: usercert.pem
+    - secretName: fts-key
+      mountPath: /opt/rucio/keys/new_userkey.pem
+      subPath: new_userkey.pem
+    - secretName: rucio-x509up
+      mountPath: /opt/proxy
     # - secretName: longproxy
     #   mountPath: /opt/rucio/certs/long.proxy
     #   subPath: long.proxy
   additionalEnvs:
-    #- name: RUCIO_FTS_SECRETS
-    #  value: fnal-rucio-x509up
+    - name: RUCIO_FTS_SECRETS
+      value: fnal-rucio-x509up
+    - name: FETCH_CRL
+      value: "False"
     - name: USERCERT_NAME
       value: "usercert.pem"
     - name: USERKEY_NAME
@@ -711,10 +723,13 @@ automaticRestart:
 secretMounts:
   - secretName: policy-package
     mountPath: /opt/rucio/permissions/fermilab/mu2e
+  - secretName: rucio-x509up
+    mountPath: /opt/proxy
   # - volumeName: gcssecret
   #   secretName: gcssecret
   #   mountPath: /opt/rucio/etc/gcs_rucio.json
   #   subPath: gcs_rucio.json
+  
 
 ## common config values used to configure the Rucio daemons
 config:

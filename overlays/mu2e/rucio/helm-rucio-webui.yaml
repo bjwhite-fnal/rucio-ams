@@ -11,7 +11,7 @@ metadata:
     heritage: "Helm"
 type: Opaque
 data:
-  common.json: "ewogICJib290c3RyYXAiOiB7CiAgICAieDUwOV9lbWFpbCI6ICJiandoaXRlQGZuYWwuZ292IiwKICAgICJ4NTA5X2lkZW50aXR5IjogIi9EQz1vcmcvREM9Y2lsb2dvbi9DPVVTL089RmVybWkgTmF0aW9uYWwgQWNjZWxlcmF0b3IgTGFib3JhdG9yeS9PVT1QZW9wbGUvQ049QnJhbmRvbiBXaGl0ZS9DTj1VSUQ6Ymp3aGl0ZSIKICB9LAogICJjb3JlIjogewogICAgInVzZV90ZW1wX3RhYmxlcyI6ICJUcnVlIgogIH0sCiAgImh0dHBkIjogewogICAgImtlZXBfYWxpdmUiOiAiT24iLAogICAgImtlZXBfYWxpdmVfdGltZW91dCI6ICI1IiwKICAgICJtYXhfY2xpZW50cyI6ICIyMCIsCiAgICAibWF4X2Nvbm5lY3Rpb25zX3Blcl9jaGlsZCI6ICIyMDQ4IiwKICAgICJtYXhfa2VlcF9hbGl2ZV9yZXF1ZXN0cyI6ICIxMjgiLAogICAgIm1heF9yZXF1ZXN0X3dvcmtlcnMiOiAiMTI4MCIsCiAgICAibWF4X3JlcXVlc3RzX3Blcl9jaGlsZCI6ICI4MTkyIiwKICAgICJtYXhfc3BhcmVfc2VydmVycyI6ICI1IiwKICAgICJtYXhfc3BhcmVfdGhyZWFkcyI6ICIyMCIsCiAgICAibWluX3NwYXJlX3NlcnZlcnMiOiAiMSIsCiAgICAibWluX3NwYXJlX3RocmVhZHMiOiAiMSIsCiAgICAibXBtX21vZGUiOiAiZXZlbnQiLAogICAgInNlcnZlcl9saW1pdCI6ICIxMCIsCiAgICAic3RhcnRfc2VydmVycyI6ICIxIiwKICAgICJ0aHJlYWRzX2xpbWl0IjogIjEyOCIsCiAgICAidGhyZWFkc19wZXJfY2hpbGQiOiAiNSIsCiAgICAidGltZW91dCI6IDMwMAogIH0sCiAgImxvZ3MiOiB7CiAgICAiZXhwb3NlSHR0cGRMb2dzIjogdHJ1ZSwKICAgICJleHBvc2VXZWJ1aUxvZ3MiOiB0cnVlCiAgfSwKICAib2lkY19wcm92aWRlcnMiOiB7CiAgICAiY2VybiI6IHsKICAgICAgImF1dGhvcml6YXRpb25fdXJsIjogIiIsCiAgICAgICJjbGllbnRfaWQiOiAiIiwKICAgICAgImNsaWVudF9zZWNyZXQiOiAiIiwKICAgICAgInJlZGlyZWN0X3VybCI6ICIiLAogICAgICAicmVmcmVzaF90b2tlbl91cmwiOiAiIiwKICAgICAgInRva2VuX3VybCI6ICIiLAogICAgICAidXNlcmluZm9fdXJsIjogIiIKICAgIH0KICB9LAogICJwb2xpY3kiOiB7CiAgICAicGFja2FnZSI6ICJmZXJtaWxhYiIKICB9LAogICJ2byI6IHsKICAgICJkZWYiOiB7CiAgICAgICJuYW1lIjogImRlZmF1bHQiLAogICAgICAib2lkY19lbmFibGVkIjogIkZhbHNlIiwKICAgICAgIm9pZGNfcHJvdmlkZXJzIjogIiIKICAgIH0KICB9LAogICJ3ZWJ1aSI6IHsKICAgICJlbmFibGVfc3NsIjogIlRydWUiLAogICAgImhvc3RuYW1lIjogIndlYnVpLWh5cG90LXJ1Y2lvLmZuYWwuZ292IiwKICAgICJtdWx0aXZvX2VuYWJsZWQiOiAiRmFsc2UiLAogICAgIm9pZGNfZW5hYmxlZCI6ICJGYWxzZSIsCiAgICAib2lkY19wcm92aWRlcnMiOiAiIiwKICAgICJwcm9qZWN0X3VybCI6ICJodHRwczovL2dpdGh1Yi5jb20vYmp3aGl0ZS1mbmFsL3J1Y2lvLWFtcyIsCiAgICAicnVjaW9fYXV0aF9ob3N0IjogImh0dHBzOi8vaHlwb3QtcnVjaW8uZm5hbC5nb3YiLAogICAgInJ1Y2lvX2hvc3QiOiAiaHR0cHM6Ly9oeXBvdC1ydWNpby5mbmFsLmdvdiIsCiAgICAic2VydmVyX2NhX2J1bmRsZSI6ICIvZXRjL2dyaWQtc2VjdXJpdHkvY2EucGVtIiwKICAgICJ2b19kZWZhdWx0IjogImRlZiIsCiAgICAidm9fbGlzdCI6ICJkZWYiCiAgfQp9"
+  common.json: "ewogICJib290c3RyYXAiOiB7CiAgICAieDUwOV9lbWFpbCI6ICJiandoaXRlQGZuYWwuZ292IiwKICAgICJ4NTA5X2lkZW50aXR5IjogIi9EQz1vcmcvREM9Y2lsb2dvbi9DPVVTL089RmVybWkgTmF0aW9uYWwgQWNjZWxlcmF0b3IgTGFib3JhdG9yeS9PVT1QZW9wbGUvQ049QnJhbmRvbiBXaGl0ZS9DTj1VSUQ6Ymp3aGl0ZSIKICB9LAogICJodHRwZCI6IHsKICAgICJrZWVwX2FsaXZlIjogIk9uIiwKICAgICJrZWVwX2FsaXZlX3RpbWVvdXQiOiAiNSIsCiAgICAibWF4X2NsaWVudHMiOiAiMjAiLAogICAgIm1heF9jb25uZWN0aW9uc19wZXJfY2hpbGQiOiAiMjA0OCIsCiAgICAibWF4X2tlZXBfYWxpdmVfcmVxdWVzdHMiOiAiMTI4IiwKICAgICJtYXhfcmVxdWVzdF93b3JrZXJzIjogIjEyODAiLAogICAgIm1heF9yZXF1ZXN0c19wZXJfY2hpbGQiOiAiODE5MiIsCiAgICAibWF4X3NwYXJlX3NlcnZlcnMiOiAiNSIsCiAgICAibWF4X3NwYXJlX3RocmVhZHMiOiAiMjAiLAogICAgIm1pbl9zcGFyZV9zZXJ2ZXJzIjogIjEiLAogICAgIm1pbl9zcGFyZV90aHJlYWRzIjogIjEiLAogICAgIm1wbV9tb2RlIjogImV2ZW50IiwKICAgICJzZXJ2ZXJfbGltaXQiOiAiMTAiLAogICAgInN0YXJ0X3NlcnZlcnMiOiAiMSIsCiAgICAidGhyZWFkc19saW1pdCI6ICIxMjgiLAogICAgInRocmVhZHNfcGVyX2NoaWxkIjogIjUiLAogICAgInRpbWVvdXQiOiAzMDAKICB9LAogICJsb2dzIjogewogICAgImV4cG9zZUh0dHBkTG9ncyI6IHRydWUsCiAgICAiZXhwb3NlV2VidWlMb2dzIjogdHJ1ZQogIH0sCiAgIm9pZGNfcHJvdmlkZXJzIjogewogICAgImNlcm4iOiB7CiAgICAgICJhdXRob3JpemF0aW9uX3VybCI6ICIiLAogICAgICAiY2xpZW50X2lkIjogIiIsCiAgICAgICJjbGllbnRfc2VjcmV0IjogIiIsCiAgICAgICJyZWRpcmVjdF91cmwiOiAiIiwKICAgICAgInJlZnJlc2hfdG9rZW5fdXJsIjogIiIsCiAgICAgICJ0b2tlbl91cmwiOiAiIiwKICAgICAgInVzZXJpbmZvX3VybCI6ICIiCiAgICB9CiAgfSwKICAicG9saWN5IjogewogICAgInBhY2thZ2UiOiAiZmVybWlsYWIiCiAgfSwKICAidm8iOiB7CiAgICAiZGVmIjogewogICAgICAibmFtZSI6ICJkZWZhdWx0IiwKICAgICAgIm9pZGNfZW5hYmxlZCI6ICJGYWxzZSIsCiAgICAgICJvaWRjX3Byb3ZpZGVycyI6ICIiCiAgICB9CiAgfSwKICAid2VidWkiOiB7CiAgICAiZW5hYmxlX3NzbCI6ICJUcnVlIiwKICAgICJob3N0bmFtZSI6ICJ3ZWJ1aS1tdTJlLXJ1Y2lvLmZuYWwuZ292IiwKICAgICJtdWx0aXZvX2VuYWJsZWQiOiAiRmFsc2UiLAogICAgIm9pZGNfZW5hYmxlZCI6ICJGYWxzZSIsCiAgICAib2lkY19wcm92aWRlcnMiOiAiIiwKICAgICJwcm9qZWN0X3VybCI6ICJodHRwczovL2dpdGh1Yi5jb20vYmp3aGl0ZS1mbmFsL3J1Y2lvLWFtcyIsCiAgICAicnVjaW9fYXV0aF9ob3N0IjogImh0dHBzOi8vbXUyZS1ydWNpby5mbmFsLmdvdiIsCiAgICAicnVjaW9faG9zdCI6ICJodHRwczovL211MmUtcnVjaW8uZm5hbC5nb3YiLAogICAgInNlcnZlcl9jYV9idW5kbGUiOiAiL2V0Yy9ncmlkLXNlY3VyaXR5L2NhLnBlbSIsCiAgICAidm9fZGVmYXVsdCI6ICJkZWYiLAogICAgInZvX2xpc3QiOiAiZGVmIgogIH0KfQ=="
 ---
 # Source: rucio-webui/templates/service.yaml
 apiVersion: v1
@@ -33,7 +33,6 @@ spec:
   selector:
     app: rucio-webui
     release: fnal
-  allocateLoadBalancerNodePorts: false
 ---
 # Source: rucio-webui/templates/deployment.yaml
 apiVersion: apps/v1
@@ -63,7 +62,7 @@ spec:
         app: rucio-webui
         release: fnal
       annotations:
-        checksum/config: 3fe878cb8a40a6e49b9ee0708d0034c3792118c9
+        checksum/config: 3601d5c0a8084090a19e8270a374a5cbd6bfa32e
     spec:
       volumes:
       - name: config
@@ -163,7 +162,7 @@ spec:
             - name: RUCIO_WEBUI_ENABLE_SSL
               value: "True"
             - name: RUCIO_WEBUI_HOSTNAME
-              value: "webui-hypot-rucio.fnal.gov"
+              value: "webui-mu2e-rucio.fnal.gov"
             - name: RUCIO_WEBUI_MULTIVO_ENABLED
               value: "False"
             - name: RUCIO_WEBUI_OIDC_ENABLED
@@ -173,9 +172,9 @@ spec:
             - name: RUCIO_WEBUI_PROJECT_URL
               value: "https://github.com/bjwhite-fnal/rucio-ams"
             - name: RUCIO_WEBUI_RUCIO_AUTH_HOST
-              value: "https://hypot-rucio.fnal.gov"
+              value: "https://mu2e-rucio.fnal.gov"
             - name: RUCIO_WEBUI_RUCIO_HOST
-              value: "https://hypot-rucio.fnal.gov"
+              value: "https://mu2e-rucio.fnal.gov"
             - name: RUCIO_WEBUI_SERVER_CA_BUNDLE
               value: "/etc/grid-security/ca.pem"
             - name: RUCIO_WEBUI_VO_DEFAULT
@@ -205,9 +204,9 @@ spec:
             - name: RUCIO_WEBUI_VO_DEF_OIDC_PROVIDERS
               value: ""
             - name: RUCIO_WEBUI_RUCIO_HOST
-              value: https://hypot-rucio.fnal.gov
+              value: https://mu2e-rucio.fnal.gov
             - name: RUCIO_WEBUI_RUCIO_AUTH_HOST
-              value: https://hypot-rucio.fnal.gov
+              value: https://mu2e-rucio.fnal.gov
             - name: RUCIO_LOG_LEVEL
               value: "INFO"
             - name: RUCIO_ENABLE_LOGS

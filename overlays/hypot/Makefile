@@ -1,7 +1,7 @@
 EXPERIMENT=hypot
 SERVER_CHART_VERSION := 35.0.0
 DAEMON_CHART_VERSION := 35.0.2
-UI_CHART_VERSION := 34.0.3
+UI_CHART_VERSION := 35.1.0
 
 helm:
 	helm repo add rucio https://rucio.github.io/helm-charts
