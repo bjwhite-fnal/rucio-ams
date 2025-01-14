@@ -45,7 +45,7 @@ strategy:
     maxSurge: 1
     maxUnavailable: 1
 
-useDeprecatedImplicitSecrets: true
+useDeprecatedImplicitSecrets: false
 
 podLabels: {}
 podAnnotations: {}
@@ -146,13 +146,15 @@ automatix:
           name: fnal-db-connstr 
           key: db-connstr.txt
   secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
-      - secretName: automatix-json
-        mountPath: /opt/rucio/etc/automatix.json
-        subPath: automatix.json
-      - secretName: rucio-x509up
-        mountPath: /opt/proxy
+    - secretName: policy-package
+      mountPath: /opt/rucio/permissions/fermilab
+    - secretName: automatix-json
+      mountPath: /opt/rucio/etc/automatix.json
+      subPath: automatix.json
+    - secretName: rucio-x509up
+      mountPath: /opt/proxy
+    - secretName: ca-volume
+      mountPath: /etc/grid-security/certificates
 
 cacheConsumer:
   threads: 1
@@ -566,8 +568,12 @@ reaper:
           name: fnal-db-connstr 
           key: db-connstr.txt
   secretMounts:
-      - secretName: policy-package
-        mountPath: /opt/rucio/permissions/fermilab
+    - secretName: ca-volume
+      mountPath: /etc/grid-security/certificates
+    - secretName: policy-package
+      mountPath: /opt/rucio/permissions/fermilab
+    - secretName: rucio-x509up
+      mountPath: /opt/proxy
 
 replicaRecoverer:
   threads: 1
@@ -715,6 +721,14 @@ ftsRenewal:
   secretMounts:
     - secretName: vomses
       mountPath: /etc/vomses
+    - secretName: fts-cert
+      mountPath: /opt/rucio/certs/usercert.pem
+      subPath: usercert.pem
+    - secretName: fts-key
+      mountPath: /opt/rucio/keys/new_userkey.pem
+      subPath: new_userkey.pem
+    - secretName: rucio-x509up
+      mountPath: /opt/proxy
     #- secretName: fts-cert
     #  mountPath: /opt/rucio/certs/usercert.pem
     #  subPath: usercert.pem
@@ -725,8 +739,10 @@ ftsRenewal:
     #   mountPath: /opt/rucio/certs/long.proxy
     #   subPath: long.proxy
   additionalEnvs:
-    #- name: RUCIO_FTS_SECRETS
-    #  value: fnal-rucio-x509up
+    - name: RUCIO_FTS_SECRETS
+      value: fnal-rucio-x509up
+    - name: FETCH_CRL
+      value: "False"
     - name: USERCERT_NAME
       value: "usercert.pem"
     - name: USERKEY_NAME
@@ -762,7 +778,11 @@ automaticRestart:
       cpu: 100m
       memory: 128Mi
 
-secretMounts: []
+secretMounts:
+  - secretName: policy-package
+    mountPath: /opt/rucio/permissions/fermilab
+  - secretName: rucio-x509up
+    mountPath: /opt/proxy
   # - volumeName: gcssecret
   #   secretName: gcssecret
   #   mountPath: /opt/rucio/etc/gcs_rucio.json
