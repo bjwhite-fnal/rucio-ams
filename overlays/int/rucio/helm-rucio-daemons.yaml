@@ -649,7 +649,6 @@ spec:
       - name: rucio-x509up
         secret:
           secretName: fnal-rucio-x509up
-          defaultMode: 384
       - name: ca-volume
         secret:
           secretName: fnal-ca-volume

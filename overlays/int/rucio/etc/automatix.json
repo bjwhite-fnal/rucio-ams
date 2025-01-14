@@ -1,7 +1,7 @@
 {
 "type1": {
                 "probability": 10,
-                "nbfiles": 2,
+                "nbfiles": 10,
                 "metadata":
                 {
                         "project": "mc12_8TeV",
@@ -19,7 +19,7 @@
         },
 "type3": {
                 "probability": 10,
-                "nbfiles": 1,
+                "nbfiles": 10,
                 "metadata":
                 {
                         "project": "mc12_8TeV",
