@@ -11,7 +11,7 @@ metadata:
     heritage: "Helm"
 type: Opaque
 data:
-  common.json: "ewogICJwb2xpY3kiOiB7CiAgICAibGZuMnBmbl9hbGdvcml0aG1fZGVmYXVsdCI6ICJEVU5FIiwKICAgICJtZXRhY2F0X2Jhc2VfdXJsIjogImh0dHBzOi8vbWV0YWNhdC5mbmFsLmdvdjo5NDQzL2R1bmVfbWV0YV9wcm9kL2FwcCIsCiAgICAicGFja2FnZSI6ICJmZXJtaWxhYi5kdW5lIgogIH0KfQ=="
+  common.json: "ewogICJwb2xpY3kiOiB7CiAgICAibGZuMnBmbl9hbGdvcml0aG1fZGVmYXVsdCI6ICJEVU5FIiwKICAgICJtZXRhY2F0X2Jhc2VfdXJsIjogImh0dHBzOi8vbWV0YWNhdC5mbmFsLmdvdjo5NDQzL2R1bmVfbWV0YV9wcm9kL2FwcCIsCiAgICAicGFja2FnZSI6ICJmZXJtaWxhYi5kdW5lIgogIH0sCiAgIndlYnVpIjogewogICAgInVybHMiOiAiaHR0cHM6Ly93ZWJ1aS1kdW5lLXJ1Y2lvLmZuYWwuZ292IgogIH0KfQ=="
 ---
 # Source: rucio-server/templates/secrets.yaml
 apiVersion: v1
@@ -76,7 +76,7 @@ spec:
         app: rucio-server
         release: fnal
       annotations:
-        checksum/config: aeb7c08c31754db9c009a88b7a80320c1ca7cc36
+        checksum/config: 8852a47e67e8d45ac1c7a7c0c67858bf170d73af
     spec:
       serviceAccountName: useroot
       volumes:

@@ -411,6 +411,9 @@ config:
     ## config.webui.usercert:  (default "/opt/rucio/etc/usercert_with_key.pem")
     # usercert: "/opt/rucio/etc/usercert_with_key.pem"
 
+  webui:
+    urls: "https://webui-hypot-rucio.fnal.gov"
+
 #optional_config:
 #  policy_pkg_dir: /opt/rucio/permissions
 

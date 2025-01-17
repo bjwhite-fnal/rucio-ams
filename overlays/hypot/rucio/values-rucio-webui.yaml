@@ -62,6 +62,8 @@ httpd_config:
   # threads_per_child: "5"
   # max_clients: "20"
   # max_requests_per_child: "8192"
+  tls:
+    enabled: true
 
 ## values used to configure Rucio
 config:
@@ -82,18 +84,17 @@ config:
 
   ## Only necessary for webui deployments
   webui:
-    # config.webui.usercert:  (default "/opt/rucio/etc/usercert_with_key.pem")
-    #usercert: "/opt/rucio/etc/usercert_with_key.pem"
     rucio_host: "https://hypot-rucio.fnal.gov"
     rucio_auth_host: "https://hypot-rucio.fnal.gov"
     hostname: "webui-hypot-rucio.fnal.gov"
-    project_url: "https://github.com/bjwhite-fnal/rucio-ams"
+    project_url: "https://fnal.gov"
     oidc_enabled: "False"
     enable_ssl: "True"
     server_ca_bundle: "/etc/grid-security/ca.pem"
 
 optional_config:
   pythonpath: /opt/rucio/permissions
+  #POLICY_PKG_DIR: /opt/rucio/permissions
 
 additionalEnvs:
   - name: RUCIO_CA_PATH
@@ -105,14 +106,19 @@ additionalEnvs:
   - name: RUCIO_LOG_LEVEL
     value: debug
 
-resources:
-  limits:
-    cpu: 1000m
-    memory: 8Gi
+resources: {}
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
   # requests:
   #  cpu: 100m
   #  memory: 128Mi
 secretMounts:
+  # Custom to install metacat? Needed for webui?
+  #- secretName: docker-entrypoint-webui
+  #  mountPath: /docker-entrypoint.sh
+  #  subPath: docker-entrypoint.sh
+  #  defaultMode: 0750
   - secretName: hostcert
     mountPath: /etc/grid-security/hostcert.pem
     subPath: hostcert.pem

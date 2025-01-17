@@ -404,10 +404,8 @@ config:
     ## config.permission.support_rucio: (default "https://github.com/rucio/rucio/issues/")
     # support_rucio: "https://github.com/rucio/rucio/issues/"
 
-  ## Only necessary for webui deployments
-  # webui:
-    ## config.webui.usercert:  (default "/opt/rucio/etc/usercert_with_key.pem")
-    # usercert: "/opt/rucio/etc/usercert_with_key.pem"
+  webui:
+    urls: "https://webui-dune-rucio.fnal.gov"
 
 #optional_config:
 #  policy_pkg_dir: /opt/rucio/permissions
