@@ -45,6 +45,8 @@ class User:
     name: str
     # email: str
     identities: list[str]
+    uuid: str
+    issuer: str
 
 
 def sync_ferry_users(commit=False,
@@ -88,6 +90,10 @@ def sync_ferry_users(commit=False,
         except:
             continue
 
+        # Only incative users have no token
+        uuid = user['uuid']
+        issuer = 'https://cilogon.org/dune' if vo == 'dune' else 'https://cilogon.org/fermilab' 
+
         # get identities
         user_dns = list(filter(lambda x: x['username'] == username, all_dns))
         if user_dns:
@@ -96,7 +102,7 @@ def sync_ferry_users(commit=False,
             logger.error(f"No dns for {username} found")
             dn = []
 
-        users_to_add.append(User(name=username, identities=dn))
+        users_to_add.append(User(name=username, identities=dn, uuid=uuid, issuer=issuer))
     
     # Add or update users to Rucio
     if commit:
@@ -138,6 +144,9 @@ def add_user(ferry: FerryClient, client: RucioClient, user: User, scopes=False, 
 
     email = account['email']
 
+    # Create Rucio formatted account identity
+    token_suject = f'SUB={user.uuid}, ISS={user.issuer}'
+
     # add user identities
     logger.info(f"Adding identities for {username}")
     for d in user.identities:
@@ -147,6 +156,10 @@ def add_user(ferry: FerryClient, client: RucioClient, user: User, scopes=False, 
                 if not email:
                     email = get_email(ferry, username)
                 client.add_identity(username, d['dn'], "X509", email)
+            if token_subject not in existing:
+                email = get_email(ferry, username)
+                client.add_identity(username, token_subject, "OIDC", email)
+
         except Duplicate:
             continue
         except UserLDAPError as e:
