@@ -102,7 +102,7 @@ spec:
           - name: webui-log
             mountPath: /var/log/webui/
         - name: rucio-webui
-          image: "rucio/rucio-webui:release-35.4.0"
+          image: "rucio/rucio-webui:release-36.2.0"
           imagePullPolicy: Always
           ports:
             - name: http
