@@ -102,8 +102,8 @@ spec:
           - name: webui-log
             mountPath: /var/log/webui/
         - name: rucio-webui
-          image: "rucio/rucio-webui:release-36.2.0"
-          imagePullPolicy: IfNotPresent
+          image: "imageregistry.fnal.gov/docker.io/rucio/rucio-webui:release-36.2.0"
+          imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 80

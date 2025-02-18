@@ -31,9 +31,9 @@ service:
   allocateLoadBalancerNodePorts: false
 
 image:
-  repository: rucio/rucio-webui
+  repository: imageregistry.fnal.gov/docker.io/rucio/rucio-webui
   tag: release-36.2.0
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 strategy:
   type: RollingUpdate

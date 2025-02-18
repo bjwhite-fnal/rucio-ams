@@ -37,7 +37,7 @@ serviceAccountName: useroot
 image:
   repository: rucio/rucio-daemons
   tag: release-35.6.0
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 strategy:
   type: RollingUpdate
@@ -660,7 +660,7 @@ ftsRenewal:
   image:
     repository: rucio/fts-cron
     tag: latest
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   servers: "https://fts3-public.cern.ch:8446,https://fts3-public.fnal.gov:8446"
   script: 'default'  # one of: 'default', 'atlas', 'dteam', 'multi_vo', 'tutorial', 'escape'. The associated scripts can be found here: https://github.com/rucio/containers/tree/master/fts-cron
   vos:
@@ -709,7 +709,7 @@ automaticRestart:
   image:
     repository: bitnami/kubectl
     tag: latest
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   schedule: "0 0 * * *"
   selectorLabel: "app-group=rucio-daemons"
   resources:

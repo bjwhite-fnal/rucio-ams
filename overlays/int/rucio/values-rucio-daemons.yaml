@@ -35,9 +35,9 @@ necromancerCount: 1
 serviceAccountName: useroot
 
 image:
-  repository: rucio/rucio-daemons
+  repository: imageregistry.fnal.gov/docker.io/rucio/rucio-daemons
   tag: release-36.2.0
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 strategy:
   type: RollingUpdate
@@ -667,9 +667,9 @@ ftsRenewal:
   enabled: 1
   schedule: "12 */6 * * *"
   image:
-    repository: rucio/fts-cron
+    repository: imageregistry.fnal.gov/docker.io/rucio/fts-cron
     tag: latest
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   servers: "https://fts3-public.fnal.gov:8446"
   script: 'default'  # one of: 'default', 'atlas', 'dteam', 'multi_vo', 'tutorial', 'escape'. The associated scripts can be found here: https://github.com/rucio/containers/tree/master/fts-cron
   vos:
@@ -716,9 +716,9 @@ ftsRenewal:
 automaticRestart:
   enabled: 0
   image:
-    repository: bitnami/kubectl
+    repository: imageregistry.fnal.gov/docker.io/bitnami/kubectl
     tag: latest
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   schedule: "0 0 * * *"
   selectorLabel: "app-group=rucio-daemons"
   resources:
