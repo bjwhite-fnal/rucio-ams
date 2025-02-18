@@ -13,6 +13,7 @@ patchesStrategicMerge:
 - patch-service.yaml
 - grid-certificates-patch.yaml
 - patch-webui.yaml
+- patch-busybox.yaml
 
 configmapGenerator:
 - name: webui-patch

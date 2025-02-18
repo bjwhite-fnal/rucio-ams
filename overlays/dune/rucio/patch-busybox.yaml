@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fnal-rucio-server
+spec:
+  template:
+    spec:
+      containers:
+        - name: httpd-error-log
+          image: imageregistry.fnal.gov/docker.io/busybox
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fnal-rucio-webui
+spec:
+  template:
+    spec:
+      containers:
+        - name: httpd-error-log
+          image: imageregistry.fnal.gov/docker.io/busybox
+        - name: webui-log
+          image: imageregistry.fnal.gov/docker.io/busybox
