@@ -24,7 +24,7 @@ errorLogsExporterResources:
 useSSL: true
 
 image:
-  repository: rucio/rucio-server
+  repository: imageregistry.fnal.gov/docker.io/rucio/rucio-server
   tag: release-36.2.0
   pullPolicy: Always
 
@@ -125,7 +125,7 @@ ftsRenewal:
   enabled: 0
   schedule: "42 */6 * * *"
   image:
-    repository: rucio/fts-cron
+    repository: imageregistry.fnal.gov/docker.io/rucio/fts-cron
     tag: latest
     pullPolicy: Always
   servers: "https://fts3-public.fnal.gov:8446"
@@ -168,7 +168,7 @@ ftsRenewal:
 automaticRestart:
   enabled: 0
   image:
-    repository: bitnami/kubectl
+    repository: imageregistry.fnal.gov/docker.io/bitnami/kubectl
     tag: latest
     pullPolicy: Always
   schedule: "0 0 * * *"
