@@ -14,7 +14,7 @@
 #    spec:
 #      initContainers:
 #      - name: grid-certs
-#        image: docker.io/bjwhitefnal/fetch-crl-cron:latest
+#        image: ghcr.io/fnal-fife/fetch-crl-cron:latest
 #        volumeMounts:
 #        - name: ca-volume
 #          mountPath: /out/
@@ -34,7 +34,7 @@ spec:
     spec:
       initContainers:
       - name: grid-certs
-        image: docker.io/bjwhitefnal/fetch-crl-cron:latest
+        image: ghcr.io/fnal-fife/fetch-crl-cron:latest
         imagePullPolicy: Always
         volumeMounts:
         - name: ca-volume
@@ -55,7 +55,7 @@ spec:
     spec:
       initContainers:
       - name: grid-certs
-        image: docker.io/bjwhitefnal/fetch-crl-cron:latest
+        image: ghcr.io/fnal-fife/fetch-crl-cron:latest
         volumeMounts:
         - name: ca-volume
           mountPath: /out/
@@ -75,7 +75,7 @@ spec:
     spec:
       initContainers:
       - name: grid-certs
-        image: docker.io/bjwhitefnal/fetch-crl-cron:latest
+        image: ghcr.io/fnal-fife/fetch-crl-cron:latest
         volumeMounts:
         - name: ca-volume
           mountPath: /out/

@@ -26,7 +26,7 @@ useSSL: true
 image:
   repository: rucio/rucio-server
   tag: release-35.6.0
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 service:
   type: ClusterIP
@@ -116,7 +116,7 @@ ftsRenewal:
   image:
     repository: rucio/fts-cron
     tag: latest
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   servers: "https://fts3-public.fnal.gov:8446"
   script: 'default'  # one of: 'default', 'atlas', 'dteam', 'multi_vo', 'tutorial', 'escape'. The associated scripts can be found here: https://github.com/rucio/containers/tree/master/fts-cron
   vos:

@@ -30,7 +30,7 @@ service:
 image:
   repository: rucio/rucio-webui
   tag: release-35.4.0
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 strategy:
   type: RollingUpdate

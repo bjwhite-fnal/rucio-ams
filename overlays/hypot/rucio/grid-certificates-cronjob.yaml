@@ -16,7 +16,7 @@ spec:
           containers:
           - args:
             name: fetch-crl
-            image: docker.io/bjwhitefnal/fetch-crl-cron:latest
+            image: ghcr.io/fnal-fife/fetch-crl-cron:latest
             imagePullPolicy: Always
             volumeMounts:
             - name: ca-volume

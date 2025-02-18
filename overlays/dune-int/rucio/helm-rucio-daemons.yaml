@@ -234,11 +234,11 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: fnal-rucio-edit
-  namespace: rucio-dune-int
+  namespace: rucio-int
 subjects:
 - kind: ServiceAccount
   name: fnal-rucio-edit
-  namespace: rucio-dune-int
+  namespace: rucio-int
 roleRef:
   kind: ClusterRole
   name: edit
@@ -319,7 +319,7 @@ spec:
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-36.2.0"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -414,7 +414,7 @@ spec:
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-36.2.0"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -509,7 +509,7 @@ spec:
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-36.2.0"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -604,7 +604,7 @@ spec:
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-36.2.0"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -700,7 +700,7 @@ spec:
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-36.2.0"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           volumeMounts:
 
             - name: usercert
@@ -796,7 +796,7 @@ spec:
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-36.2.0"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -891,7 +891,7 @@ spec:
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-36.2.0"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -986,7 +986,7 @@ spec:
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-36.2.0"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -1081,7 +1081,7 @@ spec:
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-36.2.0"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -1176,7 +1176,7 @@ spec:
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-36.2.0"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -1271,7 +1271,7 @@ spec:
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-36.2.0"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -1366,7 +1366,7 @@ spec:
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-36.2.0"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -1460,7 +1460,7 @@ spec:
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-36.2.0"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -1558,7 +1558,7 @@ spec:
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-36.2.0"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -1653,7 +1653,7 @@ spec:
       containers:
         - name: rucio-daemons
           image: "rucio/rucio-daemons:release-36.2.0"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -1725,7 +1725,7 @@ spec:
           containers:
             - name: renew-fts-cron
               image: "rucio/fts-cron:latest"
-              imagePullPolicy: Always
+              imagePullPolicy: IfNotPresent
               resources:
                 limits:
                   cpu: 500m
@@ -1804,7 +1804,7 @@ spec:
       containers:
         - name: renew-fts-cron
           image: "rucio/fts-cron:latest"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           resources:
             limits:
               cpu: 500m

@@ -103,7 +103,7 @@ spec:
             mountPath: /var/log/webui/
         - name: rucio-webui
           image: "rucio/rucio-webui:release-35.4.0"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
             - name: http
               containerPort: 80
