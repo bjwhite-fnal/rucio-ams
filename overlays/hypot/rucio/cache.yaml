@@ -41,5 +41,5 @@ spec:
       serviceAccountName: useroot
       containers:
         - name: rucio-cache
-          image: "memcached:1.6"
+          image: "imageregistry.fnal.gov/docker.io/memcached:1.6"
           imagePullPolicy: Always
