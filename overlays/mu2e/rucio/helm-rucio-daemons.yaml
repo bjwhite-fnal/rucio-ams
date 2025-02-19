@@ -192,11 +192,11 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: fnal-rucio-edit
-  namespace: rucio-int
+  namespace: rucio-mu2e
 subjects:
 - kind: ServiceAccount
   name: fnal-rucio-edit
-  namespace: rucio-int
+  namespace: rucio-mu2e
 roleRef:
   kind: ClusterRole
   name: edit
@@ -272,8 +272,8 @@ spec:
           secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.6.0"
-          imagePullPolicy: IfNotPresent
+          image: "imageregistry.fnal.gov/docker.io/rucio/rucio-daemons:release-35.6.0"
+          imagePullPolicy: Always
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -360,8 +360,8 @@ spec:
           secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.6.0"
-          imagePullPolicy: IfNotPresent
+          image: "imageregistry.fnal.gov/docker.io/rucio/rucio-daemons:release-35.6.0"
+          imagePullPolicy: Always
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -456,8 +456,8 @@ spec:
             secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.6.0"
-          imagePullPolicy: IfNotPresent
+          image: "imageregistry.fnal.gov/docker.io/rucio/rucio-daemons:release-35.6.0"
+          imagePullPolicy: Always
           volumeMounts:
 
             - name: usercert
@@ -550,8 +550,8 @@ spec:
           secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.6.0"
-          imagePullPolicy: IfNotPresent
+          image: "imageregistry.fnal.gov/docker.io/rucio/rucio-daemons:release-35.6.0"
+          imagePullPolicy: Always
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -638,8 +638,8 @@ spec:
           secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.6.0"
-          imagePullPolicy: IfNotPresent
+          image: "imageregistry.fnal.gov/docker.io/rucio/rucio-daemons:release-35.6.0"
+          imagePullPolicy: Always
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -726,8 +726,8 @@ spec:
           secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.6.0"
-          imagePullPolicy: IfNotPresent
+          image: "imageregistry.fnal.gov/docker.io/rucio/rucio-daemons:release-35.6.0"
+          imagePullPolicy: Always
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -814,8 +814,8 @@ spec:
           secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.6.0"
-          imagePullPolicy: IfNotPresent
+          image: "imageregistry.fnal.gov/docker.io/rucio/rucio-daemons:release-35.6.0"
+          imagePullPolicy: Always
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -902,8 +902,8 @@ spec:
           secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.6.0"
-          imagePullPolicy: IfNotPresent
+          image: "imageregistry.fnal.gov/docker.io/rucio/rucio-daemons:release-35.6.0"
+          imagePullPolicy: Always
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -990,8 +990,8 @@ spec:
           secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.6.0"
-          imagePullPolicy: IfNotPresent
+          image: "imageregistry.fnal.gov/docker.io/rucio/rucio-daemons:release-35.6.0"
+          imagePullPolicy: Always
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -1078,8 +1078,8 @@ spec:
           secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.6.0"
-          imagePullPolicy: IfNotPresent
+          image: "imageregistry.fnal.gov/docker.io/rucio/rucio-daemons:release-35.6.0"
+          imagePullPolicy: Always
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -1166,8 +1166,8 @@ spec:
           secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.6.0"
-          imagePullPolicy: IfNotPresent
+          image: "imageregistry.fnal.gov/docker.io/rucio/rucio-daemons:release-35.6.0"
+          imagePullPolicy: Always
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -1254,8 +1254,8 @@ spec:
           secretName: fnal-rucio-x509up
       containers:
         - name: rucio-daemons
-          image: "rucio/rucio-daemons:release-35.6.0"
-          imagePullPolicy: IfNotPresent
+          image: "imageregistry.fnal.gov/docker.io/rucio/rucio-daemons:release-35.6.0"
+          imagePullPolicy: Always
           volumeMounts:
             - name: config-common
               mountPath: /opt/rucio/etc/conf.d/10_common.json
@@ -1323,8 +1323,8 @@ spec:
               secretName: fnal-rucio-x509up
           containers:
             - name: renew-fts-cron
-              image: "rucio/fts-cron:latest"
-              imagePullPolicy: IfNotPresent
+              image: "imageregistry.fnal.gov/docker.io/rucio/fts-cron:latest"
+              imagePullPolicy: Always
               resources:
                 limits:
                   cpu: 500m
@@ -1402,8 +1402,8 @@ spec:
           secretName: fnal-rucio-x509up
       containers:
         - name: renew-fts-cron
-          image: "rucio/fts-cron:latest"
-          imagePullPolicy: IfNotPresent
+          image: "imageregistry.fnal.gov/docker.io/rucio/fts-cron:latest"
+          imagePullPolicy: Always
           resources:
             limits:
               cpu: 500m
