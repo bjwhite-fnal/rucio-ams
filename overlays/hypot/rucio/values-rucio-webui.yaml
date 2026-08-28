@@ -17,7 +17,7 @@ minReadySeconds: 5
 
 image:
   repository: rucio/rucio-webui
-  tag: release-38.3.4
+  tag: release-41.0.1
   pullPolicy: Always
 
 imagePullSecrets: []
@@ -134,6 +134,8 @@ additionalEnvs:
     value: "True"
   - name: RUCIO_LOG_LEVEL
     value: debug
+  - name: RUCIO_WEBUI_NEXTAUTH_URL
+    value: "https://webui-hypot-rucio.fnal.gov"
 
 persistentVolumes: {}
 
