@@ -57,12 +57,12 @@ secretGenerator:
 # CERN ActiveMQ
 - name: fnal-cern-fts-creds
   envs:
-    - etc/.secrets/cern-fts-creds
+    - etc/.secrets/cern-fts-creds.env
 
 # Opensearch
 - name: fnal-opensearch-creds
   envs:
-    - etc/.secrets/opensearch-creds
+    - etc/.secrets/opensearch-creds.env
 
 # The desired policy package implementation files
 - name: fnal-policy-package
@@ -92,36 +92,36 @@ secretGenerator:
   - hostkey.pem=etc/.secrets/hostkey.pem
   options:
     disableNameSuffixHash: true
-- name: fnal-hermes-cert
-  files:
-  - hostcert.pem=etc/.secrets/hostcert.pem
-  options:
-    disableNameSuffixHash: true
-- name: fnal-hermes-key
-  files:
-  - hostkey.pem=etc/.secrets/hostkey.pem
-  options:
-    disableNameSuffixHash: true
-- name: fnal-hermes-rabbitmq
-  envs:
-    - etc/.secrets/hermes-rabbitmq
-  options:
-    disableNameSuffixHash: true
+# - name: fnal-hermes-cert
+#   files:
+#   - hostcert.pem=etc/.secrets/hostcert.pem
+#   options:
+#     disableNameSuffixHash: true
+# - name: fnal-hermes-key
+#   files:
+#   - hostkey.pem=etc/.secrets/hostkey.pem
+#   options:
+#     disableNameSuffixHash: true
+# - name: fnal-hermes-rabbitmq
+#   envs:
+#     - etc/.secrets/hermes-rabbitmq
+#   options:
+#     disableNameSuffixHash: true
 - name: fnal-automatix-json
   files:
   - automatix.json=etc/automatix.json
   options:
     disableNameSuffixHash: true
-- name: fnal-fts-cert
-  files:
-  - usercert.pem=etc/.secrets/hostcert.pem
-  options:
-    disableNameSuffixHash: true
-- name: fnal-fts-key
-  files:
-  - new_userkey.pem=etc/.secrets/hostkey.pem
-  options:
-    disableNameSuffixHash: true
+# - name: fnal-fts-cert
+#   files:
+#   - usercert.pem=etc/.secrets/hostcert.pem
+#   options:
+#     disableNameSuffixHash: true
+# - name: fnal-fts-key
+#   files:
+#   - new_userkey.pem=etc/.secrets/hostkey.pem
+#   options:
+#     disableNameSuffixHash: true
 
 # Messenger
 - name: ssl-secrets
@@ -172,5 +172,3 @@ secretGenerator:
   - rucio.cfg=etc/ferry-sync-rucio.cfg
   - sync_ferry_config.json=etc/.secrets/sync_ferry_config.json
   - sync_justin_config.json=etc/.secrets/sync_justin_config.json
-  options:
-    disableNameSuffixHash: true
