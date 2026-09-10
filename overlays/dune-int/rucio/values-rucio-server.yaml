@@ -118,6 +118,34 @@ monitoring:
     #   replacement: $1
     #   action: replace
 
+policyPackages:
+  enabled: true
+
+  # Use an ephemeral volume to install the policy package.
+  # This means that the policy package will need to be installed on every pod restart but no PV/PVC are needed
+  ephemeralVolume: false
+
+  # Make sure the trailing slash is present
+  mountPath: /opt/rucio/permissions/
+  # Use underscores instead of hyphens for module names
+  # (e.g. atlas_rucio_policy_package instead of atlas-rucio-policy-package)
+  packages:
+    - moduleName: metacat
+      requirement: metacat==3.42.2
+      version: 3.42.2
+  pvc:
+    # Set true to create a PVC for the policy packages; leave false if providing it separately.
+    createPvc: false
+    name: policy-package-volume
+    # Whether to prepend the release name to the PVC name provided.
+    prependReleaseName: false
+  resources:
+    requests:
+      # Storage required by the policy packages - resize if needed
+      storage: 100Mi
+  storageClass:
+    name:
+
 metricsExporterResources:
   limits:
     cpu: 30m
@@ -189,10 +217,10 @@ automaticRestart:
 secretMounts:
   - secretName: policy-package
     mountPath: /opt/rucio/permissions/fermilab/dune
-  - secretName: docker-entrypoint-server
-    mountPath: /docker-entrypoint.sh
-    subPath: docker-entrypoint.sh
-    defaultMode: 0750
+  # - secretName: docker-entrypoint-server
+  #   mountPath: /docker-entrypoint.sh
+  #   subPath: docker-entrypoint.sh
+  #   defaultMode: 0750
   - secretName: httpd-custom-config
     mountPath: /etc/httpd/conf.d/fnal-custom-config.conf
     subPath: fnal-custom-config.conf

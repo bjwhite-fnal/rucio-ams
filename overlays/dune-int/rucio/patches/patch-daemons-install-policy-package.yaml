@@ -1,0 +1,13 @@
+- op: add
+  path: /spec/template/spec/serviceAccountName
+  value: useroot
+
+- op: replace
+  path: /spec/template/spec/initContainers/0/resources
+  value:
+    requests:
+      cpu: 500m
+      memory: 600Mi
+    limits:
+      cpu: 500m
+      memory: 600Mi
