@@ -29,6 +29,7 @@ overlays/dune-int/rucio/etc/policy-package
 overlays/mu2e/rucio/etc/policy-package
 overlays/int/rucio/etc/policy-package
 overlays/hypot/rucio/etc/policy-package
+policy-package/
 
 charts
 

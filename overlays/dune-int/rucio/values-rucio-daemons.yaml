@@ -4,7 +4,6 @@
 #
 kubeVersionOverride: "1.34"
 
-## judgeCleanerCount gives the number of judge-cleaner pods to run
 abacusAccountCount: 0
 abacusCollectionReplicaCount: 0
 abacusRseCount: 1
@@ -38,7 +37,7 @@ serviceAccountName: useroot
 
 image:
   repository: imageregistry.fnal.gov/docker.io/rucio/rucio-daemons
-  tag: release-38.6.1
+  tag: release-41.2.1
   pullPolicy: Always
 
 strategy:
@@ -778,7 +777,7 @@ ftsRenewal:
   schedule: "12 */6 * * *"
   image:
     repository: imageregistry.fnal.gov/docker.io/rucio/fts-cron
-    tag: 38.5.1
+    tag: 41.2.1
     pullPolicy: Always
   servers: "https://fts3-public.cern.ch:8446,https://fts3-public.fnal.gov:8446"
   script: 'default'  # one of: 'default', 'atlas', 'dteam', 'multi_vo', 'tutorial', 'escape'. The associated scripts can be found here: https://github.com/rucio/containers/tree/master/fts-cron
@@ -829,6 +828,42 @@ ftsRenewal:
       cpu: 100m
       memory: 128Mi
 
+policyPackages:
+  enabled: true
+
+  # Use an ephemeral volume to install the policy package.
+  # This means that the policy package will need to be installed on every pod restart but no PV/PVC are needed
+  ephemeralVolume: false
+
+  # Make sure the trailing slash is present
+  mountPath: /opt/rucio/permissions/
+  # Use underscores instead of hyphens for module names
+  # (e.g. atlas_rucio_policy_package instead of atlas-rucio-policy-package)
+  packages:
+    - moduleName: metacat
+      requirement: metacat==3.42.2
+      version: 3.42.2
+    # example: install from an index (default is PyPI)
+    # - moduleName: vo_1_policy_package
+    #   requirement: vo_1_policy_package==1.4.0
+    #   version: 1.4.0
+    # example: install from a git repository
+    # - moduleName: vo_2_policy_package
+    #   requirement: git+https://github.com/vo-2/vo-2-policy-package@v0.1.0
+    #   version: 0.1.0
+  pvc:
+    # Set true to create a PVC for the policy packages; leave false if providing it separately.
+    createPvc: false
+    name: policy-package-volume
+    # Whether to prepend the release name to the PVC name provided.
+    prependReleaseName: false
+  resources:
+    requests:
+      # Storage required by the policy packages - resize if needed
+      storage: 100Mi
+  storageClass:
+    name:
+
 automaticRestart:
   enabled: 0
   image:
@@ -850,10 +885,6 @@ secretMounts:
     mountPath: /opt/rucio/permissions/fermilab/dune
   - secretName: rucio-x509up
     mountPath: /opt/proxy
-  - secretName: docker-entrypoint-daemons
-    mountPath: /start-daemon.sh
-    subPath: start-daemon.sh
-    defaultMode: 0750
   # - volumeName: gcssecret
   #   secretName: gcssecret
   #   mountPath: /opt/rucio/etc/gcs_rucio.json

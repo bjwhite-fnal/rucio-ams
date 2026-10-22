@@ -12,24 +12,21 @@ spec:
       template:
         spec:
           serviceAccountName: useroot
-          initContainers:
-          - name: grid-certs
-            image: ghcr.io/fnal-fife/fetch-crl-cron:latest
-            imagePullPolicy: Always
-            volumeMounts:
-            - name: ca-volume-grid
-              mountPath: /out/
-            resources:
-              requests:
-                cpu: 100m
-                memory: 500M
-              limits:
-                cpu: 256m
-                memory: 500M
           volumes:
           - name: rucio-config
-            secret:
-              secretName: fnal-ferry-rucio-config
+            projected:
+              defaultMode: 0644
+              sources:
+                - secret:
+                    name: fnal-ferry-rucio-config
+                    items:
+                      - key: sync_ferry_config.json
+                        path: sync_ferry_config.json
+                - configMap:
+                    name: fnal-ferry-rucio-cfg
+                    items:
+                      - key: rucio.cfg
+                        path: rucio.cfg
           - name: proxy-volume
             secret:
               secretName: fnal-rucio-x509up
@@ -39,8 +36,9 @@ spec:
           - name: userkey
             secret:
               secretName:  fnal-fts-key
-          - name: ca-volume-grid
-            emptyDir: {}
+          - name: ca-volume
+            persistentVolumeClaim:
+              claimName: grid-certificates-pvc
           containers:
             - name: sync-ferry-users
               image: "imageregistry.fnal.gov/rucio-ams/rucio-client:38.5.5.fnal.1"
@@ -61,7 +59,7 @@ spec:
                   mountPath: /opt/rucio/etc
                 - name: proxy-volume
                   mountPath: /opt/proxy
-                - name: ca-volume-grid
+                - name: ca-volume
                   mountPath: /etc/grid-security/certificates
                 - name: usercert
                   mountPath: /opt/rucio/certs/
@@ -100,24 +98,21 @@ spec:
       template:
         spec:
           serviceAccountName: useroot
-          initContainers:
-          - name: grid-certs
-            image: ghcr.io/fnal-fife/fetch-crl-cron:latest
-            imagePullPolicy: Always
-            volumeMounts:
-            - name: ca-volume-grid
-              mountPath: /out/
-            resources:
-              requests:
-                cpu: 100m
-                memory: 500M
-              limits:
-                cpu: 256m
-                memory: 500M
           volumes:
           - name: rucio-config
-            secret:
-              secretName: fnal-ferry-rucio-config
+            projected:
+              defaultMode: 0644
+              sources:
+                - secret:
+                    name: fnal-ferry-rucio-justin-config
+                    items:
+                      - key: sync_justin_config.json
+                        path: sync_justin_config.json
+                - configMap:
+                    name: fnal-ferry-rucio-cfg
+                    items:
+                      - key: rucio.cfg
+                        path: rucio.cfg
           - name: proxy-volume
             secret:
               secretName: fnal-rucio-x509up
@@ -127,8 +122,9 @@ spec:
           - name: userkey
             secret:
               secretName:  fnal-fts-key
-          - name: ca-volume-grid
-            emptyDir: {}
+          - name: ca-volume
+            persistentVolumeClaim:
+              claimName: grid-certificates-pvc
           containers:
             - name: sync-ferry-users
               image: "imageregistry.fnal.gov/rucio-ams/rucio-client:38.5.5.fnal.1"
@@ -149,7 +145,7 @@ spec:
                   mountPath: /opt/rucio/etc
                 - name: proxy-volume
                   mountPath: /opt/proxy
-                - name: ca-volume-grid
+                - name: ca-volume
                   mountPath: /etc/grid-security/certificates
                 - name: usercert
                   mountPath: /opt/rucio/certs/

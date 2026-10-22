@@ -17,7 +17,7 @@ minReadySeconds: 5
 
 image:
   repository: rucio/rucio-webui
-  tag: release-38.3.4
+  tag: release-41.0.1
   pullPolicy: Always
 
 imagePullSecrets: []
@@ -148,13 +148,15 @@ additionalEnvs:
     value: "True"
   - name: RUCIO_LOG_LEVEL
     value: debug
+  - name: RUCIO_WEBUI_NEXTAUTH_URL
+    value: "https://webui-dune-int-rucio.fnal.gov"
 
 persistentVolumes: {}
 
 resources:
   limits:
     cpu: 1000m
-    memory: 4Gi
+    memory: 6Gi
   requests:
     cpu: 100m
     memory: 128Mi

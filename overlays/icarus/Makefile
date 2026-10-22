@@ -1,7 +1,7 @@
 EXPERIMENT=icarus
-SERVER_CHART_VERSION := 38.0.4
-DAEMON_CHART_VERSION := 38.0.3
-UI_CHART_VERSION := 38.0.1
+SERVER_CHART_VERSION := 41.0.1
+DAEMON_CHART_VERSION := 41.0.0
+UI_CHART_VERSION := 41.1.0
 
 helm:
 	helm repo add rucio https://rucio.github.io/helm-charts
@@ -18,16 +18,18 @@ rucio-webui: helm
 
 rucio: rucio-server rucio-daemons rucio-webui
 
-# get-secrets:
-# 	mkdir -p rucio/etc/.secrets
-# 	vault kv get --field=${EXPERIMENT}-server-hostkey secret/rucio/${EXPERIMENT}-rucio/rucio  > rucio/etc/.secrets/hostkey.pem
-# 	vault kv get --field=${EXPERIMENT}-server-hostcert secret/rucio/${EXPERIMENT}-rucio/rucio  > rucio/etc/.secrets/hostcert.pem
-# 	vault kv get --field=${EXPERIMENT}-server-cafile secret/rucio/${EXPERIMENT}-rucio/rucio  > rucio/etc/.secrets/ca.pem
-# 	vault kv get --field=${EXPERIMENT}-db-conn-str secret/rucio/${EXPERIMENT}-rucio/rucio  > rucio/etc/.secrets/db-conn-str.txt
-# 	curl https://raw.githubusercontent.com/rucio/rucio/master/etc/automatix.json > rucio/etc/.secrets/automatix.json
+get-secrets:
+	mkdir -p .secrets
+	vault kv get -field=server-cafile    okd/okdprod1/rucio-${EXPERIMENT}/rucio > ./.secrets/ca.pem
+	vault kv get -field=server-hostcert okd/okdprod1/rucio-${EXPERIMENT}/rucio > ./.secrets/hostcert.pem
+	vault kv get -field=server-hostkey  okd/okdprod1/rucio-${EXPERIMENT}/rucio > ./.secrets/hostkey.pem
+	vault kv get -field=idpsecrets       okd/okdprod1/rucio-${EXPERIMENT}/rucio > ./.secrets/idpsecrets.json
+	vault kv get -field=db-connstr       okd/okdprod1/rucio-${EXPERIMENT}/rucio > ./.secrets/db-connstr
+	vault kv get -field=hermes-rabbitmq  okd/okdprod1/rucio-${EXPERIMENT}/rucio > ./.secrets/hermes-rabbitmq
+	vault kv get -field=rabbitmq-definitions.json okd/okdprod1/rucio-${EXPERIMENT}/rucio > ./.secrets/rabbitmq-definitions.json
 
-#clean-secrets:
-#	rm -rf rucio/etc/.secrets
+clean-secrets:
+	rm -rf .secrets
 
 run-dump: 
 	kubectl kustomize .
